@@ -35,12 +35,20 @@
        <property name="text">
         <string>&amp;Add</string>
        </property>
+       <property name="icon">
+        <iconset resource="deviser-resources.qrc">
+         <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QToolButton" name="toolDel">
        <property name="text">
         <string>&amp;Del</string>
+       </property>
+       <property name="icon">
+        <iconset resource="deviser-resources.qrc">
+         <normaloff>:/images/list_remove.png</normaloff>:/images/list_remove.png</iconset>
        </property>
       </widget>
      </item>
@@ -78,7 +86,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="deviser-resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>toolAdd</sender>

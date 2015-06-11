@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/application_exit.png</file>
+        <file>images/edit_add.png</file>
+        <file>images/file-128x128.png</file>
+        <file>images/filesaveas.png</file>
+        <file>images/floppy-128x128.png</file>
+        <file>images/folder-open-128x128.png</file>
+        <file>images/help_about.png</file>
+        <file>images/list_remove.png</file>
+        <file>images/ICON_Deviser.ico</file>
+        <file>images/ICON_Deviser_512x512.png</file>
+        <file>images/ABOUT_Deviser.png</file>
+    </qresource>
+</RCC>

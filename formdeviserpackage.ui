@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>FormDeviserPackage</class>
- <widget class="QWidget" name="Form">
+ <widget class="QWidget" name="FormDeviserPackage">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -55,7 +55,10 @@
    <item row="3" column="0" colspan="2">
     <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>A packae must define the starting point for the enumberation of SBMLTypeCode_t</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;A package must define the starting point for the enumeration of SBMLTypeCode_t values used to distinguish SBase derived objects. This should be an integer greater than 100 ending in 00. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -72,7 +75,13 @@
    <item row="5" column="0" colspan="2">
     <widget class="QLabel" name="label_8">
      <property name="text">
-      <string>A packae must define the starting point for the enumberation of SBMLTypeCode_t</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;A package must define the additional offset added to all validation rule numbers to allow these to be uniquely stored. This should be a two digit integer followed by 000000. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::RichText</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -118,7 +127,7 @@
          <widget class="QLineEdit" name="txtDeclaration"/>
         </item>
         <item>
-         <widget class="QPushButton" name="cmdBrowseDeclaration">
+         <widget class="QToolButton" name="cmdBrowseDeclaration">
           <property name="text">
            <string>...</string>
           </property>
@@ -139,7 +148,7 @@
          <widget class="QLineEdit" name="txtImplementation"/>
         </item>
         <item>
-         <widget class="QPushButton" name="cmdBrowseImplementation">
+         <widget class="QToolButton" name="cmdBrowseImplementation">
           <property name="text">
            <string>...</string>
           </property>
