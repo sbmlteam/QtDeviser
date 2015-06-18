@@ -14,6 +14,9 @@ class FormDeviserMapping;
 class FormDeviserClass;
 class FormDeviserPlugin;
 
+class DeviserPackage;
+class DeviserBase;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -33,12 +36,14 @@ public slots:
     void generate();
     void newModel();
     void openFile();
+    void openFile(const QString&);
     void saveFile();
     void saveFileAs();
     void saveAsFile(QString);
     void showUML();
     void validateDescription();
 
+    void updateUI();
 
 private slots:
     void on_treeWidget_itemSelectionChanged();
@@ -52,6 +57,12 @@ private:
     FormDeviserMapping* ctrlMapping;
     FormDeviserClass* ctrlClass;
     FormDeviserPlugin* ctrlPlugin;
+
+    DeviserPackage* model;
+    DeviserBase* currentElement;
+
+    QString fileName;
+
 };
 
 #endif // MAINWINDOW_H

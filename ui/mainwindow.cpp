@@ -1,3 +1,5 @@
+#include <QFileDialog>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -11,6 +13,8 @@
 #include "dialogabout.h"
 #include "dialoguml.h"
 #include "dialoggenerate.h"
+
+#include <model/deviserpackage.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -94,12 +98,49 @@ MainWindow::generate()
 void
 MainWindow::newModel()
 {
+    if (model != NULL)
+        delete model;
+
+    model = new DeviserPackage();
+    currentElement = model;
+    fileName = "";
 
 }
 
 void
+MainWindow::updateUI()
+{
+
+}
+
+
+void
 MainWindow::openFile()
 {
+
+    QString oldDir;
+    if (!fileName.isEmpty())
+    {
+        oldDir = QFileInfo(fileName).dir().dirName();
+    }
+
+    QString& fileName = QFileDialog::getOpenFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
+
+    if (!fileName.isEmpty())
+        openFile(fileName);
+
+
+
+}
+
+void MainWindow::openFile(const QString& fileName)
+{
+    if (model != NULL)
+        delete model;
+
+    model= new DeviserPackage(fileName);
+    currentElement = model;
+    updateUI();
 
 }
 
