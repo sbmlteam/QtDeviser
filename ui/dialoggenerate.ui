@@ -14,7 +14,7 @@
    <string>Generate</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="deviser-resources.qrc">
+   <iconset resource="../deviser-resources.qrc">
     <normaloff>:/images/ICON_Deviser_512x512.png</normaloff>:/images/ICON_Deviser_512x512.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
@@ -298,7 +298,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="deviser-resources.qrc"/>
+  <include location="../deviser-resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -1,4 +1,5 @@
 #include "deviserpackage.h"
+#include "deviserversion.h"
 
 #include <QFile>
 #include <QDomDocument>
@@ -27,6 +28,19 @@ DeviserPackage::DeviserPackage(QDomElement& element)
     initializeFrom(element);
 }
 
+DeviserVersion*
+DeviserPackage::createVersion(int level, int version, int pkgVersion)
+{
+    DeviserVersion* newVersion = new DeviserVersion();
+    newVersion->setLevel(level);
+    newVersion->setVersion(version);
+    newVersion->setPkgVersion(pkgVersion);
+
+    mVersions.append(newVersion);
+
+    return newVersion;
+}
+
 void DeviserPackage::initializeFrom(const QDomElement& element)
 {
    DeviserBase::initializeFrom(element);
@@ -43,10 +57,6 @@ void DeviserPackage::initializeFrom(const QDomElement& element)
    mRequired = element.attribute("required").toLower() == "true";
 
    initializeListFrom(mVersions, element, "pkgVersion");
-
-   mCurrentVersion = NULL;
-   if (!mVersions.empty())
-     mCurrentVersion = *mVersions.begin();
 
    setParent(this);
 
@@ -126,11 +136,20 @@ void DeviserPackage::writeTo(const QString& fileName) const
 }
 
 
-QString DeviserPackage::getName() const { return mName; }
-QString DeviserPackage::getFullName() const { return mFullName; }
+const QString& DeviserPackage::getName() const { return mName; }
+const QString& DeviserPackage::getFullName() const { return mFullName; }
 int DeviserPackage::getStartNumber() const { return mStartNumber; }
 int DeviserPackage::getOffset() const { return mOffset; }
 int DeviserPackage::getVersion() const { return mVersion; }
 bool DeviserPackage::getRequired() const { return mRequired; }
-QString DeviserPackage::getAdditionalDeclarations() const { return mAdditionalDeclarations; }
-QString DeviserPackage::getAdditionalDefinitions() const { return mAdditionalDefinitions; }
+const QString& DeviserPackage::getAdditionalDeclarations() const { return mAdditionalDeclarations; }
+const QString& DeviserPackage::getAdditionalDefinitions() const { return mAdditionalDefinitions; }
+
+DeviserVersion* DeviserPackage::getVersion(const QString& name)
+{
+  if (mVersions.empty()) return NULL;
+    for (auto& it = mVersions.begin(); it != mVersions.end(); ++it)
+        if ((*it)->toString() == name)
+            return *it;
+    return NULL;
+}

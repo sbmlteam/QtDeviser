@@ -36,7 +36,7 @@
         <string>&amp;Add</string>
        </property>
        <property name="icon">
-        <iconset resource="deviser-resources.qrc">
+        <iconset resource="../deviser-resources.qrc">
          <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
        </property>
       </widget>
@@ -47,7 +47,7 @@
         <string>&amp;Del</string>
        </property>
        <property name="icon">
-        <iconset resource="deviser-resources.qrc">
+        <iconset resource="../deviser-resources.qrc">
          <normaloff>:/images/list_remove.png</normaloff>:/images/list_remove.png</iconset>
        </property>
       </widget>
@@ -87,7 +87,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="deviser-resources.qrc"/>
+  <include location="../deviser-resources.qrc"/>
  </resources>
  <connections>
   <connection>

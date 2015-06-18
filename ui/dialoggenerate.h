@@ -9,14 +9,14 @@ class DialogGenerate;
 
 class DialogGenerate : public QDialog
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit DialogGenerate(QWidget *parent = 0);
-    ~DialogGenerate();
+  explicit DialogGenerate(QWidget *parent = 0);
+  ~DialogGenerate();
 
 private:
-    Ui::DialogGenerate *ui;
+  Ui::DialogGenerate *ui;
 };
 
 #endif // DIALOGGENERATE_H

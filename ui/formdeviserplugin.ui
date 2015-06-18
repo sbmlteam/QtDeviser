@@ -66,38 +66,6 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <layout class="QFormLayout" name="formLayout_3">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Package: </string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="txtPackage"/>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QFormLayout" name="formLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>TypeCode: </string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="txtTypeCode"/>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </item>
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
@@ -107,7 +75,7 @@
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
-         <widget class="QListWidget" name="listWidget"/>
+         <widget class="QListWidget" name="lstDefinedClasses"/>
         </item>
        </layout>
       </widget>
@@ -166,7 +134,7 @@
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <widget class="QListWidget" name="listWidget_2"/>
+         <widget class="QListWidget" name="lstChildClasses"/>
         </item>
        </layout>
       </widget>
@@ -187,7 +155,7 @@
            <string>&amp;Add</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
           </property>
          </widget>
@@ -198,7 +166,7 @@
            <string>&amp;Del</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/list_remove.png</normaloff>:/images/list_remove.png</iconset>
           </property>
          </widget>
@@ -259,7 +227,7 @@
     </widget>
    </item>
    <item row="5" column="0">
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="grpAdditional">
      <property name="title">
       <string> Additional code files: </string>
      </property>
@@ -322,10 +290,44 @@
      </property>
     </spacer>
    </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QWidget" name="ctrlLocation" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QFormLayout" name="formLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Package: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="txtPackage"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>TypeCode: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="txtTypeCode"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources>
-  <include location="deviser-resources.qrc"/>
+  <include location="../deviser-resources.qrc"/>
  </resources>
  <connections/>
 </ui>

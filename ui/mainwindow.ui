@@ -20,7 +20,7 @@
    <string>Deviser Edit</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="deviser-resources.qrc">
+   <iconset resource="../deviser-resources.qrc">
     <normaloff>:/images/ICON_Deviser_512x512.png</normaloff>:/images/ICON_Deviser_512x512.png</iconset>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -179,7 +179,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="deviser-resources.qrc">
+    <iconset resource="../deviser-resources.qrc">
      <normaloff>:/images/file-128x128.png</normaloff>:/images/file-128x128.png</iconset>
    </property>
    <property name="text">
@@ -188,7 +188,7 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="deviser-resources.qrc">
+    <iconset resource="../deviser-resources.qrc">
      <normaloff>:/images/folder-open-128x128.png</normaloff>:/images/folder-open-128x128.png</iconset>
    </property>
    <property name="text">
@@ -197,7 +197,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="deviser-resources.qrc">
+    <iconset resource="../deviser-resources.qrc">
      <normaloff>:/images/floppy-128x128.png</normaloff>:/images/floppy-128x128.png</iconset>
    </property>
    <property name="text">
@@ -206,7 +206,7 @@
   </action>
   <action name="actionSave_As">
    <property name="icon">
-    <iconset resource="deviser-resources.qrc">
+    <iconset resource="../deviser-resources.qrc">
      <normaloff>:/images/filesaveas.png</normaloff>:/images/filesaveas.png</iconset>
    </property>
    <property name="text">
@@ -215,7 +215,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset resource="deviser-resources.qrc">
+    <iconset resource="../deviser-resources.qrc">
      <normaloff>:/images/application_exit.png</normaloff>:/images/application_exit.png</iconset>
    </property>
    <property name="text">
@@ -259,7 +259,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="deviser-resources.qrc">
+    <iconset resource="../deviser-resources.qrc">
      <normaloff>:/images/help_about.png</normaloff>:/images/help_about.png</iconset>
    </property>
    <property name="text">
@@ -279,7 +279,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="deviser-resources.qrc"/>
+  <include location="../deviser-resources.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>775</width>
-    <height>600</height>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -127,60 +127,62 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_9">
-     <item>
-      <widget class="QWidget" name="widget_3" native="true">
-       <layout class="QFormLayout" name="formLayout_3">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>ListOfName: </string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="txtListOfName"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Minimum number children: </string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="txtMinNumChildren"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QWidget" name="widget_4" native="true">
-       <layout class="QFormLayout" name="formLayout_4">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>ListOfClassName: </string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="txtListOfClassName"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Maximum number children: </string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="txtMaxNumChildren"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="ctrlListOf" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <item>
+       <widget class="QWidget" name="widget_3" native="true">
+        <layout class="QFormLayout" name="formLayout_3">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>ListOfName: </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="txtListOfName"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Minimum number children: </string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="txtMinNumChildren"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_4" native="true">
+        <layout class="QFormLayout" name="formLayout_4">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>ListOfClassName: </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="txtListOfClassName"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Maximum number children: </string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="txtMaxNumChildren"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="grpAttributes">
@@ -196,7 +198,7 @@
            <string>&amp;Add</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
           </property>
          </widget>
@@ -207,7 +209,7 @@
            <string>&amp;Del</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/list_remove.png</normaloff>:/images/list_remove.png</iconset>
           </property>
          </widget>
@@ -281,7 +283,7 @@
            <string>&amp;Add</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
           </property>
          </widget>
@@ -292,7 +294,7 @@
            <string>&amp;Del</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/list_remove.png</normaloff>:/images/list_remove.png</iconset>
           </property>
          </widget>
@@ -355,7 +357,7 @@
    <item>
     <widget class="QGroupBox" name="grpInstantiations">
      <property name="title">
-      <string> ListOf attributes: </string>
+      <string> Instantiations: </string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
@@ -366,7 +368,7 @@
            <string>&amp;Add</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/edit_add.png</normaloff>:/images/edit_add.png</iconset>
           </property>
          </widget>
@@ -377,7 +379,7 @@
            <string>&amp;Del</string>
           </property>
           <property name="icon">
-           <iconset resource="deviser-resources.qrc">
+           <iconset resource="../deviser-resources.qrc">
             <normaloff>:/images/list_remove.png</normaloff>:/images/list_remove.png</iconset>
           </property>
          </widget>
@@ -398,7 +400,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tblLoAttributes_2">
+       <widget class="QTableWidget" name="tblInstantiations">
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
         </attribute>
@@ -441,7 +443,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="grpAdditional">
      <property name="title">
       <string> Additional code files: </string>
      </property>
@@ -494,7 +496,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="deviser-resources.qrc"/>
+  <include location="../deviser-resources.qrc"/>
  </resources>
  <connections/>
 </ui>

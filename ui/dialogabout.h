@@ -9,14 +9,14 @@ class DialogAbout;
 
 class DialogAbout : public QDialog
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit DialogAbout(QWidget *parent = 0);
-    ~DialogAbout();
+  explicit DialogAbout(QWidget *parent = 0);
+  ~DialogAbout();
 
 private:
-    Ui::DialogAbout *ui;
+  Ui::DialogAbout *ui;
 };
 
 #endif // DIALOGABOUT_H

@@ -7,6 +7,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class QTreeWidgetItem;
+
 class FormDeviserPackage;
 class FormDeviserVersion;
 class FormDeviserEnum;
@@ -16,6 +18,7 @@ class FormDeviserPlugin;
 
 class DeviserPackage;
 class DeviserBase;
+class DeviserVersion;
 
 class MainWindow : public QMainWindow
 {
@@ -44,9 +47,13 @@ public slots:
     void validateDescription();
 
     void updateUI();
+    void displayElement(DeviserBase* element);
 
 private slots:
     void on_treeWidget_itemSelectionChanged();
+
+protected:
+  DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);
 
 private:
     Ui::MainWindow *ui;
@@ -58,10 +65,11 @@ private:
     FormDeviserClass* ctrlClass;
     FormDeviserPlugin* ctrlPlugin;
 
-    DeviserPackage* model;
-    DeviserBase* currentElement;
+    DeviserPackage* mModel;
+    DeviserVersion* mCurrentVersion;
+    DeviserBase* mCurrentElement;
 
-    QString fileName;
+    QString mFileName;
 
 };
 

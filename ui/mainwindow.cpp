@@ -15,69 +15,76 @@
 #include "dialoggenerate.h"
 
 #include <model/deviserpackage.h>
+#include <model/deviserclass.h>
+#include <model/deviserversion.h>
+#include <model/devisermapping.h>
+#include <model/deviserenum.h>
+#include <model/deviserplugin.h>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    ctrlPackage(new FormDeviserPackage(this)),
-    ctrlVersion(new FormDeviserVersion(this)),
-    ctrlEnum(new FormDeviserEnum(this)),
-    ctrlMapping(new FormDeviserMapping(this)),
-    ctrlClass(new FormDeviserClass(this)),
-    ctrlPlugin(new FormDeviserPlugin(this)), 
-    model(NULL), 
-    currentElement(NULL), 
-    fileName()
+MainWindow::MainWindow(QWidget *parent) 
+  : QMainWindow(parent)
+  , ui(new Ui::MainWindow)
+  , ctrlPackage(new FormDeviserPackage(this))
+  , ctrlVersion(new FormDeviserVersion(this))
+  , ctrlEnum(new FormDeviserEnum(this))
+  , ctrlMapping(new FormDeviserMapping(this))
+  , ctrlClass(new FormDeviserClass(this))
+  , ctrlPlugin(new FormDeviserPlugin(this))
+  , mModel(NULL)
+  , mCurrentVersion(NULL)
+  , mCurrentElement(NULL)
+  , mFileName()
 
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 
-    ui->stackedWidget->addWidget(ctrlPackage);
-    ui->stackedWidget->addWidget(ctrlVersion);
-    ui->stackedWidget->addWidget(ctrlEnum);
-    ui->stackedWidget->addWidget(ctrlMapping);
-    ui->stackedWidget->addWidget(ctrlClass);
-    ui->stackedWidget->addWidget(ctrlPlugin);
+  ui->stackedWidget->addWidget(ctrlPackage);
+  ui->stackedWidget->addWidget(ctrlVersion);
+  ui->stackedWidget->addWidget(ctrlEnum);
+  ui->stackedWidget->addWidget(ctrlMapping);
+  ui->stackedWidget->addWidget(ctrlClass);
+  ui->stackedWidget->addWidget(ctrlPlugin);
 
-    ui->stackedWidget->setCurrentWidget(ctrlPackage);
+  ui->stackedWidget->setCurrentWidget(ctrlPackage);
 
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+  delete ui;
 }
 
 
 void
 MainWindow::showAbout()
 {
-    DialogAbout about;
-    about.exec();
+  DialogAbout about;
+  about.exec();
 }
 
 void
 MainWindow::addClass()
 {
-ui->stackedWidget->setCurrentWidget(ctrlClass);
+
+  ui->stackedWidget->setCurrentWidget(ctrlClass);
 }
 
 void
 MainWindow::addEnum()
 {
-ui->stackedWidget->setCurrentWidget(ctrlEnum);
+  ui->stackedWidget->setCurrentWidget(ctrlEnum);
 }
 
 void
 MainWindow::addPlugin()
 {
-ui->stackedWidget->setCurrentWidget(ctrlPlugin);
+  ui->stackedWidget->setCurrentWidget(ctrlPlugin);
 }
 
 void
 MainWindow::addVersion()
 {
-ui->stackedWidget->setCurrentWidget(ctrlVersion);
+  ui->stackedWidget->setCurrentWidget(ctrlVersion);
 }
 
 void
@@ -102,12 +109,12 @@ MainWindow::generate()
 void
 MainWindow::newModel()
 {
-    if (model != NULL)
-        delete model;
+  if (mModel != NULL)
+    delete mModel;
 
-    model = new DeviserPackage();
-    currentElement = model;
-    fileName = "";
+  mModel = new DeviserPackage();
+  mCurrentElement = mModel;
+  mFileName = "";
 
 }
 
@@ -120,11 +127,11 @@ MainWindow::updateUI()
   ui->treeWidget->setSortingEnabled(false);
 
   ui->treeWidget->clear();
-  
+
   QTreeWidgetItem* packageItem = new QTreeWidgetItem(ui->treeWidget);
   packageItem->setText(0, "Package");
 
-  foreach(auto& version, model->getVersions())
+  foreach(auto& version, mModel->getVersions())
   {
     QTreeWidgetItem* versionItem = new QTreeWidgetItem(ui->treeWidget);
     versionItem->setText(0, version->toString());
@@ -135,47 +142,93 @@ MainWindow::updateUI()
     QTreeWidgetItem* classItem = new QTreeWidgetItem(versionItem);
     classItem->setText(0, "Classes");
 
-    foreach(auto& element, version->getElements())
+    foreach(auto* element, version->getElements())
     {
-
+      QTreeWidgetItem* currentItem = new QTreeWidgetItem(classItem);
+      currentItem->setText(0, element->getName());
     }
-
 
     QTreeWidgetItem* pluginItem = new QTreeWidgetItem(versionItem);
     pluginItem->setText(0, "Plugins");
 
+    foreach(auto* element, version->getPlugins())
+    {
+      QTreeWidgetItem* currentItem = new QTreeWidgetItem(pluginItem);
+      currentItem->setText(0, element->getExtensionPoint());
+    }
+
     QTreeWidgetItem* enumItem = new QTreeWidgetItem(versionItem);
     enumItem->setText(0, "Enums");
 
+    foreach(auto* element, version->getEnums())
+    {
+      QTreeWidgetItem* currentItem = new QTreeWidgetItem(enumItem);
+      currentItem->setText(0, element->getName());
+    }
+
   }
-  
+
   ui->treeWidget->setSortingEnabled(sortingEnabled);
 
-  if (dynamic_cast<DeviserPackage*>(currentElement))
-  {
-    ctrlPackage->initializeFrom(dynamic_cast<DeviserPackage*>(currentElement));
-    ui->stackedWidget->setCurrentWidget(ctrlPackage);
-  }
+  displayElement(mCurrentElement);
 
   blockSignals(false);
 
 }
 
+void
+MainWindow::displayElement(DeviserBase* element)
+{
+  mCurrentElement = element;
+
+  if (dynamic_cast<DeviserPackage*>(mCurrentElement))
+  {
+    ctrlPackage->initializeFrom(dynamic_cast<DeviserPackage*>(mCurrentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlPackage);
+  }
+  else if (dynamic_cast<DeviserVersion*>(mCurrentElement))
+  {
+    ctrlVersion->initializeFrom(dynamic_cast<DeviserVersion*>(mCurrentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlVersion);
+  }
+  else if (dynamic_cast<DeviserClass*>(mCurrentElement))
+  {
+    ctrlClass->initializeFrom(dynamic_cast<DeviserClass*>(mCurrentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlClass);
+  }
+  else if (dynamic_cast<DeviserPlugin*>(mCurrentElement))
+  {
+    ctrlPlugin->initializeFrom(dynamic_cast<DeviserPlugin*>(mCurrentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlPlugin);
+  }
+  else if (dynamic_cast<DeviserEnum*>(mCurrentElement))
+  {
+    ctrlEnum->initializeFrom(dynamic_cast<DeviserEnum*>(mCurrentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlEnum);
+  }
+  else if (dynamic_cast<DeviserMapping*>(mCurrentElement))
+  {
+    ctrlMapping->initializeFrom(mCurrentVersion);
+    ui->stackedWidget->setCurrentWidget(ctrlMapping);
+  }
+
+
+}
 
 void
 MainWindow::openFile()
 {
 
-    QString oldDir;
-    if (!fileName.isEmpty())
-    {
-        oldDir = QFileInfo(fileName).dir().dirName();
-    }
+  QString oldDir;
+  if (!mFileName.isEmpty())
+  {
+    oldDir = QFileInfo(mFileName).dir().dirName();
+  }
 
-    QString& fileName = QFileDialog::getOpenFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
+  QString& fileName = QFileDialog::getOpenFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
 
-    if (!fileName.isEmpty())
-        openFile(fileName);
+  if (!fileName.isEmpty())
+    openFile(fileName);
 
 
 
@@ -183,38 +236,38 @@ MainWindow::openFile()
 
 void MainWindow::openFile(const QString& fileName)
 {
-    if (model != NULL)
-        delete model;
+  if (mModel != NULL)
+    delete mModel;
 
-    model= new DeviserPackage(fileName);
-    currentElement = model;
-    updateUI();
+  mModel = new DeviserPackage(fileName);
+  mCurrentElement = mModel;
+  updateUI();
 
 }
 
 void
 MainWindow::saveFile()
 {
-  if (model == NULL) return;
+  if (mModel == NULL) return;
 }
 
 void
 MainWindow::saveFileAs()
 {
-  if (model == NULL) return;
+  if (mModel == NULL) return;
 }
 
 void
 MainWindow::saveAsFile(QString)
 {
-  if (model == NULL) return;
+  if (mModel == NULL) return;
 }
 
 void
 MainWindow::showUML()
 {
-    DialogUML uml;
-    uml.exec();
+  DialogUML uml;
+  uml.exec();
 }
 
 void
@@ -222,34 +275,66 @@ MainWindow::validateDescription()
 {
 
 }
-#include <iostream>
+
+DeviserBase* MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
+{
+  if (mModel == NULL) return NULL;
+
+  if (item->text(0) == "Package")
+  {
+    return mModel;
+  }
+
+  if (item->text(0).startsWith("Version"))
+  {
+    return mModel->getVersion(item->text(0));
+  }
+
+  if (item->text(0) == "Mappings")
+  {
+    return new DeviserMapping();
+
+  }
+
+
+  QTreeWidgetItem* parent = item->parent();
+  if (parent == NULL) return NULL;
+
+  QTreeWidgetItem* parentsParent = parent != NULL ? parent->parent() : NULL;
+
+  mCurrentVersion = parentsParent != NULL ? mModel->getVersion(parentsParent->text(0)) :
+    mModel->getVersion(parent->text(0));
+  
+  if (parent != NULL && parent->text(0) == "Classes")
+  {
+    return mCurrentVersion->getElement(item->text(0));    
+  }
+  
+  if (parent != NULL && parent->text(0) == "Plugins")
+  {
+    return mCurrentVersion->getPlugin(item->text(0));
+  }
+  
+  if (parent != NULL && parent->text(0) == "Enums")
+  {
+    return mCurrentVersion->getEnum(item->text(0));
+  }
+
+  return NULL;
+}
+
 
 void MainWindow::on_treeWidget_itemSelectionChanged()
 {
-    const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
-    if (selectedItems.size() == 0) return;
+  const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
+  if (selectedItems.size() == 0) return;
 
-    foreach (QTreeWidgetItem* item, selectedItems) {
-        if (item->text(0) == "Package")
-        {
-ui->stackedWidget->setCurrentWidget(ctrlPackage);
-        } else if (item->text(0) == "Classes")
-        {
-ui->stackedWidget->setCurrentWidget(ctrlClass);
-        } else if (item->text(0) == "Plugins")
-        {
-ui->stackedWidget->setCurrentWidget(ctrlPlugin);
-        } else if (item->text(0) == "Mappings")
-        {
-ui->stackedWidget->setCurrentWidget(ctrlMapping);
-        } else if (item->text(0) == "Enums")
-        {
-ui->stackedWidget->setCurrentWidget(ctrlEnum);
-        }
-        else if (item->text(0).startsWith("Version"))
-                {
-ui->stackedWidget->setCurrentWidget(ctrlVersion);
-                }
-    }
+  foreach(QTreeWidgetItem* item, selectedItems) 
+  {
+    DeviserBase* devItem = getDeviserItemForTreeView(item);
+    if (devItem != NULL)
+      displayElement(devItem);
+
+  }
 
 }

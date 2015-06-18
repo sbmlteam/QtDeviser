@@ -7,6 +7,8 @@
 
 class DeviserPackage : public DeviserBase
 {
+    Q_OBJECT
+
 public:
     DeviserPackage();
     DeviserPackage(const DeviserPackage& other);
@@ -28,15 +30,18 @@ public:
 
     QList<DeviserVersion*>& getVersions() { return mVersions; }
 
-    QString getName() const;
-    QString getFullName() const;
+    DeviserVersion* getVersion(const QString& name);
+
+    const QString& getName() const;
+    const QString& getFullName() const;
     int getStartNumber() const;
     int getOffset() const;
     int getVersion() const;
     bool getRequired() const;
-    QString getAdditionalDeclarations() const;
-    QString getAdditionalDefinitions() const;
+    const QString& getAdditionalDeclarations() const;
+    const QString& getAdditionalDefinitions() const;
 
+    DeviserVersion* createVersion(int level = 0, int version = 0, int pkgVersion = 1);
 
 protected:
     QString mName;
@@ -49,9 +54,6 @@ protected:
     QString mAdditionalDefinitions;
 
     QList<DeviserVersion*> mVersions;
-
-    DeviserVersion* mCurrentVersion;
-
 
 };
 

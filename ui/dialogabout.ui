@@ -17,7 +17,7 @@
    <string>About DEVISER Edit</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="deviser-resources.qrc">
+   <iconset resource="../deviser-resources.qrc">
     <normaloff>:/images/ICON_Deviser_512x512.png</normaloff>:/images/ICON_Deviser_512x512.png</iconset>
   </property>
   <property name="styleSheet">
@@ -38,7 +38,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="deviser-resources.qrc">:/images/ABOUT_Deviser.png</pixmap>
+        <pixmap resource="../deviser-resources.qrc">:/images/ABOUT_Deviser.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>false</bool>
@@ -79,7 +79,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="deviser-resources.qrc"/>
+  <include location="../deviser-resources.qrc"/>
  </resources>
  <connections>
   <connection>

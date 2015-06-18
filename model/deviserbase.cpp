@@ -1,6 +1,9 @@
 #include "deviserbase.h"
 
 DeviserBase::DeviserBase()
+    : mPackage(NULL)
+    , mVersion(NULL)
+    , mUserData(NULL)
 {
 
 }
@@ -18,6 +21,11 @@ void DeviserBase::initializeFrom(const QDomElement& )
 void DeviserBase::setParent(DeviserPackage* doc)
 {
     mPackage = doc;
+}
+
+void DeviserBase::setParentVersion(DeviserVersion* version)
+{
+    mVersion = version;
 }
 
 QString DeviserBase::toXmlString() const
@@ -50,4 +58,16 @@ void DeviserBase::writeElementsWithNameTo(QXmlStreamWriter& writer, const QStrin
     writer.writeStartElement(name);
     writeTo(writer);
     writer.writeEndElement();
+}
+
+DeviserPackage*
+DeviserBase::getParent()
+{
+    return mPackage;
+}
+
+DeviserVersion*
+DeviserBase::getParentVersion()
+{
+    return mVersion;
 }

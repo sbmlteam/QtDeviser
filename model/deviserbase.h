@@ -7,6 +7,7 @@
 #include <QXmlStreamWriter>
 
 class DeviserPackage;
+class DeviserVersion;
 
 class DeviserBase  : public QObject
 {
@@ -19,6 +20,7 @@ public:
     virtual void initializeFrom(const QDomElement& element);
 
     virtual void setParent(DeviserPackage* doc);
+    virtual void setParentVersion(DeviserVersion* version);
 
     virtual QString toXmlString() const;
     virtual QString toYuml(bool usecolor = true) const;
@@ -30,9 +32,14 @@ public:
 
 
 
+    DeviserPackage* getParent();
+    DeviserVersion* getParentVersion();
+
 protected:
 
+
     DeviserPackage* mPackage;
+    DeviserVersion* mVersion;
     void* mUserData;
 
 };
@@ -51,13 +58,14 @@ template<typename T> void writeListWithName(const QList<T*>& list, QXmlStreamWri
     }
 }
 
-template<typename T> void setParentOn(QList<T*>& list, DeviserPackage* parent)
+template<typename T> void setParentOn(QList<T*>& list, DeviserPackage* parent, DeviserVersion* version = NULL)
 {
     if (!list.empty())
     {
       for(auto& it = list.begin();  it != list.end(); ++it)
       {
           (*it)->setParent(parent);
+          (*it)->setParentVersion(version);
       }
 
     }
