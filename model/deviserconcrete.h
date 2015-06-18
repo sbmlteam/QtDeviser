@@ -7,6 +7,7 @@ class DeviserConcrete : public DeviserBase
 {
 public:
     DeviserConcrete();
+    DeviserConcrete(const DeviserConcrete& other) {}
     virtual void initializeFrom(const QDomElement& element) {}
 };
 

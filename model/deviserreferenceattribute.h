@@ -7,6 +7,7 @@ class DeviserReferenceAttribute : public DeviserBase
 {
 public:
     DeviserReferenceAttribute();
+    DeviserReferenceAttribute(const DeviserReferenceAttribute& other) {}
     virtual void initializeFrom(const QDomElement& element) {}
 };
 

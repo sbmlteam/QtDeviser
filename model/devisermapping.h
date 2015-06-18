@@ -7,6 +7,7 @@ class DeviserMapping : public DeviserBase
 {
 public:
     DeviserMapping();
+    DeviserMapping(const DeviserMapping& other) {}
     virtual void initializeFrom(const QDomElement& element) {}
 };
 

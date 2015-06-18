@@ -37,44 +37,57 @@ protected:
 
 };
 
-template<typename T> void writeListWithName(const QList<T>& list, QXmlStreamWriter& writer, const QString& name)
+template<typename T> void writeListWithName(const QList<T*>& list, QXmlStreamWriter& writer, const QString& name)
 {
     if (!list.empty())
     {
       writer.writeStartElement(name);
-      foreach(const T& element, list)
+      foreach(const T* element, list)
       {
-          element.writeTo(writer);
+          element->writeTo(writer);
       }
 
       writer.writeEndElement();
     }
 }
 
-template<typename T> void setParentOn(QList<T>& list, DeviserPackage* parent)
+template<typename T> void setParentOn(QList<T*>& list, DeviserPackage* parent)
 {
     if (!list.empty())
     {
       for(auto& it = list.begin();  it != list.end(); ++it)
       {
-          (*it).setParent(parent);
+          (*it)->setParent(parent);
       }
 
     }
 }
 
-template<typename T> void initializeListFrom(QList<T>& list, const QDomElement& element, const QString& name)
+template<typename T> void initializeListFrom(QList<T*>& list, const QDomElement& element, const QString& name)
 {
     list.clear();
     const QDomNodeList& nodes = element.elementsByTagName(name);
     for(int i = 0;i < nodes.count(); ++i)
     {
         const QDomElement& child = nodes.at(i).toElement();
-        T newElement;
-        newElement.initializeFrom(child);
+        T* newElement = new T();
+        newElement->initializeFrom(child);
         list.append(newElement);
     }
 }
+
+template<typename T> void cloneElements(const QList<T*>& source, QList<T*>& destination)
+{
+  destination.clear();
+  foreach(const T* element, source)
+  {
+    T* newElement = new T(*element);
+
+    destination.append(newElement);
+  }
+
+}
+
 
 
 #endif // DEVISERBASE_H

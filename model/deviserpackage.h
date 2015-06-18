@@ -26,6 +26,18 @@ public:
 
     virtual void writeTo(const QString& fileName) const;
 
+    QList<DeviserVersion*>& getVersions() { return mVersions; }
+
+    QString getName() const;
+    QString getFullName() const;
+    int getStartNumber() const;
+    int getOffset() const;
+    int getVersion() const;
+    bool getRequired() const;
+    QString getAdditionalDeclarations() const;
+    QString getAdditionalDefinitions() const;
+
+
 protected:
     QString mName;
     QString mFullName;
@@ -36,7 +48,7 @@ protected:
     QString mAdditionalDeclarations;
     QString mAdditionalDefinitions;
 
-    QList<DeviserVersion> mVersions;
+    QList<DeviserVersion*> mVersions;
 
     DeviserVersion* mCurrentVersion;
 

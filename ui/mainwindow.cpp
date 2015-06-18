@@ -24,7 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ctrlEnum(new FormDeviserEnum(this)),
     ctrlMapping(new FormDeviserMapping(this)),
     ctrlClass(new FormDeviserClass(this)),
-    ctrlPlugin(new FormDeviserPlugin(this))
+    ctrlPlugin(new FormDeviserPlugin(this)), 
+    model(NULL), 
+    currentElement(NULL), 
+    fileName()
+
 {
     ui->setupUi(this);
 
@@ -110,6 +114,50 @@ MainWindow::newModel()
 void
 MainWindow::updateUI()
 {
+  blockSignals(true);
+  // build tree view
+  const bool sortingEnabled = ui->treeWidget->isSortingEnabled();
+  ui->treeWidget->setSortingEnabled(false);
+
+  ui->treeWidget->clear();
+  
+  QTreeWidgetItem* packageItem = new QTreeWidgetItem(ui->treeWidget);
+  packageItem->setText(0, "Package");
+
+  foreach(auto& version, model->getVersions())
+  {
+    QTreeWidgetItem* versionItem = new QTreeWidgetItem(ui->treeWidget);
+    versionItem->setText(0, version->toString());
+
+    QTreeWidgetItem* mappingItem = new QTreeWidgetItem(versionItem);
+    mappingItem->setText(0, "Mappings");
+
+    QTreeWidgetItem* classItem = new QTreeWidgetItem(versionItem);
+    classItem->setText(0, "Classes");
+
+    foreach(auto& element, version->getElements())
+    {
+
+    }
+
+
+    QTreeWidgetItem* pluginItem = new QTreeWidgetItem(versionItem);
+    pluginItem->setText(0, "Plugins");
+
+    QTreeWidgetItem* enumItem = new QTreeWidgetItem(versionItem);
+    enumItem->setText(0, "Enums");
+
+  }
+  
+  ui->treeWidget->setSortingEnabled(sortingEnabled);
+
+  if (dynamic_cast<DeviserPackage*>(currentElement))
+  {
+    ctrlPackage->initializeFrom(dynamic_cast<DeviserPackage*>(currentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlPackage);
+  }
+
+  blockSignals(false);
 
 }
 
@@ -147,19 +195,19 @@ void MainWindow::openFile(const QString& fileName)
 void
 MainWindow::saveFile()
 {
-
+  if (model == NULL) return;
 }
 
 void
 MainWindow::saveFileAs()
 {
-
+  if (model == NULL) return;
 }
 
 void
 MainWindow::saveAsFile(QString)
 {
-
+  if (model == NULL) return;
 }
 
 void

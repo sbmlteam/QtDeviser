@@ -7,6 +7,7 @@ class DeviserEnum : public DeviserBase
 {
 public:
     DeviserEnum();
+    DeviserEnum(const DeviserEnum& other) {}
     virtual void initializeFrom(const QDomElement& element) {}
 };
 

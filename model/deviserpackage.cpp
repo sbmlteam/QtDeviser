@@ -16,6 +16,8 @@ DeviserPackage::DeviserPackage(const DeviserPackage& other)
 DeviserPackage::DeviserPackage(const QString& fileName)
 {
   QDomDocument document (fileName);
+  QFile file(fileName);
+  document.setContent(&file);
   QDomElement root = document .documentElement();
   initializeFrom(root);
 }
@@ -44,7 +46,7 @@ void DeviserPackage::initializeFrom(const QDomElement& element)
 
    mCurrentVersion = NULL;
    if (!mVersions.empty())
-     mCurrentVersion = &*mVersions.begin();
+     mCurrentVersion = *mVersions.begin();
 
    setParent(this);
 
@@ -122,3 +124,13 @@ void DeviserPackage::writeTo(const QString& fileName) const
   writeTo(writer);
   writer.writeEndDocument();
 }
+
+
+QString DeviserPackage::getName() const { return mName; }
+QString DeviserPackage::getFullName() const { return mFullName; }
+int DeviserPackage::getStartNumber() const { return mStartNumber; }
+int DeviserPackage::getOffset() const { return mOffset; }
+int DeviserPackage::getVersion() const { return mVersion; }
+bool DeviserPackage::getRequired() const { return mRequired; }
+QString DeviserPackage::getAdditionalDeclarations() const { return mAdditionalDeclarations; }
+QString DeviserPackage::getAdditionalDefinitions() const { return mAdditionalDefinitions; }

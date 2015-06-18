@@ -7,6 +7,7 @@ class DeviserPlugin : public DeviserBase
 {
 public:
     DeviserPlugin();
+    DeviserPlugin(const DeviserPlugin& other) {}
 
         virtual void initializeFrom(const QDomElement& element) {}
 };
