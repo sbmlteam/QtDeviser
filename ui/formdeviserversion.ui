@@ -106,5 +106,93 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cmdDown</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserVersion</receiver>
+   <slot>downPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdUp</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserVersion</receiver>
+   <slot>upPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>136</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtCoreLevel</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserVersion</receiver>
+   <slot>levelChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtCoreVersion</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserVersion</receiver>
+   <slot>versionChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>348</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtPackageVersion</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserVersion</receiver>
+   <slot>pkgVersionChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>542</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>versionChanged(QString)</slot>
+  <slot>levelChanged(QString)</slot>
+  <slot>pkgVersionChanged(QString)</slot>
+  <slot>upPressed()</slot>
+  <slot>downPressed()</slot>
+ </slots>
 </ui>

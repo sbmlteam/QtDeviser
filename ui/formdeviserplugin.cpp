@@ -1,6 +1,8 @@
 #include "formdeviserplugin.h"
 #include "ui_formdeviserplugin.h"
 
+#include <QFileDialog>
+
 #include <model/deviserplugin.h>
 #include <model/deviserclass.h>
 #include <model/deviserversion.h>
@@ -92,4 +94,113 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
     }
 
 
+}
+
+void
+FormDeviserPlugin::typeCodeChanged(const QString&)
+{
+    if (mPlugin == NULL) return;
+
+}
+
+void
+FormDeviserPlugin::packageChanged(const QString&)
+{
+
+}
+
+void
+FormDeviserPlugin::implementationChanged(const QString&)
+{
+
+}
+
+void
+FormDeviserPlugin::extensionPointChanged(const QString&)
+{
+
+}
+
+void
+FormDeviserPlugin::declarationChanged(const QString&)
+{
+
+}
+
+void
+FormDeviserPlugin::attributeChanged(QTableWidgetItem*)
+{
+
+}
+
+void
+FormDeviserPlugin::upClicked()
+{
+
+}
+
+void
+FormDeviserPlugin::downClicked()
+{
+
+}
+
+void
+FormDeviserPlugin::addChild()
+{
+
+}
+
+void
+FormDeviserPlugin::delChild()
+{
+
+}
+
+void
+FormDeviserPlugin::browseImplementation()
+{
+    if (mPlugin == NULL) return;
+    QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, "C++ files (*.c, *.c++, *.cpp, *.cc, *.cxx);;All files (*.*)");
+    mPlugin->setAdditionalDefinitions(fileName);
+    ui->txtImplementation->setText(fileName);
+}
+
+void
+FormDeviserPlugin::browseDeclaration()
+{
+    if (mPlugin == NULL) return;
+    QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, "Header files (*.h, *.h++, *.hpp, *.hh, *.hxx);;All files (*.*)");
+    mPlugin->setAdditionalDeclarations(fileName);
+    ui->txtDeclaration->setText(fileName);
+}
+
+void
+FormDeviserPlugin::delAttribute()
+{
+
+}
+
+void
+FormDeviserPlugin::addAttribute()
+{
+
+}
+
+void
+FormDeviserPlugin::additionalCodeStateChanged(int)
+{
+    ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
+}
+
+void
+FormDeviserPlugin::hasAttributesStateChanged(int)
+{
+    ui->grpAttributes->setVisible(ui->chkHasAttributes->isChecked());
+}
+
+void
+FormDeviserPlugin::fromCoreStateChanged(int)
+{
+    ui->ctrlLocation->setVisible(!ui->chkElementFromCore->isChecked());
 }

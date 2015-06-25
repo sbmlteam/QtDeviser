@@ -9,6 +9,9 @@ DeviserBase::DeviserBase()
 }
 
 DeviserBase::DeviserBase(const DeviserBase &)
+  : mPackage(mPackage)
+  , mVersion(NULL)
+  , mUserData(NULL)
 {
 
 }

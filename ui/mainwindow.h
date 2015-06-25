@@ -54,6 +54,7 @@ private slots:
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);
+  DeviserVersion* getCurrentVersion();
 
 private:
     Ui::MainWindow *ui;

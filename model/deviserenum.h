@@ -11,11 +11,17 @@ class DeviserEnum : public DeviserBase
 
 public:
     DeviserEnum();
-    DeviserEnum(const DeviserEnum& other) {}
+    DeviserEnum(const DeviserEnum& other);
     virtual void initializeFrom(const QDomElement& element);
 
     const QString& getName() const { return mName; }
-    const QList<DeviserEnumValue*>& getValues() { return mValues; }
+    void setName(const QString& name) { QString oldName(mName); mName = name; emit nameChanged(oldName, name); }
+
+    const QList<DeviserEnumValue*>& getValues() const { return mValues; }
+    QList<DeviserEnumValue*>& getValues() { return mValues; }
+
+signals:
+    void nameChanged(const QString& oldName, const QString& newName);
 
 protected:
     QString mName;

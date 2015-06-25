@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
-    <layout class="QFormLayout" name="formLayout">
+    <layout class="QGridLayout" name="gridLayout_7">
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -84,14 +84,14 @@
       <widget class="QWidget" name="widget" native="true">
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="cmdAddChild">
           <property name="text">
            <string>&gt;&gt;</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="cmdDelChild">
           <property name="text">
            <string>&lt;&lt;</string>
           </property>
@@ -111,14 +111,14 @@
          </spacer>
         </item>
         <item row="3" column="0">
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="cmdUp">
           <property name="text">
            <string>&amp;Up</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="cmdDown">
           <property name="text">
            <string>&amp;Down</string>
           </property>
@@ -150,7 +150,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QToolButton" name="toolAdd">
+         <widget class="QToolButton" name="cmdAddAttr">
           <property name="text">
            <string>&amp;Add</string>
           </property>
@@ -161,7 +161,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="toolDel">
+         <widget class="QToolButton" name="cmdDelAttr">
           <property name="text">
            <string>&amp;Del</string>
           </property>
@@ -231,7 +231,7 @@
      <property name="title">
       <string> Additional code files: </string>
      </property>
-     <layout class="QFormLayout" name="formLayout_5">
+     <layout class="QGridLayout" name="gridLayout_8">
       <item row="0" column="0">
        <widget class="QLabel" name="label_9">
         <property name="text">
@@ -294,7 +294,7 @@
     <widget class="QWidget" name="ctrlLocation" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <layout class="QFormLayout" name="formLayout_3">
+       <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
@@ -308,7 +308,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QFormLayout" name="formLayout_2">
+       <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
@@ -329,5 +329,297 @@
  <resources>
   <include location="../deviser-resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>chkElementFromCore</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>fromCoreStateChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkHasAttributes</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>hasAttributesStateChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>203</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkRequiresAdditionalCode</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>additionalCodeStateChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>344</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdAddAttr</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>addAttribute()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>377</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdDelAttr</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>delAttribute()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>411</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdBrowseDeclaration</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>browseDeclaration()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>703</x>
+     <y>555</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdBrowseImplementation</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>browseImplementation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>703</x>
+     <y>589</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdDelChild</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>delChild()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdAddChild</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>addChild()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>177</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdDown</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>downClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>308</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdUp</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>upClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tblAttributes</sender>
+   <signal>itemChanged(QTableWidgetItem*)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>attributeChanged(QTableWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>409</x>
+     <y>429</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtDeclaration</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>declarationChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>409</x>
+     <y>555</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtExtensionPoint</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>extensionPointChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>426</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtImplementation</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>implementationChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>409</x>
+     <y>589</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtPackage</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>packageChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtTypeCode</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>typeCodeChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>615</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>extensionPointChanged(QString)</slot>
+  <slot>fromCoreStateChanged(int)</slot>
+  <slot>hasAttributesStateChanged(int)</slot>
+  <slot>additionalCodeStateChanged(int)</slot>
+  <slot>packageChanged(QString)</slot>
+  <slot>typeCodeChanged(QString)</slot>
+  <slot>declarationChanged(QString)</slot>
+  <slot>implementationChanged(QString)</slot>
+  <slot>addAttribute()</slot>
+  <slot>delAttribute()</slot>
+  <slot>browseDeclaration()</slot>
+  <slot>browseImplementation()</slot>
+  <slot>attributeChanged(QTableWidgetItem*)</slot>
+  <slot>addChild()</slot>
+  <slot>delChild()</slot>
+  <slot>upClicked()</slot>
+  <slot>downClicked()</slot>
+ </slots>
 </ui>

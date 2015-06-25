@@ -1,6 +1,23 @@
 #include "deviserattribute.h"
 
 DeviserAttribute::DeviserAttribute()
+ : DeviserReferenceAttribute()
+ , mXMLName()
+ , mType()
+ , mElement()
+ , mRequired(false)
+ , mAbstract(false)
+{
+
+}
+
+DeviserAttribute::DeviserAttribute(const DeviserAttribute& other)
+ : DeviserReferenceAttribute(other)
+ , mXMLName(other.mXMLName)
+ , mType(other.mType)
+ , mElement(other.mElement)
+ , mRequired(other.mRequired)
+ , mAbstract(other.mAbstract)
 {
 
 }

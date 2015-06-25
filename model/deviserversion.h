@@ -36,10 +36,13 @@ public:
     const QList<DeviserMapping*>& getMappings() const { return mMappings; }
 
     DeviserClass* getElement(const QString& name);
+    DeviserClass* createElement();
 
     DeviserPlugin* getPlugin(const QString& name);
+    DeviserPlugin* createPlugin();
 
     DeviserEnum* getEnum(const QString& name);
+    DeviserEnum* createEnum();
 
 
 signals:

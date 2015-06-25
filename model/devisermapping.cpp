@@ -1,6 +1,17 @@
 #include "devisermapping.h"
 
 DeviserMapping::DeviserMapping()
+ : DeviserBase()
+ , mName()
+ , mPackage()
+{
+
+}
+
+DeviserMapping::DeviserMapping(const DeviserMapping& other)
+ : DeviserBase(other)
+ , mName(other.mName)
+ , mPackage(other.mPackage)
 {
 
 }

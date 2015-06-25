@@ -42,4 +42,37 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
 
   }
 
+
 }
+
+
+void
+FormDeviserVersion::downPressed()
+{
+
+}
+
+void
+FormDeviserVersion::upPressed()
+{
+
+}
+
+void
+FormDeviserVersion::levelChanged(const QString&)
+{
+
+}
+
+void
+FormDeviserVersion::versionChanged(const QString&)
+{
+
+}
+
+void
+FormDeviserVersion::pkgVersionChanged(const QString&)
+{
+
+}
+

@@ -9,10 +9,14 @@ class DeviserReferenceAttribute : public DeviserBase
 
 public:
     DeviserReferenceAttribute();
-    DeviserReferenceAttribute(const DeviserReferenceAttribute& other) {}
+    DeviserReferenceAttribute(const DeviserReferenceAttribute& other);
     virtual void initializeFrom(const QDomElement& element);
 
     const QString& getName() const { return mName; }
+    void setName(const QString& name) { mName = name; emit nameChanged(); }
+
+signals:
+    void nameChanged();
 
 protected:
     QString mName;

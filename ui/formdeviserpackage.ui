@@ -6,53 +6,67 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>349</height>
+    <width>749</width>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QFormLayout" name="formLayout_2">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Name:</string>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>120</height>
+      </size>
      </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="txtName"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Full Name: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="txtFullName"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="chkRequired">
+        <property name="text">
+         <string>required</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="chkRequiresAdditionalCode">
+        <property name="text">
+         <string>requires additional code</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="txtName"/>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Full Name: </string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLineEdit" name="txtFullName"/>
-   </item>
-   <item row="2" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QCheckBox" name="chkRequired">
-       <property name="text">
-        <string>required</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chkRequiresAdditionalCode">
-       <property name="text">
-        <string>requires additional code</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="3" column="0" colspan="2">
+   <item>
     <widget class="QLabel" name="label_7">
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;A package must define the starting point for the enumeration of SBMLTypeCode_t values used to distinguish SBase derived objects. This should be an integer greater than 100 ending in 00. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -62,17 +76,29 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Number: </string>
-     </property>
+   <item>
+    <widget class="QWidget" name="widget_2" native="true">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="minimumSize">
+         <size>
+          <width>85</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Number: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="txtNumber"/>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="txtNumber"/>
-   </item>
-   <item row="5" column="0" colspan="2">
+   <item>
     <widget class="QLabel" name="label_8">
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;A package must define the additional offset added to all validation rule numbers to allow these to be uniquely stored. This should be a two digit integer followed by 000000. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -85,17 +111,29 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Offset: </string>
-     </property>
+   <item>
+    <widget class="QWidget" name="widget_3" native="true">
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="minimumSize">
+         <size>
+          <width>85</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Offset: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="txtOffset"/>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="6" column="1">
-    <widget class="QLineEdit" name="txtOffset"/>
-   </item>
-   <item row="7" column="1">
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -108,12 +146,12 @@
      </property>
     </spacer>
    </item>
-   <item row="8" column="0" colspan="2">
+   <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string> Additional code files: </string>
      </property>
-     <layout class="QFormLayout" name="formLayout">
+     <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
@@ -162,5 +200,178 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>txtDeclaration</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>declarationChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>411</x>
+     <y>377</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtFullName</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>fullNameChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtImplementation</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>implementationChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>411</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtName</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>nameChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>33</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtNumber</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>numberChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtOffset</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>offsetChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkRequired</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>requiredStateChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>423</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkRequiresAdditionalCode</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>additionalCodeStateChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>423</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdBrowseDeclaration</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>browseDeclaration()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>707</x>
+     <y>377</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdBrowseImplementation</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>browseImplementation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>707</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>nameChanged(QString)</slot>
+  <slot>fullNameChanged(QString)</slot>
+  <slot>requiredStateChanged(int)</slot>
+  <slot>additionalCodeStateChanged(int)</slot>
+  <slot>numberChanged(QString)</slot>
+  <slot>offsetChanged(QString)</slot>
+  <slot>declarationChanged(QString)</slot>
+  <slot>implementationChanged(QString)</slot>
+  <slot>browseDeclaration()</slot>
+  <slot>browseImplementation()</slot>
+ </slots>
 </ui>

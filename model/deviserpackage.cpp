@@ -5,16 +5,47 @@
 #include <QDomDocument>
 
 DeviserPackage::DeviserPackage()
+    : DeviserBase()
+    , mName()
+    , mFullName()
+    , mStartNumber(0)
+    , mOffset(0)
+    , mVersion(1)
+    , mRequired(false)
+    , mAdditionalDeclarations()
+    , mAdditionalDefinitions()
+    , mVersions()
 {
-
+    createVersion();
+    setParent(this);
 }
 
 DeviserPackage::DeviserPackage(const DeviserPackage& other)
+    : DeviserBase(other)
+    , mName(other.mName)
+    , mFullName(other.mFullName)
+    , mStartNumber(other.mStartNumber)
+    , mOffset(other.mOffset)
+    , mRequired(other.mRequired)
+    , mAdditionalDeclarations(other.mAdditionalDeclarations)
+    , mAdditionalDefinitions(other.mAdditionalDefinitions)
+    , mVersions()
 {
-
+    cloneElements(other.mVersions, mVersions);
+    setParent(this);
 }
 
 DeviserPackage::DeviserPackage(const QString& fileName)
+    : DeviserBase()
+    , mName()
+    , mFullName()
+    , mStartNumber(0)
+    , mOffset(0)
+    , mVersion(1)
+    , mRequired(false)
+    , mAdditionalDeclarations()
+    , mAdditionalDefinitions()
+    , mVersions()
 {
   QDomDocument document (fileName);
   QFile file(fileName);
@@ -24,6 +55,16 @@ DeviserPackage::DeviserPackage(const QString& fileName)
 }
 
 DeviserPackage::DeviserPackage(QDomElement& element)
+  : DeviserBase()
+  , mName()
+  , mFullName()
+  , mStartNumber(0)
+  , mOffset(0)
+  , mVersion(1)
+  , mRequired(false)
+  , mAdditionalDeclarations()
+  , mAdditionalDefinitions()
+  , mVersions()
 {
     initializeFrom(element);
 }
@@ -141,14 +182,14 @@ const QString& DeviserPackage::getFullName() const { return mFullName; }
 int DeviserPackage::getStartNumber() const { return mStartNumber; }
 int DeviserPackage::getOffset() const { return mOffset; }
 int DeviserPackage::getVersion() const { return mVersion; }
-bool DeviserPackage::getRequired() const { return mRequired; }
+bool DeviserPackage::isRequired() const { return mRequired; }
 const QString& DeviserPackage::getAdditionalDeclarations() const { return mAdditionalDeclarations; }
 const QString& DeviserPackage::getAdditionalDefinitions() const { return mAdditionalDefinitions; }
 
 DeviserVersion* DeviserPackage::getVersion(const QString& name)
 {
   if (mVersions.empty()) return NULL;
-    for (auto& it = mVersions.begin(); it != mVersions.end(); ++it)
+    for (auto it = mVersions.begin(); it != mVersions.end(); ++it)
         if ((*it)->toString() == name)
             return *it;
     return NULL;

@@ -4,8 +4,30 @@
 #include "deviserattribute.h"
 
 DeviserPlugin::DeviserPlugin()
+  : DeviserBase()
+  , mExtensionPoint()
+  , mAdditionalDeclarations()
+  , mAdditionalDefinitions()
+  , mTypeCode()
+  , mPackage()
+  , mReferences()
+  , mAttributes()
 {
 
+}
+
+DeviserPlugin::DeviserPlugin(const DeviserPlugin& other)
+  : DeviserBase(other)
+  , mExtensionPoint(other.mExtensionPoint)
+  , mAdditionalDeclarations(other.mAdditionalDeclarations)
+  , mAdditionalDefinitions(other.mAdditionalDefinitions)
+  , mTypeCode(other.mTypeCode)
+  , mPackage(other.mPackage)
+  , mReferences()
+  , mAttributes()
+{
+  cloneElements(other.mReferences, mReferences);
+  cloneElements(other.mAttributes, mAttributes);
 }
 
 void

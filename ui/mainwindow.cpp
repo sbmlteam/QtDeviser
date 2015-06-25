@@ -47,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   ui->stackedWidget->setCurrentWidget(ctrlPackage);
 
+  newModel();
+
 }
 
 MainWindow::~MainWindow()
@@ -65,26 +67,50 @@ MainWindow::showAbout()
 void
 MainWindow::addClass()
 {
-
-  ui->stackedWidget->setCurrentWidget(ctrlClass);
+  mCurrentElement =  getCurrentVersion()->createElement();
+  updateUI();
 }
 
 void
 MainWindow::addEnum()
 {
-  ui->stackedWidget->setCurrentWidget(ctrlEnum);
+  mCurrentElement =  getCurrentVersion()->createEnum();
+  updateUI();
 }
 
 void
 MainWindow::addPlugin()
 {
-  ui->stackedWidget->setCurrentWidget(ctrlPlugin);
+  mCurrentElement =  getCurrentVersion()->createPlugin();
+  updateUI();
 }
 
 void
 MainWindow::addVersion()
 {
-  ui->stackedWidget->setCurrentWidget(ctrlVersion);
+  DeviserVersion* version =  mModel->createVersion();
+  displayElement(version);
+}
+
+DeviserVersion*
+MainWindow::getCurrentVersion()
+{
+    if (mCurrentVersion != NULL)
+        return mCurrentVersion;
+
+    if (mModel == NULL)
+    {
+        mModel = new DeviserPackage();
+    }
+
+    if (mModel->getVersions().empty())
+    {
+        mModel->createVersion();
+    }
+
+    mCurrentVersion = mModel->getVersions()[0];
+
+    return mCurrentVersion;
 }
 
 void
@@ -115,6 +141,7 @@ MainWindow::newModel()
   mModel = new DeviserPackage();
   mCurrentElement = mModel;
   mFileName = "";
+  updateUI();
 
 }
 
@@ -135,6 +162,7 @@ MainWindow::updateUI()
   {
     QTreeWidgetItem* versionItem = new QTreeWidgetItem(ui->treeWidget);
     versionItem->setText(0, version->toString());
+    versionItem->setExpanded(true);
 
     QTreeWidgetItem* mappingItem = new QTreeWidgetItem(versionItem);
     mappingItem->setText(0, "Mappings");
@@ -225,7 +253,7 @@ MainWindow::openFile()
     oldDir = QFileInfo(mFileName).dir().dirName();
   }
 
-  QString& fileName = QFileDialog::getOpenFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
+  QString fileName = QFileDialog::getOpenFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
 
   if (!fileName.isEmpty())
     openFile(fileName);

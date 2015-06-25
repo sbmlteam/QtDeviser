@@ -19,6 +19,13 @@ public:
 
     void initializeFrom(DeviserVersion* version);
 
+public slots:
+    void downPressed();
+    void upPressed();
+    void levelChanged(const QString&);
+    void versionChanged(const QString&);
+    void pkgVersionChanged(const QString&);
+
 private:
     Ui::FormDeviserVersion *ui;
     DeviserVersion* mVersion;

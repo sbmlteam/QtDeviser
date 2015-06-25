@@ -1,6 +1,17 @@
 #include "deviserenumvalue.h"
 
 DeviserEnumValue::DeviserEnumValue()
+  : DeviserBase()
+  , mName()
+  , mValue()
+{
+
+}
+
+DeviserEnumValue::DeviserEnumValue(const DeviserEnumValue& other)
+  : DeviserBase(other)
+  , mName(other.mName)
+  , mValue(other.mValue)
 {
 
 }

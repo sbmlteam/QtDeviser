@@ -65,10 +65,40 @@ QString DeviserVersion::toString() const
   return QString("Version: %1,%2,%3").arg(mLevel).arg(mVersion).arg(mPkgVersion);
 }
 
+DeviserEnum*
+DeviserVersion::createEnum()
+{
+    DeviserEnum* element = new DeviserEnum();
+    element->setName(QString("enum_%1").arg(mEnums.size()));
+    mEnums.append(element);
+    setParent(this->mPackage);
+    return element;
+}
+
+DeviserClass*
+DeviserVersion::createElement()
+{
+    DeviserClass* element = new DeviserClass();
+    element->setName(QString("class_%1").arg(mElements.size()));
+    mElements.append(element);
+    setParent(this->mPackage);
+    return element;
+}
+
+DeviserPlugin*
+DeviserVersion::createPlugin()
+{
+    DeviserPlugin* element = new DeviserPlugin();
+    element->setExtensionPoint(QString("plugin_%1").arg(mPlugins.size()));
+    mPlugins.append(element);
+    setParent(this->mPackage);
+    return element;
+}
+
 DeviserEnum* DeviserVersion::getEnum(const QString& name)
 {
   if (mEnums.empty()) return NULL;
-    for (auto& it = mEnums.begin(); it != mEnums.end(); ++it)
+    for (auto it = mEnums.begin(); it != mEnums.end(); ++it)
         if ((*it)->getName() == name)
             return *it;
     return NULL;
@@ -77,7 +107,7 @@ DeviserEnum* DeviserVersion::getEnum(const QString& name)
 DeviserPlugin* DeviserVersion::getPlugin(const QString& name)
 {
   if (mPlugins.empty()) return NULL;
-    for (auto& it = mPlugins.begin(); it != mPlugins.end(); ++it)
+    for (auto it = mPlugins.begin(); it != mPlugins.end(); ++it)
         if ((*it)->getExtensionPoint() == name)
             return *it;
     return NULL;
@@ -86,7 +116,7 @@ DeviserPlugin* DeviserVersion::getPlugin(const QString& name)
 DeviserClass* DeviserVersion::getElement(const QString& name)
 {
   if (mElements.empty()) return NULL;
-    for (auto& it = mElements.begin(); it != mElements.end(); ++it)
+    for (auto it = mElements.begin(); it != mElements.end(); ++it)
         if ((*it)->getName() == name)
             return *it;
     return NULL;

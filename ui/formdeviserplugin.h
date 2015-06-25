@@ -8,6 +8,7 @@ class FormDeviserPlugin;
 }
 
 class DeviserPlugin;
+class QTableWidgetItem;
 
 class FormDeviserPlugin : public QWidget
 {
@@ -18,6 +19,26 @@ public:
     ~FormDeviserPlugin();
 
     void initializeFrom(DeviserPlugin* plugin);
+
+public slots:
+    void typeCodeChanged(const QString&);
+    void packageChanged(const QString&);
+    void implementationChanged(const QString&);
+    void extensionPointChanged(const QString&);
+    void declarationChanged(const QString&);
+
+    void attributeChanged(QTableWidgetItem*);
+    void upClicked();
+    void downClicked();
+    void addChild();
+    void delChild();
+    void browseImplementation();
+    void browseDeclaration();
+    void delAttribute();
+    void addAttribute();
+    void additionalCodeStateChanged(int);
+    void hasAttributesStateChanged(int);
+    void fromCoreStateChanged(int);
 
 private:
     Ui::FormDeviserPlugin *ui;
