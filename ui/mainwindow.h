@@ -26,7 +26,10 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+
     ~MainWindow();
+
+    void setCurrentFile(const QString&);
 
 public slots:
     void showAbout();
@@ -42,7 +45,7 @@ public slots:
     void openFile(const QString&);
     void saveFile();
     void saveFileAs();
-    void saveAsFile(QString);
+    void saveAsFile(const QString&);
     void showUML();
     void validateDescription();
 

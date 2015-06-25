@@ -167,6 +167,8 @@ void DeviserPackage::writeTo(QXmlStreamWriter& writer) const
 void DeviserPackage::writeTo(const QString& fileName) const
 {
   QFile file(fileName);
+  if (!file.open(QIODevice::WriteOnly))
+    return;
   QXmlStreamWriter writer(&file);
   writer.setAutoFormatting(true);
   writer.setAutoFormattingIndent(2);
@@ -174,6 +176,7 @@ void DeviserPackage::writeTo(const QString& fileName) const
   writer.writeStartDocument();
   writeTo(writer);
   writer.writeEndDocument();
+  file.close();
 }
 
 

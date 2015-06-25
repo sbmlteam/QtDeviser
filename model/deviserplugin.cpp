@@ -44,3 +44,36 @@ DeviserPlugin::initializeFrom(const QDomElement& element)
     initializeListFrom(mReferences, element, "reference");
     initializeListFrom(mAttributes, element, "attribute");
 }
+
+
+void
+DeviserPlugin::writeAttributesTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeAttributesTo(writer);
+
+  if (!mTypeCode.isEmpty())
+    writer.writeAttribute("typecode", mTypeCode);
+  if (!mPackage.isEmpty())
+    writer.writeAttribute("package", mPackage);
+  if (!mExtensionPoint.isEmpty())
+    writer.writeAttribute("extensionPoint", mExtensionPoint);
+  if (!mAdditionalDeclarations.isEmpty())
+    writer.writeAttribute("additionalDecls", mAdditionalDeclarations);
+  if (!mAdditionalDefinitions.isEmpty())
+    writer.writeAttribute("additionalDefs", mAdditionalDefinitions);
+}
+
+void
+DeviserPlugin::writeElementsTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeElementsTo(writer);
+  
+  writeListWithName(mReferences, writer, "references");
+  writeListWithName(mAttributes, writer, "attributes");
+}
+
+void
+DeviserPlugin::writeTo(QXmlStreamWriter& writer) const
+{
+  writeElementsWithNameTo(writer, "plugin");
+}

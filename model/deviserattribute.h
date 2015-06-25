@@ -23,6 +23,9 @@ public:
     bool getAbstract() const { return mAbstract;}
     void setAbstract(bool isAbstract) { mAbstract = isAbstract; emit abstractChanged(); }
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
+
 signals:
     void xmlNameChanged();
     void typeChanged();

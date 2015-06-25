@@ -29,3 +29,28 @@ DeviserEnum::initializeFrom(const QDomElement& element)
   initializeListFrom(mValues, element, "enumValue");
 
 }
+
+void 
+DeviserEnum::writeAttributesTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeAttributesTo(writer);
+
+  if (!mName.isEmpty())
+    writer.writeAttribute("name", mName);
+
+}
+
+void 
+DeviserEnum::writeElementsTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeElementsTo(writer);
+
+  writeListWithName(mValues, writer, "enumValues");
+
+}
+
+void 
+DeviserEnum::writeTo(QXmlStreamWriter& writer) const
+{
+  writeElementsWithNameTo(writer, "enum");
+}

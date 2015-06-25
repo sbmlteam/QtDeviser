@@ -20,6 +20,10 @@ public:
     const QList<DeviserEnumValue*>& getValues() const { return mValues; }
     QList<DeviserEnumValue*>& getValues() { return mValues; }
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
+
 signals:
     void nameChanged(const QString& oldName, const QString& newName);
 

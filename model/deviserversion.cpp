@@ -45,7 +45,8 @@ void DeviserVersion::setParent(DeviserPackage* doc)
     setParentOn(mMappings, doc, this);
 }
 
-void DeviserVersion::initializeFrom(const QDomElement& element)
+void 
+DeviserVersion::initializeFrom(const QDomElement& element)
 {
   DeviserBase::initializeFrom(element);
 
@@ -59,6 +60,38 @@ void DeviserVersion::initializeFrom(const QDomElement& element)
   initializeListFrom(mMappings, element, "mapping");
 
 }
+
+void 
+DeviserVersion::writeTo(QXmlStreamWriter& writer) const
+{
+  writeElementsWithNameTo(writer, "pkgVersion");
+}
+
+void 
+DeviserVersion::writeAttributesTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeAttributesTo(writer);
+
+  if (mLevel != 0)
+    writer.writeAttribute("level", QString::number(mLevel));
+  if (mVersion != 0)
+    writer.writeAttribute("version", QString::number(mVersion));
+  if (mPkgVersion != 0)
+    writer.writeAttribute("pkg_version", QString::number(mPkgVersion));
+}
+
+void 
+DeviserVersion::writeElementsTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeElementsTo(writer);
+  
+  writeListWithName(mElements, writer, "elements");
+  writeListWithName(mPlugins, writer, "plugins");
+  writeListWithName(mEnums, writer, "enums");
+  writeListWithName(mMappings, writer, "mappings");
+
+}
+
 
 QString DeviserVersion::toString() const
 {

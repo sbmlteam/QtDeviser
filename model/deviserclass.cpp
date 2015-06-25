@@ -84,6 +84,62 @@ void DeviserClass::initializeFrom(const QDomElement& element)
     initializeListFrom(mConcretes, element, "concrete");
 }
 
+
+void 
+DeviserClass::writeAttributesTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeAttributesTo(writer);
+
+  if (!mName.isEmpty())
+    writer.writeAttribute("name", mName);
+  if (!mTypeCode.isEmpty())
+    writer.writeAttribute("typeCode", mTypeCode);
+
+  writer.writeAttribute("hasListOf", mHasListOf ? "true" : "false");
+  writer.writeAttribute("hasChildren", mHasChildren ? "true" : "false");
+  writer.writeAttribute("hasMath", mHasMath ? "true" : "false");
+  writer.writeAttribute("childrenOverwriteElementName", mChildrenOverwriteElementName ? "true" : "false");
+
+  if (mMinNumberChildren != 0)
+    writer.writeAttribute("minNumListOfChildren", QString::number(mMinNumberChildren));
+  if (mMaxNumberChildren!= 0)
+    writer.writeAttribute("maxNumListOfChildren", QString::number(mMaxNumberChildren));
+
+  if (!mBaseClass.isEmpty())
+    writer.writeAttribute("baseClass", mBaseClass);
+
+  writer.writeAttribute("abstract", mIsBaseClass ? "true" : "false");
+
+  if (!mElementName.isEmpty())
+    writer.writeAttribute("elementName", mElementName);
+  if (!mListOfName.isEmpty())
+    writer.writeAttribute("listOfName", mListOfName);
+  if (!mListOfClassName.isEmpty())
+    writer.writeAttribute("listOfClassName", mListOfClassName);
+  if (!mAdditionalDeclarations.isEmpty())
+    writer.writeAttribute("additionalDecls", mAdditionalDeclarations);
+  if (!mAdditionalDefinitions.isEmpty())
+    writer.writeAttribute("additionalDefs", mAdditionalDefinitions);
+  
+}
+
+void 
+DeviserClass::writeElementsTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeElementsTo(writer);
+  
+  writeListWithName(mAttributes, writer, "attributes");
+  writeListWithName(mListOfAttributes, writer, "listOfAttributes");
+  writeListWithName(mConcretes, writer, "concretes");
+  
+}
+
+void 
+DeviserClass::writeTo(QXmlStreamWriter& writer) const
+{
+  writeElementsWithNameTo(writer, "element");
+}
+
 DeviserAttribute*
 DeviserClass::createAttribute()
 {

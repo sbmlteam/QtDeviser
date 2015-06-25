@@ -62,6 +62,9 @@ public:
     DeviserListOfAttribute* createListOfAttribute();
     DeviserConcrete* createConcrete();
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
     void nameChanged(const QString& oldName, const QString& newName);

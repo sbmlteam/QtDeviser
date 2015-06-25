@@ -1,35 +1,59 @@
 #include "deviserattribute.h"
 
 DeviserAttribute::DeviserAttribute()
- : DeviserReferenceAttribute()
- , mXMLName()
- , mType()
- , mElement()
- , mRequired(false)
- , mAbstract(false)
+  : DeviserReferenceAttribute()
+  , mXMLName()
+  , mType()
+  , mElement()
+  , mRequired(false)
+  , mAbstract(false)
 {
 
 }
 
 DeviserAttribute::DeviserAttribute(const DeviserAttribute& other)
- : DeviserReferenceAttribute(other)
- , mXMLName(other.mXMLName)
- , mType(other.mType)
- , mElement(other.mElement)
- , mRequired(other.mRequired)
- , mAbstract(other.mAbstract)
+  : DeviserReferenceAttribute(other)
+  , mXMLName(other.mXMLName)
+  , mType(other.mType)
+  , mElement(other.mElement)
+  , mRequired(other.mRequired)
+  , mAbstract(other.mAbstract)
 {
 
 }
 
-void DeviserAttribute::initializeFrom(const QDomElement& element)
+void
+DeviserAttribute::initializeFrom(const QDomElement& element)
 {
   DeviserReferenceAttribute::initializeFrom(element);
 
+  mRequired = element.attribute("required").toLower() == "true";
   mType = element.attribute("type");
   mElement = element.attribute("element");
   mXMLName = element.attribute("xmlName");
-  mRequired = element.attribute("required").toLower() == "true";
   mAbstract = element.attribute("abstract").toLower() == "true";
 
+}
+
+void
+DeviserAttribute::writeAttributesTo(QXmlStreamWriter& writer) const
+{
+  DeviserReferenceAttribute::writeAttributesTo(writer);
+
+  writer.writeAttribute("required", mRequired ? "true" : "false");
+  if (!mType.isEmpty())
+    writer.writeAttribute("type", mType);
+  if (!mElement.isEmpty())
+    writer.writeAttribute("element", mElement);
+  if (!mXMLName.isEmpty())
+    writer.writeAttribute("xmlName", mXMLName);
+
+  writer.writeAttribute("abstract", mAbstract ? "true" : "false");
+
+}
+
+void
+DeviserAttribute::writeTo(QXmlStreamWriter& writer) const
+{
+  writeElementsWithNameTo(writer, "attribute");
 }

@@ -21,6 +21,9 @@ public:
     int getMaxNumChildren() const { return mMaxNumChildren;}
     void setMaxNumChildren(int maxNoChildren) { mMaxNumChildren = maxNoChildren; emit maxNoChildrenChanged();}
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
+
 signals:
 
     void nameChanged();

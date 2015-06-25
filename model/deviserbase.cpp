@@ -59,7 +59,7 @@ void DeviserBase::writeTo(QXmlStreamWriter& writer) const
 void DeviserBase::writeElementsWithNameTo(QXmlStreamWriter& writer, const QString& name) const
 {
     writer.writeStartElement(name);
-    writeTo(writer);
+    DeviserBase::writeTo(writer);
     writer.writeEndElement();
 }
 

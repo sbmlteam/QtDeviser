@@ -18,6 +18,9 @@ public:
     const QString& getPackage() const { return mPackage; }
     void setPackage(const QString& package) { mPackage = package; emit packageChanged(); }
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
+
 signals:
     void nameChanged();
     void packageChanged();

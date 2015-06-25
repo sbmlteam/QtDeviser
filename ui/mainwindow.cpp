@@ -60,57 +60,57 @@ MainWindow::~MainWindow()
 void
 MainWindow::showAbout()
 {
-  DialogAbout about;
+  DialogAbout about(this);
   about.exec();
 }
 
 void
 MainWindow::addClass()
 {
-  mCurrentElement =  getCurrentVersion()->createElement();
+  mCurrentElement = getCurrentVersion()->createElement();
   updateUI();
 }
 
 void
 MainWindow::addEnum()
 {
-  mCurrentElement =  getCurrentVersion()->createEnum();
+  mCurrentElement = getCurrentVersion()->createEnum();
   updateUI();
 }
 
 void
 MainWindow::addPlugin()
 {
-  mCurrentElement =  getCurrentVersion()->createPlugin();
+  mCurrentElement = getCurrentVersion()->createPlugin();
   updateUI();
 }
 
 void
 MainWindow::addVersion()
 {
-  DeviserVersion* version =  mModel->createVersion();
-  displayElement(version);
+  mCurrentElement = mModel->createVersion();
+  updateUI();
 }
 
 DeviserVersion*
 MainWindow::getCurrentVersion()
 {
-    if (mCurrentVersion != NULL)
-        return mCurrentVersion;
-
-    if (mModel == NULL)
-    {
-        mModel = new DeviserPackage();
-    }
-
-    if (mModel->getVersions().empty())
-    {
-        mModel->createVersion();
-    }
-
-    mCurrentVersion = mModel->getVersions()[0];
-
+  if (mCurrentVersion != NULL)
     return mCurrentVersion;
+
+  if (mModel == NULL)
+  {
+    mModel = new DeviserPackage();
+  }
+
+  if (mModel->getVersions().empty())
+  {
+    mModel->createVersion();
+  }
+
+  mCurrentVersion = mModel->getVersions()[0];
+
+  return mCurrentVersion;
 }
 
 void
@@ -128,7 +128,7 @@ MainWindow::fixErrors()
 void
 MainWindow::generate()
 {
-  DialogGenerate generate;
+  DialogGenerate generate(this);
   generate.exec();
 }
 
@@ -141,6 +141,7 @@ MainWindow::newModel()
   mModel = new DeviserPackage();
   mCurrentElement = mModel;
   mFileName = "";
+  setCurrentFile(mFileName);
   updateUI();
 
 }
@@ -267,34 +268,69 @@ void MainWindow::openFile(const QString& fileName)
   if (mModel != NULL)
     delete mModel;
 
+  mFileName = fileName;
   mModel = new DeviserPackage(fileName);
-  mCurrentElement = mModel;
+  mCurrentElement = mModel; 
+  setCurrentFile(mFileName);
   updateUI();
 
+}
+
+void
+MainWindow::setCurrentFile(const QString& fileName)
+{
+  mFileName = fileName;
+  setWindowModified(false);
+  QString shownName = fileName;
+  if (mFileName.isEmpty())
+    shownName = "untitled.xml";
+  setWindowFilePath(shownName);
 }
 
 void
 MainWindow::saveFile()
 {
   if (mModel == NULL) return;
+  if (mFileName.isEmpty())
+  {
+    saveFileAs();
+    return;
+  }
+
+  saveAsFile(mFileName);
 }
 
 void
 MainWindow::saveFileAs()
 {
   if (mModel == NULL) return;
+  QString oldDir;
+  if (!mFileName.isEmpty())
+  {
+    oldDir = QFileInfo(mFileName).dir().dirName();
+  }
+  QString fileName = QFileDialog::getSaveFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
+
+  if (!fileName.isEmpty())
+    saveAsFile(fileName);
+
 }
 
 void
-MainWindow::saveAsFile(QString)
+MainWindow::saveAsFile(const QString& name)
 {
   if (mModel == NULL) return;
+
+  mFileName = name;
+  mModel->writeTo(mFileName);
+  setCurrentFile(mFileName);
+
 }
 
 void
 MainWindow::showUML()
 {
-  DialogUML uml;
+  DialogUML uml(this);
   uml.exec();
 }
 
@@ -331,11 +367,11 @@ DeviserBase* MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
   QTreeWidgetItem* parentsParent = parent != NULL ? parent->parent() : NULL;
 
   mCurrentVersion = parentsParent != NULL ? mModel->getVersion(parentsParent->text(0)) :
-    mModel->getVersion(parent->text(0));
+                                            mModel->getVersion(parent->text(0));
   
   if (parent != NULL && parent->text(0) == "Classes")
   {
-    return mCurrentVersion->getElement(item->text(0));    
+    return mCurrentVersion->getElement(item->text(0));
   }
   
   if (parent != NULL && parent->text(0) == "Plugins")
@@ -357,7 +393,7 @@ void MainWindow::on_treeWidget_itemSelectionChanged()
   const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
   if (selectedItems.size() == 0) return;
 
-  foreach(QTreeWidgetItem* item, selectedItems) 
+  foreach(QTreeWidgetItem* item, selectedItems)
   {
     DeviserBase* devItem = getDeviserItemForTreeView(item);
     if (devItem != NULL)

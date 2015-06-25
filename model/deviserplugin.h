@@ -34,6 +34,10 @@ public:
     QList<DeviserReferenceAttribute*>& getReferences ()  { return mReferences;}
     QList<DeviserAttribute*>& getAttributes() { return mAttributes;}
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
+
 signals:
     void extensionPointChanged(const QString& oldName, const QString& newName);
     void typeCodeChanged();

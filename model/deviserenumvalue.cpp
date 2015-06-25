@@ -25,3 +25,19 @@ DeviserEnumValue::initializeFrom(const QDomElement& element)
     mValue = element.attribute("value");
 
 }
+
+void 
+DeviserEnumValue::writeAttributesTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeAttributesTo(writer);
+  if (!mName.isEmpty())
+    writer.writeAttribute("name", mName);
+  if (!mValue.isEmpty())
+    writer.writeAttribute("value", mValue);
+}
+
+void 
+DeviserEnumValue::writeTo(QXmlStreamWriter& writer) const
+{
+  writeElementsWithNameTo(writer, "enumValue");
+}

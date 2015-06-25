@@ -44,6 +44,9 @@ public:
     DeviserEnum* getEnum(const QString& name);
     DeviserEnum* createEnum();
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
     void levelChanged();

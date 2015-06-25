@@ -17,6 +17,8 @@ public:
     const QString& getValue() const { return mValue;}
     void setValue(const QString& value) { mValue = value; emit valueChanged(); }
 
+    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+    virtual void writeTo(QXmlStreamWriter& writer) const;
 signals:
     void nameChanged();
     void valueChanged();

@@ -13,7 +13,14 @@ DeviserListOfAttribute::DeviserListOfAttribute(const DeviserListOfAttribute& oth
 }
 
 
-void DeviserListOfAttribute::initializeFrom(const QDomElement& element)
+void 
+DeviserListOfAttribute::initializeFrom(const QDomElement& element)
 {
     DeviserAttribute::initializeFrom(element);
+}
+
+void 
+DeviserListOfAttribute::writeTo(QXmlStreamWriter& writer) const
+{
+  writeElementsWithNameTo(writer, "listOfAttribute");
 }

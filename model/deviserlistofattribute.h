@@ -11,6 +11,7 @@ public:
     DeviserListOfAttribute();
     DeviserListOfAttribute(const DeviserListOfAttribute& other);
     virtual void initializeFrom(const QDomElement& element);
+    virtual void writeTo(QXmlStreamWriter& writer) const;
 };
 
 #endif // DEVISERLISTOFATTRIBUTE_H
