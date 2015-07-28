@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     model/deviserversion.cpp \
     model/deviserplugin.cpp \
     model/deviserpackage.cpp \
-    model/deviserreferenceattribute.cpp
+    model/deviserreferenceattribute.cpp \
+    ui/attributesmodel.cpp
 
 HEADERS  += ui/mainwindow.h \
             ui/formdeviserpackage.h \
@@ -57,7 +58,8 @@ HEADERS  += ui/mainwindow.h \
     model/deviserversion.h \
     model/deviserplugin.h \
     model/deviserpackage.h \
-    model/deviserreferenceattribute.h
+    model/deviserreferenceattribute.h \
+    ui/attributesmodel.h
 
 FORMS    += ui/mainwindow.ui \
             ui/formdeviserpackage.ui \

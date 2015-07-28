@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setApplicationName("Deviser Edit");
-    a.setApplicationDisplayName("Deviser Edit");
+    //a.setApplicationDisplayName("Deviser Edit");
     MainWindow w;
 
     for (int i = 1; i < argc; ++i)

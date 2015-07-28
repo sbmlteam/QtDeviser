@@ -9,6 +9,8 @@ class FormDeviserClass;
 
 class QTableWidgetItem;
 class DeviserClass;
+class QSortFilterProxyModel;
+class AttributesModel;
 
 class FormDeviserClass : public QWidget
 {
@@ -49,6 +51,12 @@ public slots:
 private:
   Ui::FormDeviserClass *ui;
   DeviserClass* mElement;
+
+  AttributesModel* mpAttributes;
+  QSortFilterProxyModel* mpAttributesFilter;
+
+
+
 };
 
 #endif // FORMDEVISERCLASS_H

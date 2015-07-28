@@ -3,16 +3,21 @@
 
 #include <QFileDialog>
 #include <QTableWidgetItem>
+#include <QSortFilterProxyModel>
 
 #include <model/deviserclass.h>
 #include <model/deviserattribute.h>
 #include <model/deviserlistofattribute.h>
 #include <model/deviserconcrete.h>
 
-FormDeviserClass::FormDeviserClass(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::FormDeviserClass),
-    mElement(NULL)
+#include <ui/attributesmodel.h>
+
+FormDeviserClass::FormDeviserClass(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::FormDeviserClass)
+    , mElement(NULL)
+    , mpAttributes(NULL)
+    , mpAttributesFilter(NULL)
 {
     ui->setupUi(this);
 }
@@ -86,24 +91,29 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
 
         ui->chkIsBaseClass->setChecked(element->isBaseClass() || !element->getConcretes().empty() );
 
-        foreach(auto* attrib, element->getAttributes())
-        {
-            int index = ui->tblAttributes->rowCount();
-            ui->tblAttributes->insertRow(index);
-            ui->tblAttributes->setItem(index, 0, new QTableWidgetItem(attrib->getName()));
-            ui->tblAttributes->setItem(index, 1, new QTableWidgetItem(attrib->getType()));
-            ui->tblAttributes->setItem(index, 2, new QTableWidgetItem(attrib->getElement()));
-            //ui->tblAttributes->setCellWidget(index, 3, new QCheckBox());
-            auto* tempItem = new QTableWidgetItem(attrib->getRequired());
-            tempItem->setCheckState(attrib->getRequired() ? Qt::Checked : Qt::Unchecked);
-            ui->tblAttributes->setItem(index, 3, tempItem);
-            tempItem = new QTableWidgetItem(attrib->getAbstract());
-                        tempItem->setCheckState(attrib->getAbstract() ? Qt::Checked : Qt::Unchecked);
-            //ui->tblAttributes->setCellWidget(index, 4, new QCheckBox);
+        mpAttributesFilter = new QSortFilterProxyModel(this);
+        mpAttributes = new AttributesModel(this, element->getAttributes());
+        mpAttributesFilter->setSourceModel(mpAttributes);
+        ui->tblAttributes->setModel(mpAttributesFilter);
 
-            ui->tblAttributes->setItem(index, 4, tempItem);
-            ui->tblAttributes->setItem(index, 5, new QTableWidgetItem(attrib->getXMLName()));
-        }
+//        foreach(auto* attrib, element->getAttributes())
+//        {
+//            int index = ui->tblAttributes->rowCount();
+//            ui->tblAttributes->insertRow(index);
+//            ui->tblAttributes->setItem(index, 0, new QTableWidgetItem(attrib->getName()));
+//            ui->tblAttributes->setItem(index, 1, new QTableWidgetItem(attrib->getType()));
+//            ui->tblAttributes->setItem(index, 2, new QTableWidgetItem(attrib->getElement()));
+//            //ui->tblAttributes->setCellWidget(index, 3, new QCheckBox());
+//            auto* tempItem = new QTableWidgetItem(attrib->getRequired());
+//            tempItem->setCheckState(attrib->getRequired() ? Qt::Checked : Qt::Unchecked);
+//            ui->tblAttributes->setItem(index, 3, tempItem);
+//            tempItem = new QTableWidgetItem(attrib->getAbstract());
+//                        tempItem->setCheckState(attrib->getAbstract() ? Qt::Checked : Qt::Unchecked);
+//            //ui->tblAttributes->setCellWidget(index, 4, new QCheckBox);
+
+//            ui->tblAttributes->setItem(index, 4, tempItem);
+//            ui->tblAttributes->setItem(index, 5, new QTableWidgetItem(attrib->getXMLName()));
+//        }
 
         foreach(auto* attrib, element->getListOfAttributes())
         {
