@@ -298,43 +298,19 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tblAttributes">
-        <attribute name="horizontalHeaderStretchLastSection">
+       <widget class="QTableView" name="tblAttributes">
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderCascadingSectionResizes">
          <bool>true</bool>
         </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>23</number>
         </attribute>
-        <column>
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Element</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Required</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>isBaseClass</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>XML name</string>
-         </property>
-        </column>
        </widget>
       </item>
      </layout>
@@ -395,43 +371,16 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tblLoAttributes">
-        <attribute name="horizontalHeaderStretchLastSection">
+       <widget class="QTableView" name="tblLoAttributes">
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderCascadingSectionResizes">
          <bool>true</bool>
         </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>23</number>
         </attribute>
-        <column>
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Element</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Required</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>isBaseClass</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>XML name</string>
-         </property>
-        </column>
        </widget>
       </item>
      </layout>
@@ -492,39 +441,22 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tblInstantiations">
-        <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderStretchLastSection">
+       <widget class="QTableView" name="tblInstantiations">
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="horizontalHeaderHighlightSections">
          <bool>true</bool>
         </attribute>
         <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
+         <bool>true</bool>
         </attribute>
-        <column>
-         <property name="text">
-          <string>XML name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Element</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Min No. Children</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Max No. Children</string>
-         </property>
-        </column>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>23</number>
+        </attribute>
        </widget>
       </item>
      </layout>
@@ -922,54 +854,6 @@
     <hint type="sourcelabel">
      <x>733</x>
      <y>709</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>387</x>
-     <y>374</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tblAttributes</sender>
-   <signal>itemChanged(QTableWidgetItem*)</signal>
-   <receiver>FormDeviserClass</receiver>
-   <slot>attributeChanged(QTableWidgetItem*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>406</x>
-     <y>283</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>387</x>
-     <y>374</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tblLoAttributes</sender>
-   <signal>itemChanged(QTableWidgetItem*)</signal>
-   <receiver>FormDeviserClass</receiver>
-   <slot>listOfAttributeChanged(QTableWidgetItem*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>406</x>
-     <y>419</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>387</x>
-     <y>374</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tblInstantiations</sender>
-   <signal>itemChanged(QTableWidgetItem*)</signal>
-   <receiver>FormDeviserClass</receiver>
-   <slot>concreteChanged(QTableWidgetItem*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>406</x>
-     <y>555</y>
     </hint>
     <hint type="destinationlabel">
      <x>387</x>

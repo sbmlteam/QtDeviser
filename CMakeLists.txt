@@ -1,4 +1,4 @@
-####################################################################
+###################################################################
 #
 # CMake Build Script for QtDeviser
 #
@@ -69,7 +69,7 @@ set(EXTRA_INCLUDE "" CACHE STRING "List of include diretories." )
 
 if (EXTRA_FLAGS)
 foreach(${flag} ${EXTRA_FLAGS})
-	add_definitions(-D${flag})
+  add_definitions(-D${flag})
 endforeach()
 endif()
 
@@ -160,14 +160,14 @@ SET(DIRS)
 if (EXTRA_LIBS)
 foreach(${lib} ${EXTRA_LIBS})
   if (EXISTS ${lib})
-	get_filename_component(dir ${lib} PATH)	
-	SET(DIRS  ${DIRS} ${dir})
+  get_filename_component(dir ${lib} PATH)	
+  SET(DIRS  ${DIRS} ${dir})
   endif()
 endforeach()
 endif()
 if (NOT DIRS)
    if (EXISTS "${EXTRA_LIBS}")
-	get_filename_component(DIRS ${EXTRA_LIBS} PATH)
+  get_filename_component(DIRS ${EXTRA_LIBS} PATH)
    endif()
 endif()
 

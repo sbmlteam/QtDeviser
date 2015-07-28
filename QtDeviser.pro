@@ -35,6 +35,8 @@ SOURCES += main.cpp\
     model/deviserplugin.cpp \
     model/deviserpackage.cpp \
     model/deviserreferenceattribute.cpp \
+ui/loattributesmodel.cpp\
+ui/concretesmodel.cpp\
     ui/attributesmodel.cpp
 
 HEADERS  += ui/mainwindow.h \
@@ -59,6 +61,8 @@ HEADERS  += ui/mainwindow.h \
     model/deviserplugin.h \
     model/deviserpackage.h \
     model/deviserreferenceattribute.h \
+ui/loattributesmodel.h\
+ui/concretesmodel.h\
     ui/attributesmodel.h
 
 FORMS    += ui/mainwindow.ui \

@@ -1,10 +1,10 @@
-#include "attributesmodel.h"
+#include "loattributesmodel.h"
 
-#include <model/deviserattribute.h>
+#include <model/deviserlistofattribute.h>
 
-AttributesModel::AttributesModel(
+LoAttributesModel::LoAttributesModel(
     QObject * parent,
-    QList<DeviserAttribute*>* data)
+    QList<DeviserListOfAttribute*>* data)
   : QAbstractTableModel(parent)
   , mData(data)
 {
@@ -12,20 +12,20 @@ AttributesModel::AttributesModel(
 }
 
 int
-AttributesModel::rowCount(const QModelIndex &) const
+LoAttributesModel::rowCount(const QModelIndex &) const
 {
   return mData->count();
 }
 
 int
-AttributesModel::columnCount(const QModelIndex &) const
+LoAttributesModel::columnCount(const QModelIndex &) const
 {
   return 6;
 }
 
 
 Qt::ItemFlags
-AttributesModel::flags(const QModelIndex &index) const
+LoAttributesModel::flags(const QModelIndex &index) const
 {
   if (!index.isValid())
           return Qt::ItemIsEnabled;
@@ -33,10 +33,10 @@ AttributesModel::flags(const QModelIndex &index) const
 }
 
 QVariant
-AttributesModel::data(const QModelIndex &index, int role) const
+LoAttributesModel::data(const QModelIndex &index, int role) const
 {
   if (role != Qt::DisplayRole && role != Qt::EditRole) return QVariant();
-  const DeviserAttribute* attr = (*mData)[index.row()];
+  const DeviserListOfAttribute* attr = (*mData)[index.row()];
   switch(index.column())
   {
   case 0:
@@ -58,11 +58,11 @@ AttributesModel::data(const QModelIndex &index, int role) const
 }
 
 bool
-AttributesModel::setData(const QModelIndex &index,
+LoAttributesModel::setData(const QModelIndex &index,
                          const QVariant &value, int role /*= Qt::EditRole*/)
 {
   if (role != Qt::DisplayRole && role != Qt::EditRole) return false;
-  DeviserAttribute* attr = (*mData)[index.row()];
+  DeviserListOfAttribute* attr = (*mData)[index.row()];
   if (attr == NULL) return false;
 
   switch(index.column())
@@ -92,7 +92,7 @@ AttributesModel::setData(const QModelIndex &index,
 }
 
 QVariant
-AttributesModel::headerData(int section,
+LoAttributesModel::headerData(int section,
                             Qt::Orientation orientation,
                             int role) const
 {
@@ -120,37 +120,37 @@ AttributesModel::headerData(int section,
 
 }
 
-void AttributesModel::beginAdding()
+void LoAttributesModel::beginAdding()
 {
   beginInsertRows(QModelIndex(),mData->count(),mData->count());
 }
 
-void AttributesModel::endAdding()
+void LoAttributesModel::endAdding()
 {
   endInsertRows();
 }
 
 void
-AttributesModel::addAttribute(DeviserAttribute* attr)
+LoAttributesModel::addAttribute(DeviserListOfAttribute* attr)
 {
   beginInsertRows(QModelIndex(),mData->count(),mData->count());
   mData->append(attr);
   endInsertRows();
 }
 
-DeviserAttribute*
-AttributesModel::getAttribute(int row)
+DeviserListOfAttribute*
+LoAttributesModel::getAttribute(int row)
 {
   if (row < 0 || row >= mData->count())
     return NULL;
   return (*mData)[row];
 }
 
-DeviserAttribute*
-AttributesModel::removeAttribute(int row)
+DeviserListOfAttribute*
+LoAttributesModel::removeAttribute(int row)
 {
   beginRemoveRows(QModelIndex(),row,row);
-  DeviserAttribute* result = getAttribute(row);
+  DeviserListOfAttribute* result = getAttribute(row);
   mData->removeAt(row);
   endRemoveRows();
   return result;

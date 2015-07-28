@@ -1,5 +1,5 @@
-#ifndef ATTRIBUTESMODEL_H
-#define ATTRIBUTESMODEL_H
+#ifndef LIST_OF_ATTRIBUTESMODEL_H
+#define LIST_OF_ATTRIBUTESMODEL_H
 
 #include <QList>
 #include <QAbstractTableModel>
@@ -7,12 +7,12 @@
 #include <QVariant>
 
 class QObject;
-class DeviserAttribute;
+class DeviserListOfAttribute;
 
-class AttributesModel : public QAbstractTableModel
+class LoAttributesModel : public QAbstractTableModel
 {
 public:
-  AttributesModel(QObject * parent, QList<DeviserAttribute*>* data);
+  LoAttributesModel(QObject * parent, QList<DeviserListOfAttribute*>* data);
 
   virtual int rowCount(const QModelIndex &) const;
   virtual int columnCount(const QModelIndex &) const;
@@ -21,9 +21,9 @@ public:
   virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
   virtual Qt::ItemFlags flags(const QModelIndex &index) const;
 
-  void addAttribute(DeviserAttribute* attr);
-  DeviserAttribute* getAttribute(int row);
-  DeviserAttribute* removeAttribute(int row);
+  void addAttribute(DeviserListOfAttribute* attr);
+  DeviserListOfAttribute* getAttribute(int row);
+  DeviserListOfAttribute* removeAttribute(int row);
 
   void beginAdding();
   void endAdding();
@@ -31,8 +31,8 @@ public:
 
 protected:
 
-  QList<DeviserAttribute*>* mData;
+  QList<DeviserListOfAttribute*>* mData;
 
 };
 
-#endif // ATTRIBUTESMODEL_H
+#endif // LIST_OF_ATTRIBUTESMODEL_H

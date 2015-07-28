@@ -11,6 +11,8 @@ class QTableWidgetItem;
 class DeviserClass;
 class QSortFilterProxyModel;
 class AttributesModel;
+class LoAttributesModel;
+class ConcretesModel;
 
 class FormDeviserClass : public QWidget
 {
@@ -55,6 +57,11 @@ private:
   AttributesModel* mpAttributes;
   QSortFilterProxyModel* mpAttributesFilter;
 
+  LoAttributesModel* mpLoAttributes;
+  QSortFilterProxyModel* mpLoAttributesFilter;
+
+  ConcretesModel* mpConcretes;
+  QSortFilterProxyModel* mpConcretesFilter;
 
 
 };
