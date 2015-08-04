@@ -30,7 +30,7 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
   ui->txtCoreVersion->clear();
   ui->txtPackageVersion->clear();
 
-  ui->listWidget->clear();
+  ui->lstClasses->clear();
 
   if (version != NULL)
   {
@@ -40,7 +40,7 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
 
     foreach(DeviserClass* element, version->getElements())
     {
-      ui->listWidget->addItem(element->getName());
+      ui->lstClasses->addItem(element->getName());
     }
 
   }
@@ -52,13 +52,45 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
 void
 FormDeviserVersion::downPressed()
 {
+  if (mVersion == NULL || mbInitializing) return;
 
+  const QList<QListWidgetItem*>& selected = ui->lstClasses->selectedItems();
+  foreach(const QListWidgetItem* item, selected)
+  {
+    int row = ui->lstClasses->row(item);
+    if (row == ui->lstClasses->count()-1) continue;
+
+    QListWidgetItem* taken = ui->lstClasses->takeItem(row);
+    ui->lstClasses->insertItem(row + 1, taken);
+    DeviserClass* current =  mVersion->getElements().takeAt(row);
+    mVersion->getElements().insert(row + 1, current );
+
+    ui->lstClasses->setCurrentRow(row + 1);
+    break;
+
+  }
 }
 
 void
 FormDeviserVersion::upPressed()
 {
+  if (mVersion == NULL || mbInitializing) return;
 
+  const QList<QListWidgetItem*>& selected = ui->lstClasses->selectedItems();
+  foreach(const QListWidgetItem* item, selected)
+  {
+    int row = ui->lstClasses->row(item);
+    if (row  == 0) continue;
+
+    QListWidgetItem* taken = ui->lstClasses->takeItem(row);
+    ui->lstClasses->insertItem(row - 1, taken);
+    DeviserClass* current =  mVersion->getElements().takeAt(row);
+    mVersion->getElements().insert(row - 1, current );
+
+    ui->lstClasses->setCurrentRow(row - 1);
+    break;
+
+  }
 }
 
 void
