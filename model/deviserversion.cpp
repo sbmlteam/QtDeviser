@@ -230,7 +230,7 @@ DeviserVersion::createPlugin()
 DeviserEnum* DeviserVersion::getEnum(const QString& name)
 {
   if (mEnums.empty()) return NULL;
-  for (auto it = mEnums.begin(); it != mEnums.end(); ++it)
+  for (QList<DeviserEnum*>::const_iterator it = mEnums.begin(); it != mEnums.end(); ++it)
     if ((*it)->getName() == name)
       return *it;
   return NULL;
@@ -239,7 +239,7 @@ DeviserEnum* DeviserVersion::getEnum(const QString& name)
 DeviserPlugin* DeviserVersion::getPlugin(const QString& name)
 {
   if (mPlugins.empty()) return NULL;
-  for (auto it = mPlugins.begin(); it != mPlugins.end(); ++it)
+  for (QList<DeviserPlugin*>::const_iterator it = mPlugins.begin(); it != mPlugins.end(); ++it)
     if ((*it)->getExtensionPoint() == name)
       return *it;
   return NULL;
@@ -248,7 +248,7 @@ DeviserPlugin* DeviserVersion::getPlugin(const QString& name)
 DeviserClass* DeviserVersion::getElement(const QString& name)
 {
   if (mElements.empty()) return NULL;
-  for (auto it = mElements.begin(); it != mElements.end(); ++it)
+  for (QList<DeviserClass*>::const_iterator it = mElements.begin(); it != mElements.end(); ++it)
     if ((*it)->getName() == name)
       return *it;
   return NULL;

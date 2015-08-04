@@ -81,12 +81,12 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
                                               !plugin->getAdditionalDeclarations().isEmpty());
     ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
 
-    foreach(auto* element, plugin->getParentVersion()->getElements())
+    foreach(DeviserClass* element, plugin->getParentVersion()->getElements())
     {
       ui->lstDefinedClasses->addItem(element->getName());
     }
 
-    foreach(auto* element, plugin->getReferences())
+    foreach(DeviserReferenceAttribute* element, plugin->getReferences())
       ui->lstChildClasses->addItem(element->getName());
 
 

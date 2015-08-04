@@ -132,7 +132,7 @@ MainWindow::updateUI()
   QTreeWidgetItem* packageItem = new QTreeWidgetItem(ui->treeWidget);
   packageItem->setText(0, "Package");
 
-  foreach(auto& version, mModel->getVersions())
+  foreach(DeviserVersion* version, mModel->getVersions())
   {
     disconnect(version, SIGNAL(identityChanged(const QString&, const QString&)),
       this, SLOT(treeElementRenamed(QString, QString)));
@@ -150,7 +150,7 @@ MainWindow::updateUI()
     QTreeWidgetItem* classItem = new QTreeWidgetItem(versionItem);
     classItem->setText(0, "Classes");
 
-    foreach(auto* element, version->getElements())
+    foreach(DeviserClass* element, version->getElements())
     {
       disconnect(element, SIGNAL(nameChanged(const QString&, const QString&)),
         this, SLOT(treeElementRenamed(QString, QString)));
@@ -164,7 +164,7 @@ MainWindow::updateUI()
     QTreeWidgetItem* pluginItem = new QTreeWidgetItem(versionItem);
     pluginItem->setText(0, "Plugins");
 
-    foreach(auto* element, version->getPlugins())
+    foreach(DeviserPlugin* element, version->getPlugins())
     {
       disconnect(element, SIGNAL(extensionPointChanged(const QString&, const QString&)),
         this, SLOT(treeElementRenamed(QString, QString)));
@@ -178,7 +178,7 @@ MainWindow::updateUI()
     QTreeWidgetItem* enumItem = new QTreeWidgetItem(versionItem);
     enumItem->setText(0, "Enums");
 
-    foreach(auto* element, version->getEnums())
+    foreach(DeviserEnum* element, version->getEnums())
     {
       disconnect(element, SIGNAL(nameChanged(const QString&, const QString&)),
         this, SLOT(treeElementRenamed(QString, QString)));

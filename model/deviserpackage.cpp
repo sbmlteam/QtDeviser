@@ -300,7 +300,7 @@ DeviserVersion*
 DeviserPackage::getVersion(const QString& name)
 {
   if (mVersions.empty()) return NULL;
-  for (auto it = mVersions.begin(); it != mVersions.end(); ++it)
+  for (QList<DeviserVersion*>::const_iterator it = mVersions.begin(); it != mVersions.end(); ++it)
     if ((*it)->toString() == name)
       return *it;
   return NULL;

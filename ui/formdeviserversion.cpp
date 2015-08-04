@@ -38,7 +38,7 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
     ui->txtCoreVersion->setText(QString::number(version->getVersion()));
     ui->txtPackageVersion->setText(QString::number(version->getPkgVersion()));
 
-    foreach(auto* element, version->getElements())
+    foreach(DeviserClass* element, version->getElements())
     {
       ui->listWidget->addItem(element->getName());
     }
