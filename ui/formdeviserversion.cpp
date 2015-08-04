@@ -4,17 +4,18 @@
 #include <model/deviserversion.h>
 #include <model/deviserclass.h>
 
-FormDeviserVersion::FormDeviserVersion(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::FormDeviserVersion),
-    mVersion(NULL)
+FormDeviserVersion::FormDeviserVersion(QWidget *parent)
+  : QWidget(parent)
+  , ui(new Ui::FormDeviserVersion)
+  , mVersion(NULL)
+  , mbInitializing(true)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 FormDeviserVersion::~FormDeviserVersion()
 {
-    delete ui;
+  delete ui;
 }
 
 
@@ -22,6 +23,8 @@ void
 FormDeviserVersion::initializeFrom(DeviserVersion* version)
 {
   mVersion = version;
+
+  mbInitializing = true;
 
   ui->txtCoreLevel->clear();
   ui->txtCoreVersion->clear();
@@ -37,12 +40,12 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
 
     foreach(auto* element, version->getElements())
     {
-     ui->listWidget->addItem(element->getName());
+      ui->listWidget->addItem(element->getName());
     }
 
   }
 
-
+  mbInitializing = false;
 }
 
 
@@ -59,20 +62,24 @@ FormDeviserVersion::upPressed()
 }
 
 void
-FormDeviserVersion::levelChanged(const QString&)
+FormDeviserVersion::levelChanged(const QString& level)
 {
-
+  if (mVersion == NULL || mbInitializing) return;
+  mVersion->setLevel(level.toInt());
 }
 
 void
-FormDeviserVersion::versionChanged(const QString&)
+FormDeviserVersion::versionChanged(const QString& version)
 {
-
+  if (mVersion == NULL || mbInitializing) return;
+  mVersion->setVersion(version.toInt());
 }
 
 void
-FormDeviserVersion::pkgVersionChanged(const QString&)
+FormDeviserVersion::pkgVersionChanged(const QString& version)
 {
+  if (mVersion == NULL || mbInitializing) return;
+  mVersion->setPkgVersion(version.toInt());
 
 }
 

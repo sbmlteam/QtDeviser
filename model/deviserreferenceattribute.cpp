@@ -17,8 +17,21 @@ DeviserReferenceAttribute::DeviserReferenceAttribute(const DeviserReferenceAttri
 void
 DeviserReferenceAttribute::initializeFrom(const QDomElement& element)
 {
-    DeviserBase::initializeFrom(element);
-    mName = element.attribute("name");
+  DeviserBase::initializeFrom(element);
+  mName = element.attribute("name");
+}
+
+const QString &
+DeviserReferenceAttribute::getName() const
+{
+  return mName;
+}
+
+void
+DeviserReferenceAttribute::setName(const QString &name)
+{
+  mName = name;
+  emit nameChanged();
 }
 
 void 

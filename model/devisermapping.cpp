@@ -1,17 +1,17 @@
 #include "devisermapping.h"
 
 DeviserMapping::DeviserMapping()
- : DeviserBase()
- , mName()
- , mPackage()
+  : DeviserBase()
+  , mName()
+  , mPackage()
 {
 
 }
 
 DeviserMapping::DeviserMapping(const DeviserMapping& other)
- : DeviserBase(other)
- , mName(other.mName)
- , mPackage(other.mPackage)
+  : DeviserBase(other)
+  , mName(other.mName)
+  , mPackage(other.mPackage)
 {
 
 }
@@ -19,10 +19,36 @@ DeviserMapping::DeviserMapping(const DeviserMapping& other)
 void
 DeviserMapping::initializeFrom(const QDomElement& element)
 {
-    DeviserBase::initializeFrom(element);
+  DeviserBase::initializeFrom(element);
 
-    mName = element.attribute("name");
-    mPackage = element.attribute("package");
+  mName = element.attribute("name");
+  mPackage = element.attribute("package");
+}
+
+const QString &
+DeviserMapping::getName() const
+{
+  return mName;
+}
+
+void
+DeviserMapping::setName(const QString &name)
+{
+  mName = name;
+  emit nameChanged();
+}
+
+const QString &
+DeviserMapping::getPackage() const
+{
+  return mPackage;
+}
+
+void
+DeviserMapping::setPackage(const QString &package)
+{
+  mPackage = package;
+  emit packageChanged();
 }
 
 void 

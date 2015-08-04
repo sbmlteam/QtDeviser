@@ -1,39 +1,47 @@
 #include "formdevisermapping.h"
 #include "ui_formdevisermapping.h"
 
+#include <QSortFilterProxyModel>
+
 #include <model/deviserversion.h>
 #include <model/devisermapping.h>
 
-FormDeviserMapping::FormDeviserMapping(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::FormDeviserMapping)
+#include <ui/mappingmodel.h>
+
+FormDeviserMapping::FormDeviserMapping(QWidget *parent) 
+  : QWidget(parent)
+  , ui(new Ui::FormDeviserMapping)
+  , mVersion(NULL)
+  , mpMappings(NULL)
+  , mpMappingFilter(NULL)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 FormDeviserMapping::~FormDeviserMapping()
 {
-    delete ui;
+  delete ui;
 }
 
 void
 FormDeviserMapping::initializeFrom(DeviserVersion* version)
 {
-    mVersion = version;
+  mVersion = version;
 
-    while(ui->tableWidget->rowCount() > 0)
-        ui->tableWidget->removeRow(0);
 
-    if (mVersion != NULL)
-    {
-        foreach(auto* mapping, version->getMappings())
-        {
-            int index = ui->tableWidget->rowCount();
-            ui->tableWidget->insertRow(index);
+  ui->tblMappings->setModel(NULL);
+  if (mpMappingFilter != NULL)
+    mpMappingFilter->deleteLater();
+  if (mpMappings != NULL)
+    mpMappings->deleteLater();
 
-            ui->tableWidget->setItem(index, 0, new QTableWidgetItem(mapping->getName()));
-            ui->tableWidget->setItem(index, 1, new QTableWidgetItem(mapping->getPackage()));
-        }
-    }
+  if (mVersion != NULL)
+  {
+    mpMappingFilter = new QSortFilterProxyModel(this);
+    mpMappings = new MappingModel(this, &version->getMappings());
+    mpMappingFilter->setSourceModel(mpMappings);
+    ui->tblMappings->setModel(mpMappingFilter);
+
+  }
 
 }

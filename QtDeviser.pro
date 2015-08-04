@@ -23,21 +23,25 @@ SOURCES += main.cpp\
            ui/dialogabout.cpp \
            ui/dialoguml.cpp \
            ui/dialoggenerate.cpp \
-    model/deviserbase.cpp \
-    model/deviserattribute.cpp \
-    model/deviserclass.cpp \
-    model/deviserconcrete.cpp \
-    model/deviserenum.cpp \
-    model/deviserenumvalue.cpp \
-    model/deviserlistofattribute.cpp \
-    model/devisermapping.cpp \
-    model/deviserversion.cpp \
-    model/deviserplugin.cpp \
-    model/deviserpackage.cpp \
-    model/deviserreferenceattribute.cpp \
-ui/loattributesmodel.cpp\
-ui/concretesmodel.cpp\
-    ui/attributesmodel.cpp
+           ui/loattributesmodel.cpp\
+           ui/concretesmodel.cpp\
+           ui/enummodel.cpp\
+           ui/mappingmodel.cpp\
+           ui/attributesmodel.cpp \
+           model/deviserbase.cpp \
+           model/deviserattribute.cpp \
+           model/deviserclass.cpp \
+           model/deviserconcrete.cpp \
+           model/deviserenum.cpp \
+           model/deviserenumvalue.cpp \
+           model/deviserlistofattribute.cpp \
+           model/devisermapping.cpp \
+           model/deviserversion.cpp \
+           model/deviserplugin.cpp \
+           model/deviserpackage.cpp \
+           model/deviserreferenceattribute.cpp \
+    util.cpp
+
 
 HEADERS  += ui/mainwindow.h \
             ui/formdeviserpackage.h \
@@ -49,21 +53,25 @@ HEADERS  += ui/mainwindow.h \
             ui/dialogabout.h \
             ui/dialoguml.h \
             ui/dialoggenerate.h \
-    model/deviserbase.h \
-    model/deviserattribute.h \
-    model/deviserclass.h \
-    model/deviserconcrete.h \
-    model/deviserenum.h \
-    model/deviserenumvalue.h \
-    model/deviserlistofattribute.h \
-    model/devisermapping.h \
-    model/deviserversion.h \
-    model/deviserplugin.h \
-    model/deviserpackage.h \
-    model/deviserreferenceattribute.h \
-ui/loattributesmodel.h\
-ui/concretesmodel.h\
-    ui/attributesmodel.h
+            ui/loattributesmodel.h\
+            ui/concretesmodel.h \
+            ui/enummodel.h \
+            ui/mappingmodel.h\
+            ui/attributesmodel.h \
+            model/deviserbase.h \
+            model/deviserattribute.h \
+            model/deviserclass.h \
+            model/deviserconcrete.h \
+            model/deviserenum.h \
+            model/deviserenumvalue.h \
+            model/deviserlistofattribute.h \
+            model/devisermapping.h \
+            model/deviserversion.h \
+            model/deviserplugin.h \
+            model/deviserpackage.h \
+            model/deviserreferenceattribute.h \
+    util.h
+            
 
 FORMS    += ui/mainwindow.ui \
             ui/formdeviserpackage.ui \
@@ -84,5 +92,13 @@ win32 {
 }
 
 DISTFILES += \
-    deviser.rc
+    deviser.rc \
+    VERSION.txt \
+    readme.md \
+    license.txt \
+    CMakeLists.txt \
+    ChooseQtVersion.cmake \
+    CoreClasses.txt \
+    main.tex
+    
 

@@ -16,7 +16,7 @@ DeviserListOfAttribute::DeviserListOfAttribute(const DeviserListOfAttribute& oth
 void 
 DeviserListOfAttribute::initializeFrom(const QDomElement& element)
 {
-    DeviserAttribute::initializeFrom(element);
+  DeviserAttribute::initializeFrom(element);
 }
 
 void 

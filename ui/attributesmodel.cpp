@@ -28,8 +28,8 @@ Qt::ItemFlags
 AttributesModel::flags(const QModelIndex &index) const
 {
   if (!index.isValid())
-          return Qt::ItemIsEnabled;
-      return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+    return Qt::ItemIsEnabled;
+  return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
 QVariant
@@ -153,6 +153,7 @@ AttributesModel::removeAttribute(int row)
   DeviserAttribute* result = getAttribute(row);
   mData->removeAt(row);
   endRemoveRows();
+  result->deleteLater();
   return result;
 }
 

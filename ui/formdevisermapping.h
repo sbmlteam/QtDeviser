@@ -8,20 +8,25 @@ class FormDeviserMapping;
 }
 
 class DeviserVersion;
+class MappingModel;
+class QSortFilterProxyModel;
 
 class FormDeviserMapping : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit FormDeviserMapping(QWidget *parent = 0);
-    ~FormDeviserMapping();
+  explicit FormDeviserMapping(QWidget *parent = 0);
+  ~FormDeviserMapping();
 
-    void initializeFrom(DeviserVersion* version);
+  void initializeFrom(DeviserVersion* version);
 
 private:
-    Ui::FormDeviserMapping *ui;
-    DeviserVersion* mVersion;
+  Ui::FormDeviserMapping *ui;
+  DeviserVersion* mVersion;
+
+  MappingModel* mpMappings;
+  QSortFilterProxyModel* mpMappingFilter;
 };
 
 #endif // FORMDEVISERMAPPING_H

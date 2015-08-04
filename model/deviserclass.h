@@ -9,106 +9,106 @@ class DeviserConcrete;
 
 class DeviserClass : public DeviserBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserClass();
-    DeviserClass(const DeviserClass& other);
-    virtual void initializeFrom(const QDomElement& element);
+  DeviserClass();
+  DeviserClass(const DeviserClass& other);
+  virtual void initializeFrom(const QDomElement& element);
 
-    const QString& getName() const { return mName; }
-    void setName(const QString& name) { QString oldName = mName; mName = name; emit nameChanged(oldName, name); }
-    const QString& getBaseClass() const { return mBaseClass; }
-    void setBaseClass(const QString& baseClass) { mBaseClass = baseClass; emit baseClassChanged(); }
-    const QString& getTypeCode() const { return mTypeCode; }
-    void setTypeCode(const QString& typeCode) { mTypeCode = typeCode; emit typeCodeChanged(); }
+  const QString& getName() const;
+  void setName(const QString& name);
+  const QString& getBaseClass() const;
+  void setBaseClass(const QString& baseClass);
+  const QString& getTypeCode() const;
+  void setTypeCode(const QString& typeCode);
 
-    bool hasListOf() const { return mHasListOf; }
-    void setHasListOf(bool hasListOf) { mHasListOf = hasListOf; emit hasListOfChanged(); }
-    bool hasMath() const { return mHasMath; }
-    void setHasMath(bool hasMath) { mHasMath = hasMath; emit hasMathChanged(); }
-    bool hasChildren() const { return mHasChildren; }
-    void setHasChildren(bool hasChildren) { mHasChildren = hasChildren; emit hasChildrenChanged(); }
-    bool isBaseClass() const { return mIsBaseClass; }
-    void setIsBaseClass(bool isBaseClass) { mIsBaseClass = isBaseClass; emit isBaseClassChanged(); }
+  bool hasListOf() const;
+  void setHasListOf(bool hasListOf);
+  bool hasMath() const;
+  void setHasMath(bool hasMath);
+  bool hasChildren() const;
+  void setHasChildren(bool hasChildren);
+  bool isBaseClass() const;
+  void setIsBaseClass(bool isBaseClass);
 
-    const QString& getElementName() const { return mElementName; }
-    void setElementName(const QString& elementName) { mElementName = elementName; emit elementNameChanged(); }
-    const QString& getListOfName() const { return mListOfName; }
-    void setListOfName(const QString& listOfName) { mListOfName = listOfName; emit listOfNameChanged(); }
-    const QString& getListOfClassName() const { return mListOfClassName; }
-    void setListOfClassName(const QString& listOfClassName) { mListOfClassName = listOfClassName; emit listOfClassNameChanged(); }
+  const QString& getElementName() const;
+  void setElementName(const QString& elementName);
+  const QString& getListOfName() const;
+  void setListOfName(const QString& listOfName);
+  const QString& getListOfClassName() const;
+  void setListOfClassName(const QString& listOfClassName);
 
-    bool getChildrenOverwriteElementName() const { return mChildrenOverwriteElementName; }
+  bool getChildrenOverwriteElementName() const;
 
-    const QString& getAdditionalDeclarations() const { return mAdditionalDeclarations; }
-    void setAdditionalDeclarations(const QString& additionalDeclarations) { mAdditionalDeclarations = additionalDeclarations; emit additionalDeclarationsChanged();}
-    const QString& getAdditionalDefinitions() const { return mAdditionalDefinitions; }
-    void setAdditionalDefinitions(const QString& additionalDefinitions) { mAdditionalDefinitions = additionalDefinitions; emit additionalDefinitionsChanged();}
+  const QString& getAdditionalDeclarations() const;
+  void setAdditionalDeclarations(const QString& additionalDeclarations);
+  const QString& getAdditionalDefinitions() const;
+  void setAdditionalDefinitions(const QString& additionalDefinitions);
 
-    int getMinNumberChildren() const { return mMinNumberChildren; }
-    void setMinNumberChildren(int minNoChildren) { mMinNumberChildren = minNoChildren; emit minNoChildrenChanged();}
-    int getMaxNumberChildren() const { return mMaxNumberChildren; }
-    void setMaxNumberChildren(int maxNoChildren) { mMaxNumberChildren = maxNoChildren; emit maxNoChildrenChanged();}
+  int getMinNumberChildren() const;
+  void setMinNumberChildren(int minNoChildren);
+  int getMaxNumberChildren() const;
+  void setMaxNumberChildren(int maxNoChildren);
 
-    const QList<DeviserAttribute*>& getAttributes() const { return mAttributes;}
-    const QList<DeviserListOfAttribute*>& getListOfAttributes() const { return mListOfAttributes; }
-    const QList<DeviserConcrete*>& getConcretes() const { return mConcretes; }
-    QList<DeviserAttribute*>& getAttributes()  { return mAttributes;}
-    QList<DeviserListOfAttribute*>& getListOfAttributes()  { return mListOfAttributes; }
-    QList<DeviserConcrete*>& getConcretes()  { return mConcretes; }
+  const QList<DeviserAttribute*>& getAttributes() const;
+  const QList<DeviserListOfAttribute*>& getListOfAttributes() const;
+  const QList<DeviserConcrete*>& getConcretes() const;
+  QList<DeviserAttribute*>& getAttributes();
+  QList<DeviserListOfAttribute*>& getListOfAttributes();
+  QList<DeviserConcrete*>& getConcretes();
 
-    DeviserAttribute* createAttribute();
-    DeviserListOfAttribute* createListOfAttribute();
-    DeviserConcrete* createConcrete();
+  DeviserAttribute* createAttribute();
+  DeviserListOfAttribute* createListOfAttribute();
+  DeviserConcrete* createConcrete();
 
-    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
-    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+  virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
-    void nameChanged(const QString& oldName, const QString& newName);
-    void baseClassChanged();
-    void typeCodeChanged();
-    void hasListOfChanged();
-    void hasMathChanged();
-    void hasChildrenChanged();
-    void isBaseClassChanged();
-    void elementNameChanged();
-    void listOfNameChanged();
-    void listOfClassNameChanged();
-    void additionalDeclarationsChanged();
-    void additionalDefinitionsChanged();
-    void minNoChildrenChanged();
-    void maxNoChildrenChanged();
+  void nameChanged(const QString& oldName, const QString& newName);
+  void baseClassChanged();
+  void typeCodeChanged();
+  void hasListOfChanged();
+  void hasMathChanged();
+  void hasChildrenChanged();
+  void isBaseClassChanged();
+  void elementNameChanged();
+  void listOfNameChanged();
+  void listOfClassNameChanged();
+  void additionalDeclarationsChanged();
+  void additionalDefinitionsChanged();
+  void minNoChildrenChanged();
+  void maxNoChildrenChanged();
 
 
 
 protected:
-    QString mName;
-    QString mBaseClass;
-    QString mTypeCode;
+  QString mName;
+  QString mBaseClass;
+  QString mTypeCode;
 
-    bool mHasListOf;
-    bool mHasMath;
-    bool mHasChildren;
-    bool mIsBaseClass;
+  bool mHasListOf;
+  bool mHasMath;
+  bool mHasChildren;
+  bool mIsBaseClass;
 
-    QString mElementName;
-    QString mListOfName;
-    QString mListOfClassName;
+  QString mElementName;
+  QString mListOfName;
+  QString mListOfClassName;
 
-    bool mChildrenOverwriteElementName;
+  bool mChildrenOverwriteElementName;
 
-    QString mAdditionalDeclarations;
-    QString mAdditionalDefinitions;
+  QString mAdditionalDeclarations;
+  QString mAdditionalDefinitions;
 
-    int mMinNumberChildren;
-    int mMaxNumberChildren;
+  int mMinNumberChildren;
+  int mMaxNumberChildren;
 
-    QList<DeviserAttribute*> mAttributes;
-    QList<DeviserListOfAttribute*> mListOfAttributes;
-    QList<DeviserConcrete*> mConcretes;
+  QList<DeviserAttribute*> mAttributes;
+  QList<DeviserListOfAttribute*> mListOfAttributes;
+  QList<DeviserConcrete*> mConcretes;
 };
 
 #endif // DEVISERCLASS_H

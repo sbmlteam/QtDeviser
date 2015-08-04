@@ -11,24 +11,26 @@ class DeviserVersion;
 
 class FormDeviserVersion : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit FormDeviserVersion(QWidget *parent = 0);
-    ~FormDeviserVersion();
+  explicit FormDeviserVersion(QWidget *parent = 0);
+  ~FormDeviserVersion();
 
-    void initializeFrom(DeviserVersion* version);
+  void initializeFrom(DeviserVersion* version);
 
 public slots:
-    void downPressed();
-    void upPressed();
-    void levelChanged(const QString&);
-    void versionChanged(const QString&);
-    void pkgVersionChanged(const QString&);
+  void downPressed();
+  void upPressed();
+  void levelChanged(const QString&);
+  void versionChanged(const QString&);
+  void pkgVersionChanged(const QString&);
 
 private:
-    Ui::FormDeviserVersion *ui;
-    DeviserVersion* mVersion;
+  Ui::FormDeviserVersion *ui;
+  DeviserVersion* mVersion;
+
+  bool mbInitializing;
 };
 
 

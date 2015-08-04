@@ -5,13 +5,13 @@
 
 class DeviserListOfAttribute : public DeviserAttribute
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserListOfAttribute();
-    DeviserListOfAttribute(const DeviserListOfAttribute& other);
-    virtual void initializeFrom(const QDomElement& element);
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  DeviserListOfAttribute();
+  DeviserListOfAttribute(const DeviserListOfAttribute& other);
+  virtual void initializeFrom(const QDomElement& element);
+  virtual void writeTo(QXmlStreamWriter& writer) const;
 };
 
 #endif // DEVISERLISTOFATTRIBUTE_H

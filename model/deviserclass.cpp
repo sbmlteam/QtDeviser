@@ -59,29 +59,258 @@ DeviserClass::DeviserClass(const DeviserClass& other)
 
 void DeviserClass::initializeFrom(const QDomElement& element)
 {
-    DeviserBase::initializeFrom(element);
+  DeviserBase::initializeFrom(element);
 
-    mName = element.attribute("name");
-    mBaseClass = element.attribute("baseClass");
+  mName = element.attribute("name");
+  mBaseClass = element.attribute("baseClass");
 
-    mTypeCode = element.attribute("typeCode");
-    mHasListOf = element.attribute("hasListOf").toLower() == "true";
-    mHasChildren = element.attribute("hasChildren").toLower() == "true";
-    mHasMath = element.attribute("hasMath").toLower() == "true";
-    mIsBaseClass = element.attribute("abstract").toLower() == "true";
-    mMinNumberChildren = element.attribute("minNumListOfChildren").toInt();
-    mMaxNumberChildren = element.attribute("maxNumListOfChildren").toInt();
-    mChildrenOverwriteElementName = element.attribute("childrenOverwriteElementName").toLower()== "true";
-    mElementName = element.attribute("elementName");
-    mListOfName = element.attribute("listOfName");
-    mListOfClassName = element.attribute("listOfClassName");
+  mTypeCode = element.attribute("typeCode");
+  mHasListOf = element.attribute("hasListOf").toLower() == "true";
+  mHasChildren = element.attribute("hasChildren").toLower() == "true";
+  mHasMath = element.attribute("hasMath").toLower() == "true";
+  mIsBaseClass = element.attribute("abstract").toLower() == "true";
+  mMinNumberChildren = element.attribute("minNumListOfChildren").toInt();
+  mMaxNumberChildren = element.attribute("maxNumListOfChildren").toInt();
+  mChildrenOverwriteElementName = element.attribute("childrenOverwriteElementName").toLower()== "true";
+  mElementName = element.attribute("elementName");
+  mListOfName = element.attribute("listOfName");
+  mListOfClassName = element.attribute("listOfClassName");
 
-    mAdditionalDeclarations = element.attribute("additionalDecls");
-    mAdditionalDefinitions = element.attribute("additionalDefs");
+  mAdditionalDeclarations = element.attribute("additionalDecls");
+  mAdditionalDefinitions = element.attribute("additionalDefs");
 
-    initializeListFrom(mAttributes, element, "attribute");
-    initializeListFrom(mListOfAttributes, element, "listOfAttribute");
-    initializeListFrom(mConcretes, element, "concrete");
+  initializeListFrom(mAttributes, element, "attribute");
+  initializeListFrom(mListOfAttributes, element, "listOfAttribute");
+  initializeListFrom(mConcretes, element, "concrete");
+}
+
+const QString &
+DeviserClass::getName() const
+{
+  return mName;
+}
+
+void
+DeviserClass::setName(const QString &name)
+{
+  if (name == mName) return;
+
+  QString oldName = mName;
+  mName = name;
+
+  if (!name.isEmpty())
+  emit nameChanged(oldName, name);
+}
+
+const QString &
+DeviserClass::getBaseClass() const
+{
+  return mBaseClass;
+}
+
+void
+DeviserClass::setBaseClass(const QString &baseClass)
+{
+  mBaseClass = baseClass;
+  emit baseClassChanged();
+}
+
+const QString &
+DeviserClass::getTypeCode() const
+{
+  return mTypeCode;
+}
+
+void
+DeviserClass::setTypeCode(const QString &typeCode)
+{
+  mTypeCode = typeCode;
+  emit typeCodeChanged();
+}
+
+bool
+DeviserClass::hasListOf() const
+{
+  return mHasListOf;
+}
+
+void
+DeviserClass::setHasListOf(bool hasListOf)
+{
+  mHasListOf = hasListOf;
+  emit hasListOfChanged();
+}
+
+bool
+DeviserClass::hasMath() const
+{
+  return mHasMath;
+}
+
+void
+DeviserClass::setHasMath(bool hasMath)
+{
+  mHasMath = hasMath;
+  emit hasMathChanged();
+}
+
+bool
+DeviserClass::hasChildren() const
+{
+  return mHasChildren;
+}
+
+void
+DeviserClass::setHasChildren(bool hasChildren)
+{
+  mHasChildren = hasChildren;
+  emit hasChildrenChanged();
+}
+
+bool
+DeviserClass::isBaseClass() const
+{
+  return mIsBaseClass;
+}
+
+void
+DeviserClass::setIsBaseClass(bool isBaseClass)
+{
+  mIsBaseClass = isBaseClass;
+  emit isBaseClassChanged();
+}
+
+const QString &
+DeviserClass::getElementName() const
+{
+  return mElementName;
+}
+
+void
+DeviserClass::setElementName(const QString &elementName)
+{
+  mElementName = elementName;
+  emit elementNameChanged();
+}
+
+const QString &
+DeviserClass::getListOfName() const
+{
+  return mListOfName;
+}
+
+void
+DeviserClass::setListOfName(const QString &listOfName)
+{
+  mListOfName = listOfName;
+  emit listOfNameChanged();
+}
+
+const QString &
+DeviserClass::getListOfClassName() const
+{
+  return mListOfClassName;
+}
+
+void
+DeviserClass::setListOfClassName(const QString &listOfClassName)
+{
+  mListOfClassName = listOfClassName;
+  emit listOfClassNameChanged();
+}
+
+bool
+DeviserClass::getChildrenOverwriteElementName() const
+{
+  return mChildrenOverwriteElementName;
+}
+
+const QString &
+DeviserClass::getAdditionalDeclarations() const
+{
+  return mAdditionalDeclarations;
+}
+
+void
+DeviserClass::setAdditionalDeclarations(const QString &additionalDeclarations)
+{
+  mAdditionalDeclarations = additionalDeclarations;
+  emit additionalDeclarationsChanged();
+}
+
+const QString &
+DeviserClass::getAdditionalDefinitions() const
+{
+  return mAdditionalDefinitions;
+}
+
+void
+DeviserClass::setAdditionalDefinitions(const QString &additionalDefinitions)
+{
+  mAdditionalDefinitions = additionalDefinitions;
+  emit additionalDefinitionsChanged();
+}
+
+int
+DeviserClass::getMinNumberChildren() const
+{
+  return mMinNumberChildren;
+}
+
+void
+DeviserClass::setMinNumberChildren(int minNoChildren)
+{
+  mMinNumberChildren = minNoChildren;
+  emit minNoChildrenChanged();
+}
+
+int
+DeviserClass::getMaxNumberChildren() const
+{
+  return mMaxNumberChildren;
+}
+
+void
+DeviserClass::setMaxNumberChildren(int maxNoChildren)
+{
+  mMaxNumberChildren = maxNoChildren;
+  emit maxNoChildrenChanged();
+}
+
+const QList<DeviserAttribute *> &
+DeviserClass::getAttributes() const
+{
+  return mAttributes;
+}
+
+const QList<DeviserListOfAttribute *> &
+DeviserClass::getListOfAttributes() const
+{
+  return mListOfAttributes;
+}
+
+const QList<DeviserConcrete *> &
+DeviserClass::getConcretes() const
+{
+  return mConcretes;
+}
+
+QList<DeviserAttribute *> &
+DeviserClass::getAttributes()
+{
+  return mAttributes;
+}
+
+QList<DeviserListOfAttribute *> &
+DeviserClass::getListOfAttributes()
+{
+  return mListOfAttributes;
+}
+
+QList<DeviserConcrete *> &
+DeviserClass::getConcretes()
+{
+  return mConcretes;
 }
 
 
@@ -153,20 +382,20 @@ DeviserClass::createAttribute()
 DeviserListOfAttribute*
 DeviserClass::createListOfAttribute()
 {
-    DeviserListOfAttribute *result = new DeviserListOfAttribute();
-    result->setName(QString("loattribute_%1").arg(mListOfAttributes.size()));
-    mListOfAttributes.append(result);
-    setParent(mPackage);
-    return result;
+  DeviserListOfAttribute *result = new DeviserListOfAttribute();
+  result->setName(QString("loattribute_%1").arg(mListOfAttributes.size()));
+  mListOfAttributes.append(result);
+  setParent(mPackage);
+  return result;
 }
 
 DeviserConcrete*
 DeviserClass::createConcrete()
 {
-    DeviserConcrete *result = new DeviserConcrete();
-    result->setName(QString("concrete_%1").arg(mConcretes.size()));
-    mConcretes.append(result);
-    setParent(mPackage);
-    return result;
+  DeviserConcrete *result = new DeviserConcrete();
+  result->setName(QString("concrete_%1").arg(mConcretes.size()));
+  mConcretes.append(result);
+  setParent(mPackage);
+  return result;
 }
 

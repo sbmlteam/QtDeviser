@@ -19,11 +19,37 @@ DeviserEnumValue::DeviserEnumValue(const DeviserEnumValue& other)
 void
 DeviserEnumValue::initializeFrom(const QDomElement& element)
 {
-    DeviserBase::initializeFrom(element);
+  DeviserBase::initializeFrom(element);
 
-    mName = element.attribute("name");
-    mValue = element.attribute("value");
+  mName = element.attribute("name");
+  mValue = element.attribute("value");
 
+}
+
+const QString &
+DeviserEnumValue::getName() const
+{
+  return mName;
+}
+
+void
+DeviserEnumValue::setName(const QString &name)
+{
+  mName = name;
+  emit nameChanged();
+}
+
+const QString &
+DeviserEnumValue::getValue() const
+{
+  return mValue;
+}
+
+void
+DeviserEnumValue::setValue(const QString &value)
+{
+  mValue = value;
+  emit valueChanged();
 }
 
 void 

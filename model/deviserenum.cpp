@@ -30,6 +30,46 @@ DeviserEnum::initializeFrom(const QDomElement& element)
 
 }
 
+const QString &
+DeviserEnum::getName() const
+{
+  return mName;
+}
+
+void
+DeviserEnum::setName(const QString &name)
+{
+  if (name == mName) return;
+
+  QString oldName(mName);
+  mName = name;
+
+  if (!name.isEmpty())
+  emit nameChanged(oldName, name);
+}
+
+const QList<DeviserEnumValue *> &
+DeviserEnum::getValues() const
+{
+  return mValues;
+}
+
+QList<DeviserEnumValue *> &
+DeviserEnum::getValues()
+{
+  return mValues;
+}
+
+DeviserEnumValue*
+DeviserEnum::createValue()
+{
+  DeviserEnumValue *result = new DeviserEnumValue();
+  result->setName(QString("value_%1").arg(mValues.size()));
+  mValues.append(result);
+  setParent(mPackage);
+  return result;
+}
+
 void 
 DeviserEnum::writeAttributesTo(QXmlStreamWriter& writer) const
 {

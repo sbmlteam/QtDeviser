@@ -64,33 +64,6 @@ MainWindow::showAbout()
   about.exec();
 }
 
-void
-MainWindow::addClass()
-{
-  mCurrentElement = getCurrentVersion()->createElement();
-  updateUI();
-}
-
-void
-MainWindow::addEnum()
-{
-  mCurrentElement = getCurrentVersion()->createEnum();
-  updateUI();
-}
-
-void
-MainWindow::addPlugin()
-{
-  mCurrentElement = getCurrentVersion()->createPlugin();
-  updateUI();
-}
-
-void
-MainWindow::addVersion()
-{
-  mCurrentElement = mModel->createVersion();
-  updateUI();
-}
 
 DeviserVersion*
 MainWindow::getCurrentVersion()
@@ -161,6 +134,12 @@ MainWindow::updateUI()
 
   foreach(auto& version, mModel->getVersions())
   {
+    disconnect(version, SIGNAL(identityChanged(const QString&, const QString&)),
+      this, SLOT(treeElementRenamed(QString, QString)));
+    connect(version, SIGNAL(identityChanged(const QString&, const QString&)),
+      this, SLOT(treeElementRenamed(QString, QString)));
+
+
     QTreeWidgetItem* versionItem = new QTreeWidgetItem(ui->treeWidget);
     versionItem->setText(0, version->toString());
     versionItem->setExpanded(true);
@@ -173,6 +152,11 @@ MainWindow::updateUI()
 
     foreach(auto* element, version->getElements())
     {
+      disconnect(element, SIGNAL(nameChanged(const QString&, const QString&)),
+        this, SLOT(treeElementRenamed(QString, QString)));
+      connect(element, SIGNAL(nameChanged(const QString&, const QString&)),
+        this, SLOT(treeElementRenamed(QString, QString)));
+
       QTreeWidgetItem* currentItem = new QTreeWidgetItem(classItem);
       currentItem->setText(0, element->getName());
     }
@@ -182,6 +166,11 @@ MainWindow::updateUI()
 
     foreach(auto* element, version->getPlugins())
     {
+      disconnect(element, SIGNAL(extensionPointChanged(const QString&, const QString&)),
+        this, SLOT(treeElementRenamed(QString, QString)));
+      connect(element, SIGNAL(extensionPointChanged(const QString&, const QString&)),
+        this, SLOT(treeElementRenamed(QString, QString)));
+
       QTreeWidgetItem* currentItem = new QTreeWidgetItem(pluginItem);
       currentItem->setText(0, element->getExtensionPoint());
     }
@@ -191,6 +180,11 @@ MainWindow::updateUI()
 
     foreach(auto* element, version->getEnums())
     {
+      disconnect(element, SIGNAL(nameChanged(const QString&, const QString&)),
+        this, SLOT(treeElementRenamed(QString, QString)));
+      connect(element, SIGNAL(nameChanged(const QString&, const QString&)),
+        this, SLOT(treeElementRenamed(QString, QString)));
+
       QTreeWidgetItem* currentItem = new QTreeWidgetItem(enumItem);
       currentItem->setText(0, element->getName());
     }
@@ -203,6 +197,52 @@ MainWindow::updateUI()
 
   blockSignals(false);
 
+}
+
+void
+MainWindow::addClass()
+{
+  mCurrentElement = getCurrentVersion()->createElement();
+  connect(mCurrentElement, SIGNAL(nameChanged(const QString&, const QString&)),
+          this, SLOT(treeElementRenamed(QString,QString)));
+  updateUI();
+}
+
+void
+MainWindow::addEnum()
+{
+  mCurrentElement = getCurrentVersion()->createEnum();
+  connect(mCurrentElement, SIGNAL(nameChanged(const QString&, const QString&)),
+          this, SLOT(treeElementRenamed(QString,QString)));
+  updateUI();
+}
+
+void
+MainWindow::addPlugin()
+{
+  mCurrentElement = getCurrentVersion()->createPlugin();
+  connect(mCurrentElement, SIGNAL(extensionPointChanged(const QString&, const QString&)),
+          this, SLOT(treeElementRenamed(QString,QString)));
+  updateUI();
+}
+
+void
+MainWindow::addVersion()
+{
+  mCurrentElement = mModel->createVersion();
+  connect(mCurrentElement, SIGNAL(identityChanged(const QString&, const QString&)),
+          this, SLOT(treeElementRenamed(QString,QString)));
+  updateUI();
+}
+
+void
+MainWindow::treeElementRenamed(const QString& oldId, const QString& newId)
+{
+  QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(oldId, Qt::MatchExactly | Qt::MatchRecursive);
+  foreach(QTreeWidgetItem* item, items)
+  {
+    item->setText(0, newId);
+  }
 }
 
 void
@@ -259,8 +299,6 @@ MainWindow::openFile()
   if (!fileName.isEmpty())
     openFile(fileName);
 
-
-
 }
 
 void MainWindow::openFile(const QString& fileName)
@@ -270,7 +308,7 @@ void MainWindow::openFile(const QString& fileName)
 
   mFileName = fileName;
   mModel = new DeviserPackage(fileName);
-  mCurrentElement = mModel; 
+  mCurrentElement = mModel;
   setCurrentFile(mFileName);
   updateUI();
 

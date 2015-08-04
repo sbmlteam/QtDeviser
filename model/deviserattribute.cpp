@@ -35,6 +35,71 @@ DeviserAttribute::initializeFrom(const QDomElement& element)
 
 }
 
+const QString &
+DeviserAttribute::getXMLName() const
+{
+  return mXMLName;
+}
+
+void
+DeviserAttribute::setXMLName(const QString &name)
+{
+  mXMLName = name;
+  emit xmlNameChanged();
+}
+
+const QString &
+DeviserAttribute::getType() const
+{
+  return mType;
+}
+
+void
+DeviserAttribute::setType(const QString &type)
+{
+  mType = type;
+  emit typeChanged();
+}
+
+const QString &
+DeviserAttribute::getElement() const
+{
+  return mElement;
+}
+
+void
+DeviserAttribute::setElement(const QString &element)
+{
+  mElement = element;
+  emit elementChanged();
+}
+
+bool
+DeviserAttribute::getRequired() const
+{
+  return mRequired;
+}
+
+void
+DeviserAttribute::setRequired(bool isRequired)
+{
+  mRequired = isRequired;
+  emit requiredChanged();
+}
+
+bool
+DeviserAttribute::getAbstract() const
+{
+  return mAbstract;
+}
+
+void
+DeviserAttribute::setAbstract(bool isAbstract)
+{
+  mAbstract = isAbstract;
+  emit abstractChanged();
+}
+
 void
 DeviserAttribute::writeAttributesTo(QXmlStreamWriter& writer) const
 {

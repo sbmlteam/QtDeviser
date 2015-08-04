@@ -5,24 +5,25 @@
 
 #include <model/deviserpackage.h>
 
-FormDeviserPackage::FormDeviserPackage(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::FormDeviserPackage), 
-    mPackage(NULL)
+FormDeviserPackage::FormDeviserPackage(QWidget *parent)
+  : QWidget(parent)
+  , ui(new Ui::FormDeviserPackage)
+  , mPackage(NULL)
+  , mbInitializing(true)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 FormDeviserPackage::~FormDeviserPackage()
 {
-    delete ui;
+  delete ui;
 }
 
 void FormDeviserPackage::initializeFrom(DeviserPackage* package)
 {
   mPackage = package;
 
-  blockSignals(true);
+  mbInitializing = true;
 
   ui->txtDeclaration->clear();
   ui->txtFullName->clear();
@@ -50,81 +51,81 @@ void FormDeviserPackage::initializeFrom(DeviserPackage* package)
 
   }
 
-  blockSignals(false);
+  mbInitializing = false;
 }
 
 void
 FormDeviserPackage::browseImplementation()
 {
-    if (mPackage == NULL) return;
-    QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, "C++ files (*.c, *.c++, *.cpp, *.cc, *.cxx);;All files (*.*)");
-    mPackage->setAdditionalDefinitions(fileName);
-    ui->txtImplementation->setText(fileName);
+  if (mPackage == NULL || mbInitializing) return;
+  QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, "C++ files (*.c, *.c++, *.cpp, *.cc, *.cxx);;All files (*.*)");
+  mPackage->setAdditionalDefinitions(fileName);
+  ui->txtImplementation->setText(fileName);
 }
 
 void
 FormDeviserPackage::browseDeclaration()
 {
-    if (mPackage == NULL) return;
-    QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, "Header files (*.h, *.h++, *.hpp, *.hh, *.hxx);;All files (*.*)");
-    mPackage->setAdditionalDeclarations(fileName);
-    ui->txtDeclaration->setText(fileName);
+  if (mPackage == NULL || mbInitializing) return;
+  QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, "Header files (*.h, *.h++, *.hpp, *.hh, *.hxx);;All files (*.*)");
+  mPackage->setAdditionalDeclarations(fileName);
+  ui->txtDeclaration->setText(fileName);
 }
 
 void
 FormDeviserPackage::additionalCodeStateChanged(int)
 {
-    ui->groupBox->setVisible(ui->chkRequiresAdditionalCode->isChecked());
+  ui->groupBox->setVisible(ui->chkRequiresAdditionalCode->isChecked());
 }
 
 void
 FormDeviserPackage::requiredStateChanged(int)
 {
-    if (mPackage == NULL) return;
-    mPackage->setRequired(ui->chkRequired->isChecked());
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setRequired(ui->chkRequired->isChecked());
 }
 
 void
 FormDeviserPackage::offsetChanged(const QString&)
 {
-   if (mPackage == NULL) return;
-   mPackage->setOffset(ui->txtOffset->text().toInt());
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setOffset(ui->txtOffset->text().toInt());
 }
 
 void
 FormDeviserPackage::numberChanged(const QString&)
 {
-    if (mPackage == NULL) return;
-    mPackage->setStartNumber(ui->txtNumber->text().toInt());
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setStartNumber(ui->txtNumber->text().toInt());
 }
 
 void
 FormDeviserPackage::nameChanged(const QString&)
 {
-    if (mPackage == NULL) return;
-    mPackage->setName(ui->txtName->text());
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setName(ui->txtName->text());
 }
 
 void
 FormDeviserPackage::implementationChanged(const QString&)
 {
-    if (mPackage == NULL) return;
-    mPackage->setAdditionalDefinitions(ui->txtImplementation->text());
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setAdditionalDefinitions(ui->txtImplementation->text());
 
 }
 
 void
 FormDeviserPackage::fullNameChanged(const QString&)
 {
-    if (mPackage == NULL) return;
-    mPackage->setFullName(ui->txtFullName->text());
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setFullName(ui->txtFullName->text());
 
 }
 
 void
 FormDeviserPackage::declarationChanged(const QString&)
 {
-    if (mPackage == NULL) return;
-    mPackage->setAdditionalDeclarations(ui->txtDeclaration->text());
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setAdditionalDeclarations(ui->txtDeclaration->text());
 
 }

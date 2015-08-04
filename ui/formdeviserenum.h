@@ -8,23 +8,32 @@ class FormDeviserEnum;
 }
 
 class DeviserEnum;
+class EnumModel;
+class QSortFilterProxyModel;
+
 class FormDeviserEnum : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit FormDeviserEnum(QWidget *parent = 0);
-    ~FormDeviserEnum();
-    void initializeFrom(DeviserEnum* devEnum);
+  explicit FormDeviserEnum(QWidget *parent = 0);
+  ~FormDeviserEnum();
+  void initializeFrom(DeviserEnum* devEnum);
 
 public slots:
-    void addRow();
-    void deleteRow();
+  void addRow();
+  void deleteRow();
+  void nameChanged(const QString&);
 
 
 private:
-    Ui::FormDeviserEnum *ui;
-    DeviserEnum* mEnum;
+  Ui::FormDeviserEnum *ui;
+  DeviserEnum* mEnum;
+
+  EnumModel* mpValues;
+  QSortFilterProxyModel* mpValuesFilter;
+
+  bool mbInitializing;
 };
 
 #endif // FORMDEVISERENUM_H

@@ -1,52 +1,96 @@
 #include "formdeviserenum.h"
 #include "ui_formdeviserenum.h"
 
+#include <set>
+
+#include <QSortFilterProxyModel>
+
 #include <model/deviserenum.h>
 #include <model/deviserenumvalue.h>
 
-FormDeviserEnum::FormDeviserEnum(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::FormDeviserEnum)
+#include <ui/enummodel.h>
+
+FormDeviserEnum::FormDeviserEnum(QWidget *parent)
+  : QWidget(parent)
+  , ui(new Ui::FormDeviserEnum)
+  , mpValues(NULL)
+  , mpValuesFilter(NULL)
+  , mbInitializing(true)
+
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 FormDeviserEnum::~FormDeviserEnum()
 {
-    delete ui;
+  delete ui;
 }
 
 void
 FormDeviserEnum::initializeFrom(DeviserEnum* devEnum)
 {
-    mEnum = devEnum;
+  mEnum = devEnum;
 
-    ui->txtName->clear();
-    while(ui->tableWidget->rowCount() > 0)
-        ui->tableWidget->removeRow(0);
+  mbInitializing = true;
 
-    if (mEnum != NULL)
-    {
-        ui->txtName->setText(devEnum->getName());
+  ui->tblValues->setModel(NULL);
+  if (mpValuesFilter != NULL)
+    mpValuesFilter->deleteLater();
+  if (mpValues != NULL)
+    mpValues->deleteLater();
 
-        foreach(auto* enumValue, devEnum->getValues())
-        {
-            int index = ui->tableWidget->rowCount();
-            ui->tableWidget->insertRow(index);
-            ui->tableWidget->setItem(index, 0, new QTableWidgetItem(enumValue->getName()));
-            ui->tableWidget->setItem(index, 1, new QTableWidgetItem(enumValue->getValue()));
-        }
-    }
+
+  if (mEnum != NULL)
+  {
+    ui->txtName->setText(devEnum->getName());
+
+    mpValuesFilter = new QSortFilterProxyModel(this);
+    mpValues = new EnumModel(this, &mEnum->getValues());
+    mpValuesFilter->setSourceModel(mpValues);
+    ui->tblValues->setModel(mpValuesFilter);
+
+  }
+
+  mbInitializing = false;
 }
 
 void
 FormDeviserEnum::addRow()
 {
-  ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+  if (mEnum == NULL) return;
+
+  mpValues->beginAdding();
+  mEnum->createValue();
+  mpValues->endAdding();
+
 }
 
 void
 FormDeviserEnum::deleteRow()
 {
+  const QModelIndexList& list = ui->tblValues->selectionModel()->selectedIndexes();
+  if (list.count() == 0) return;
+
+  std::set<int> rows;
+
+  foreach(const QModelIndex& index, list)
+  {
+    rows.insert(index.row());
+  }
+
+  std::set<int>::reverse_iterator it = rows.rbegin();
+  while (it != rows.rend())
+  {
+    mpValues->removeAttribute(*it);
+    ++it;
+  }
+}
+
+void
+FormDeviserEnum::nameChanged(const QString& name)
+{
+  if (mEnum == NULL || mbInitializing) return;
+
+  mEnum->setName(name);
 
 }

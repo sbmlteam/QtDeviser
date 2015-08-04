@@ -14,229 +14,206 @@
 #include <ui/loattributesmodel.h>
 #include <ui/concretesmodel.h>
 
+#include <set>
+
 FormDeviserClass::FormDeviserClass(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::FormDeviserClass)
-    , mElement(NULL)
-    , mpAttributes(NULL)
-    , mpAttributesFilter(NULL)
-    , mpLoAttributes(NULL)
-    , mpLoAttributesFilter(NULL)
-    , mpConcretes(NULL)
-    , mpConcretesFilter(NULL)
+  : QWidget(parent)
+  , ui(new Ui::FormDeviserClass)
+  , mElement(NULL)
+  , mpAttributes(NULL)
+  , mpAttributesFilter(NULL)
+  , mpLoAttributes(NULL)
+  , mpLoAttributesFilter(NULL)
+  , mpConcretes(NULL)
+  , mpConcretesFilter(NULL)
+  , mbInitializing(true)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 FormDeviserClass::~FormDeviserClass()
 {
-    delete ui;
+  delete ui;
 }
 
 void
 FormDeviserClass::initializeFrom(DeviserClass* element)
 {
-    mElement = element;
+  mElement = element;
 
-    ui->txtBaseClass->clear();
-    ui->txtDeclaration->clear();
-    ui->txtImplementation->clear();
-    ui->txtListOfClassName->clear();
-    ui->txtListOfName->clear();
-    ui->txtMaxNumChildren->clear();
-    ui->txtMinNumChildren->clear();
-    ui->txtName->clear();
-    ui->txtTypeCode->clear();
-    ui->txtXMLElementName->clear();
+  mbInitializing = true;
 
-    ui->chkHasListOf->setChecked(false);
-    ui->ctrlListOf->setVisible(false);
-    ui->grpListOfAttributes->setVisible(false);
+  ui->txtBaseClass->clear();
+  ui->txtDeclaration->clear();
+  ui->txtImplementation->clear();
+  ui->txtListOfClassName->clear();
+  ui->txtListOfName->clear();
+  ui->txtMaxNumChildren->clear();
+  ui->txtMinNumChildren->clear();
+  ui->txtName->clear();
+  ui->txtTypeCode->clear();
+  ui->txtXMLElementName->clear();
 
-    ui->chkRequiresAdditionalCode->setChecked(false);
-    ui->grpAdditional->setVisible(false);
+  ui->chkHasListOf->setChecked(false);
+  ui->ctrlListOf->setVisible(false);
+  ui->grpListOfAttributes->setVisible(false);
 
-    ui->chkIsBaseClass->setChecked(false);
-    ui->grpInstantiations->setVisible(false);
+  ui->chkRequiresAdditionalCode->setChecked(false);
+  ui->grpAdditional->setVisible(false);
+
+  ui->chkIsBaseClass->setChecked(false);
+  ui->grpInstantiations->setVisible(false);
 
 
-    ui->tblAttributes->setModel(NULL);
-    if (mpAttributesFilter != NULL)
-      mpAttributesFilter->deleteLater();
-    if (mpAttributes != NULL)
-      mpAttributes->deleteLater();
+  ui->tblAttributes->setModel(NULL);
+  if (mpAttributesFilter != NULL)
+    mpAttributesFilter->deleteLater();
+  if (mpAttributes != NULL)
+    mpAttributes->deleteLater();
 
-    ui->tblLoAttributes->setModel(NULL);
-    if (mpLoAttributesFilter != NULL)
-      mpLoAttributesFilter->deleteLater();
-    if (mpLoAttributes != NULL)
-      mpLoAttributes->deleteLater();
+  ui->tblLoAttributes->setModel(NULL);
+  if (mpLoAttributesFilter != NULL)
+    mpLoAttributesFilter->deleteLater();
+  if (mpLoAttributes != NULL)
+    mpLoAttributes->deleteLater();
 
-    ui->tblInstantiations->setModel(NULL);
-    if (mpConcretesFilter != NULL)
-      mpConcretesFilter->deleteLater();
-    if (mpConcretes!= NULL)
-      mpConcretes->deleteLater();
+  ui->tblInstantiations->setModel(NULL);
+  if (mpConcretesFilter != NULL)
+    mpConcretesFilter->deleteLater();
+  if (mpConcretes!= NULL)
+    mpConcretes->deleteLater();
 
-    //while(ui->tblAttributes->rowCount() > 0)
-    //    ui->tblAttributes->removeRow(0);
 
-    //while(ui->tblLoAttributes->rowCount() > 0)
-    //    ui->tblLoAttributes->removeRow(0);
+  if (mElement != NULL)
+  {
+    ui->txtName->setText(element->getName());
+    ui->txtBaseClass->setText(element->getBaseClass());
+    ui->txtTypeCode->setText(element->getTypeCode());
+    ui->txtXMLElementName->setText(element->getElementName());
 
-    //while(ui->tblInstantiations->rowCount() > 0)
-    //    ui->tblInstantiations->removeRow(0);
+    ui->chkHasListOf->setChecked(
+          !element->getListOfAttributes().empty() ||
+          !element->getListOfName().isEmpty() ||
+          !element->getListOfClassName().isEmpty() ||
+          element->getMaxNumberChildren() != 0 ||
+        element->getMinNumberChildren() != 0
+        );
+    ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
+    ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
 
-    if (mElement != NULL)
-    {
-        ui->txtName->setText(element->getName());
-        ui->txtBaseClass->setText(element->getBaseClass());
-        ui->txtTypeCode->setText(element->getTypeCode());
-        ui->txtXMLElementName->setText(element->getElementName());
+    ui->txtListOfName->setText(element->getListOfName());
+    ui->txtListOfClassName->setText(element->getListOfClassName());
+    ui->txtMinNumChildren->setText(QString::number(element->getMinNumberChildren()));
+    ui->txtMaxNumChildren->setText(QString::number(element->getMaxNumberChildren()));
 
-        ui->chkHasListOf->setChecked(
-                    !element->getListOfAttributes().empty() ||
-                    !element->getListOfName().isEmpty() ||
-                    !element->getListOfClassName().isEmpty() ||
-                    element->getMaxNumberChildren() != 0 ||
-                    element->getMinNumberChildren() != 0
-                    );
-        ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
-        ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
+    ui->txtDeclaration->setText(element->getAdditionalDeclarations());
+    ui->txtImplementation->setText(element->getAdditionalDefinitions());
+    ui->chkRequiresAdditionalCode->setChecked(!element->getAdditionalDeclarations().isEmpty() || !element->getAdditionalDefinitions().isEmpty());
+    ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
 
-        ui->txtListOfName->setText(element->getListOfName());
-        ui->txtListOfClassName->setText(element->getListOfClassName());
-        ui->txtMinNumChildren->setText(QString::number(element->getMinNumberChildren()));
-        ui->txtMaxNumChildren->setText(QString::number(element->getMaxNumberChildren()));
+    ui->chkIsBaseClass->setChecked(element->isBaseClass() || !element->getConcretes().empty() );
 
-        ui->txtDeclaration->setText(element->getAdditionalDeclarations());
-        ui->txtImplementation->setText(element->getAdditionalDefinitions());
-        ui->chkRequiresAdditionalCode->setChecked(!element->getAdditionalDeclarations().isEmpty() || !element->getAdditionalDefinitions().isEmpty());
-        ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
+    mpAttributesFilter = new QSortFilterProxyModel(this);
+    mpAttributes = new AttributesModel(this, &element->getAttributes());
+    mpAttributesFilter->setSourceModel(mpAttributes);
+    ui->tblAttributes->setModel(mpAttributesFilter);
 
-        ui->chkIsBaseClass->setChecked(element->isBaseClass() || !element->getConcretes().empty() );
+    mpLoAttributesFilter = new QSortFilterProxyModel(this);
+    mpLoAttributes = new LoAttributesModel(this, &element->getListOfAttributes());
+    mpLoAttributesFilter->setSourceModel(mpLoAttributes);
+    ui->tblLoAttributes->setModel(mpLoAttributesFilter);
 
-        mpAttributesFilter = new QSortFilterProxyModel(this);
-        mpAttributes = new AttributesModel(this, &element->getAttributes());
-        mpAttributesFilter->setSourceModel(mpAttributes);
-        ui->tblAttributes->setModel(mpAttributesFilter);
+    mpConcretesFilter = new QSortFilterProxyModel(this);
+    mpConcretes = new ConcretesModel(this, &element->getConcretes());
+    mpConcretesFilter->setSourceModel(mpConcretes);
+    ui->tblInstantiations->setModel(mpConcretesFilter);
 
-//        foreach(auto* attrib, element->getAttributes())
-//        {
-//            int index = ui->tblAttributes->rowCount();
-//            ui->tblAttributes->insertRow(index);
-//            ui->tblAttributes->setItem(index, 0, new QTableWidgetItem(attrib->getName()));
-//            ui->tblAttributes->setItem(index, 1, new QTableWidgetItem(attrib->getType()));
-//            ui->tblAttributes->setItem(index, 2, new QTableWidgetItem(attrib->getElement()));
-//            //ui->tblAttributes->setCellWidget(index, 3, new QCheckBox());
-//            auto* tempItem = new QTableWidgetItem(attrib->getRequired());
-//            tempItem->setCheckState(attrib->getRequired() ? Qt::Checked : Qt::Unchecked);
-//            ui->tblAttributes->setItem(index, 3, tempItem);
-//            tempItem = new QTableWidgetItem(attrib->getAbstract());
-//                        tempItem->setCheckState(attrib->getAbstract() ? Qt::Checked : Qt::Unchecked);
-//            //ui->tblAttributes->setCellWidget(index, 4, new QCheckBox);
+  }
 
-//            ui->tblAttributes->setItem(index, 4, tempItem);
-//            ui->tblAttributes->setItem(index, 5, new QTableWidgetItem(attrib->getXMLName()));
-//        }
-
-        mpLoAttributesFilter = new QSortFilterProxyModel(this);
-        mpLoAttributes = new LoAttributesModel(this, &element->getListOfAttributes());
-        mpLoAttributesFilter->setSourceModel(mpLoAttributes);
-        ui->tblLoAttributes->setModel(mpLoAttributesFilter);
-
-//        foreach(auto* attrib, element->getListOfAttributes())
-//        {
-//            int index = ui->tblLoAttributes->rowCount();
-//            ui->tblLoAttributes->insertRow(index);
-//            ui->tblLoAttributes->setItem(index, 0, new QTableWidgetItem(attrib->getName()));
-//            ui->tblLoAttributes->setItem(index, 1, new QTableWidgetItem(attrib->getType()));
-//            ui->tblLoAttributes->setItem(index, 2, new QTableWidgetItem(attrib->getElement()));
-//            auto* tempItem = new QTableWidgetItem(attrib->getRequired());
-//            tempItem->setCheckState(attrib->getRequired() ? Qt::Checked : Qt::Unchecked);
-//            ui->tblLoAttributes->setItem(index, 3, tempItem);
-//
-//            //ui->tblLoAttributes->setCellWidget(index, 3, new QCheckBox);
-//            //ui->tblLoAttributes->setItem(index, 3, new QTableWidgetItem(attrib->getRequired()));
-//
-//            tempItem = new QTableWidgetItem(attrib->getAbstract());
-//                        tempItem->setCheckState(attrib->getAbstract() ? Qt::Checked : Qt::Unchecked);
-//            ui->tblLoAttributes->setItem(index, 4, tempItem);
-//            //ui->tblLoAttributes->setCellWidget(index, 4, new QCheckBox);
-//            ui->tblLoAttributes->setItem(index, 4, new QTableWidgetItem(attrib->getAbstract()));
-//            ui->tblLoAttributes->setItem(index, 5, new QTableWidgetItem(attrib->getXMLName()));
-//        }
-
-        mpConcretesFilter = new QSortFilterProxyModel(this);
-        mpConcretes = new ConcretesModel(this, &element->getConcretes());
-        mpConcretesFilter->setSourceModel(mpConcretes);
-        ui->tblInstantiations->setModel(mpConcretesFilter);
-
-//        foreach(auto* concrete, element->getConcretes())
-//        {
-//            int index = ui->tblInstantiations->rowCount();
-//            ui->tblInstantiations->insertRow(index);
-//            ui->tblInstantiations->setItem(index, 0, new QTableWidgetItem(concrete->getName()));
-//            ui->tblInstantiations->setItem(index, 1, new QTableWidgetItem(concrete->getElement()));
-//            ui->tblInstantiations->setItem(index, 2, new QTableWidgetItem(concrete->getMinNumChildren()));
-//            ui->tblInstantiations->setItem(index, 3, new QTableWidgetItem(concrete->getMaxNumChildren()));
-//        }
-
-    }    
-}
-
-void
-FormDeviserClass::concreteChanged(QTableWidgetItem*)
-{
-
-}
-
-void
-FormDeviserClass::listOfAttributeChanged(QTableWidgetItem*)
-{
-
-}
-
-void
-FormDeviserClass::attributeChanged(QTableWidgetItem*)
-{
-
+  mbInitializing = false;
 }
 
 void
 FormDeviserClass::browseDefinitionClick()
-{
-    if (mElement == NULL) return;
-    QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, "C++ files (*.c, *.c++, *.cpp, *.cc, *.cxx);;All files (*.*)");
-    mElement->setAdditionalDefinitions(fileName);
-    ui->txtImplementation->setText(fileName);
+{  
+  if (mElement == NULL) return;
+  QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, "C++ files (*.c, *.c++, *.cpp, *.cc, *.cxx);;All files (*.*)");
+  mElement->setAdditionalDefinitions(fileName);
+  ui->txtImplementation->setText(fileName);
 }
 
 void
 FormDeviserClass::browseDeclarationClick()
 {
-    if (mElement == NULL) return;
-    QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, "Header files (*.h, *.h++, *.hpp, *.hh, *.hxx);;All files (*.*)");
-    mElement->setAdditionalDeclarations(fileName);
-    ui->txtDeclaration->setText(fileName);
+  if (mElement == NULL) return;
+  QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, "Header files (*.h, *.h++, *.hpp, *.hh, *.hxx);;All files (*.*)");
+  mElement->setAdditionalDeclarations(fileName);
+  ui->txtDeclaration->setText(fileName);
 }
 
 void
 FormDeviserClass::delConcrete()
 {
+  const QModelIndexList& list = ui->tblInstantiations->selectionModel()->selectedIndexes();
+  if (list.count() == 0) return;
+
+  std::set<int> rows;
+
+  foreach(const QModelIndex& index, list)
+  {
+    rows.insert(index.row());
+  }
+
+  std::set<int>::reverse_iterator it = rows.rbegin();
+  while (it != rows.rend())
+  {
+    mpConcretes->removeAttribute(*it);
+    ++it;
+  }
 
 }
 
 void
 FormDeviserClass::delListOfAttribute()
 {
+  const QModelIndexList& list = ui->tblLoAttributes->selectionModel()->selectedIndexes();
+  if (list.count() == 0) return;
+
+  std::set<int> rows;
+
+  foreach(const QModelIndex& index, list)
+  {
+    rows.insert(index.row());
+  }
+
+  std::set<int>::reverse_iterator it = rows.rbegin();
+  while (it != rows.rend())
+  {
+    mpLoAttributes->removeAttribute(*it);
+    ++it;
+  }
 
 }
 
 void
 FormDeviserClass::delAttribute()
 {
+  const QModelIndexList& list = ui->tblAttributes->selectionModel()->selectedIndexes();
+  if (list.count() == 0) return;
 
+  std::set<int> rows;
+
+  foreach(const QModelIndex& index, list)
+  {
+    rows.insert(index.row());
+  }
+
+  std::set<int>::reverse_iterator it = rows.rbegin();
+  while (it != rows.rend())
+  {
+    mpAttributes->removeAttribute(*it);
+    ++it;
+  }
 }
 
 void
@@ -247,26 +224,6 @@ FormDeviserClass::addListOfAttribute()
   mpLoAttributes->beginAdding();
   mElement->createListOfAttribute();
   mpLoAttributes->endAdding();
-
-//int index = ui->tblLoAttributes->rowCount();
-//ui->tblLoAttributes->insertRow(index);
-
-//ui->tblLoAttributes->setItem(index, 0, new QTableWidgetItem(attrib->getName()));
-//ui->tblLoAttributes->setItem(index, 1, new QTableWidgetItem(attrib->getType()));
-//ui->tblLoAttributes->setItem(index, 2, new QTableWidgetItem(attrib->getElement()));
-
-//auto* tempItem = new QTableWidgetItem(attrib->getRequired());
-//tempItem->setCheckState(attrib->getRequired() ? Qt::Checked : Qt::Unchecked);
-//ui->tblLoAttributes->setItem(index, 3, tempItem);
-//tempItem = new QTableWidgetItem(attrib->getAbstract());
-//            tempItem->setCheckState(attrib->getAbstract() ? Qt::Checked : Qt::Unchecked);
-
-//ui->tblLoAttributes->setItem(index, 4, tempItem);
-//ui->tblLoAttributes->setItem(index, 5, new QTableWidgetItem(attrib->getXMLName()));
-
-
-//ui->tblLoAttributes->setFocus();
-//ui->tblLoAttributes->setCurrentCell(index, 0);
 }
 
 void
@@ -275,147 +232,115 @@ FormDeviserClass::addConcrete()
   if (mElement == NULL) return;
 
   mpConcretes->beginAdding();
-  //DeviserConcrete * concrete =
-      mElement->createConcrete();
+  mElement->createConcrete();
   mpConcretes->endAdding();
-//  int index = ui->tblInstantiations->rowCount();
-//  ui->tblInstantiations->insertRow(index);
-//  ui->tblInstantiations->setItem(index, 0, new QTableWidgetItem(concrete->getName()));
-//  ui->tblInstantiations->setItem(index, 1, new QTableWidgetItem(concrete->getElement()));
-//  ui->tblInstantiations->setItem(index, 2, new QTableWidgetItem(concrete->getMinNumChildren()));
-//  ui->tblInstantiations->setItem(index, 3, new QTableWidgetItem(concrete->getMaxNumChildren()));
 
-//ui->tblInstantiations->setFocus();
-//ui->tblInstantiations->setCurrentCell(index, 0);
 }
 
 void
 FormDeviserClass::addAttribute()
 {
-    if (mElement == NULL) return;
+  if (mElement == NULL) return;
 
-    mpAttributes->beginAdding();
-    //DeviserAttribute * attrib =
-        mElement->createAttribute();
-    mpAttributes->endAdding();
-    //mpAttributes->addAttribute(attrib);
-
-  //int index = ui->tblAttributes->rowCount();
-  //ui->tblAttributes->insertRow(index);
-  //
-  //ui->tblAttributes->setItem(index, 0, new QTableWidgetItem(attrib->getName()));
-  //ui->tblAttributes->setItem(index, 1, new QTableWidgetItem(attrib->getType()));
-  //ui->tblAttributes->setItem(index, 2, new QTableWidgetItem(attrib->getElement()));
-  //
-  //auto* tempItem = new QTableWidgetItem(attrib->getRequired());
-  //tempItem->setCheckState(attrib->getRequired() ? Qt::Checked : Qt::Unchecked);
-  //ui->tblAttributes->setItem(index, 3, tempItem);
-  //tempItem = new QTableWidgetItem(attrib->getAbstract());
-  //            tempItem->setCheckState(attrib->getAbstract() ? Qt::Checked : Qt::Unchecked);
-  //
-  //ui->tblAttributes->setItem(index, 4, tempItem);
-  //ui->tblAttributes->setItem(index, 5, new QTableWidgetItem(attrib->getXMLName()));
-  //
-  //
-  //ui->tblAttributes->setFocus();
-  //ui->tblAttributes->setCurrentCell(index, 0);
+  mpAttributes->beginAdding();
+  mElement->createAttribute();
+  mpAttributes->endAdding();
 }
 
 void
 FormDeviserClass::xmlElementNameChanged(const QString&)
 {
-  if (mElement == NULL) return;
+  if (mElement == NULL || mbInitializing) return;
   mElement->setElementName(ui->txtXMLElementName->text());
 }
 
 void
 FormDeviserClass::typeCodeChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setTypeCode(ui->txtTypeCode->text());
-
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setTypeCode(ui->txtTypeCode->text());
 }
 
 void
 FormDeviserClass::nameChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setName(ui->txtName->text());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setName(ui->txtName->text());
 
 }
 
 void
 FormDeviserClass::minNoChildrenChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setMinNumberChildren(ui->txtMinNumChildren->text().toInt());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setMinNumberChildren(ui->txtMinNumChildren->text().toInt());
 
 }
 
 void
 FormDeviserClass::maxNoChildrenChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setMaxNumberChildren(ui->txtMaxNumChildren->text().toInt());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setMaxNumberChildren(ui->txtMaxNumChildren->text().toInt());
 
 }
 
 void
 FormDeviserClass::listOfNameChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setListOfName(ui->txtListOfName->text());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setListOfName(ui->txtListOfName->text());
 
 }
 
 void
 FormDeviserClass::listOfClassNameChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setListOfClassName(ui->txtListOfClassName->text());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setListOfClassName(ui->txtListOfClassName->text());
 
 }
 
 void
 FormDeviserClass::definitionChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setAdditionalDefinitions(ui->txtImplementation->text());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setAdditionalDefinitions(ui->txtImplementation->text());
 
 }
 
 void
 FormDeviserClass::declarationChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setAdditionalDeclarations(ui->txtDeclaration->text());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setAdditionalDeclarations(ui->txtDeclaration->text());
 
 }
 
 void
 FormDeviserClass::baseClassChanged(const QString&)
 {
-    if (mElement == NULL) return;
-    mElement->setBaseClass(ui->txtBaseClass->text());
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setBaseClass(ui->txtBaseClass->text());
 
 }
 
 void
 FormDeviserClass::requiresStateChanged(int)
 {
-ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
+  ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
 }
 
 void
 FormDeviserClass::isBaseClassStateChanged(int)
 {
-    ui->grpInstantiations->setVisible(ui->chkIsBaseClass->isChecked());
+  ui->grpInstantiations->setVisible(ui->chkIsBaseClass->isChecked());
 }
 
 void
 FormDeviserClass::hasListOfStateChanged(int)
 {
-    ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
-    ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
+  ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
+  ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
 
 }

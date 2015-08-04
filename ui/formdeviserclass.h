@@ -25,9 +25,6 @@ public:
   void initializeFrom(DeviserClass* element);
 
 public slots:
-  void concreteChanged(QTableWidgetItem*);
-  void listOfAttributeChanged(QTableWidgetItem*);
-  void attributeChanged(QTableWidgetItem*);
   void browseDefinitionClick();
   void browseDeclarationClick();
   void delConcrete();
@@ -63,6 +60,7 @@ private:
   ConcretesModel* mpConcretes;
   QSortFilterProxyModel* mpConcretesFilter;
 
+  bool mbInitializing;
 
 };
 

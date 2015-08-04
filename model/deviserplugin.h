@@ -8,53 +8,62 @@ class DeviserAttribute;
 
 class DeviserPlugin : public DeviserBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserPlugin();
-    DeviserPlugin(const DeviserPlugin& other);
-    virtual void initializeFrom(const QDomElement& element);
+  DeviserPlugin();
+  DeviserPlugin(const DeviserPlugin& other);
+  virtual void initializeFrom(const QDomElement& element);
 
-    const QString& getExtensionPoint() const { return mExtensionPoint;}
-    void setExtensionPoint(const QString& extPoint) { QString oldExtPoint(mExtensionPoint); mExtensionPoint = extPoint; emit extensionPointChanged(oldExtPoint, extPoint); }
+  DeviserReferenceAttribute* createReference();
+  void addReference(const QString& reference);
+  void removeReference(const QString& reference);
+  int getIndexForReference(const QString& reference);
+  bool containsReference(const QString& reference);
 
-    const QString& getAdditionalDeclarations() const { return mAdditionalDeclarations;}
-    void setAdditionalDeclarations(const QString& additionalDeclarations) { mAdditionalDeclarations = additionalDeclarations; emit additionalDeclarationsChanged();}
 
-    const QString& getAdditionalDefinitions() const { return mAdditionalDefinitions;}
-    void setAdditionalDefinitions(const QString& additionalDefinitions) { mAdditionalDefinitions = additionalDefinitions; emit additionalDefinitionsChanged(); }
-    const QString& getTypeCode() const { return mTypeCode;}
-    void setTypeCode(const QString& typeCode) { mTypeCode = typeCode; emit typeCodeChanged(); }
+  const QString& getExtensionPoint() const;
+  void setExtensionPoint(const QString& extPoint);
 
-    const QString& getPackage() const { return mPackage;}
-    void setPackage(const QString& package) { mPackage = package; emit packageChanged(); }
+  const QString& getAdditionalDeclarations() const;
+  void setAdditionalDeclarations(const QString& additionalDeclarations);
 
-    const QList<DeviserReferenceAttribute*>& getReferences () const { return mReferences;}
-    const QList<DeviserAttribute*>& getAttributes() const { return mAttributes;}
-    QList<DeviserReferenceAttribute*>& getReferences ()  { return mReferences;}
-    QList<DeviserAttribute*>& getAttributes() { return mAttributes;}
+  const QString& getAdditionalDefinitions() const;
+  void setAdditionalDefinitions(const QString& additionalDefinitions);
+  const QString& getTypeCode() const;
+  void setTypeCode(const QString& typeCode);
 
-    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
-    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  const QString& getPackage() const;
+  void setPackage(const QString& package);
+
+  const QList<DeviserReferenceAttribute*>& getReferences () const;
+  const QList<DeviserAttribute*>& getAttributes() const;
+  QList<DeviserReferenceAttribute*>& getReferences ();
+  QList<DeviserAttribute*>& getAttributes();
+
+  virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+  virtual void writeTo(QXmlStreamWriter& writer) const;
+
+  DeviserAttribute* createAttribute();
 
 signals:
-    void extensionPointChanged(const QString& oldName, const QString& newName);
-    void typeCodeChanged();
-    void packageChanged();
-    void additionalDeclarationsChanged();
-    void additionalDefinitionsChanged();
+  void extensionPointChanged(const QString& oldName, const QString& newName);
+  void typeCodeChanged();
+  void packageChanged();
+  void additionalDeclarationsChanged();
+  void additionalDefinitionsChanged();
 
 
 protected:
-    QString mExtensionPoint;
-    QString mAdditionalDeclarations;
-    QString mAdditionalDefinitions;
-    QString mTypeCode;
-    QString mPackage;
+  QString mExtensionPoint;
+  QString mAdditionalDeclarations;
+  QString mAdditionalDefinitions;
+  QString mTypeCode;
+  QString mExtPointPackage;
 
-    QList<DeviserReferenceAttribute*> mReferences ;
-    QList<DeviserAttribute*> mAttributes;
+  QList<DeviserReferenceAttribute*> mReferences ;
+  QList<DeviserAttribute*> mAttributes;
 
 };
 

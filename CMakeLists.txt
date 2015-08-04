@@ -4,6 +4,7 @@
 #
 # Frank T. Bergmann
 #
+#
 
 cmake_minimum_required(VERSION 2.6)
 project(QtDeviser)
@@ -20,7 +21,7 @@ set(SPATIAL_VERSION_RELEASE)
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
 
     file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt" VersionString NEWLINE_CONSUME)
-    string(STRIP "${VersionString}" VersionString)
+    string(STRIP "${VersionString}" VersionString )
     string(REPLACE "." ";" VersionString "${VersionString}" )
     string(REPLACE "-" ";" VersionString "${VersionString}" )
     list(LENGTH VersionString versionLength)

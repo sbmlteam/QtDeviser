@@ -305,6 +305,9 @@
         <property name="sortingEnabled">
          <bool>true</bool>
         </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
         <attribute name="verticalHeaderCascadingSectionResizes">
          <bool>true</bool>
         </attribute>
@@ -375,6 +378,9 @@
         <property name="sortingEnabled">
          <bool>true</bool>
         </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
         <attribute name="verticalHeaderCascadingSectionResizes">
          <bool>true</bool>
         </attribute>
@@ -446,6 +452,9 @@
          <bool>true</bool>
         </property>
         <attribute name="horizontalHeaderHighlightSections">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
         </attribute>
         <attribute name="verticalHeaderVisible">
@@ -884,8 +893,5 @@
   <slot>delListOfAttribute()</slot>
   <slot>addConcrete()</slot>
   <slot>delConcrete()</slot>
-  <slot>attributeChanged(QTableWidgetItem*)</slot>
-  <slot>listOfAttributeChanged(QTableWidgetItem*)</slot>
-  <slot>concreteChanged(QTableWidgetItem*)</slot>
  </slots>
 </ui>

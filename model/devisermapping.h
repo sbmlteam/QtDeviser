@@ -5,29 +5,29 @@
 
 class DeviserMapping : public DeviserBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserMapping();
-    DeviserMapping(const DeviserMapping& other);
-    virtual void initializeFrom(const QDomElement& element);
+  DeviserMapping();
+  DeviserMapping(const DeviserMapping& other);
+  virtual void initializeFrom(const QDomElement& element);
 
-    const QString& getName() const { return mName; }
-    void setName(const QString& name) { mName = name; emit nameChanged(); }
+  const QString& getName() const;
+  void setName(const QString& name);
 
-    const QString& getPackage() const { return mPackage; }
-    void setPackage(const QString& package) { mPackage = package; emit packageChanged(); }
+  const QString& getPackage() const;
+  void setPackage(const QString& package);
 
-    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
-    void nameChanged();
-    void packageChanged();
+  void nameChanged();
+  void packageChanged();
 
 protected:
-    QString mName;
-    QString mPackage;
+  QString mName;
+  QString mPackage;
 };
 
 #endif // DEVISERMAPPING_H

@@ -28,8 +28,8 @@ Qt::ItemFlags
 ConcretesModel::flags(const QModelIndex &index) const
 {
   if (!index.isValid())
-          return Qt::ItemIsEnabled;
-      return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+    return Qt::ItemIsEnabled;
+  return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
 QVariant
@@ -55,7 +55,7 @@ ConcretesModel::data(const QModelIndex &index, int role) const
 
 bool
 ConcretesModel::setData(const QModelIndex &index,
-                         const QVariant &value, int role /*= Qt::EditRole*/)
+                        const QVariant &value, int role /*= Qt::EditRole*/)
 {
   if (role != Qt::DisplayRole && role != Qt::EditRole) return false;
   DeviserConcrete* attr = (*mData)[index.row()];
@@ -83,8 +83,8 @@ ConcretesModel::setData(const QModelIndex &index,
 
 QVariant
 ConcretesModel::headerData(int section,
-                            Qt::Orientation orientation,
-                            int role) const
+                           Qt::Orientation orientation,
+                           int role) const
 {
   if (orientation != Qt::Horizontal) return QVariant();
 
@@ -139,6 +139,7 @@ ConcretesModel::removeAttribute(int row)
   DeviserConcrete* result = getAttribute(row);
   mData->removeAt(row);
   endRemoveRows();
+  result->deleteLater();
   return result;
 }
 

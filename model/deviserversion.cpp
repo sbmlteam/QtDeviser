@@ -37,12 +37,12 @@ DeviserVersion::DeviserVersion(const DeviserVersion& other)
 
 void DeviserVersion::setParent(DeviserPackage* doc)
 {
-    DeviserBase::setParent(doc);
+  DeviserBase::setParent(doc);
 
-    setParentOn(mElements, doc, this);
-    setParentOn(mPlugins, doc, this);
-    setParentOn(mEnums, doc, this);
-    setParentOn(mMappings, doc, this);
+  setParentOn(mElements, doc, this);
+  setParentOn(mPlugins, doc, this);
+  setParentOn(mEnums, doc, this);
+  setParentOn(mMappings, doc, this);
 }
 
 void 
@@ -98,59 +98,158 @@ QString DeviserVersion::toString() const
   return QString("Version: %1,%2,%3").arg(mLevel).arg(mVersion).arg(mPkgVersion);
 }
 
+int
+DeviserVersion::getLevel() const
+{
+  return mLevel;
+}
+
+int
+DeviserVersion::getVersion() const
+{
+  return mVersion;
+}
+
+int
+DeviserVersion::getPkgVersion() const
+{
+  return mPkgVersion;
+}
+
+void
+DeviserVersion::setLevel(int level)
+{
+  if (level == mLevel) return;
+  QString oldId = toString();
+  mLevel = level;
+  emit levelChanged();
+  emit identityChanged(oldId, toString());
+}
+
+void
+DeviserVersion::setVersion(int version)
+{
+  if (version == mVersion) return;
+
+  QString oldId = toString();
+  mVersion = version;
+  emit versionChanged();
+  emit identityChanged(oldId, toString());
+}
+
+void
+DeviserVersion::setPkgVersion(int pkgVersion)
+{
+  if (pkgVersion == mPkgVersion) return;
+
+  QString oldId = toString();
+  mPkgVersion = pkgVersion;
+  emit pkgVersionChanged();
+  emit identityChanged(oldId, toString());
+}
+
+
+QList<DeviserClass *> &
+DeviserVersion::getElements()
+{
+  return mElements;
+}
+
+QList<DeviserPlugin *> &
+DeviserVersion::getPlugins()
+{
+  return mPlugins;
+}
+
+QList<DeviserEnum *> &
+DeviserVersion::getEnums()
+{
+  return mEnums;
+}
+
+QList<DeviserMapping *> &
+DeviserVersion::getMappings()
+{
+  return mMappings;
+}
+
+const QList<DeviserClass *> &
+DeviserVersion::getElements() const
+{
+  return mElements;
+}
+
+const QList<DeviserPlugin *> &
+DeviserVersion::getPlugins() const
+{
+  return mPlugins;
+}
+
+const QList<DeviserEnum *> &
+DeviserVersion::getEnums() const
+{
+  return mEnums;
+}
+
+const QList<DeviserMapping *> &
+DeviserVersion::getMappings() const
+{
+  return mMappings;
+}
+
 DeviserEnum*
 DeviserVersion::createEnum()
 {
-    DeviserEnum* element = new DeviserEnum();
-    element->setName(QString("enum_%1").arg(mEnums.size()));
-    mEnums.append(element);
-    setParent(this->mPackage);
-    return element;
+  DeviserEnum* element = new DeviserEnum();
+  element->setName(QString("enum_%1").arg(mEnums.size()));
+  mEnums.append(element);
+  setParent(this->mPackage);
+  return element;
 }
 
 DeviserClass*
 DeviserVersion::createElement()
 {
-    DeviserClass* element = new DeviserClass();
-    element->setName(QString("class_%1").arg(mElements.size()));
-    mElements.append(element);
-    setParent(this->mPackage);
-    return element;
+  DeviserClass* element = new DeviserClass();
+  element->setName(QString("class_%1").arg(mElements.size()));
+  mElements.append(element);
+  setParent(this->mPackage);
+  return element;
 }
 
 DeviserPlugin*
 DeviserVersion::createPlugin()
 {
-    DeviserPlugin* element = new DeviserPlugin();
-    element->setExtensionPoint(QString("plugin_%1").arg(mPlugins.size()));
-    mPlugins.append(element);
-    setParent(this->mPackage);
-    return element;
+  DeviserPlugin* element = new DeviserPlugin();
+  element->setExtensionPoint(QString("plugin_%1").arg(mPlugins.size()));
+  mPlugins.append(element);
+  setParent(this->mPackage);
+  return element;
 }
 
 DeviserEnum* DeviserVersion::getEnum(const QString& name)
 {
   if (mEnums.empty()) return NULL;
-    for (auto it = mEnums.begin(); it != mEnums.end(); ++it)
-        if ((*it)->getName() == name)
-            return *it;
-    return NULL;
+  for (auto it = mEnums.begin(); it != mEnums.end(); ++it)
+    if ((*it)->getName() == name)
+      return *it;
+  return NULL;
 }
 
 DeviserPlugin* DeviserVersion::getPlugin(const QString& name)
 {
   if (mPlugins.empty()) return NULL;
-    for (auto it = mPlugins.begin(); it != mPlugins.end(); ++it)
-        if ((*it)->getExtensionPoint() == name)
-            return *it;
-    return NULL;
+  for (auto it = mPlugins.begin(); it != mPlugins.end(); ++it)
+    if ((*it)->getExtensionPoint() == name)
+      return *it;
+  return NULL;
 }
 
 DeviserClass* DeviserVersion::getElement(const QString& name)
 {
   if (mElements.empty()) return NULL;
-    for (auto it = mElements.begin(); it != mElements.end(); ++it)
-        if ((*it)->getName() == name)
-            return *it;
-    return NULL;
+  for (auto it = mElements.begin(); it != mElements.end(); ++it)
+    if ((*it)->getName() == name)
+      return *it;
+  return NULL;
 }

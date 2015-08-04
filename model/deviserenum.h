@@ -7,29 +7,32 @@ class DeviserEnumValue;
 
 class DeviserEnum : public DeviserBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserEnum();
-    DeviserEnum(const DeviserEnum& other);
-    virtual void initializeFrom(const QDomElement& element);
+  DeviserEnum();
+  DeviserEnum(const DeviserEnum& other);
+  virtual void initializeFrom(const QDomElement& element);
 
-    const QString& getName() const { return mName; }
-    void setName(const QString& name) { QString oldName(mName); mName = name; emit nameChanged(oldName, name); }
+  const QString& getName() const;
+  void setName(const QString& name);
 
-    const QList<DeviserEnumValue*>& getValues() const { return mValues; }
-    QList<DeviserEnumValue*>& getValues() { return mValues; }
+  const QList<DeviserEnumValue*>& getValues() const;
+  QList<DeviserEnumValue*>& getValues();
 
-    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
-    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+  virtual void writeTo(QXmlStreamWriter& writer) const;
+
+  DeviserEnumValue* createValue();
+
 
 signals:
-    void nameChanged(const QString& oldName, const QString& newName);
+  void nameChanged(const QString& oldName, const QString& newName);
 
 protected:
-    QString mName;
-    QList<DeviserEnumValue*> mValues;
+  QString mName;
+  QList<DeviserEnumValue*> mValues;
 };
 
 #endif // DEVISERENUM_H

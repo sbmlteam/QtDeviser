@@ -2,13 +2,13 @@
 #include "ui_dialoguml.h"
 
 DialogUML::DialogUML(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::DialogUML)
+  QDialog(parent),
+  ui(new Ui::DialogUML)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 DialogUML::~DialogUML()
 {
-    delete ui;
+  delete ui;
 }

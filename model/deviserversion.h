@@ -10,48 +10,55 @@ class DeviserMapping;
 
 class DeviserVersion : public DeviserBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserVersion();
+  DeviserVersion();
 
-    DeviserVersion(const DeviserVersion& other);
+  DeviserVersion(const DeviserVersion& other);
 
-    virtual void initializeFrom(const QDomElement& element);
-    virtual void setParent(DeviserPackage* doc);
+  virtual void initializeFrom(const QDomElement& element);
+  virtual void setParent(DeviserPackage* doc);
 
-    QString toString() const;
+  QString toString() const;
 
-    int getLevel() const { return mLevel; }
-    int getVersion() const { return mVersion; }
-    int getPkgVersion() const { return mPkgVersion; }
+  int getLevel() const;
+  int getVersion() const;
+  int getPkgVersion() const;
 
-    void setLevel(int level) { mLevel = level; emit levelChanged(); }
-    void setVersion(int version) { mVersion = version; emit versionChanged(); }
-    void setPkgVersion(int pkgVersion) { mPkgVersion = pkgVersion; emit pkgVersionChanged();}
+  void setLevel(int level);
+  void setVersion(int version);
+  void setPkgVersion(int pkgVersion);
 
-    const QList<DeviserClass*>& getElements() const { return mElements; }
-    const QList<DeviserPlugin*>& getPlugins() const { return mPlugins; }
-    const QList<DeviserEnum*>& getEnums() const { return mEnums; }
-    const QList<DeviserMapping*>& getMappings() const { return mMappings; }
+  const QList<DeviserClass*>& getElements() const;
+  const QList<DeviserPlugin*>& getPlugins() const;
+  const QList<DeviserEnum*>& getEnums() const;
+  const QList<DeviserMapping*>& getMappings() const;
 
-    DeviserClass* getElement(const QString& name);
-    DeviserClass* createElement();
+  QList<DeviserClass*>& getElements();
+  QList<DeviserPlugin*>& getPlugins();
+  QList<DeviserEnum*>& getEnums();
+  QList<DeviserMapping*>& getMappings();
 
-    DeviserPlugin* getPlugin(const QString& name);
-    DeviserPlugin* createPlugin();
 
-    DeviserEnum* getEnum(const QString& name);
-    DeviserEnum* createEnum();
+  DeviserClass* getElement(const QString& name);
+  DeviserClass* createElement();
 
-    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
-    virtual void writeElementsTo(QXmlStreamWriter& writer) const;
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  DeviserPlugin* getPlugin(const QString& name);
+  DeviserPlugin* createPlugin();
+
+  DeviserEnum* getEnum(const QString& name);
+  DeviserEnum* createEnum();
+
+  virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+  virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
-    void levelChanged();
-    void versionChanged();
-    void pkgVersionChanged();
+  void identityChanged(const QString& oldIdentity, const QString& newIdentity);
+  void levelChanged();
+  void versionChanged();
+  void pkgVersionChanged();
 
 protected: 
   int mLevel;

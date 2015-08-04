@@ -11,5 +11,7 @@
         <file>images/ICON_Deviser.ico</file>
         <file>images/ICON_Deviser_512x512.png</file>
         <file>images/ABOUT_Deviser.png</file>
+        <file>CoreClasses.txt</file>
+        <file>main.tex</file>
     </qresource>
 </RCC>

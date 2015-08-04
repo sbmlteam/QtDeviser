@@ -22,58 +22,59 @@ class DeviserVersion;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+  explicit MainWindow(QWidget *parent = 0);
 
-    ~MainWindow();
+  ~MainWindow();
 
-    void setCurrentFile(const QString&);
+  void setCurrentFile(const QString&);
 
 public slots:
-    void showAbout();
-    void addClass();
-    void addEnum();
-    void addPlugin();
-    void addVersion();
-    void editPreferences();
-    void fixErrors();
-    void generate();
-    void newModel();
-    void openFile();
-    void openFile(const QString&);
-    void saveFile();
-    void saveFileAs();
-    void saveAsFile(const QString&);
-    void showUML();
-    void validateDescription();
+  void showAbout();
+  void addClass();
+  void addEnum();
+  void addPlugin();
+  void addVersion();
+  void editPreferences();
+  void fixErrors();
+  void generate();
+  void newModel();
+  void openFile();
+  void openFile(const QString&);
+  void saveFile();
+  void saveFileAs();
+  void saveAsFile(const QString&);
+  void showUML();
+  void validateDescription();
 
-    void updateUI();
-    void displayElement(DeviserBase* element);
+  void updateUI();
+  void displayElement(DeviserBase* element);
+  void treeElementRenamed(const QString&, const QString&);
 
 private slots:
-    void on_treeWidget_itemSelectionChanged();
+  void on_treeWidget_itemSelectionChanged();
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);
   DeviserVersion* getCurrentVersion();
 
 private:
-    Ui::MainWindow *ui;
+  Ui::MainWindow *ui;
 
-    FormDeviserPackage* ctrlPackage;
-    FormDeviserVersion* ctrlVersion;
-    FormDeviserEnum* ctrlEnum;
-    FormDeviserMapping* ctrlMapping;
-    FormDeviserClass* ctrlClass;
-    FormDeviserPlugin* ctrlPlugin;
+  FormDeviserPackage* ctrlPackage;
+  FormDeviserVersion* ctrlVersion;
+  FormDeviserEnum* ctrlEnum;
+  FormDeviserMapping* ctrlMapping;
+  FormDeviserClass* ctrlClass;
+  FormDeviserPlugin* ctrlPlugin;
 
-    DeviserPackage* mModel;
-    DeviserVersion* mCurrentVersion;
-    DeviserBase* mCurrentElement;
+  DeviserPackage* mModel;
+  DeviserVersion* mCurrentVersion;
+  DeviserBase* mCurrentElement;
 
-    QString mFileName;
+  QString mFileName;
 
 };
 

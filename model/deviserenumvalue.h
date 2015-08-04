@@ -5,27 +5,27 @@
 
 class DeviserEnumValue : public DeviserBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserEnumValue();
-    DeviserEnumValue(const DeviserEnumValue& other);
-    virtual void initializeFrom(const QDomElement& element);
+  DeviserEnumValue();
+  DeviserEnumValue(const DeviserEnumValue& other);
+  virtual void initializeFrom(const QDomElement& element);
 
-    const QString& getName() const{ return mName;}
-    void setName(const QString& name) { mName = name; emit nameChanged(); }
-    const QString& getValue() const { return mValue;}
-    void setValue(const QString& value) { mValue = value; emit valueChanged(); }
+  const QString& getName() const;
+  void setName(const QString& name);
+  const QString& getValue() const;
+  void setValue(const QString& value);
 
-    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeTo(QXmlStreamWriter& writer) const;
 signals:
-    void nameChanged();
-    void valueChanged();
+  void nameChanged();
+  void valueChanged();
 
 protected:
-    QString mName;
-    QString mValue;
+  QString mName;
+  QString mValue;
 };
 
 #endif // DEVISERENUMVALUE_H

@@ -28,8 +28,8 @@ Qt::ItemFlags
 LoAttributesModel::flags(const QModelIndex &index) const
 {
   if (!index.isValid())
-          return Qt::ItemIsEnabled;
-      return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+    return Qt::ItemIsEnabled;
+  return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
 QVariant
@@ -59,7 +59,7 @@ LoAttributesModel::data(const QModelIndex &index, int role) const
 
 bool
 LoAttributesModel::setData(const QModelIndex &index,
-                         const QVariant &value, int role /*= Qt::EditRole*/)
+                           const QVariant &value, int role /*= Qt::EditRole*/)
 {
   if (role != Qt::DisplayRole && role != Qt::EditRole) return false;
   DeviserListOfAttribute* attr = (*mData)[index.row()];
@@ -93,8 +93,8 @@ LoAttributesModel::setData(const QModelIndex &index,
 
 QVariant
 LoAttributesModel::headerData(int section,
-                            Qt::Orientation orientation,
-                            int role) const
+                              Qt::Orientation orientation,
+                              int role) const
 {
   if (orientation != Qt::Horizontal) return QVariant();
 
@@ -153,6 +153,7 @@ LoAttributesModel::removeAttribute(int row)
   DeviserListOfAttribute* result = getAttribute(row);
   mData->removeAt(row);
   endRemoveRows();
+  result->deleteLater();
   return result;
 }
 

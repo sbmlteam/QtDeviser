@@ -5,24 +5,24 @@
 
 class DeviserReferenceAttribute : public DeviserBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    DeviserReferenceAttribute();
-    DeviserReferenceAttribute(const DeviserReferenceAttribute& other);
-    virtual void initializeFrom(const QDomElement& element);
+  DeviserReferenceAttribute();
+  DeviserReferenceAttribute(const DeviserReferenceAttribute& other);
+  virtual void initializeFrom(const QDomElement& element);
 
-    const QString& getName() const { return mName; }
-    void setName(const QString& name) { mName = name; emit nameChanged(); }
+  const QString& getName() const;
+  void setName(const QString& name);
 
-    virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
-    virtual void writeTo(QXmlStreamWriter& writer) const;
+  virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
-    void nameChanged();
+  void nameChanged();
 
 protected:
-    QString mName;
+  QString mName;
 };
 
 #endif // DEVISERREFERENCEATTRIBUTE_H

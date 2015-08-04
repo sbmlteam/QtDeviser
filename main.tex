@@ -1,0 +1,24 @@
+%\documentclass{sbmlpkgspec}
+\documentclass[draftspec]{sbmlpkgspec}
+\frontNotice{\centering This is a working draft of release 1 of the specification for the package ``@@PACKAGENAME@@'' and not a normative document. Please send feedback to the Package Working Group mailing list at sbml-@@PACKAGENAME@@@lists.sourceforge.net.}
+
+\begin{document}
+
+\packageTitle{SBML Level @@CORE_LEVEL@@ Package: @@FULL_PACKAGE_NAME@@ (`@@PACKAGENAME@@')}
+\packageVersion{Version @@PACKAGE_VERSION@@, Release 1} \packageVersionDate{\today}
+
+\renewcommand\graphicspath{{logos}}
+
+\newcommand{\fixttspace}{\hspace*{1pt}}
+
+\maketitlepage
+\maketableofcontents
+
+\input{macros}
+\input{body}
+
+\appendix
+\input{apdx-validation}
+
+
+\end{document}

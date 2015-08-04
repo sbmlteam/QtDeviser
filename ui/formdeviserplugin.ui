@@ -211,43 +211,19 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tblAttributes">
+       <widget class="QTableView" name="tblAttributes">
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
         <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
         </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>true</bool>
         </attribute>
-        <column>
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Element</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Required</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>isBaseClass</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>XML name</string>
-         </property>
-        </column>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>23</number>
+        </attribute>
        </widget>
       </item>
      </layout>
@@ -533,22 +509,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>tblAttributes</sender>
-   <signal>itemChanged(QTableWidgetItem*)</signal>
-   <receiver>FormDeviserPlugin</receiver>
-   <slot>attributeChanged(QTableWidgetItem*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>409</x>
-     <y>429</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>314</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>txtDeclaration</sender>
    <signal>textEdited(QString)</signal>
    <receiver>FormDeviserPlugin</receiver>
@@ -642,7 +602,6 @@
   <slot>delAttribute()</slot>
   <slot>browseDeclaration()</slot>
   <slot>browseImplementation()</slot>
-  <slot>attributeChanged(QTableWidgetItem*)</slot>
   <slot>addChild()</slot>
   <slot>delChild()</slot>
   <slot>upClicked()</slot>
