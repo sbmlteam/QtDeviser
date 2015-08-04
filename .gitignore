@@ -1,2 +1,8 @@
 /images/*.db
 /*.user
+build
+moc*cpp
+qrc*cpp
+ui*h
+Info.plist
+QtDeviser.xcodeproj
