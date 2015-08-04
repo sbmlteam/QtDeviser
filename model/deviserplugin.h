@@ -48,7 +48,8 @@ public:
   DeviserAttribute* createAttribute();
 
 signals:
-  void extensionPointChanged(const QString& oldName, const QString& newName);
+  void extensionPointChanged(const QString& oldName, const QString& newName,
+                             const DeviserVersion* version);
   void typeCodeChanged();
   void packageChanged();
   void additionalDeclarationsChanged();

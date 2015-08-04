@@ -51,9 +51,11 @@ public slots:
 
   void updateUI();
   void displayElement(DeviserBase* element);
-  void treeElementRenamed(const QString&, const QString&);
+  void treeElementRenamed(const QString&, const QString&,
+                          const DeviserVersion* version);
   void selectionChanged();
   void deleteSelected();
+  void duplicateSelected();
 
 
 protected:

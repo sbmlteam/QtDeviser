@@ -48,6 +48,15 @@ MainWindow::MainWindow(QWidget *parent)
 
   ui->stackedWidget->setCurrentWidget(ctrlPackage);
 
+  ui->treeWidget->addAction(ui->actionAdd_Class);
+  ui->treeWidget->addAction(ui->actionAdd_Plugin);
+  ui->treeWidget->addAction(ui->actionAdd_Enum);
+  ui->treeWidget->addAction(ui->actionAdd_Version);
+  QAction* sep = new QAction(this);
+  sep->setSeparator(true);
+  ui->treeWidget->addAction(sep);
+  ui->treeWidget->addAction(ui->actionDuplicate);
+  ui->treeWidget->addAction(sep);
   ui->treeWidget->addAction(ui->actionDeleteSelected);
 
   newModel();
@@ -137,10 +146,10 @@ MainWindow::updateUI()
 
   foreach(DeviserVersion* version, mModel->getVersions())
   {
-    disconnect(version, SIGNAL(identityChanged(const QString&, const QString&)),
-      this, SLOT(treeElementRenamed(QString, QString)));
-    connect(version, SIGNAL(identityChanged(const QString&, const QString&)),
-      this, SLOT(treeElementRenamed(QString, QString)));
+    disconnect(version, SIGNAL(identityChanged(const QString&, const QString&,const DeviserVersion*)),
+      this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
+    connect(version, SIGNAL(identityChanged(const QString&, const QString&,const DeviserVersion*)),
+      this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
 
 
     QTreeWidgetItem* versionItem = new QTreeWidgetItem(ui->treeWidget);
@@ -155,10 +164,10 @@ MainWindow::updateUI()
 
     foreach(DeviserClass* element, version->getElements())
     {
-      disconnect(element, SIGNAL(nameChanged(const QString&, const QString&)),
-        this, SLOT(treeElementRenamed(QString, QString)));
-      connect(element, SIGNAL(nameChanged(const QString&, const QString&)),
-        this, SLOT(treeElementRenamed(QString, QString)));
+      disconnect(element, SIGNAL(nameChanged(const QString&, const QString&,const DeviserVersion*)),
+        this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
+      connect(element, SIGNAL(nameChanged(const QString&, const QString&,const DeviserVersion*)),
+        this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
 
       QTreeWidgetItem* currentItem = new QTreeWidgetItem(classItem);
       currentItem->setText(0, element->getName());
@@ -169,10 +178,10 @@ MainWindow::updateUI()
 
     foreach(DeviserPlugin* element, version->getPlugins())
     {
-      disconnect(element, SIGNAL(extensionPointChanged(const QString&, const QString&)),
-        this, SLOT(treeElementRenamed(QString, QString)));
-      connect(element, SIGNAL(extensionPointChanged(const QString&, const QString&)),
-        this, SLOT(treeElementRenamed(QString, QString)));
+      disconnect(element, SIGNAL(extensionPointChanged(const QString&, const QString&,const DeviserVersion*)),
+        this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
+      connect(element, SIGNAL(extensionPointChanged(const QString&, const QString&,const DeviserVersion*)),
+        this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
 
       QTreeWidgetItem* currentItem = new QTreeWidgetItem(pluginItem);
       currentItem->setText(0, element->getExtensionPoint());
@@ -183,10 +192,10 @@ MainWindow::updateUI()
 
     foreach(DeviserEnum* element, version->getEnums())
     {
-      disconnect(element, SIGNAL(nameChanged(const QString&, const QString&)),
-        this, SLOT(treeElementRenamed(QString, QString)));
-      connect(element, SIGNAL(nameChanged(const QString&, const QString&)),
-        this, SLOT(treeElementRenamed(QString, QString)));
+      disconnect(element, SIGNAL(nameChanged(const QString&, const QString&,const DeviserVersion*)),
+        this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
+      connect(element, SIGNAL(nameChanged(const QString&, const QString&,const DeviserVersion*)),
+        this, SLOT(treeElementRenamed(QString, QString,const DeviserVersion*)));
 
       QTreeWidgetItem* currentItem = new QTreeWidgetItem(enumItem);
       currentItem->setText(0, element->getName());
@@ -206,8 +215,8 @@ void
 MainWindow::addClass()
 {
   mCurrentElement = getCurrentVersion()->createElement();
-  connect(mCurrentElement, SIGNAL(nameChanged(const QString&, const QString&)),
-          this, SLOT(treeElementRenamed(QString,QString)));
+  connect(mCurrentElement, SIGNAL(nameChanged(const QString&, const QString&,const DeviserVersion*)),
+          this, SLOT(treeElementRenamed(QString,QString,const DeviserVersion*)));
   updateUI();
 }
 
@@ -215,8 +224,8 @@ void
 MainWindow::addEnum()
 {
   mCurrentElement = getCurrentVersion()->createEnum();
-  connect(mCurrentElement, SIGNAL(nameChanged(const QString&, const QString&)),
-          this, SLOT(treeElementRenamed(QString,QString)));
+  connect(mCurrentElement, SIGNAL(nameChanged(const QString&, const QString&,const DeviserVersion*)),
+          this, SLOT(treeElementRenamed(QString,QString,const DeviserVersion*)));
   updateUI();
 }
 
@@ -224,8 +233,8 @@ void
 MainWindow::addPlugin()
 {
   mCurrentElement = getCurrentVersion()->createPlugin();
-  connect(mCurrentElement, SIGNAL(extensionPointChanged(const QString&, const QString&)),
-          this, SLOT(treeElementRenamed(QString,QString)));
+  connect(mCurrentElement, SIGNAL(extensionPointChanged(const QString&, const QString&,const DeviserVersion*)),
+          this, SLOT(treeElementRenamed(QString,QString,const DeviserVersion*)));
   updateUI();
 }
 
@@ -235,18 +244,26 @@ MainWindow::addVersion()
   mCurrentVersion = mModel->createVersion();
   mCurrentElement = mCurrentVersion;
 
-  connect(mCurrentElement, SIGNAL(identityChanged(const QString&, const QString&)),
-          this, SLOT(treeElementRenamed(QString,QString)));
+  connect(mCurrentElement, SIGNAL(identityChanged(const QString&, const QString&,const DeviserVersion*)),
+          this, SLOT(treeElementRenamed(QString,QString,const DeviserVersion*)));
   updateUI();
 }
 
 void
-MainWindow::treeElementRenamed(const QString& oldId, const QString& newId)
+MainWindow::treeElementRenamed(const QString& oldId, const QString& newId,
+                               const DeviserVersion* version)
 {
   QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(oldId, Qt::MatchExactly | Qt::MatchRecursive);
+  QString parentVersion = version == NULL ? "" : version->toString();
+
   foreach(QTreeWidgetItem* item, items)
   {
-    item->setText(0, newId);
+    QString currentParent = item->parent() == NULL ? "" : item->parent()->parent()->text(0);
+    if (parentVersion == currentParent)
+    {
+      item->setText(0, newId);
+      break;
+    }
   }
 }
 
@@ -464,54 +481,134 @@ MainWindow::deleteSelected()
       continue;
 
     if (QMessageBox::question(this, QString("Delete %1?").arg(item->text(0)), QString("Are you sure you want to delete the element '%1'?").arg(item->text(0)))
-        == QMessageBox::Yes)
+        == QMessageBox::No)
+      break;
+
+
+    if (dynamic_cast<DeviserVersion*>(devItem) != NULL)
     {
-      if (dynamic_cast<DeviserVersion*>(devItem) != NULL)
-      {
+      QTreeWidgetItem* toBeDeleted = ui->treeWidget->takeTopLevelItem(ui->treeWidget->indexOfTopLevelItem(item));
+      if (toBeDeleted != NULL)
+        delete toBeDeleted;
 
-        QTreeWidgetItem* toBeDeleted = ui->treeWidget->takeTopLevelItem(ui->treeWidget->indexOfTopLevelItem(item));
-        if (toBeDeleted != NULL)
-          delete toBeDeleted;
-
-        int index = mModel->getVersions().indexOf(dynamic_cast<DeviserVersion*>(devItem));
-        if (index != -1)
+      int index = mModel->getVersions().indexOf(dynamic_cast<DeviserVersion*>(devItem));
+      if (index != -1)
         delete mModel->getVersions().takeAt(index);
-
-      }
-      else
+    }
+    else
+    {
+      if (item->parent() != NULL && mCurrentVersion != NULL)
       {
-        if (item->parent() != NULL && mCurrentVersion != NULL)
-        {
 
-          if (dynamic_cast<DeviserEnum*>(devItem) != NULL)
-          {
-            DeviserEnum* element = dynamic_cast<DeviserEnum*>(devItem);
-            int index = mCurrentVersion->getEnums().indexOf(element);
-            if (index != -1)
+        if (dynamic_cast<DeviserEnum*>(devItem) != NULL)
+        {
+          DeviserEnum* element = dynamic_cast<DeviserEnum*>(devItem);
+          int index = mCurrentVersion->getEnums().indexOf(element);
+          if (index != -1)
             delete mCurrentVersion->getEnums().takeAt(index);
 
-          }
-          else if (dynamic_cast<DeviserClass*>(devItem) != NULL)
-          {
-            DeviserClass* element = dynamic_cast<DeviserClass*>(devItem);
-            int index = mCurrentVersion->getElements().indexOf(element);
-            if (index != -1)
-            delete mCurrentVersion->getElements().takeAt(index);
-          }
-          else if (dynamic_cast<DeviserPlugin*>(devItem) != NULL)
-          {
-            DeviserPlugin* element = dynamic_cast<DeviserPlugin*>(devItem);
-            int index = mCurrentVersion->getPlugins().indexOf(element);
-            if (index != -1)
-            delete mCurrentVersion->getPlugins().takeAt(index);
-          }
-
-          QTreeWidgetItem* toBeDeleted = item->parent()->takeChild(item->parent()->indexOfChild(item));
-          if (toBeDeleted != NULL)
-            delete toBeDeleted;
         }
+        else if (dynamic_cast<DeviserClass*>(devItem) != NULL)
+        {
+          DeviserClass* element = dynamic_cast<DeviserClass*>(devItem);
+          int index = mCurrentVersion->getElements().indexOf(element);
+          if (index != -1)
+            delete mCurrentVersion->getElements().takeAt(index);
+        }
+        else if (dynamic_cast<DeviserPlugin*>(devItem) != NULL)
+        {
+          DeviserPlugin* element = dynamic_cast<DeviserPlugin*>(devItem);
+          int index = mCurrentVersion->getPlugins().indexOf(element);
+          if (index != -1)
+            delete mCurrentVersion->getPlugins().takeAt(index);
+        }
+
+        QTreeWidgetItem* toBeDeleted = item->parent()->takeChild(item->parent()->indexOfChild(item));
+        if (toBeDeleted != NULL)
+          delete toBeDeleted;
       }
     }
+
+    break;
+  }
+}
+
+
+
+void
+MainWindow::duplicateSelected()
+{
+  const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
+  if (selectedItems.size() == 0) return;
+
+  foreach(QTreeWidgetItem* item, selectedItems)
+  {
+    DeviserBase* devItem = getDeviserItemForTreeView(item);
+    if (devItem == NULL || dynamic_cast<DeviserMapping*>(devItem) != NULL)
+      continue;
+
+    if (dynamic_cast<DeviserVersion*>(devItem) != NULL)
+    {
+
+      DeviserVersion* current = dynamic_cast<DeviserVersion*>(devItem);
+      DeviserVersion* newItem = new DeviserVersion(*current);
+
+      int pkgVersion = current->getPkgVersion();
+      while(mModel->getVersion(
+              current->getLevel(),
+              current->getVersion(),
+              pkgVersion
+              ))
+        ++pkgVersion;
+
+      newItem->setPkgVersion(pkgVersion);
+
+      mModel->getVersions().append(newItem);
+
+      mCurrentVersion = newItem;
+      mCurrentElement = newItem;
+
+      updateUI();
+
+    }
+    else if (dynamic_cast<DeviserEnum*>(devItem) != NULL)
+    {
+      DeviserEnum* current = dynamic_cast<DeviserEnum*>(devItem);
+      DeviserEnum* newItem = new DeviserEnum(*current);
+
+      newItem->setName(newItem->getName() + "_copy");
+      mCurrentVersion->getEnums().append(newItem);
+
+      mCurrentElement = newItem;
+
+      updateUI();
+
+    }
+    else if (dynamic_cast<DeviserClass*>(devItem) != NULL)
+    {
+      DeviserClass* current = dynamic_cast<DeviserClass*>(devItem);
+      DeviserClass* newItem = new DeviserClass(*current);
+
+      newItem->setName(newItem->getName() + "_copy");
+      mCurrentVersion->getElements().append(newItem);
+
+      mCurrentElement = newItem;
+
+      updateUI();
+    }
+    else if (dynamic_cast<DeviserPlugin*>(devItem) != NULL)
+    {
+      DeviserPlugin* current = dynamic_cast<DeviserPlugin*>(devItem);
+      DeviserPlugin* newItem = new DeviserPlugin(*current);
+
+      newItem->setExtensionPoint(newItem->getExtensionPoint() + "_copy");
+      mCurrentVersion->getPlugins().append(newItem);
+
+      mCurrentElement = newItem;
+
+      updateUI();
+    }
+
     break;
   }
 }

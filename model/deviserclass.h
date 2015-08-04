@@ -67,7 +67,8 @@ public:
   virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
-  void nameChanged(const QString& oldName, const QString& newName);
+  void nameChanged(const QString& oldName, const QString& newName,
+                   const DeviserVersion* version);
   void baseClassChanged();
   void typeCodeChanged();
   void hasListOfChanged();

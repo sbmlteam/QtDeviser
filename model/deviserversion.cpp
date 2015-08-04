@@ -123,7 +123,7 @@ DeviserVersion::setLevel(int level)
   QString oldId = toString();
   mLevel = level;
   emit levelChanged();
-  emit identityChanged(oldId, toString());
+  emit identityChanged(oldId, toString(), this);
 }
 
 void
@@ -134,7 +134,7 @@ DeviserVersion::setVersion(int version)
   QString oldId = toString();
   mVersion = version;
   emit versionChanged();
-  emit identityChanged(oldId, toString());
+  emit identityChanged(oldId, toString(), this);
 }
 
 void
@@ -145,7 +145,7 @@ DeviserVersion::setPkgVersion(int pkgVersion)
   QString oldId = toString();
   mPkgVersion = pkgVersion;
   emit pkgVersionChanged();
-  emit identityChanged(oldId, toString());
+  emit identityChanged(oldId, toString(), this);
 }
 
 

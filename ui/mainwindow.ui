@@ -318,13 +318,25 @@
   <action name="actionDeleteSelected">
    <property name="icon">
     <iconset resource="../deviser-resources.qrc">
-     <normaloff>:/images/remove.png</normaloff>:/images/remove.png</iconset>
+     <normaloff>:/images/editdelete.png</normaloff>:/images/editdelete.png</iconset>
    </property>
    <property name="text">
     <string>Delete Selected</string>
    </property>
    <property name="toolTip">
     <string>Deletes the selectd element</string>
+   </property>
+  </action>
+  <action name="actionDuplicate">
+   <property name="icon">
+    <iconset resource="../deviser-resources.qrc">
+     <normaloff>:/images/editcopy.png</normaloff>:/images/editcopy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Duplicate</string>
+   </property>
+   <property name="toolTip">
+    <string>Duplicates the selected element</string>
    </property>
   </action>
  </widget>
@@ -605,6 +617,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionDuplicate</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>duplicateSelected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -624,5 +652,6 @@
   <slot>saveFileAs()</slot>
   <slot>selectionChanged()</slot>
   <slot>deleteSelected()</slot>
+  <slot>duplicateSelected()</slot>
  </slots>
 </ui>

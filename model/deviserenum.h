@@ -4,6 +4,7 @@
 #include <model/deviserbase.h>
 
 class DeviserEnumValue;
+class DeviserVersion;
 
 class DeviserEnum : public DeviserBase
 {
@@ -28,7 +29,8 @@ public:
 
 
 signals:
-  void nameChanged(const QString& oldName, const QString& newName);
+  void nameChanged(const QString& oldName, const QString& newName,
+                   const DeviserVersion* version);
 
 protected:
   QString mName;

@@ -114,7 +114,7 @@ DeviserPlugin::setExtensionPoint(const QString &extPoint)
   mExtensionPoint = extPoint;
 
   if (!extPoint.isEmpty())
-  emit extensionPointChanged(oldExtPoint, extPoint);
+  emit extensionPointChanged(oldExtPoint, extPoint, mVersion);
 }
 
 const QString &

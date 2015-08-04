@@ -14,5 +14,7 @@
         <file>CoreClasses.txt</file>
         <file>main.tex</file>
         <file>images/remove.png</file>
+        <file>images/editcopy.png</file>
+        <file>images/editdelete.png</file>
     </qresource>
 </RCC>

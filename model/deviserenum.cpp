@@ -45,7 +45,7 @@ DeviserEnum::setName(const QString &name)
   mName = name;
 
   if (!name.isEmpty())
-  emit nameChanged(oldName, name);
+  emit nameChanged(oldName, name, mVersion);
 }
 
 const QList<DeviserEnumValue *> &

@@ -55,7 +55,8 @@ public:
   virtual void writeTo(QXmlStreamWriter& writer) const;
 
 signals:
-  void identityChanged(const QString& oldIdentity, const QString& newIdentity);
+  void identityChanged(const QString& oldIdentity, const QString& newIdentity,
+                       const DeviserVersion* version);
   void levelChanged();
   void versionChanged();
   void pkgVersionChanged();
