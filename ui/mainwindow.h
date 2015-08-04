@@ -52,9 +52,9 @@ public slots:
   void updateUI();
   void displayElement(DeviserBase* element);
   void treeElementRenamed(const QString&, const QString&);
+  void selectionChanged();
+  void deleteSelected();
 
-private slots:
-  void on_treeWidget_itemSelectionChanged();
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);

@@ -13,5 +13,6 @@
         <file>images/ABOUT_Deviser.png</file>
         <file>CoreClasses.txt</file>
         <file>main.tex</file>
+        <file>images/remove.png</file>
     </qresource>
 </RCC>

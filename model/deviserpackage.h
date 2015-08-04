@@ -32,6 +32,7 @@ public:
   const QList<DeviserVersion*>& getVersions() const;
 
   DeviserVersion* getVersion(const QString& name);
+  DeviserVersion* getVersion(int level, int version, int pkgVersion);
 
   const QString& getName() const;
   void setName(const QString& name);
@@ -50,7 +51,7 @@ public:
   const QString& getAdditionalDefinitions() const;
   void setAdditionalDefinitions(const QString& additionalDefinitions);
 
-  DeviserVersion* createVersion(int level = 0, int version = 0, int pkgVersion = 1);
+  DeviserVersion* createVersion();
 
 
 signals:

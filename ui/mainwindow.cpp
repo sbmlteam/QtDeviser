@@ -1,4 +1,5 @@
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -46,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->stackedWidget->addWidget(ctrlPlugin);
 
   ui->stackedWidget->setCurrentWidget(ctrlPackage);
+
+  ui->treeWidget->addAction(ui->actionDeleteSelected);
 
   newModel();
 
@@ -229,7 +232,9 @@ MainWindow::addPlugin()
 void
 MainWindow::addVersion()
 {
-  mCurrentElement = mModel->createVersion();
+  mCurrentVersion = mModel->createVersion();
+  mCurrentElement = mCurrentVersion;
+
   connect(mCurrentElement, SIGNAL(identityChanged(const QString&, const QString&)),
           this, SLOT(treeElementRenamed(QString,QString)));
   updateUI();
@@ -257,7 +262,8 @@ MainWindow::displayElement(DeviserBase* element)
   }
   else if (dynamic_cast<DeviserVersion*>(mCurrentElement))
   {
-    ctrlVersion->initializeFrom(dynamic_cast<DeviserVersion*>(mCurrentElement));
+    mCurrentVersion = dynamic_cast<DeviserVersion*>(mCurrentElement);
+    ctrlVersion->initializeFrom(dynamic_cast<DeviserVersion*>(mCurrentElement));    
     ui->stackedWidget->setCurrentWidget(ctrlVersion);
   }
   else if (dynamic_cast<DeviserClass*>(mCurrentElement))
@@ -378,7 +384,8 @@ MainWindow::validateDescription()
 
 }
 
-DeviserBase* MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
+DeviserBase*
+MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
 {
   if (mModel == NULL) return NULL;
 
@@ -426,7 +433,8 @@ DeviserBase* MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
 }
 
 
-void MainWindow::on_treeWidget_itemSelectionChanged()
+void
+MainWindow::selectionChanged()
 {
   const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
   if (selectedItems.size() == 0) return;
@@ -434,9 +442,77 @@ void MainWindow::on_treeWidget_itemSelectionChanged()
   foreach(QTreeWidgetItem* item, selectedItems)
   {
     DeviserBase* devItem = getDeviserItemForTreeView(item);
-    if (devItem != NULL)
-      displayElement(devItem);
+    if (devItem == NULL)
+      continue;
 
+    displayElement(devItem);
+    break;
   }
 
 }
+
+void
+MainWindow::deleteSelected()
+{
+  const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
+  if (selectedItems.size() == 0) return;
+
+  foreach(QTreeWidgetItem* item, selectedItems)
+  {
+    DeviserBase* devItem = getDeviserItemForTreeView(item);
+    if (devItem == NULL || dynamic_cast<DeviserMapping*>(devItem) != NULL)
+      continue;
+
+    if (QMessageBox::question(this, QString("Delete %1?").arg(item->text(0)), QString("Are you sure you want to delete the element '%1'?").arg(item->text(0)))
+        == QMessageBox::Yes)
+    {
+      if (dynamic_cast<DeviserVersion*>(devItem) != NULL)
+      {
+
+        QTreeWidgetItem* toBeDeleted = ui->treeWidget->takeTopLevelItem(ui->treeWidget->indexOfTopLevelItem(item));
+        if (toBeDeleted != NULL)
+          delete toBeDeleted;
+
+        int index = mModel->getVersions().indexOf(dynamic_cast<DeviserVersion*>(devItem));
+        if (index != -1)
+        delete mModel->getVersions().takeAt(index);
+
+      }
+      else
+      {
+        if (item->parent() != NULL && mCurrentVersion != NULL)
+        {
+
+          if (dynamic_cast<DeviserEnum*>(devItem) != NULL)
+          {
+            DeviserEnum* element = dynamic_cast<DeviserEnum*>(devItem);
+            int index = mCurrentVersion->getEnums().indexOf(element);
+            if (index != -1)
+            delete mCurrentVersion->getEnums().takeAt(index);
+
+          }
+          else if (dynamic_cast<DeviserClass*>(devItem) != NULL)
+          {
+            DeviserClass* element = dynamic_cast<DeviserClass*>(devItem);
+            int index = mCurrentVersion->getElements().indexOf(element);
+            if (index != -1)
+            delete mCurrentVersion->getElements().takeAt(index);
+          }
+          else if (dynamic_cast<DeviserPlugin*>(devItem) != NULL)
+          {
+            DeviserPlugin* element = dynamic_cast<DeviserPlugin*>(devItem);
+            int index = mCurrentVersion->getPlugins().indexOf(element);
+            if (index != -1)
+            delete mCurrentVersion->getPlugins().takeAt(index);
+          }
+
+          QTreeWidgetItem* toBeDeleted = item->parent()->takeChild(item->parent()->indexOfChild(item));
+          if (toBeDeleted != NULL)
+            delete toBeDeleted;
+        }
+      }
+    }
+    break;
+  }
+}
+

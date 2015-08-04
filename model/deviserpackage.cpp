@@ -70,9 +70,16 @@ DeviserPackage::DeviserPackage(QDomElement& element)
 }
 
 DeviserVersion*
-DeviserPackage::createVersion(int level, int version, int pkgVersion)
+DeviserPackage::createVersion()
 {
   DeviserVersion* newVersion = new DeviserVersion();
+
+  int level = 0;
+  int version = 0;
+  int pkgVersion = 1;
+  while (getVersion(level, version, pkgVersion)!=NULL)
+    ++pkgVersion;
+
   newVersion->setLevel(level);
   newVersion->setVersion(version);
   newVersion->setPkgVersion(pkgVersion);
@@ -304,4 +311,10 @@ DeviserPackage::getVersion(const QString& name)
     if ((*it)->toString() == name)
       return *it;
   return NULL;
+}
+
+DeviserVersion*
+DeviserPackage::getVersion(int level, int version, int pkgVersion)
+{
+  return getVersion(QString("Version: %1,%2,%3").arg(level).arg(version).arg(pkgVersion));
 }

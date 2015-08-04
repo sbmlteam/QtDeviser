@@ -16,6 +16,9 @@
     <height>600</height>
    </size>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string/>
   </property>
@@ -48,6 +51,9 @@
          <width>150</width>
          <height>0</height>
         </size>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::ActionsContextMenu</enum>
        </property>
        <attribute name="headerVisible">
         <bool>false</bool>
@@ -309,6 +315,18 @@
     <string>Generate</string>
    </property>
   </action>
+  <action name="actionDeleteSelected">
+   <property name="icon">
+    <iconset resource="../deviser-resources.qrc">
+     <normaloff>:/images/remove.png</normaloff>:/images/remove.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete Selected</string>
+   </property>
+   <property name="toolTip">
+    <string>Deletes the selectd element</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -555,6 +573,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>treeWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selectionChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>389</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDeleteSelected</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>deleteSelected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -572,5 +622,7 @@
   <slot>validateDescription()</slot>
   <slot>editPreferences()</slot>
   <slot>saveFileAs()</slot>
+  <slot>selectionChanged()</slot>
+  <slot>deleteSelected()</slot>
  </slots>
 </ui>
