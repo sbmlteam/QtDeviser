@@ -62,7 +62,7 @@ template<typename T> void setParentOn(QList<T*>& list, DeviserPackage* parent, D
 {
   if (!list.empty())
   {
-    for(QList<T*>::iterator it = list.begin();  it != list.end(); ++it)
+    for(typename QList<T*>::iterator it = list.begin();  it != list.end(); ++it)
     {
       (*it)->setParent(parent);
       (*it)->setParentVersion(version);

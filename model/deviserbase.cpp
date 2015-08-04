@@ -8,8 +8,8 @@ DeviserBase::DeviserBase()
 
 }
 
-DeviserBase::DeviserBase(const DeviserBase &)
-  : mPackage(mPackage)
+DeviserBase::DeviserBase(const DeviserBase &other)
+  : mPackage(other.mPackage)
   , mVersion(NULL)
   , mUserData(NULL)
 {

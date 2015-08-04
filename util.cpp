@@ -2,14 +2,17 @@
 
 #include <QFile>
 #include <QStringList>
+#include <QString>
+#include <QTextStream>
 
 Util::Util()
 {
 
 }
 
-QString Util::guessPlural(const QString &str)
+QString Util::guessPlural(const QString &s)
 {
+  QString str(s);
   if (str.endsWith("Information")) return str;
   if (str.endsWith("Index")) return str.replace("Index", "Indices");
   if (str.endsWith("s")) return str;
