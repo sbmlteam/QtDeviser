@@ -23,6 +23,7 @@ public:
   ~DialogUML();
 
   void loadYuml(const QString& yuml);
+  void exportImage(const QString& filename, const QString& extension);
 
 public slots:
   void updateGraph();
@@ -30,6 +31,7 @@ public slots:
   void styleChanged();
   void fitChanged();
   void downloadFinished(QNetworkReply *reply);
+  void downloadImageFinished(QNetworkReply *reply);
 
 protected:
   virtual void resizeEvent(QResizeEvent * event);
@@ -38,6 +40,9 @@ private:
   Ui::DialogUML *ui;
   QGraphicsScene* mpScene;
   QNetworkAccessManager* mpManager;
+  QNetworkAccessManager* mpDownloadManager;
+  QString mCurrent;
+  QString mFileName;
 };
 
 #endif // DIALOGUML_H

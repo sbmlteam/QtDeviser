@@ -380,7 +380,7 @@ MainWindow::saveFileAs()
   {
     oldDir = QFileInfo(mFileName).dir().absolutePath();
   }
-  QString fileName = QFileDialog::getSaveFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
+  QString fileName = QFileDialog::getSaveFileName(this, "Save Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
 
   if (!fileName.isEmpty())
     saveAsFile(fileName);

@@ -5,6 +5,7 @@
 
 #include "model/deviserversion.h"
 
+#include <QFileDialog>
 #include <QScrollBar>
 #include <QGraphicsPixmapItem>
 
@@ -13,19 +14,24 @@
 #include <QNetworkAccessManager>
 
 #include <QHttpPart>
+#include <QFileInfo>
 
 DialogUML::DialogUML(QWidget *parent)
-  :  QDialog(parent)
-  ,  ui(new Ui::DialogUML)
-  ,  mpScene(new QGraphicsScene(this))
-  ,  mpManager(new QNetworkAccessManager(this))
+  : QDialog(parent)
+  , ui(new Ui::DialogUML)
+  , mpScene(new QGraphicsScene(this))
+  , mpManager(new QNetworkAccessManager(this))
+  , mpDownloadManager(new QNetworkAccessManager(this))
+  , mCurrent("")
 {  
-
 
   ui->setupUi(this);
 
   connect(mpManager, SIGNAL(finished(QNetworkReply*)),
               this, SLOT(downloadFinished(QNetworkReply*)));
+
+  connect(mpDownloadManager, SIGNAL(finished(QNetworkReply*)),
+              this, SLOT(downloadImageFinished(QNetworkReply*)));
 
   ui->graphicsView->setScene(mpScene);
 
@@ -86,6 +92,7 @@ DialogUML::downloadFinished(QNetworkReply *reply)
     QNetworkRequest request(imageUrl);
     mpManager->get(request);
     reply->deleteLater();
+    mCurrent = data;
     return;
   }
 
@@ -108,8 +115,55 @@ DialogUML::downloadFinished(QNetworkReply *reply)
 void
 DialogUML::saveAs()
 {
+  if (mCurrent.isEmpty())
+    return;
+
+  QString fileName = QFileDialog::getSaveFileName(this, "Save yUML", "", "PNG files (*.png);;JPG files (*.jpg);;PDF files (*.pdf);;SVG files (*.svg);;yUML files (*.txt);;All files (*.*)");
+
+  if (fileName.isEmpty())
+    return;
+
+
+  QFileInfo info(fileName);
+  QString ext = info.completeSuffix().toLower();
+  if (ext == "txt")
+  {
+     QFile file(fileName);
+     if (file.open(QIODevice::WriteOnly))
+     {
+       file.write(ui->txtEdit->document()->toPlainText().toStdString().c_str());
+       file.close();
+     }
+  }
+  else
+    exportImage(fileName,ext);
 
 }
+
+void
+DialogUML::exportImage(const QString& filename, const QString& ext)
+{
+  mFileName = filename;
+  QString type = mCurrent;
+  type = type.replace("png", ext);
+
+  mpDownloadManager->get(QNetworkRequest(QUrl("http://yuml.me/" + type)));
+
+}
+
+
+void
+DialogUML::downloadImageFinished(QNetworkReply *reply)
+{
+  QByteArray data = reply->readAll();
+  QFile file(mFileName);
+  file.open(QIODevice::WriteOnly);
+  file.write(data);
+  file.close();
+
+  reply->deleteLater();
+}
+
 
 void
 DialogUML::styleChanged()
