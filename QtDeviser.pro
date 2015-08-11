@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui xml
+QT       += core gui xml network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -40,7 +40,8 @@ SOURCES += main.cpp\
            model/deviserplugin.cpp \
            model/deviserpackage.cpp \
            model/deviserreferenceattribute.cpp \
-    util.cpp
+    util.cpp \
+    ui/qzoomgraphicsview.cpp
 
 
 HEADERS  += ui/mainwindow.h \
@@ -70,7 +71,8 @@ HEADERS  += ui/mainwindow.h \
             model/deviserplugin.h \
             model/deviserpackage.h \
             model/deviserreferenceattribute.h \
-    util.h
+    util.h \
+    ui/qzoomgraphicsview.h
             
 
 FORMS    += ui/mainwindow.ui \

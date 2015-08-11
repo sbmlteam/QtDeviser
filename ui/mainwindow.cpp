@@ -121,10 +121,15 @@ void
 MainWindow::newModel()
 {
   if (mModel != NULL)
+  {
+    mCurrentElement = NULL;
+    mCurrentVersion = NULL;
     delete mModel;
+  }
 
   mModel = new DeviserPackage();
   mCurrentElement = mModel;
+  mCurrentVersion = mModel->getVersions()[0];
   mFileName = "";
   setCurrentFile(mFileName);
   updateUI();
@@ -314,7 +319,7 @@ MainWindow::openFile()
   QString oldDir;
   if (!mFileName.isEmpty())
   {
-    oldDir = QFileInfo(mFileName).dir().dirName();
+    oldDir = QFileInfo(mFileName).dir().absolutePath();
   }
 
   QString fileName = QFileDialog::getOpenFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
@@ -327,11 +332,16 @@ MainWindow::openFile()
 void MainWindow::openFile(const QString& fileName)
 {
   if (mModel != NULL)
+  {
+    mCurrentElement = NULL;
+    mCurrentVersion = NULL;
     delete mModel;
+  }
 
   mFileName = fileName;
   mModel = new DeviserPackage(fileName);
   mCurrentElement = mModel;
+  mCurrentVersion = getCurrentVersion();
   setCurrentFile(mFileName);
   updateUI();
 
@@ -368,7 +378,7 @@ MainWindow::saveFileAs()
   QString oldDir;
   if (!mFileName.isEmpty())
   {
-    oldDir = QFileInfo(mFileName).dir().dirName();
+    oldDir = QFileInfo(mFileName).dir().absolutePath();
   }
   QString fileName = QFileDialog::getSaveFileName(this, "Open Deviser Description", oldDir, "XML files (*.xml);;All files (*.*)");
 
@@ -392,6 +402,7 @@ void
 MainWindow::showUML()
 {
   DialogUML uml(this);
+  uml.loadYuml(getCurrentVersion()->toYuml(true));
   uml.exec();
 }
 

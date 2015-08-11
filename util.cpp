@@ -10,7 +10,8 @@ Util::Util()
 
 }
 
-QString Util::guessPlural(const QString &s)
+QString
+Util::guessPlural(const QString &s)
 {
   QString str(s);
   if (str.endsWith("Information")) return str;
@@ -20,12 +21,21 @@ QString Util::guessPlural(const QString &s)
   return str + "s";
 }
 
-QList<QString> Util::getCoreClasses()
+QString
+Util::lowerFirst(const QString& s)
+{
+  QString str(s);
+  return str.left(1).toLower() + str.right(str.length()-1);
+}
+
+QList<QString>
+Util::getCoreClasses()
 {
   return getCoreClassesMap().keys();
 }
 
-QMap<QString, QString> Util::getCoreClassesMap()
+QMap<QString, QString>
+Util::getCoreClassesMap()
 {
   QMap<QString, QString> result;
   QFile data(":/CoreClasses.txt");
@@ -40,5 +50,30 @@ QMap<QString, QString> Util::getCoreClassesMap()
   data.close();
 
   return result;
+}
+
+QString
+Util::getClassColor()
+{
+  return "linen";
+}
+
+QString
+Util::getEnumColor()
+{
+  return "gold";
+}
+
+QString
+Util::getExtensionColor()
+{
+  return "palegreen";
+}
+
+QString
+Util::getEnumPrefix()
+{
+  //return QString::fromUtf8("\u00ABEnumeration\u00BB;");
+  return QString::fromUtf8("Enumeration;");
 }
 

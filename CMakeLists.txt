@@ -20,7 +20,7 @@ set(SPATIAL_VERSION_RELEASE)
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
 
-    file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt" VersionString NEWLINE_CONSUME)
+    file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt" VersionString NEWLINE_CONSUME )
     string(STRIP "${VersionString}" VersionString )
     string(REPLACE "." ";" VersionString "${VersionString}" )
     string(REPLACE "-" ";" VersionString "${VersionString}" )
@@ -114,7 +114,7 @@ set (CMAKE_PREFIX_PATH "${PREFIX_PATH}")
 endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/ChooseQtVersion.cmake)
-QT_FIND_MODULES(Core Gui OpenGL Xml) 
+QT_FIND_MODULES(Core Gui OpenGL Xml Network)
 
 file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/model/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 file(GLOB   H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.h ${CMAKE_CURRENT_SOURCE_DIR}/model/*.h)

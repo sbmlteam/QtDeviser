@@ -3,6 +3,8 @@
 
 #include <QFile>
 #include <QDomDocument>
+#include <QByteArray>
+#include <QTextStream>
 
 DeviserPackage::DeviserPackage()
   : DeviserBase()
@@ -124,7 +126,14 @@ QString DeviserPackage::toXmlString() const
 
 QString DeviserPackage::toYuml(bool usecolor ) const
 {
-  return "";
+  QByteArray array;
+  QTextStream stream(&array, QIODevice::WriteOnly);
+
+  foreach (const DeviserVersion* version, mVersions)
+    stream << version->toYuml(usecolor);
+
+  return array;
+
 }
 
 void DeviserPackage::writeAttributesTo(QXmlStreamWriter& writer) const

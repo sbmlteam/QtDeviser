@@ -5,6 +5,11 @@
 #include "deviserlistofattribute.h"
 #include "deviserconcrete.h"
 
+#include "util.h"
+
+#include <QByteArray>
+#include <QTextStream>
+
 DeviserClass::DeviserClass()
   : DeviserBase()
   , mName()
@@ -197,6 +202,16 @@ const QString &
 DeviserClass::getListOfName() const
 {
   return mListOfName;
+}
+
+QString
+DeviserClass::getActualListOfName() const
+{
+  if (!mListOfClassName.isEmpty())
+    return mListOfClassName;
+  if (!mListOfName.isEmpty())
+    return mListOfName;
+  return "ListOf" + Util::guessPlural(mName);
 }
 
 void
@@ -399,3 +414,82 @@ DeviserClass::createConcrete()
   return result;
 }
 
+QString
+DeviserClass::toYuml(bool usecolor) const
+{
+  QByteArray array;
+  QTextStream stream(&array, QIODevice::WriteOnly);
+
+  if (!mBaseClass.isEmpty())
+  {
+    stream << "[" << mBaseClass << "]<>-";
+  }
+
+  stream << "[" << mName;
+
+
+  if (!mAttributes.empty())
+    stream << "|";
+
+
+  QList<const DeviserAttribute*> list;
+  for (int i = 0; i < mAttributes.count(); ++i)
+  {
+    if (mAttributes[i]->isComplexType())
+    {
+      list.append(mAttributes[i]);
+    }
+
+    stream << mAttributes[i]->toYuml();
+    if (i + 1 < mAttributes.count())
+      stream << ";";
+  }
+  if (usecolor)
+    stream << "{bg:" << Util::getClassColor() << "}";
+
+  stream << "]" << endl;
+
+  foreach (const DeviserAttribute* item, list)
+  {
+    stream << item->getYumlReferences(mName);
+  }
+  if (hasListOf())
+  {
+    QString listOf = getActualListOfName();
+    stream << "[ListOf]<>-[" << listOf;
+    if (!mListOfAttributes.empty())
+      stream << "|";
+
+    list.clear();
+    for (int i = 0; i < mListOfAttributes.count(); ++i)
+    {
+      if (mListOfAttributes[i]->isComplexType())
+      {
+        list.append(mListOfAttributes[i]);
+      }
+
+      stream << mListOfAttributes[i]->toYuml();
+      if (i + 1 < mListOfAttributes.count())
+        stream << ";";
+
+    }
+
+    stream << "]" << endl;
+
+
+    QString name = Util::lowerFirst(mName);
+    if (!mElementName.isEmpty())
+      name = Util::lowerFirst(mElementName);
+    stream << QString("[%3]-%2  1..*>[%1]").arg( listOf, name, mName);
+
+    foreach (const DeviserAttribute* item, list)
+    {
+      stream << item->getYumlReferences(mName);
+    }
+
+  }
+
+  stream << endl;
+  stream.flush();    
+  return array;
+}

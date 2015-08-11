@@ -3,6 +3,11 @@
 #include "deviserreferenceattribute.h"
 #include "deviserattribute.h"
 
+#include "util.h"
+
+#include <QByteArray>
+#include <QTextStream>
+
 DeviserPlugin::DeviserPlugin()
   : DeviserBase()
   , mExtensionPoint()
@@ -235,4 +240,57 @@ void
 DeviserPlugin::writeTo(QXmlStreamWriter& writer) const
 {
   writeElementsWithNameTo(writer, "plugin");
+}
+
+QString
+DeviserPlugin::toYuml(bool usecolor /*= true*/) const
+{
+  QByteArray array;
+  QTextStream stream(&array, QIODevice::WriteOnly);
+
+  stream << "[" << mExtensionPoint;
+
+
+  if (!mAttributes.empty() || !mReferences.empty())
+    stream << "|";
+
+  QList<const DeviserAttribute*> list;
+
+  for (int i = 0; i < mAttributes.count(); ++i)
+  {
+    const DeviserAttribute* item = mAttributes[i];
+    if (item->isComplexType())
+    {
+      list.append(item);
+    }
+
+    stream << item->toYuml(usecolor);
+
+
+    if (i + 1 < mAttributes.count())
+    {
+      stream << ";";
+    }
+  }
+  if (usecolor)
+    stream << "{bg:" << Util::getExtensionColor() << "}";
+
+  stream << "]" << endl;
+
+
+  foreach (const DeviserAttribute* item , list)
+  {
+    stream << item ->getYumlReferences(mExtensionPoint) << endl;
+  }
+
+
+  for (int i = 0; i < mReferences.count(); ++i)
+  {
+    const DeviserReferenceAttribute* item = mReferences[i];
+    stream << "[" << mExtensionPoint <<  "]->[" << item->getName() << "]";
+  }
+  stream.flush();
+
+
+  return array;
 }

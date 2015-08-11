@@ -3,6 +3,8 @@
 
 #include <model/deviserreferenceattribute.h>
 
+class DeviserClass;
+
 class DeviserAttribute : public DeviserReferenceAttribute
 {
   Q_OBJECT
@@ -25,6 +27,12 @@ public:
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
+  virtual QString toYuml(bool usecolor = true) const;
+
+  bool isComplexType() const;
+  bool isListOf() const;
+  const DeviserClass* getUnderLyingElement() const;
+  QString getYumlReferences(const QString& source) const;
 
 signals:
   void xmlNameChanged();

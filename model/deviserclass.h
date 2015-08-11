@@ -39,6 +39,8 @@ public:
   const QString& getListOfClassName() const;
   void setListOfClassName(const QString& listOfClassName);
 
+  QString getActualListOfName() const;
+
   bool getChildrenOverwriteElementName() const;
 
   const QString& getAdditionalDeclarations() const;
@@ -65,6 +67,8 @@ public:
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeElementsTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
+
+  virtual QString toYuml(bool usecolor = true) const;
 
 signals:
   void nameChanged(const QString& oldName, const QString& newName,

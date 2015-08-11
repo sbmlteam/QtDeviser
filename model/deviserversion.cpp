@@ -5,6 +5,9 @@
 #include "deviserplugin.h"
 #include "devisermapping.h"
 
+#include <QByteArray>
+#include <QTextStream>
+
 DeviserVersion::DeviserVersion()
   : DeviserBase()
   , mLevel(0)
@@ -252,4 +255,22 @@ DeviserClass* DeviserVersion::getElement(const QString& name)
     if ((*it)->getName() == name)
       return *it;
   return NULL;
+}
+
+QString
+DeviserVersion::toYuml(bool usecolor /*= true*/) const
+{
+  QByteArray array;
+  QTextStream stream(&array, QIODevice::WriteOnly);
+
+  foreach(const DeviserPlugin* item, mPlugins)
+    stream << item->toYuml(usecolor);
+  foreach(const DeviserEnum* item, mEnums)
+    stream << item->toYuml(usecolor);
+  foreach(const DeviserClass* item, mElements)
+    stream << item->toYuml(usecolor);
+
+  stream.flush();
+
+  return array;
 }

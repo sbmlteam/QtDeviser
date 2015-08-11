@@ -11,8 +11,15 @@ public:
   Util();
 
   static QString guessPlural(const QString& str);
+  static QString lowerFirst(const QString& str);
+
   static QList<QString> getCoreClasses();
   static QMap<QString, QString> getCoreClassesMap();
+
+  static QString getClassColor();
+  static QString getEnumColor();
+  static QString getExtensionColor();
+  static QString getEnumPrefix();
 
 protected:
 

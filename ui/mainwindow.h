@@ -30,6 +30,7 @@ public:
   ~MainWindow();
 
   void setCurrentFile(const QString&);
+  DeviserVersion* getCurrentVersion();
 
 public slots:
   void showAbout();
@@ -60,7 +61,6 @@ public slots:
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);
-  DeviserVersion* getCurrentVersion();
 
 private:
   Ui::MainWindow *ui;

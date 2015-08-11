@@ -36,7 +36,7 @@ QString DeviserBase::toXmlString() const
   return QString();
 }
 
-QString DeviserBase::toYuml(bool usecolor) const
+QString DeviserBase::toYuml(bool /*usecolor*/) const
 {
   return QString();
 }
@@ -56,7 +56,9 @@ void DeviserBase::writeTo(QXmlStreamWriter& writer) const
   writeAttributesTo(writer);
   writeElementsTo(writer);
 }
-void DeviserBase::writeElementsWithNameTo(QXmlStreamWriter& writer, const QString& name) const
+void DeviserBase::writeElementsWithNameTo(
+    QXmlStreamWriter& writer,
+    const QString& name) const
 {
   writer.writeStartElement(name);
   DeviserBase::writeTo(writer);

@@ -67,3 +67,11 @@ DeviserEnumValue::writeTo(QXmlStreamWriter& writer) const
 {
   writeElementsWithNameTo(writer, "enumValue");
 }
+
+QString
+DeviserEnumValue::toYuml(bool /*usecolor*/) const
+{
+  if (mValue.isEmpty()) return mName;
+  return QString("%1 = %2").arg(mName, mValue);
+}
+

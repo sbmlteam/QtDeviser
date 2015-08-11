@@ -49,3 +49,9 @@ DeviserReferenceAttribute::writeTo(QXmlStreamWriter& writer) const
 {
   writeElementsWithNameTo(writer, "reference");
 }
+
+QString
+DeviserReferenceAttribute::toYuml(bool /*usecolor = true*/) const
+{
+  return mName;
+}

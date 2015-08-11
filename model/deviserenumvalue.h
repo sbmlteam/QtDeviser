@@ -19,6 +19,7 @@ public:
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
+  virtual QString toYuml(bool usecolor = true) const;
 signals:
   void nameChanged();
   void valueChanged();

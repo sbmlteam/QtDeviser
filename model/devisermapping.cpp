@@ -69,3 +69,10 @@ DeviserMapping::writeTo(QXmlStreamWriter& writer) const
   writeElementsWithNameTo(writer, "mapping");
 }
 
+
+QString
+DeviserMapping::toYuml(bool /*usecolor */) const
+{
+  if (mPackage.isEmpty()) return mName;
+  return QString("%1 = %2").arg(mName, mPackage);
+}

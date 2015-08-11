@@ -1,6 +1,10 @@
 #include "deviserenum.h"
 
 #include "deviserenumvalue.h"
+#include "util.h"
+
+#include <QByteArray>
+#include <QTextStream>
 
 DeviserEnum::DeviserEnum()
   : DeviserBase()
@@ -93,4 +97,31 @@ void
 DeviserEnum::writeTo(QXmlStreamWriter& writer) const
 {
   writeElementsWithNameTo(writer, "enum");
+}
+
+QString
+DeviserEnum::toYuml(bool usecolor /*= true*/) const
+{
+  QByteArray array;
+  QTextStream stream(&array, QIODevice::WriteOnly);
+
+  stream << "[" << Util::getEnumPrefix() << mName;
+
+  if (!mValues.empty())
+    stream << "|";
+
+  for (int i = 0; i < mValues.count(); ++i)
+  {
+    stream << mValues[i]->toYuml();
+
+    if (i+1 < mValues.count())
+      stream << ";";
+
+  }
+  if (usecolor)
+    stream << "{bg:" << Util::getEnumColor() <<  "}";
+
+  stream << "]" << endl;
+
+  return array;
 }
