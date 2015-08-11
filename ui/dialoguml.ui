@@ -134,7 +134,7 @@
   <customwidget>
    <class>QZoomGraphicsView</class>
    <extends>QGraphicsView</extends>
-   <header>qzoomgraphicsview.h</header>
+   <header location="global">ui/qzoomgraphicsview.h</header>
   </customwidget>
  </customwidgets>
  <resources>
