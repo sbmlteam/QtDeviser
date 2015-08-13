@@ -77,3 +77,23 @@ Util::getEnumPrefix()
   return QString::fromUtf8("Enumeration;");
 }
 
+QString
+Util::getExecutableFilter()
+{
+#ifdef Q_OS_WIN
+  return "Executable files (*.exe; *.bat; *.cmd);;All files (*.*)";
+#else
+  return "Executable files (*.*, *.sh);;All files (*.*)";
+#endif
+}
+
+
+QString
+Util::getLibFilter()
+{
+#ifdef Q_OS_WIN
+  return "Library files (*.lib);;All files (*.*)";
+#else
+  return "Library files (*.a*; *.so; *.dylib);;All files (*.*)";
+#endif
+}

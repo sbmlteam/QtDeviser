@@ -14,6 +14,7 @@
 #include "dialogabout.h"
 #include "dialoguml.h"
 #include "dialoggenerate.h"
+#include "dialogpreferences.h"
 
 #include <model/deviserpackage.h>
 #include <model/deviserclass.h>
@@ -101,7 +102,10 @@ MainWindow::getCurrentVersion()
 void
 MainWindow::editPreferences()
 {
-
+  DialogPreferences preferences(this);
+  preferences.loadSettings();
+  if (preferences.exec() == QDialog::Accepted)
+    preferences.saveSettings();
 }
 
 void
@@ -114,6 +118,7 @@ void
 MainWindow::generate()
 {
   DialogGenerate generate(this);
+  generate.loadModel(mModel);
   generate.exec();
 }
 

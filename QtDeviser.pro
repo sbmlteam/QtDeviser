@@ -41,7 +41,9 @@ SOURCES += main.cpp\
            model/deviserpackage.cpp \
            model/deviserreferenceattribute.cpp \
     util.cpp \
-    ui/qzoomgraphicsview.cpp
+    ui/qzoomgraphicsview.cpp \
+    ui/dialogpreferences.cpp \
+    model/devisersettings.cpp
 
 
 HEADERS  += ui/mainwindow.h \
@@ -72,7 +74,9 @@ HEADERS  += ui/mainwindow.h \
             model/deviserpackage.h \
             model/deviserreferenceattribute.h \
     util.h \
-    ui/qzoomgraphicsview.h
+    ui/qzoomgraphicsview.h \
+    ui/dialogpreferences.h \
+    model/devisersettings.h
             
 
 FORMS    += ui/mainwindow.ui \
@@ -84,7 +88,8 @@ FORMS    += ui/mainwindow.ui \
             ui/formdeviserplugin.ui \
             ui/dialogabout.ui \
             ui/dialoguml.ui \
-            ui/dialoggenerate.ui
+            ui/dialoggenerate.ui \
+    ui/dialogpreferences.ui
 
 RESOURCES += \
     deviser-resources.qrc

@@ -12,7 +12,6 @@ project(QtDeviser)
 cmake_policy(SET CMP0020 NEW)
 
 
-
 set(SPATIAL_VERSION_MAJOR)
 set(SPATIAL_VERSION_MINOR)
 set(SPATIAL_VERSION_PATCH)

@@ -20,6 +20,8 @@ public:
   static QString getEnumColor();
   static QString getExtensionColor();
   static QString getEnumPrefix();
+  static QString getExecutableFilter();
+  static QString getLibFilter();
 
 protected:
 
