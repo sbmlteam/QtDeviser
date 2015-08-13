@@ -9,7 +9,7 @@
 
 #include <QXmlStreamWriter>
 
-#include <QDebug>
+#include <cstdlib>
 
 DeviserSettings* DeviserSettings::mpInstance = NULL;
 
