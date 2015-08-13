@@ -118,7 +118,7 @@ void
 MainWindow::generate()
 {
   DialogGenerate generate(this);
-  generate.loadModel(mModel);
+  generate.loadModel(mModel, mFileName);
   generate.exec();
 }
 

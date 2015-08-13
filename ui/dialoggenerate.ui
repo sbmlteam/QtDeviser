@@ -33,7 +33,7 @@
         <widget class="QLineEdit" name="txtOutDir"/>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton">
+        <widget class="QToolButton" name="cmdBrowseOutputDir">
          <property name="text">
           <string>...</string>
          </property>
@@ -81,14 +81,14 @@
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="0">
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="cmdGeneratePackageCode">
           <property name="text">
            <string>Generate Package Code</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="cmdOpenOutputDir">
           <property name="text">
            <string>Open Output Dir</string>
           </property>
@@ -148,14 +148,14 @@
          <item row="0" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="cmdGenerateTex">
              <property name="text">
               <string>Generate Latex</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_4">
+            <widget class="QPushButton" name="cmdCompileTex">
              <property name="text">
               <string>Compile TeX</string>
              </property>
@@ -186,21 +186,21 @@
          <item row="0" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton_5">
+            <widget class="QPushButton" name="cmdCompileDependencies">
              <property name="text">
               <string>Compile Dependencies</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_6">
+            <widget class="QPushButton" name="cmdAddToSourceDir">
              <property name="text">
               <string>Add Code To Source Dir</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="cmdRemoveFromSourceDir">
              <property name="text">
               <string>Remove Code From Source Dir</string>
              </property>
@@ -224,14 +224,14 @@
          <item row="1" column="0" rowspan="2" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QPushButton" name="pushButton_8">
+            <widget class="QPushButton" name="cmdCompileLibSBML">
              <property name="text">
               <string>Compile libSBML with package</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_9">
+            <widget class="QPushButton" name="cmdTestLibSBML">
              <property name="text">
               <string>Test libSBML</string>
              </property>
@@ -287,7 +287,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_10">
+      <widget class="QPushButton" name="cmdClose">
        <property name="text">
         <string>Close</string>
        </property>
@@ -300,5 +300,194 @@
  <resources>
   <include location="../deviser-resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cmdAddToSourceDir</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>addToSourceDir()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdBrowseOutputDir</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>browseOutputDir()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>619</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdClose</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>458</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdCompileDependencies</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>compileDependencies()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdCompileLibSBML</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>compileLibSBML()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdRemoveFromSourceDir</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>removeFromSourceDir()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>495</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdGeneratePackageCode</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>generatePackageCode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdCompileTex</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>compileTex()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdGenerateTex</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>generateTex()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>211</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdTestLibSBML</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>testLibSBML()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>362</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdOpenOutputDir</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>openOutputDir()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>testLibSBML()</slot>
+  <slot>removeFromSourceDir()</slot>
+  <slot>openOutputDir()</slot>
+  <slot>generateTex()</slot>
+  <slot>generatePackageCode()</slot>
+  <slot>compileTex()</slot>
+  <slot>compileLibSBML()</slot>
+  <slot>compileDependencies()</slot>
+  <slot>browseOutputDir()</slot>
+  <slot>addToSourceDir()</slot>
+ </slots>
 </ui>
