@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>643</width>
+    <width>934</width>
     <height>480</height>
    </rect>
   </property>
@@ -18,51 +18,6 @@
     <normaloff>:/images/ICON_Deviser_512x512.png</normaloff>:/images/ICON_Deviser_512x512.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
-   <item row="0" column="0">
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Output Dir: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLineEdit" name="txtOutDir"/>
-       </item>
-       <item>
-        <widget class="QToolButton" name="cmdBrowseOutputDir">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Package File: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="txtPackageFile"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Package Name: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="txtPackageName"/>
-     </item>
-    </layout>
-   </item>
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
@@ -295,6 +250,53 @@
      </item>
     </layout>
    </item>
+   <item row="0" column="0">
+    <widget class="QWidget" name="" native="true">
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Output Dir: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="txtOutDir"/>
+        </item>
+        <item>
+         <widget class="QToolButton" name="cmdBrowseOutputDir">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Package File: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="txtPackageFile"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Package Name: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="txtPackageName"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources>
@@ -310,22 +312,6 @@
     <hint type="sourcelabel">
      <x>351</x>
      <y>135</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>321</x>
-     <y>239</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cmdBrowseOutputDir</sender>
-   <signal>clicked()</signal>
-   <receiver>DialogGenerate</receiver>
-   <slot>browseOutputDir()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>619</x>
-     <y>20</y>
     </hint>
     <hint type="destinationlabel">
      <x>321</x>
