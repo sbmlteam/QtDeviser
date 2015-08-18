@@ -1,6 +1,7 @@
 #include "util.h"
 
 #include <QFile>
+#include <QDir>
 #include <QStringList>
 #include <QString>
 #include <QTextStream>
@@ -97,3 +98,83 @@ Util::getLibFilter()
   return "Library files (*.a*; *.so; *.dylib);;All files (*.*)";
 #endif
 }
+
+
+bool Util::isWindows()
+{
+#ifdef Q_OS_WIN
+  return true;
+#else
+  return false;
+#endif
+}
+
+bool Util::removeDir(const QString &dirPath, const QString &filter)
+{
+  QFileInfo dirInfo(dirPath);
+  if (dirInfo.isFile())
+  {
+    return QFile (dirPath).remove();
+  }
+
+
+  QDir dir(dirPath);
+  if (!dir.exists())
+    return true;
+  foreach(const QFileInfo &info, dir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot)) {
+    if (info.isDir()) {
+      if (!removeDir(info.filePath(), filter))
+        return false;
+    } else {
+      if (!filter.isEmpty() && !info.fileName().contains(filter))
+        continue;
+
+      if (!dir.remove(info.fileName()))
+        return false;
+    }
+  }
+
+  if (filter.isEmpty())
+  {
+   QDir parentDir(QFileInfo(dirPath).path());
+   return parentDir.rmdir(QFileInfo(dirPath).fileName());
+  }
+  return true;
+}
+
+#include <QDebug>
+
+bool Util::copyDir(const QString &srcPath, const QString &dstPath)
+{
+
+  QDir parentDstDir(QFileInfo(dstPath).path());
+  parentDstDir.mkdir(QFileInfo(dstPath).fileName());
+    
+
+  QFileInfo srcInfo(srcPath);
+  if (srcInfo.isFile())
+  {
+    QString dstItemPath = dstPath + "/" + srcInfo.fileName();
+
+    return  QFile::copy(srcPath, dstItemPath);
+  }
+
+  QDir srcDir(srcPath);
+  foreach(const QFileInfo &info, srcDir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot)) {
+    QString srcItemPath = srcPath + "/" + info.fileName();
+    QString dstItemPath = dstPath + "/" + info.fileName();
+    if (info.isDir()) {
+      if (!copyDir(srcItemPath, dstItemPath)) {
+        return false;
+      }
+    } else if (info.isFile()) {
+      if (!QFile::copy(srcItemPath, dstItemPath)) {
+        return false;
+      }
+    } else {
+      qDebug() << "Unhandled item" << info.filePath() << "in cpDir";
+    }
+  }
+  return true;
+}
+

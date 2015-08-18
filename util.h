@@ -23,6 +23,11 @@ public:
   static QString getExecutableFilter();
   static QString getLibFilter();
 
+  static bool isWindows();
+
+  static bool removeDir(const QString &dirPath, const QString& filter = "");
+  static bool copyDir(const QString &srcPath, const QString &dstPath);
+
 protected:
 
 };
