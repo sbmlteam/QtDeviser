@@ -21,7 +21,7 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="QWidget" name="widget" native="true">
+      <widget class="QWidget" name="widget1" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -80,7 +80,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tabLatex">
         <attribute name="title">
@@ -187,6 +187,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="cmdTestLibSBML">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>Test libSBML</string>
              </property>
@@ -251,7 +254,7 @@
     </layout>
    </item>
    <item row="0" column="0">
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="widget2" native="true">
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
        <widget class="QLabel" name="label">

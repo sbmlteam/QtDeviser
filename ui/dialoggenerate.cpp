@@ -146,7 +146,8 @@ DialogGenerate::generateTex()
       QDir().mkdir(dest);
     }
 
-  QString deviser = DeviserSettings::getInstance()->getDeviserRepository() + "/generator/deviser.py";
+  QString deviser = DeviserSettings::getInstance()->getDeviserRepository()
+      + "/generator/deviser.py";
   deviser = deviser.replace("\\", "/");
 
   QStringList args;
@@ -158,7 +159,9 @@ DialogGenerate::generateTex()
   mpProcess->setWorkingDirectory(dest);
 
   mpProcess->moveToThread(&workerThread);
-  workerThread.setProcess(mpProcess, DeviserSettings::getInstance()->getPythonInterpreter(), args);
+  workerThread.setProcess(mpProcess,
+                          DeviserSettings::getInstance()->getPythonInterpreter(),
+                          args);
   workerThread.start();
 
   setEnabled(false);  
@@ -196,7 +199,9 @@ DialogGenerate::generatePackageCode()
     return;
   }
 
-  QString deviser = DeviserSettings::getInstance()->getDeviserRepository() + "/generator/deviser.py";
+  QString deviser =
+      DeviserSettings::getInstance()->getDeviserRepository()
+      + "/generator/deviser.py";
   deviser = deviser.replace("\\", "/");
 
   QStringList args;
@@ -300,16 +305,19 @@ DialogGenerate::compileTex()
           mPackage->getFullName() :
           lowerCasePackageName;
 
-    int coreLevel = mVersion != NULL ? mVersion->getLevel() :
-                                       mPackage != NULL && mPackage->getVersions().count() > 0 ?
+    int coreLevel = mVersion != NULL ?
+          mVersion->getLevel() :
+          mPackage != NULL && mPackage->getVersions().count() > 0 ?
           mPackage->getVersions().at(0)->getLevel() :
           3;
-    int coreVersion = mVersion != NULL ? mVersion->getVersion() :
-                                         mPackage != NULL && mPackage->getVersions().count() > 0 ?
+    int coreVersion = mVersion != NULL ?
+          mVersion->getVersion() :
+          mPackage != NULL && mPackage->getVersions().count() > 0 ?
           mPackage->getVersions().at(0)->getVersion() :
           1;
-    int packageVersion = mVersion != NULL ? mVersion->getPkgVersion() :
-                                            mPackage != NULL && mPackage->getVersions().count() > 0 ?
+    int packageVersion = mVersion != NULL ?
+          mVersion->getPkgVersion() :
+          mPackage != NULL && mPackage->getVersions().count() > 0 ?
           mPackage->getVersions().at(0)->getPkgVersion() :
           1;
 
@@ -683,7 +691,8 @@ DialogGenerate::addToSourceDir()
     return ;
   }
 
-  QString libSBMLSourceDir = QDir(DeviserSettings::getInstance()->getLibSBMLSourceDir()).absolutePath();
+  QString libSBMLSourceDir =
+      QDir(DeviserSettings::getInstance()->getLibSBMLSourceDir()).absolutePath();
   if (!QDir(libSBMLSourceDir).exists())
   {
     addMessage("Error: Missing source dir.");
@@ -717,7 +726,9 @@ WorkerThread::WorkerThread(QDialog *parent)
 
 }
 
-void WorkerThread::setProcess(QProcess *pProcess, const QString &fileName, const QStringList &args)
+void WorkerThread::setProcess(QProcess *pProcess,
+                              const QString &fileName,
+                              const QStringList &args)
 {
   mpProcess = pProcess;
   mFileName = fileName;
