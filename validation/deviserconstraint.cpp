@@ -20,7 +20,7 @@ bool DeviserConstraint::canFix() const
   return mCanFix;
 }
 
-void DeviserConstraint::addMessage(const DeviserMessage &message)
+void DeviserConstraint::addMessage(DeviserMessage *message)
 {
   if (mpValidator == NULL) return;
   mpValidator->errors().append(message);

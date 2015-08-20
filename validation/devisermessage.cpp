@@ -18,6 +18,18 @@ DeviserMessage::DeviserMessage(const DeviserMessage &other)
 
 }
 
+DeviserMessage&
+DeviserMessage::operator=(const DeviserMessage& rhs)
+{
+  if (&rhs != this)
+  {
+    mMessage = rhs.mMessage;
+    mConstraint = rhs.mConstraint;
+  }
+
+  return *this;
+}
+
 QString DeviserMessage::message() const
 {
   return mMessage;

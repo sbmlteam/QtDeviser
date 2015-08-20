@@ -14,6 +14,7 @@ public:
                           DeviserConstraint* contraint = NULL);
 
   DeviserMessage(const DeviserMessage& other);
+  DeviserMessage& operator=(const DeviserMessage& rhs);
 
   QString message() const;
   void setMessage(const QString &message);

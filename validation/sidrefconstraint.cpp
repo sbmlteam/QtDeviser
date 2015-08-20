@@ -24,9 +24,9 @@ int SIdRefConstraint::analyzePackage(DeviserPackage *package)
           continue;
 
         ADD_MESSAGE("The attribute '"
-                    << attribute->getName().toStdString()
+                    << attribute->getName()
                     << "' of element '"
-                    << element->getName().toStdString()
+                    << element->getName()
                     << "'' is of type SIdRef, but has no element set. This is needed for validation purposes.");
         ++count;
 
@@ -42,9 +42,9 @@ int SIdRefConstraint::analyzePackage(DeviserPackage *package)
           continue;
 
         ADD_MESSAGE("The attribute '"
-                    << attribute->getName().toStdString()
+                    << attribute->getName()
                     << "' of plugin '"
-                    << element->getExtensionPoint().toStdString()
+                    << element->getExtensionPoint()
                     << "'' is of type SIdRef, but has no element set. This is needed for validation purposes.");
         ++count;
 

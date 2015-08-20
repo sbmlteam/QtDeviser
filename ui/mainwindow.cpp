@@ -1,5 +1,6 @@
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTextStream>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -22,6 +23,8 @@
 #include <model/devisermapping.h>
 #include <model/deviserenum.h>
 #include <model/deviserplugin.h>
+
+#include <validation/devisermessage.h>
 
 #include <sstream>
 
@@ -431,15 +434,19 @@ MainWindow::validateDescription()
     QString title(stream.str().c_str());
 
 
-    stream.str("");
+    QString strMessage;
+    QTextStream str(&strMessage);
 
-    foreach(const DeviserMessage& message, mValidator.errors())
+
+    
+
+    foreach(DeviserMessage* message, mValidator.errors())
     {
-      stream << message.message().toStdString() << std::endl;
+      str << message->message() << "\n";
     }
 
     QMessageBox::information(this, title,
-                             stream.str().c_str(),
+                             strMessage,
                              QMessageBox::Ok, QMessageBox::Ok);
 
   }

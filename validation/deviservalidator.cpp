@@ -6,6 +6,8 @@
 
 DeviserValidator::DeviserValidator(QObject *parent)
   : QObject(parent)
+  , mConstraints()
+  , mErrors()
 {
   mConstraints << new SIdRefConstraint(this);
 }
@@ -28,17 +30,17 @@ void DeviserValidator::fixIssues(DeviserPackage *package)
 
 }
 
-QList<DeviserMessage> DeviserValidator::errors() const
+QList<DeviserMessage*> DeviserValidator::errors() const
 {
   return mErrors;
 }
 
-QList<DeviserMessage> DeviserValidator::errors()
+QList<DeviserMessage*> DeviserValidator::errors()
 {
   return mErrors;
 }
 
-void DeviserValidator::setErrors(const QList<DeviserMessage> &errors)
+void DeviserValidator::setErrors(const QList<DeviserMessage*> &errors)
 {
   mErrors = errors;
 }

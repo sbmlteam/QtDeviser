@@ -2,6 +2,8 @@
 #define DEVISERCONSTRAINT_H
 
 #include <QObject>
+#include <QTextStream>
+#include <QString>
 
 #include <validation/deviservalidator.h>
 #include <validation/devisermessage.h>
@@ -10,8 +12,9 @@
 
 #define ADD_MESSAGE(args)\
 {\
-  std::stringstream str; str << args;\
-  addMessage(DeviserMessage(NULL, str.str().c_str(), this));\
+  QString message;\
+  QTextStream str(&message); str << args;\
+  addMessage(new DeviserMessage(NULL, message, this));\
 }\
 
 class DeviserPackage;
@@ -32,7 +35,7 @@ public slots:
 
 protected:
 
-  void addMessage(const DeviserMessage &message);
+  void addMessage(DeviserMessage *message);
 
   DeviserValidator *mpValidator;
   bool mCanFix;

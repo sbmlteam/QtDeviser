@@ -4,9 +4,7 @@
 #include <QObject>
 #include <QList>
 
-#include <validation/devisermessage.h>
-
-
+class DeviserMessage;
 class DeviserPackage;
 class DeviserConstraint;
 
@@ -19,9 +17,9 @@ public:
   int validatePackage(DeviserPackage* package);
   void fixIssues(DeviserPackage* package);
 
-  QList<DeviserMessage> errors() const;
-  QList<DeviserMessage> errors();
-  void setErrors(const QList<DeviserMessage> &errors);
+  QList<DeviserMessage*> errors() const;
+  QList<DeviserMessage*> errors();
+  void setErrors(const QList<DeviserMessage*> &errors);
 
   QList<DeviserConstraint *> constraints() const;
   void setConstraints(const QList<DeviserConstraint *> &constraints);
@@ -35,7 +33,7 @@ protected:
 protected:
 
   QList<DeviserConstraint*> mConstraints;
-  QList<DeviserMessage> mErrors;
+  QList<DeviserMessage*> mErrors;
 
 };
 
