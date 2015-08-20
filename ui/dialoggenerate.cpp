@@ -120,9 +120,12 @@ DialogGenerate::generateTex()
   addMessage();
 
   QString outDir = ui->txtOutDir->text();
-  QDir out = QDir(outDir);
+  QDir out(outDir);
   if (!out.exists())
-    out.mkdir(".");
+    if (!out.mkdir("."))
+    {
+      QDir().mkdir(ui->txtOutDir->text());
+    }
 
   QString packageName = ui->txtPackageName->text();
   QString packageDesc = ui->txtPackageFile->text();
@@ -135,10 +138,13 @@ DialogGenerate::generateTex()
 
   QString lowerCasePackageName = packageName.toLower();
   QString dest = outDir + "/" + lowerCasePackageName + "-spec";
-  QDir destDir = QDir(dest);
+  QDir destDir(dest);
 
   if (!destDir.exists())
-    destDir.mkdir(".");
+    if (!destDir.mkdir("."))
+    {
+      QDir().mkdir(dest);
+    }
 
   QString deviser = DeviserSettings::getInstance()->getDeviserRepository() + "/generator/deviser.py";
   deviser = deviser.replace("\\", "/");
@@ -179,7 +185,8 @@ DialogGenerate::generatePackageCode()
   QString outDir = ui->txtOutDir->text();
   QDir out = QDir(outDir);
   if (!out.exists())
-    out.mkdir(".");
+    if (!out.mkdir("."))
+      QDir().mkdir(outDir);
 
   QString packageDesc = ui->txtPackageFile->text();
 
@@ -429,7 +436,8 @@ DialogGenerate::compileLibSBML()
   QString buildDir(outDir + "/" + "build_" + packageName.toLower() + "_package");
 
   if (!QDir(buildDir).exists())
-    QDir(buildDir).mkdir(".");
+    if (!QDir(buildDir).mkdir("."))
+      QDir().mkdir(buildDir);
 
 
   QString file;
@@ -566,7 +574,8 @@ DialogGenerate::compileDependencies()
   QString buildDir ( outDir + "/" + "build_dependencies" );
 
   if (!QDir(buildDir).exists())
-    QDir(buildDir).mkdir(".");
+    if (!QDir(buildDir).mkdir("."))
+      QDir().mkdir(buildDir);
 
 
   QString file;
