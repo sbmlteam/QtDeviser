@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui xml network
+QT       += core gui xml network svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -109,3 +109,5 @@ DISTFILES += \
     main.tex
     
 
+target.path = $$PREFIX/
+INSTALLS += QtDeviser

@@ -9,6 +9,7 @@
 #include <QProcessEnvironment>
 #include <QFileDialog>
 #include <QStringList>
+#include <QApplication>
 #include <QDesktopServices>
 
 #include <model/devisersettings.h>
@@ -17,16 +18,18 @@
 #include <util.h>
 
 
-
-
 DialogGenerate::DialogGenerate(QWidget *parent)
   : QDialog(parent)
   , ui(new Ui::DialogGenerate)
   , mPackage(NULL)
   , mVersion(NULL)
   , mpProcess(NULL)
+  , workerThread(this)
 {
   ui->setupUi(this);
+
+  connect (&workerThread, SIGNAL(finished()), this, SLOT(finished()));
+
 }
 
 DialogGenerate::~DialogGenerate()
@@ -148,16 +151,9 @@ DialogGenerate::generateTex()
   mpProcess = new QProcess();
   mpProcess->setWorkingDirectory(dest);
 
-  mpProcess->start(DeviserSettings::getInstance()->getPythonInterpreter(),
-                   args);
-
-  connect(mpProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
-          this, SLOT(finished(int,QProcess::ExitStatus)));
-  connect(mpProcess, SIGNAL(readyReadStandardError()),
-          this, SLOT(readyOutput()));
-  connect(mpProcess, SIGNAL(error(QProcess::ProcessError)),
-          this, SLOT(readyOutput()));
-
+  mpProcess->moveToThread(&workerThread);
+  workerThread.setProcess(mpProcess, DeviserSettings::getInstance()->getPythonInterpreter(), args);
+  workerThread.start();
 
   setEnabled(false);  
 
@@ -204,16 +200,12 @@ DialogGenerate::generatePackageCode()
   mpProcess = new QProcess();
   mpProcess->setWorkingDirectory(outDir);
 
-  mpProcess->start(DeviserSettings::getInstance()->getPythonInterpreter(),
-                   args);
 
-  connect(mpProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
-          this, SLOT(finished(int,QProcess::ExitStatus)));
-  connect(mpProcess, SIGNAL(readyReadStandardError()),
-          this, SLOT(readyOutput()));
-  connect(mpProcess, SIGNAL(error(QProcess::ProcessError)),
-          this, SLOT(readyOutput()));
-
+  mpProcess->moveToThread(&workerThread);
+  workerThread.setProcess(mpProcess,
+                          DeviserSettings::getInstance()->getPythonInterpreter(),
+                          args);
+  workerThread.start();
 
   setEnabled(false);
 }
@@ -223,13 +215,14 @@ DialogGenerate::addMessage(const QString& message)
 {
   ui->plainTextEdit->moveCursor (QTextCursor::End);
   ui->plainTextEdit->insertPlainText (message);
+  if (!message.endsWith('\n'))
   ui->plainTextEdit->insertPlainText ("\n");
   ui->plainTextEdit->moveCursor (QTextCursor::End);
 }
 
 
 void
-DialogGenerate::finished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
+DialogGenerate::finished()
 {
   addMessage(mpProcess->readAllStandardOutput());
   addMessage(mpProcess->readAllStandardError());
@@ -238,7 +231,6 @@ DialogGenerate::finished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
   addMessage();
   setEnabled(true);
 
-
 }
 
 void
@@ -246,7 +238,10 @@ DialogGenerate::readyOutput()
 {
   if (mpProcess == NULL) return;
 
-  addMessage(mpProcess->readAll());
+  while(mpProcess->canReadLine())
+    addMessage(mpProcess->readLine());
+
+  //addMessage(mpProcess->readAll());
 }
 
 void
@@ -267,7 +262,6 @@ DialogGenerate::compileTex()
     addMessage("Error: No output dir specified, or output dir does not exist.");
     return;
   }
-
 
   QString lowerCasePackageName = packageName.toLower();
   QDir destDir (outDir + "/" + lowerCasePackageName + "-spec");
@@ -381,20 +375,11 @@ DialogGenerate::compileTex()
   env.insert("BIBINPUTS", sbmlPkgSpecDir);
   mpProcess->setProcessEnvironment(env);
 
-  mpProcess->start(executable,
-                   args);
-
-  connect(mpProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
-          this, SLOT(finished(int,QProcess::ExitStatus)));
-  connect(mpProcess, SIGNAL(readyReadStandardError()),
-          this, SLOT(readyOutput()));
-  connect(mpProcess, SIGNAL(error(QProcess::ProcessError)),
-          this, SLOT(readyOutput()));
-
+  mpProcess->moveToThread(&workerThread);
+  workerThread.setProcess(mpProcess, executable, args);
+  workerThread.start();
 
   setEnabled(false);
-
-
 
 }
 
@@ -518,15 +503,11 @@ DialogGenerate::compileLibSBML()
   mpProcess = new QProcess();
   mpProcess->setWorkingDirectory(buildDir);
 
-
-
-
   if (Util::isWindows())
   {
-    //mpProcess->moveToThread(&workerThread);
-    //workerThread.setProcess(mpProcess, file, QStringList());
-
-    mpProcess->start(file);
+    mpProcess->moveToThread(&workerThread);
+    workerThread.setProcess(mpProcess, file, QStringList());
+    workerThread.start();
 
   }
   else
@@ -534,24 +515,13 @@ DialogGenerate::compileLibSBML()
     QStringList args;
     args << "-c" << file;
 
-    mpProcess->start("bash", args);
-    //mpProcess->moveToThread(&workerThread);
-    //workerThread.setProcess(mpProcess, "bash", args);
+    mpProcess->moveToThread(&workerThread);
+    workerThread.setProcess(mpProcess, "bash", args);
+    workerThread.start();
 
   }
 
-
-
-  connect(mpProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
-    this, SLOT(finished(int, QProcess::ExitStatus)));
-  connect(mpProcess, SIGNAL(readyReadStandardError()),
-    this, SLOT(readyOutput()));
-  connect(mpProcess, SIGNAL(error(QProcess::ProcessError)),
-    this, SLOT(readyOutput()));
-
-
   setEnabled(false);
-
 
 }
 
@@ -645,10 +615,9 @@ DialogGenerate::compileDependencies()
 
   if (Util::isWindows())
   {
-    mpProcess->start(file);
-    //mpProcess->moveToThread(&workerThread);
-    //workerThread.setProcess(mpProcess, file, QStringList());
-
+    mpProcess->moveToThread(&workerThread);
+    workerThread.setProcess(mpProcess, file, QStringList());
+    workerThread.start();
 
   }
   else
@@ -656,21 +625,11 @@ DialogGenerate::compileDependencies()
     QStringList args;
     args << "-c" << file;
 
-    mpProcess->start("bash", args);
-    //mpProcess->moveToThread(&workerThread);
-    //workerThread.setProcess(mpProcess, "bash", args);
+    mpProcess->moveToThread(&workerThread);
+    workerThread.setProcess(mpProcess, "bash", args);
+    workerThread.start();
 
   }
-
-
-
-  connect(mpProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
-          this, SLOT(finished(int,QProcess::ExitStatus)));
-  connect(mpProcess, SIGNAL(readyReadStandardError()),
-          this, SLOT(readyOutput()));
-  connect(mpProcess, SIGNAL(error(QProcess::ProcessError)),
-          this, SLOT(readyOutput()));
-
 
   setEnabled(false);
 
@@ -737,3 +696,51 @@ DialogGenerate::addToSourceDir()
   addMessage("DONE");
   addMessage();
 }
+
+
+WorkerThread::WorkerThread(QDialog *parent)
+  : QThread(parent)
+  , mpParent(parent)
+  , mpProcess(NULL)
+  , mFileName()
+  , mArgs()
+{
+
+}
+
+void WorkerThread::setProcess(QProcess *pProcess, const QString &fileName, const QStringList &args)
+{
+  mpProcess = pProcess;
+  mFileName = fileName;
+  mArgs = args;
+}
+
+void WorkerThread::run()
+{
+  if (mpProcess == NULL)
+    return;
+
+  mpProcess->start(mFileName, mArgs);
+
+
+  connect(mpProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
+    this, SLOT(finished(int, QProcess::ExitStatus)));
+  connect(mpProcess, SIGNAL(readyReadStandardOutput()),
+    mpParent, SLOT(readyOutput()));
+  connect(mpProcess, SIGNAL(readyReadStandardError()),
+    mpParent, SLOT(readyOutput()));
+  connect(mpProcess, SIGNAL(error(QProcess::ProcessError)),
+    mpParent, SLOT(readyOutput()));
+
+  mpProcess->waitForFinished();
+
+}
+
+void
+WorkerThread::finished(int /*exitCode*/,
+                       QProcess::ExitStatus /*exitStatus*/)
+{
+  mpProcess = NULL;
+  emit finished();
+}
+

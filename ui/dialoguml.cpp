@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QScrollBar>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsSvgItem>
 
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -15,6 +16,22 @@
 
 #include <QHttpPart>
 #include <QFileInfo>
+
+#include <QTemporaryFile>
+
+#include <cstdlib>
+
+bool DialogUML::mRegistered = false;
+QStringList DialogUML::mFileList = QStringList();
+
+void
+DialogUML::removeTemporaryFiles()
+{
+  foreach(QString file, mFileList)
+  {
+    QFile(file).remove();
+  }
+}
 
 DialogUML::DialogUML(QWidget *parent)
   : QDialog(parent)
@@ -24,6 +41,13 @@ DialogUML::DialogUML(QWidget *parent)
   , mpDownloadManager(new QNetworkAccessManager(this))
   , mCurrent("")
 {  
+
+
+  if (!mRegistered)
+  {
+    mRegistered = true;
+    std::atexit(&removeTemporaryFiles);
+  }
 
   ui->setupUi(this);
 
@@ -88,7 +112,7 @@ DialogUML::downloadFinished(QNetworkReply *reply)
   if (data.endsWith(".png"))
   {
     QUrl imageUrl ("http://yuml.me/"
-                  + data);
+                  + data.replace("png", "svg"));
     QNetworkRequest request(imageUrl);
     mpManager->get(request);
     reply->deleteLater();
@@ -97,9 +121,21 @@ DialogUML::downloadFinished(QNetworkReply *reply)
   }
 
   mpScene->clear();
-  QImage image; image.loadFromData(data);
-  QGraphicsPixmapItem* item =
-      new QGraphicsPixmapItem(QPixmap::fromImage(image));
+
+  QTemporaryFile file("svg");
+  file.setAutoRemove(false);
+  file.open();
+  file.write(data);
+  file.close();
+
+  mFileList.append(file.fileName());
+
+
+  QGraphicsSvgItem* item = new QGraphicsSvgItem(file.fileName());
+
+  //QImage image; image.loadFromData(data);
+  //QGraphicsPixmapItem* item =
+  //    new QGraphicsPixmapItem(QPixmap::fromImage(image));
 
 
   mpScene ->addItem(item);
@@ -145,7 +181,7 @@ DialogUML::exportImage(const QString& filename, const QString& ext)
 {
   mFileName = filename;
   QString type = mCurrent;
-  type = type.replace("png", ext);
+  type = type.replace("svg", ext);
 
   mpDownloadManager->get(QNetworkRequest(QUrl("http://yuml.me/" + type)));
 

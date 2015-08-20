@@ -113,7 +113,7 @@ set (CMAKE_PREFIX_PATH "${PREFIX_PATH}")
 endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/ChooseQtVersion.cmake)
-QT_FIND_MODULES(Core Gui OpenGL Xml Network)
+QT_FIND_MODULES(Core Gui OpenGL Xml Network Svg)
 
 file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/model/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 file(GLOB   H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.h ${CMAKE_CURRENT_SOURCE_DIR}/model/*.h)
@@ -152,6 +152,8 @@ add_executable(QtDeviser ${EXECUTABLE_FLAGS} ${CPP_FILES}
   ${RESOURCES_RCC}
   ${SPATIAL_CPP_FILES}
 )
+
+install(TARGETS QtDeviser DESTINATION bin)
 
 QT_BIND_TO_TARGET(QtDeviser)
 
@@ -204,5 +206,3 @@ message(STATUS
  
 "
 )
-
-

@@ -19,34 +19,27 @@ class WorkerThread : public QThread
 
 public:
 
+  WorkerThread(QDialog* parent = NULL);
+
+
   void setProcess(QProcess* pProcess,
                   const QString& fileName,
-                  const QStringList& args)
-  {
-    mpProcess = pProcess;
-    mFileName = fileName;
-    mArgs = args;
-  }
+                  const QStringList& args);
 
-  void run()
-  {
-    if (mpProcess == NULL)
-      return;
+  void run();
 
-    mpProcess->start(mFileName, mArgs);
-
-    //QString result;
-    ///* expensive or blocking operation  */
-    //emit resultReady(result);
-  }
+public slots:
+  void finished(int exitCode, QProcess::ExitStatus exitStatus);
 
 signals:
-  void resultReady(const QString &s);
+  void finished();
 
 private:
+  QDialog* mpParent;
   QProcess* mpProcess;
   QString mFileName;
   QStringList mArgs;
+
 };
 
 
@@ -76,7 +69,7 @@ public slots:
   void addToSourceDir();
 
   void addMessage(const QString& message = "");
-  void finished(int exitCode, QProcess::ExitStatus exitStatus);
+  void finished();
   void readyOutput();
   void error(QProcess::ProcessError);
 

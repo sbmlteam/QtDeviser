@@ -3,13 +3,20 @@
 
 #include <QFile>
 #include <QTextCodec>
+#include <QProcess>
+#include <QMetaType>
 
 int main(int argc, char *argv[])
 {
+  qRegisterMetaType<QProcess::ExitStatus>("QProcess::ExitStatus");
 
   QApplication a(argc, argv);
   a.setApplicationName("Deviser Edit");
-  //a.setApplicationDisplayName("Deviser Edit");
+
+#if QT_VERSION > 0x050000
+  a.setApplicationDisplayName("Deviser Edit");
+#endif
+
   MainWindow w;
 
   for (int i = 1; i < argc; ++i)

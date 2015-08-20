@@ -2,6 +2,7 @@
 #define DIALOGUML_H
 
 #include <QDialog>
+#include <QStringList>
 
 namespace Ui {
 class DialogUML;
@@ -43,6 +44,12 @@ private:
   QNetworkAccessManager* mpDownloadManager;
   QString mCurrent;
   QString mFileName;
+
+  static QStringList mFileList;
+  static bool mRegistered;
+
+  static void removeTemporaryFiles();
+
 };
 
 #endif // DIALOGUML_H
