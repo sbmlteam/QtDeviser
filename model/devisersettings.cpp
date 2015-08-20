@@ -8,6 +8,7 @@
 #include <QDomNodeList>
 
 #include <QXmlStreamWriter>
+#include <util.h>
 
 #include <cstdlib>
 
@@ -48,7 +49,9 @@ DeviserSettings::loadSettings(const QString& settingsFile)
   if (fileName.isEmpty()) return;
 
   QFile file(fileName);
+  if (file.exists()) return;
   file.open(QIODevice::ReadOnly);
+
 
   QByteArray data = file.readAll();
   data.replace("utf-16", "UTF-8");
@@ -162,6 +165,10 @@ DeviserSettings::getSettingsFile()
     dir = qgetenv("HOME");
 
   {
+    QFile file(dir + "/" + ".deviser_config.xml");
+    if (file.exists())
+      return file.fileName();
+
     QFile file(dir + "/" + "deviser_config.xml");
     if (file.exists())
       return file.fileName();
@@ -175,7 +182,18 @@ DeviserSettings::getSettingsFile()
       return file.fileName();
   }
 
-  return "";
+
+  // file does not exist, lets return the default
+
+  if (Util::isWindows())
+  {
+    QByteArray dir = qgetenv("APPDATA");
+    return dir + "/" + "deviser_config.xml";
+  }
+
+  QByteArray dir = qgetenv("HOME");
+  return dir + "/" + ".deviser_config.xml";
+
 }
 
 QString DeviserSettings::getPythonInterpreter() const
