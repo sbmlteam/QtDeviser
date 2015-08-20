@@ -23,6 +23,8 @@
 #include <model/deviserenum.h>
 #include <model/deviserplugin.h>
 
+#include <sstream>
+
 MainWindow::MainWindow(QWidget *parent) 
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
@@ -414,7 +416,33 @@ MainWindow::showUML()
 void
 MainWindow::validateDescription()
 {
+  int count = mValidator.validatePackage(mModel);
 
+  if (count == 0)
+  {
+    QMessageBox::information(this, "Package Validation",
+                             "No validation issues have been found.",
+                             QMessageBox::Ok, QMessageBox::Ok);
+  }
+  else
+  {
+    std::stringstream stream;
+    stream << "Package Validation: " << count << " issues found.";
+    QString title(stream.str().c_str());
+
+
+    stream.str("");
+
+    foreach(const DeviserMessage& message, mValidator.errors())
+    {
+      stream << message.message().toStdString() << std::endl;
+    }
+
+    QMessageBox::information(this, title,
+                             stream.str().c_str(),
+                             QMessageBox::Ok, QMessageBox::Ok);
+
+  }
 }
 
 DeviserBase*

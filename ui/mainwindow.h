@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <validation/deviservalidator.h>
+
 namespace Ui {
 class MainWindow;
 }
@@ -77,6 +79,8 @@ private:
   DeviserBase* mCurrentElement;
 
   QString mFileName;
+
+  DeviserValidator mValidator;
 
 };
 

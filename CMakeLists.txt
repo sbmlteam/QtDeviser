@@ -115,9 +115,18 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/ChooseQtVersion.cmake)
 QT_FIND_MODULES(Core Gui OpenGL Xml Network Svg)
 
-file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/model/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
-file(GLOB   H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.h ${CMAKE_CURRENT_SOURCE_DIR}/model/*.h)
+file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.cpp
+                    ${CMAKE_CURRENT_SOURCE_DIR}/model/*.cpp
+                    ${CMAKE_CURRENT_SOURCE_DIR}/validation/*.cpp
+                    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
+
+file(GLOB   H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.h
+                    ${CMAKE_CURRENT_SOURCE_DIR}/model/*.h
+                    ${CMAKE_CURRENT_SOURCE_DIR}/validation/*.h
+                    ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+
 file(GLOB  UI_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.ui )
+
 file(GLOB RCC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.qrc )
 
 if (Qt5_FOUND)
@@ -196,7 +205,7 @@ endif()
 message(STATUS         
 "
  Project QtDeviser ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}
- ==========================
+ ===========================
  
  Install Prefix : ${CMAKE_INSTALL_PREFIX}
                 
