@@ -50,7 +50,7 @@ DeviserSettings::loadSettings(const QString& settingsFile)
   if (fileName.isEmpty()) return;
 
   QFile file(fileName);
-  if (file.exists()) return;
+  if (!file.exists()) return;
   file.open(QIODevice::ReadOnly);
 
 
@@ -209,6 +209,7 @@ void DeviserSettings::setPythonInterpreter(const QString &pythonInterpreter)
 {
   mPythonInterpreter = pythonInterpreter;
 }
+
 QString DeviserSettings::getDeviserRepository() const
 {
   return mDeviserRepository;
