@@ -165,13 +165,16 @@ DeviserSettings::getSettingsFile()
     dir = qgetenv("HOME");
 
   {
+    {
     QFile file(dir + "/" + ".deviser_config.xml");
     if (file.exists())
       return file.fileName();
-
+    }
+    {
     QFile file(dir + "/" + "deviser_config.xml");
     if (file.exists())
       return file.fileName();
+    }
   }
 
   dir.clear();
@@ -191,9 +194,10 @@ DeviserSettings::getSettingsFile()
     return dir + "/" + "deviser_config.xml";
   }
 
+  {
   QByteArray dir = qgetenv("HOME");
   return dir + "/" + ".deviser_config.xml";
-
+  }
 }
 
 QString DeviserSettings::getPythonInterpreter() const

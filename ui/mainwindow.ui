@@ -242,6 +242,9 @@
    <property name="text">
     <string>Exit</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
   </action>
   <action name="actionAdd_Class">
    <property name="text">
@@ -292,6 +295,9 @@
    <property name="shortcut">
     <string>Ctrl+,, Ctrl+P</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
   </action>
   <action name="actionAbout">
    <property name="icon">
@@ -303,6 +309,9 @@
    </property>
    <property name="shortcut">
     <string>F1</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
    </property>
   </action>
   <action name="actionShow_UML">
