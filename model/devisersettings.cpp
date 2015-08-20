@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QFile>
+#include <QFileInfo>
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -160,21 +161,19 @@ void DeviserSettings::setVsBatchFile(const QString &vsBatchFile)
 QString
 DeviserSettings::getSettingsFile()
 {
-  QByteArray dir = qgetenv("APPDATA");
-  if (dir.isEmpty())
-    dir = qgetenv("HOME");
+  QByteArray dir = Util::isWindows() ?  qgetenv("APPDATA")
+                                      : qgetenv("HOME");
 
   {
-    {
     QFile file(dir + "/" + ".deviser_config.xml");
     if (file.exists())
-      return file.fileName();
-    }
-    {
+      return QFileInfo(file).absoluteFilePath();
+  }
+
+  {
     QFile file(dir + "/" + "deviser_config.xml");
     if (file.exists())
-      return file.fileName();
-    }
+      return QFileInfo(file).absoluteFilePath();
   }
 
   dir.clear();
@@ -182,7 +181,7 @@ DeviserSettings::getSettingsFile()
   {
     QFile file(dir + "/" + "deviser_config.xml");
     if (file.exists())
-      return file.fileName();
+      return QFileInfo(file).absoluteFilePath();
   }
 
 
@@ -191,12 +190,13 @@ DeviserSettings::getSettingsFile()
   if (Util::isWindows())
   {
     QByteArray dir = qgetenv("APPDATA");
-    return dir + "/" + "deviser_config.xml";
+    return QFileInfo(dir + "/" + "deviser_config.xml").absoluteFilePath();
   }
 
+  // on all other platforms we hide
   {
-  QByteArray dir = qgetenv("HOME");
-  return dir + "/" + ".deviser_config.xml";
+    QByteArray dir = qgetenv("HOME");
+    return QFileInfo(dir + "/" + ".deviser_config.xml").absoluteFilePath();
   }
 }
 
