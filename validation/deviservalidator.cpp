@@ -4,6 +4,7 @@
 
 #include <validation/packageconstraints.h>
 #include <validation/sidrefconstraint.h>
+#include <validation/haslistofconstraint.h>
 
 DeviserValidator::DeviserValidator(QObject *parent)
   : QObject(parent)
@@ -11,6 +12,7 @@ DeviserValidator::DeviserValidator(QObject *parent)
   , mErrors()
 {
   mConstraints << new PackageConstraints(this)
+               << new HasListOfConstraint(this)
                << new SIdRefConstraint(this);
 }
 

@@ -49,7 +49,11 @@ SOURCES += main.cpp\
            validation/deviserconstraint.cpp \
            validation/sidrefconstraint.cpp \
            validation/packageconstraints.cpp \
-           util.cpp
+           util.cpp \
+    validation/haslistofconstraint.cpp \
+    validation/hasmathconstraint.cpp \
+    validation/haschildrenconstraint.cpp \
+    validation/isbaseclassconstraint.cpp
 
 
 HEADERS  += ui/mainwindow.h \
@@ -90,7 +94,11 @@ HEADERS  += ui/mainwindow.h \
             validation/deviserconstraint.h \
             validation/sidrefconstraint.h \
             validation/packageconstraints.h \
-            util.h
+            util.h \
+    validation/haslistofconstraint.h \
+    validation/hasmathconstraint.h \
+    validation/haschildrenconstraint.h \
+    validation/isbaseclassconstraint.h
 
 
 FORMS    += ui/mainwindow.ui \
