@@ -10,11 +10,16 @@
 
 #include <sstream>
 
-#define ADD_MESSAGE(args)\
+#define ADD_MESSAGE_WITH_SEVERITY(severity,args)\
 {\
   QString message;\
   QTextStream str(&message); str << args;\
-  addMessage(new DeviserMessage(NULL, message, this));\
+  addMessage(new DeviserMessage(NULL, message, severity, this));\
+}\
+
+#define ADD_MESSAGE(args)\
+{\
+  ADD_MESSAGE_WITH_SEVERITY(DEVISER_WARNING,args);\
 }\
 
 class DeviserPackage;
@@ -29,13 +34,15 @@ public:
   virtual bool fixIssue(DeviserPackage* package);
   virtual bool canFix() const;
 
+protected:
+
+  void addMessage(DeviserMessage *message);
+
 signals:
 
 public slots:
 
 protected:
-
-  void addMessage(DeviserMessage *message);
 
   DeviserValidator *mpValidator;
   bool mCanFix;

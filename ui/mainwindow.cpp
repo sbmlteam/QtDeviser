@@ -16,6 +16,7 @@
 #include "dialoguml.h"
 #include "dialoggenerate.h"
 #include "dialogpreferences.h"
+#include "dialogerrors.h"
 
 #include <model/deviserpackage.h>
 #include <model/deviserclass.h>
@@ -429,25 +430,28 @@ MainWindow::validateDescription()
   }
   else
   {
-    std::stringstream stream;
-    stream << "Package Validation: " << count << " issues found.";
-    QString title(stream.str().c_str());
+    DialogErrors errors(mValidator.errors(), this);
+    errors.exec();
 
-
-    QString strMessage;
-    QTextStream str(&strMessage);
-
-
-    
-
-    foreach(DeviserMessage* message, mValidator.errors())
-    {
-      str << message->message() << "\n";
-    }
-
-    QMessageBox::information(this, title,
-                             strMessage,
-                             QMessageBox::Ok, QMessageBox::Ok);
+    //std::stringstream stream;
+    //stream << "Package Validation: " << count << " issues found.";
+    //QString title(stream.str().c_str());
+    //
+    //
+    //QString strMessage;
+    //QTextStream str(&strMessage);
+    //
+    //
+    //
+    //
+    //foreach(DeviserMessage* message, mValidator.errors())
+    //{
+    //  str << message->message() << "\n\n";
+    //}
+    //
+    //QMessageBox::information(this, title,
+    //                         strMessage,
+    //                         QMessageBox::Ok, QMessageBox::Ok);
 
   }
 }

@@ -27,7 +27,7 @@ int SIdRefConstraint::analyzePackage(DeviserPackage *package)
                     << attribute->getName()
                     << "' of element '"
                     << element->getName()
-                    << "'' is of type SIdRef, but has no element set. This is needed for validation purposes.");
+                    << "' is of type SIdRef, but has no element set. This is needed for validation purposes.");
         ++count;
 
       }
@@ -45,7 +45,7 @@ int SIdRefConstraint::analyzePackage(DeviserPackage *package)
                     << attribute->getName()
                     << "' of plugin '"
                     << element->getExtensionPoint()
-                    << "'' is of type SIdRef, but has no element set. This is needed for validation purposes.");
+                    << "' is of type SIdRef, but has no element set. This is needed for validation purposes.");
         ++count;
 
       }

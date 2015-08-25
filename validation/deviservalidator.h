@@ -21,6 +21,8 @@ public:
   QList<DeviserMessage*> errors();
   void setErrors(const QList<DeviserMessage*> &errors);
 
+  void addMessage(DeviserMessage* message);
+
   QList<DeviserConstraint *> constraints() const;
   void setConstraints(const QList<DeviserConstraint *> &constraints);
 

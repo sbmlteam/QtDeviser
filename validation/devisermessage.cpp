@@ -1,11 +1,13 @@
 #include "devisermessage.h"
 
 DeviserMessage::DeviserMessage(QObject *parent,
-                               QString message /*= ""*/,
-                               DeviserConstraint* contraint /*= NULL*/)
+                               const QString& message /*= ""*/,
+                               DeviserSeverity severity /*= DEVISER_WARNING*/,
+                               DeviserConstraint* constraint /*= NULL*/)
   : QObject(parent)
   , mMessage(message)
-  , mConstraint(contraint)
+  , mConstraint(constraint)
+  , mSeverity(severity)
 {
 
 }
@@ -49,3 +51,13 @@ void DeviserMessage::setConstraint(DeviserConstraint *constraint)
 {
   mConstraint = constraint;
 }
+DeviserSeverity DeviserMessage::severity() const
+{
+  return mSeverity;
+}
+
+void DeviserMessage::setSeverity(const DeviserSeverity &severity)
+{
+  mSeverity = severity;
+}
+

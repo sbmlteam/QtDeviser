@@ -28,6 +28,9 @@ SOURCES += main.cpp\
            ui/enummodel.cpp\
            ui/mappingmodel.cpp\
            ui/attributesmodel.cpp \
+           ui/qzoomgraphicsview.cpp \
+           ui/dialogpreferences.cpp \
+           ui/dialogerrors.cpp \
            model/deviserbase.cpp \
            model/deviserattribute.cpp \
            model/deviserclass.cpp \
@@ -40,14 +43,13 @@ SOURCES += main.cpp\
            model/deviserplugin.cpp \
            model/deviserpackage.cpp \
            model/deviserreferenceattribute.cpp \
-    util.cpp \
-    ui/qzoomgraphicsview.cpp \
-    ui/dialogpreferences.cpp \
-    model/devisersettings.cpp \
-    validation/deviservalidator.cpp \
-    validation/devisermessage.cpp \
-    validation/deviserconstraint.cpp \
-    validation/sidrefconstraint.cpp
+           model/devisersettings.cpp \
+           validation/deviservalidator.cpp \
+           validation/devisermessage.cpp \
+           validation/deviserconstraint.cpp \
+           validation/sidrefconstraint.cpp \
+           validation/packageconstraints.cpp \
+           util.cpp
 
 
 HEADERS  += ui/mainwindow.h \
@@ -65,6 +67,9 @@ HEADERS  += ui/mainwindow.h \
             ui/enummodel.h \
             ui/mappingmodel.h\
             ui/attributesmodel.h \
+            ui/qzoomgraphicsview.h \
+            ui/dialogpreferences.h \
+            ui/dialogerrors.h \
             model/deviserbase.h \
             model/deviserattribute.h \
             model/deviserclass.h \
@@ -77,17 +82,16 @@ HEADERS  += ui/mainwindow.h \
             model/deviserplugin.h \
             model/deviserpackage.h \
             model/deviserreferenceattribute.h \
-    util.h \
-    ui/qzoomgraphicsview.h \
-    ui/dialogpreferences.h \
-    model/devisersettings.h \
-    validation/deviservalidator.h \
-    validation/devisermessage.h \
-    validation/deviserconstraint.h \
-    validation/sidrefconstraint.h \
-    model/deviserfwd.h \
-    model/devisertypes.h
-            
+            model/devisersettings.h \
+            model/deviserfwd.h \
+            model/devisertypes.h \
+            validation/deviservalidator.h \
+            validation/devisermessage.h \
+            validation/deviserconstraint.h \
+            validation/sidrefconstraint.h \
+            validation/packageconstraints.h \
+            util.h
+
 
 FORMS    += ui/mainwindow.ui \
             ui/formdeviserpackage.ui \
@@ -99,7 +103,8 @@ FORMS    += ui/mainwindow.ui \
             ui/dialogabout.ui \
             ui/dialoguml.ui \
             ui/dialoggenerate.ui \
-    ui/dialogpreferences.ui
+            ui/dialogpreferences.ui \
+            ui/dialogerrors.ui
 
 RESOURCES += \
     deviser-resources.qrc

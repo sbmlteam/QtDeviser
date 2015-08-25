@@ -2,6 +2,7 @@
 
 #include <validation/deviserconstraint.h>
 
+#include <validation/packageconstraints.h>
 #include <validation/sidrefconstraint.h>
 
 DeviserValidator::DeviserValidator(QObject *parent)
@@ -9,7 +10,8 @@ DeviserValidator::DeviserValidator(QObject *parent)
   , mConstraints()
   , mErrors()
 {
-  mConstraints << new SIdRefConstraint(this);
+  mConstraints << new PackageConstraints(this)
+               << new SIdRefConstraint(this);
 }
 
 int DeviserValidator::validatePackage(DeviserPackage *package)
@@ -25,9 +27,12 @@ int DeviserValidator::validatePackage(DeviserPackage *package)
   return count;
 }
 
-void DeviserValidator::fixIssues(DeviserPackage *package)
+void DeviserValidator::fixIssues(DeviserPackage* package)
 {
-
+  foreach(DeviserConstraint* constraint, mConstraints)
+  {
+    constraint->fixIssue(package);
+  }
 }
 
 QList<DeviserMessage*> DeviserValidator::errors() const
@@ -55,4 +60,8 @@ void DeviserValidator::setConstraints(const QList<DeviserConstraint *> &constrai
 }
 
 
-
+void 
+DeviserValidator::addMessage(DeviserMessage* message)
+{
+  mErrors << message;
+}

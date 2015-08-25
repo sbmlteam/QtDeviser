@@ -5,13 +5,23 @@
 
 class DeviserConstraint;
 
+enum DeviserSeverity
+{
+  DEVISER_NOTICE,
+  DEVISER_WARNING,
+  DEVISER_ERROR,
+  DEVISER_FATAL_ERROR
+};
+
+
 class DeviserMessage : public QObject
 {
   Q_OBJECT
 public:
   explicit DeviserMessage(QObject *parent = 0,
-                          QString message = "",
-                          DeviserConstraint* contraint = NULL);
+                          const QString& message = "",
+                          DeviserSeverity severity = DEVISER_WARNING,
+                          DeviserConstraint* constraint = NULL);
 
   DeviserMessage(const DeviserMessage& other);
   DeviserMessage& operator=(const DeviserMessage& rhs);
@@ -22,6 +32,9 @@ public:
   DeviserConstraint *constraint() const;
   void setConstraint(DeviserConstraint *constraint);
 
+  DeviserSeverity severity() const;
+  void setSeverity(const DeviserSeverity &severity);
+
 signals:
 
 public slots:
@@ -29,6 +42,7 @@ public slots:
 protected:
   QString mMessage;
   DeviserConstraint* mConstraint;
+  DeviserSeverity mSeverity;
 };
 
 #endif // DEVISERMESSAGE_H
