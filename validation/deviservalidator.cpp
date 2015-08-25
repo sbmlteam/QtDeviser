@@ -2,17 +2,23 @@
 
 #include <validation/deviserconstraint.h>
 
+#include <validation/haschildrenconstraint.h>
+#include <validation/haslistofconstraint.h>
+#include <validation/hasmathconstraint.h>
+#include <validation/isbaseclassconstraint.h>
 #include <validation/packageconstraints.h>
 #include <validation/sidrefconstraint.h>
-#include <validation/haslistofconstraint.h>
 
 DeviserValidator::DeviserValidator(QObject *parent)
   : QObject(parent)
   , mConstraints()
   , mErrors()
 {
-  mConstraints << new PackageConstraints(this)
+  mConstraints << new HasChildrenConstraint(this)
                << new HasListOfConstraint(this)
+               << new HasMathConstraint(this)
+               << new IsBaseClassConstraint(this)
+               << new PackageConstraints(this)
                << new SIdRefConstraint(this);
 }
 

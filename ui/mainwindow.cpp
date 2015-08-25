@@ -432,27 +432,6 @@ MainWindow::validateDescription()
   {
     DialogErrors errors(mValidator.errors(), this);
     errors.exec();
-
-    //std::stringstream stream;
-    //stream << "Package Validation: " << count << " issues found.";
-    //QString title(stream.str().c_str());
-    //
-    //
-    //QString strMessage;
-    //QTextStream str(&strMessage);
-    //
-    //
-    //
-    //
-    //foreach(DeviserMessage* message, mValidator.errors())
-    //{
-    //  str << message->message() << "\n\n";
-    //}
-    //
-    //QMessageBox::information(this, title,
-    //                         strMessage,
-    //                         QMessageBox::Ok, QMessageBox::Ok);
-
   }
 }
 
