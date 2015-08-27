@@ -1,5 +1,7 @@
 #include "deviserbase.h"
 
+#include "deviserpackage.h"
+
 DeviserBase::DeviserBase()
   : mPackage(NULL)
   , mVersion(NULL)
@@ -75,4 +77,13 @@ DeviserVersion*
 DeviserBase::getParentVersion()
 {
   return mVersion;
+}
+
+void
+DeviserBase::setModified()
+{
+  if (mPackage == NULL)
+    return;
+
+  mPackage->setModified(true);
 }

@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QActionGroup>
+#include <QCloseEvent>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -79,14 +80,12 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-
 void
 MainWindow::showAbout()
 {
   DialogAbout about(this);
   about.exec();
 }
-
 
 DeviserVersion*
 MainWindow::getCurrentVersion()
@@ -97,6 +96,7 @@ MainWindow::getCurrentVersion()
   if (mModel == NULL)
   {
     mModel = new DeviserPackage();
+    connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
   }
 
   if (mModel->getVersions().empty())
@@ -127,6 +127,9 @@ MainWindow::fixErrors()
 void
 MainWindow::generate()
 {
+  if (askForSaveOrStop())
+    return;
+
   DialogGenerate generate(this);
   generate.loadModel(mModel, mCurrentVersion, mFileName);
   generate.exec();
@@ -135,6 +138,9 @@ MainWindow::generate()
 void
 MainWindow::newModel()
 {
+  if (askForSaveOrStop())
+    return;
+
   if (mModel != NULL)
   {
     mCurrentElement = NULL;
@@ -143,11 +149,14 @@ MainWindow::newModel()
   }
 
   mModel = new DeviserPackage();
+  connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
+
   mCurrentElement = mModel;
   mCurrentVersion = mModel->getVersions()[0];
   mFileName = "";
   setCurrentFile(mFileName);
   updateUI();
+  mModel->setModified(false);
 
 }
 
@@ -330,6 +339,8 @@ MainWindow::displayElement(DeviserBase* element)
 void
 MainWindow::openFile()
 {
+  if (askForSaveOrStop())
+    return;
 
   QString oldDir;
   if (!mFileName.isEmpty())
@@ -346,6 +357,9 @@ MainWindow::openFile()
 
 void MainWindow::openFile(const QString& fileName)
 {
+  if (askForSaveOrStop())
+    return;
+
   if (mModel != NULL)
   {
     mCurrentElement = NULL;
@@ -355,6 +369,8 @@ void MainWindow::openFile(const QString& fileName)
 
   mFileName = fileName;
   mModel = new DeviserPackage(fileName);
+  connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
+
   mCurrentElement = mModel;
   mCurrentVersion = getCurrentVersion();
 
@@ -363,6 +379,8 @@ void MainWindow::openFile(const QString& fileName)
 
   DeviserSettings::getInstance()->addRecentFile(fileName);
   refreshRecentFiles();
+
+  mModel->setModified(false);
 
 }
 
@@ -374,6 +392,7 @@ MainWindow::setCurrentFile(const QString& fileName)
   QString shownName = fileName;
   if (mFileName.isEmpty())
     shownName = "untitled.xml";
+
   setWindowFilePath(shownName);
 }
 
@@ -686,3 +705,45 @@ void MainWindow::openRecentFile(QAction *action)
   openFile(filename);
 }
 
+#include <QDebug>
+
+void MainWindow::documentModified()
+{
+  if (mModel == NULL) return;
+
+  setWindowModified(mModel->getModified());
+}
+
+bool MainWindow::askForSaveOrStop()
+{
+  if (mModel == NULL || !mModel->getModified()) return false;
+
+  switch(QMessageBox::question(this, "Save Changes?",
+                               "The document contains unsaved changes\n"
+                               "Do you want to save the changes before exiting?",
+                               QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+                               QMessageBox::Save))
+  {
+  case QMessageBox::Save:
+    saveFile();
+    return false;
+
+  case QMessageBox::Discard:
+    return false;
+
+  default:
+    return true;
+  }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+  if (askForSaveOrStop())
+  {
+    event->ignore();
+  }
+  else
+  {
+    event->accept();
+  }
+}

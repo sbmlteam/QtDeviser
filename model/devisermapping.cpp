@@ -36,6 +36,7 @@ DeviserMapping::setName(const QString &name)
 {
   mName = name;
   emit nameChanged();
+  setModified();
 }
 
 const QString &
@@ -49,6 +50,7 @@ DeviserMapping::setPackage(const QString &package)
 {
   mPackage = package;
   emit packageChanged();
+  setModified();
 }
 
 void 

@@ -74,6 +74,7 @@ DeviserPlugin::createReference()
   attribute->setName(QString("reference_%1").arg(mReferences.count()));
   attribute->setParent(mPackage);
   mReferences.append(attribute);
+  setModified();
   return attribute;
 }
 
@@ -120,6 +121,7 @@ DeviserPlugin::setExtensionPoint(const QString &extPoint)
 
   if (!extPoint.isEmpty())
   emit extensionPointChanged(oldExtPoint, extPoint, mVersion);
+  setModified();
 }
 
 const QString &
@@ -133,6 +135,7 @@ DeviserPlugin::setAdditionalDeclarations(const QString &additionalDeclarations)
 {
   mAdditionalDeclarations = additionalDeclarations;
   emit additionalDeclarationsChanged();
+  setModified();
 }
 
 const QString &
@@ -146,6 +149,7 @@ DeviserPlugin::setAdditionalDefinitions(const QString &additionalDefinitions)
 {
   mAdditionalDefinitions = additionalDefinitions;
   emit additionalDefinitionsChanged();
+  setModified();
 }
 
 const QString &
@@ -159,6 +163,7 @@ DeviserPlugin::setTypeCode(const QString &typeCode)
 {
   mTypeCode = typeCode;
   emit typeCodeChanged();
+  setModified();
 }
 
 const QString &
@@ -172,6 +177,7 @@ DeviserPlugin::setPackage(const QString &package)
 {
   mExtPointPackage = package;
   emit packageChanged();
+  setModified();
 }
 
 const QList<DeviserReferenceAttribute *> &
@@ -224,6 +230,7 @@ DeviserPlugin::createAttribute()
   result->setName(QString("attribute_%1").arg(mAttributes.size()));
   mAttributes.append(result);
   setParent(mPackage);
+  setModified();
   return result;
 }
 

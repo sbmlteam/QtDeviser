@@ -43,6 +43,7 @@ DeviserConcrete::setName(const QString &name)
 {
   mName = name;
   emit nameChanged();
+  setModified();
 }
 
 const QString &
@@ -56,6 +57,7 @@ DeviserConcrete::setElement(const QString &element)
 {
   mElement = element;
   emit elementChanged();
+  setModified();
 }
 
 int
@@ -69,6 +71,7 @@ DeviserConcrete::setMinNumChildren(int minNoChildren)
 {
   mMinNumChildren = minNoChildren;
   emit minNoChildrenChanged();
+  setModified();
 }
 
 int
@@ -82,6 +85,7 @@ DeviserConcrete::setMaxNumChildren(int maxNoChildren)
 {
   mMaxNumChildren = maxNoChildren;
   emit maxNoChildrenChanged();
+  setModified();
 }
 
 void 

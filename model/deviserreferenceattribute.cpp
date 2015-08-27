@@ -32,6 +32,7 @@ DeviserReferenceAttribute::setName(const QString &name)
 {
   mName = name;
   emit nameChanged();
+  setModified();
 }
 
 void 

@@ -105,6 +105,7 @@ DeviserClass::setName(const QString &name)
 
   if (!name.isEmpty())
   emit nameChanged(oldName, name, mVersion);
+  setModified();
 }
 
 const QString &
@@ -118,6 +119,7 @@ DeviserClass::setBaseClass(const QString &baseClass)
 {
   mBaseClass = baseClass;
   emit baseClassChanged();
+  setModified();
 }
 
 const QString &
@@ -131,6 +133,7 @@ DeviserClass::setTypeCode(const QString &typeCode)
 {
   mTypeCode = typeCode;
   emit typeCodeChanged();
+  setModified();
 }
 
 bool
@@ -144,6 +147,7 @@ DeviserClass::setHasListOf(bool hasListOf)
 {
   mHasListOf = hasListOf;
   emit hasListOfChanged();
+  setModified();
 }
 
 bool
@@ -157,6 +161,7 @@ DeviserClass::setHasMath(bool hasMath)
 {
   mHasMath = hasMath;
   emit hasMathChanged();
+  setModified();
 }
 
 bool
@@ -170,6 +175,7 @@ DeviserClass::setHasChildren(bool hasChildren)
 {
   mHasChildren = hasChildren;
   emit hasChildrenChanged();
+  setModified();
 }
 
 bool
@@ -183,6 +189,7 @@ DeviserClass::setIsBaseClass(bool isBaseClass)
 {
   mIsBaseClass = isBaseClass;
   emit isBaseClassChanged();
+  setModified();
 }
 
 const QString &
@@ -196,6 +203,7 @@ DeviserClass::setElementName(const QString &elementName)
 {
   mElementName = elementName;
   emit elementNameChanged();
+  setModified();
 }
 
 const QString &
@@ -219,6 +227,7 @@ DeviserClass::setListOfName(const QString &listOfName)
 {
   mListOfName = listOfName;
   emit listOfNameChanged();
+  setModified();
 }
 
 const QString &
@@ -232,6 +241,7 @@ DeviserClass::setListOfClassName(const QString &listOfClassName)
 {
   mListOfClassName = listOfClassName;
   emit listOfClassNameChanged();
+  setModified();
 }
 
 bool
@@ -251,6 +261,7 @@ DeviserClass::setAdditionalDeclarations(const QString &additionalDeclarations)
 {
   mAdditionalDeclarations = additionalDeclarations;
   emit additionalDeclarationsChanged();
+  setModified();
 }
 
 const QString &
@@ -264,6 +275,7 @@ DeviserClass::setAdditionalDefinitions(const QString &additionalDefinitions)
 {
   mAdditionalDefinitions = additionalDefinitions;
   emit additionalDefinitionsChanged();
+  setModified();
 }
 
 int
@@ -277,6 +289,7 @@ DeviserClass::setMinNumberChildren(int minNoChildren)
 {
   mMinNumberChildren = minNoChildren;
   emit minNoChildrenChanged();
+  setModified();
 }
 
 int
@@ -290,6 +303,7 @@ DeviserClass::setMaxNumberChildren(int maxNoChildren)
 {
   mMaxNumberChildren = maxNoChildren;
   emit maxNoChildrenChanged();
+  setModified();
 }
 
 const QList<DeviserAttribute *> &
@@ -391,6 +405,7 @@ DeviserClass::createAttribute()
   result->setName(QString("attribute_%1").arg(mAttributes.size()));
   mAttributes.append(result);
   setParent(mPackage);
+  setModified();
   return result;
 }
 
@@ -401,6 +416,7 @@ DeviserClass::createListOfAttribute()
   result->setName(QString("loattribute_%1").arg(mListOfAttributes.size()));
   mListOfAttributes.append(result);
   setParent(mPackage);
+  setModified();
   return result;
 }
 
@@ -411,6 +427,7 @@ DeviserClass::createConcrete()
   result->setName(QString("concrete_%1").arg(mConcretes.size()));
   mConcretes.append(result);
   setParent(mPackage);
+  setModified();
   return result;
 }
 

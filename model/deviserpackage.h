@@ -53,6 +53,8 @@ public:
 
   DeviserVersion* createVersion();
 
+  bool getModified() const;
+  void setModified(bool modified);
 
 signals:
   void nameChanged();
@@ -63,6 +65,7 @@ signals:
   void requiredChanged();
   void additionalDeclarationsChanged();
   void additionalDefinitionsChanged();
+  void modifiedChanged();
 
 protected:
   QString mName;
@@ -75,6 +78,8 @@ protected:
   QString mAdditionalDefinitions;
 
   QList<DeviserVersion*> mVersions;
+
+  bool mModified;
 
 };
 

@@ -66,6 +66,7 @@ DeviserAttribute::setType(const QString &type)
 {
   mType = type;
   emit typeChanged();
+  setModified();
 }
 
 const QString &
@@ -79,6 +80,7 @@ DeviserAttribute::setElement(const QString &element)
 {
   mElement = element;
   emit elementChanged();
+  setModified();
 }
 
 bool
@@ -92,6 +94,7 @@ DeviserAttribute::setRequired(bool isRequired)
 {
   mRequired = isRequired;
   emit requiredChanged();
+  setModified();
 }
 
 bool
@@ -105,6 +108,7 @@ DeviserAttribute::setAbstract(bool isAbstract)
 {
   mAbstract = isAbstract;
   emit abstractChanged();
+  setModified();
 }
 
 void

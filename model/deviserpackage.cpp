@@ -17,6 +17,7 @@ DeviserPackage::DeviserPackage()
   , mAdditionalDeclarations()
   , mAdditionalDefinitions()
   , mVersions()
+  , mModified(false)
 {
   createVersion();
   setParent(this);
@@ -54,6 +55,7 @@ DeviserPackage::DeviserPackage(const QString& fileName)
   document.setContent(&file);
   QDomElement root = document .documentElement();
   initializeFrom(root);
+  mModified = false;
 }
 
 DeviserPackage::DeviserPackage(QDomElement& element)
@@ -88,8 +90,24 @@ DeviserPackage::createVersion()
 
   mVersions.append(newVersion);
 
+  setModified(true);
+
   return newVersion;
 }
+bool DeviserPackage::getModified() const
+{
+  return mModified;
+}
+
+void DeviserPackage::setModified(bool modified)
+{
+  if (mModified == modified)
+    return;
+
+  mModified = modified;
+  emit modifiedChanged();
+}
+
 
 void DeviserPackage::initializeFrom(const QDomElement& element)
 {
@@ -193,6 +211,9 @@ void DeviserPackage::writeTo(const QString& fileName) const
   writeTo(writer);
   writer.writeEndDocument();
   file.close();
+
+  const_cast<DeviserPackage*>(this)->setModified(false);
+
 }
 
 QList<DeviserVersion *> &
@@ -219,6 +240,7 @@ DeviserPackage::setName(const QString &name)
 {
   mName = name;
   emit nameChanged();
+  setModified(true);
 }
 
 const QString&
@@ -232,6 +254,7 @@ DeviserPackage::setFullName(const QString &fullName)
 {
   mFullName = fullName;
   emit fullNameChanged();
+  setModified(true);
 }
 
 int
@@ -245,6 +268,7 @@ DeviserPackage::setStartNumber(int startNumber)
 {
   mStartNumber = startNumber;
   emit startNumberChanged();
+  setModified(true);
 }
 
 int
@@ -258,6 +282,7 @@ DeviserPackage::setOffset(int offset)
 {
   mOffset = offset;
   emit offsetChanged();
+  setModified(true);
 }
 
 int
@@ -271,6 +296,7 @@ DeviserPackage::setVersion(int version)
 {
   mVersion = version;
   emit versionChanged();
+  setModified(true);
 }
 
 bool
@@ -284,6 +310,7 @@ DeviserPackage::setRequired(bool isRequired)
 {
   mRequired = isRequired;
   emit requiredChanged();
+  setModified(true);
 }
 
 const QString&
@@ -297,6 +324,7 @@ DeviserPackage::setAdditionalDeclarations(const QString &additionalDeclarations)
 {
   mAdditionalDeclarations = additionalDeclarations;
   emit additionalDeclarationsChanged();
+  setModified(true);
 }
 
 const QString&
@@ -310,6 +338,7 @@ DeviserPackage::setAdditionalDefinitions(const QString &additionalDefinitions)
 {
   mAdditionalDefinitions = additionalDefinitions;
   emit additionalDefinitionsChanged();
+  setModified(true);
 }
 
 DeviserVersion*

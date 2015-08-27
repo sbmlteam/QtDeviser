@@ -37,6 +37,7 @@ public:
 
 protected:
 
+  void setModified();
 
   DeviserPackage* mPackage;
   DeviserVersion* mVersion;

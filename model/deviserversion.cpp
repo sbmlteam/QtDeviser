@@ -21,7 +21,6 @@ DeviserVersion::DeviserVersion()
 
 }
 
-
 DeviserVersion::DeviserVersion(const DeviserVersion& other)
   : DeviserBase(other)
   , mLevel(other.mLevel)
@@ -95,7 +94,6 @@ DeviserVersion::writeElementsTo(QXmlStreamWriter& writer) const
 
 }
 
-
 QString DeviserVersion::toString() const
 {
   return QString("Version: %1,%2,%3").arg(mLevel).arg(mVersion).arg(mPkgVersion);
@@ -127,6 +125,7 @@ DeviserVersion::setLevel(int level)
   mLevel = level;
   emit levelChanged();
   emit identityChanged(oldId, toString(), this);
+  setModified();
 }
 
 void
@@ -138,6 +137,7 @@ DeviserVersion::setVersion(int version)
   mVersion = version;
   emit versionChanged();
   emit identityChanged(oldId, toString(), this);
+  setModified();
 }
 
 void
@@ -149,6 +149,7 @@ DeviserVersion::setPkgVersion(int pkgVersion)
   mPkgVersion = pkgVersion;
   emit pkgVersionChanged();
   emit identityChanged(oldId, toString(), this);
+  setModified();
 }
 
 
@@ -207,6 +208,7 @@ DeviserVersion::createEnum()
   element->setName(QString("enum_%1").arg(mEnums.size()));
   mEnums.append(element);
   setParent(this->mPackage);
+  setModified();
   return element;
 }
 
@@ -217,6 +219,7 @@ DeviserVersion::createElement()
   element->setName(QString("class_%1").arg(mElements.size()));
   mElements.append(element);
   setParent(this->mPackage);
+  setModified();
   return element;
 }
 
@@ -227,6 +230,7 @@ DeviserVersion::createPlugin()
   element->setExtensionPoint(QString("plugin_%1").arg(mPlugins.size()));
   mPlugins.append(element);
   setParent(this->mPackage);
+  setModified();
   return element;
 }
 

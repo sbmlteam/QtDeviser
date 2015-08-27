@@ -50,6 +50,7 @@ DeviserEnum::setName(const QString &name)
 
   if (!name.isEmpty())
   emit nameChanged(oldName, name, mVersion);
+  setModified();
 }
 
 const QList<DeviserEnumValue *> &
@@ -71,6 +72,7 @@ DeviserEnum::createValue()
   result->setName(QString("value_%1").arg(mValues.size()));
   mValues.append(result);
   setParent(mPackage);
+  setModified();
   return result;
 }
 

@@ -64,9 +64,14 @@ public slots:
 
   void openRecentFile(QAction *);
 
+  void documentModified();
+
+  bool askForSaveOrStop();
+
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);
+  void closeEvent(QCloseEvent *event);
 
 private:
   Ui::MainWindow *ui;

@@ -12,7 +12,8 @@ TARGET = QtDeviser
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
+           util.cpp \
            ui/mainwindow.cpp \
            ui/formdeviserpackage.cpp \
            ui/formdeviserversion.cpp \
@@ -49,14 +50,14 @@ SOURCES += main.cpp\
            validation/deviserconstraint.cpp \
            validation/sidrefconstraint.cpp \
            validation/packageconstraints.cpp \
-           util.cpp \
-    validation/haslistofconstraint.cpp \
-    validation/hasmathconstraint.cpp \
-    validation/haschildrenconstraint.cpp \
-    validation/isbaseclassconstraint.cpp
+           validation/haslistofconstraint.cpp \
+           validation/hasmathconstraint.cpp \
+           validation/haschildrenconstraint.cpp \
+           validation/isbaseclassconstraint.cpp
 
 
-HEADERS  += ui/mainwindow.h \
+HEADERS  += util.h \
+            ui/mainwindow.h \
             ui/formdeviserpackage.h \
             ui/formdeviserversion.h \
             ui/formdeviserenum.h \
@@ -94,11 +95,11 @@ HEADERS  += ui/mainwindow.h \
             validation/deviserconstraint.h \
             validation/sidrefconstraint.h \
             validation/packageconstraints.h \
-            util.h \
-    validation/haslistofconstraint.h \
-    validation/hasmathconstraint.h \
-    validation/haschildrenconstraint.h \
-    validation/isbaseclassconstraint.h
+            validation/haslistofconstraint.h \
+            validation/hasmathconstraint.h \
+            validation/haschildrenconstraint.h \
+            validation/isbaseclassconstraint.h
+
 
 
 FORMS    += ui/mainwindow.ui \
@@ -117,7 +118,8 @@ FORMS    += ui/mainwindow.ui \
 RESOURCES += \
     deviser-resources.qrc
 
-win32 {
+win32
+{
   RC_FILE = deviser.rc
 }
 
@@ -130,7 +132,6 @@ DISTFILES += \
     ChooseQtVersion.cmake \
     CoreClasses.txt \
     main.tex
-    
 
 target.path = $$PREFIX/
 INSTALLS += QtDeviser

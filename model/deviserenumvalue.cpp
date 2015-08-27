@@ -37,6 +37,7 @@ DeviserEnumValue::setName(const QString &name)
 {
   mName = name;
   emit nameChanged();
+  setModified();
 }
 
 const QString &
@@ -50,6 +51,7 @@ DeviserEnumValue::setValue(const QString &value)
 {
   mValue = value;
   emit valueChanged();
+  setModified();
 }
 
 void 
