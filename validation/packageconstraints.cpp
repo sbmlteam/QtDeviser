@@ -31,9 +31,9 @@ PackageConstraints::analyzePackage(DeviserPackage *package)
     ++count;
   }
 
-  if (!QString::number(package->getOffset()).endsWith("000000"))
+  if (!QString::number(package->getOffset()).endsWith("00000"))
   {
-    ADD_MESSAGE_WITH_SEVERITY(DEVISER_WARNING, "Package: Offset should end with 000000.");
+    ADD_MESSAGE_WITH_SEVERITY(DEVISER_WARNING, "Package: Offset should end with 00000.");
     ++count;
   }
 

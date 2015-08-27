@@ -78,6 +78,13 @@ DeviserSettings::loadSettings(const QString& settingsFile)
   mWidth = readElement(root, "Width").toInt();
   mHeight = readElement(root, "Height").toInt();
 
+  mRecentFiles.clear();
+  QDomNodeList list =  root.elementsByTagName("file");
+  for (int i = 0; i < list.count(); ++i)
+  {
+    mRecentFiles << list.at(i).toElement().text();
+  }
+
 }
 
 void
@@ -119,6 +126,14 @@ DeviserSettings::saveSettings()
   writer.writeTextElement("Width", QString::number(mWidth));
   writer.writeTextElement("Height", QString::number(mHeight));
 
+  writer.writeStartElement("RecentFiles");
+  foreach(QString filename, mRecentFiles)
+  {
+    writer.writeTextElement("file", filename);
+  }
+
+  writer.writeEndElement();
+
   writer.writeEndElement();
 
   writer.writeEndDocument();
@@ -154,9 +169,30 @@ void DeviserSettings::setVsBatchFile(const QString &vsBatchFile)
   mVsBatchFile = vsBatchFile;
 }
 
+QStringList &DeviserSettings::getRecentFiles()
+{
+  return mRecentFiles;
+}
 
+void DeviserSettings::addRecentFile(const QString &filename)
+{
+  removeRecentFile(filename);
+  mRecentFiles.insert(0, filename);
 
+  while (mRecentFiles.count() > 9)
+  {
+    mRecentFiles.removeAt(9);
+  }
 
+  saveSettings();
+
+}
+
+void DeviserSettings::removeRecentFile(const QString &filename)
+{
+  mRecentFiles.removeAll(filename);
+  saveSettings();
+}
 
 QString
 DeviserSettings::getSettingsFile()

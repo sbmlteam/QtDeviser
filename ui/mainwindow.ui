@@ -124,8 +124,14 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <widget class="QMenu" name="menuRecentFiles">
+     <property name="title">
+      <string>&amp;Recent Files</string>
+     </property>
+    </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="menuRecentFiles"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
@@ -642,6 +648,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>menuRecentFiles</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openRecentFile(QAction*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>67</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -662,5 +684,6 @@
   <slot>selectionChanged()</slot>
   <slot>deleteSelected()</slot>
   <slot>duplicateSelected()</slot>
+  <slot>openRecentFile(QAction*)</slot>
  </slots>
 </ui>

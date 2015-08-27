@@ -57,6 +57,7 @@ void DeviserValidator::setErrors(const QList<DeviserMessage*> &errors)
 {
   mErrors = errors;
 }
+
 QList<DeviserConstraint *> DeviserValidator::constraints() const
 {
   return mConstraints;

@@ -60,6 +60,10 @@ public slots:
   void deleteSelected();
   void duplicateSelected();
 
+  void refreshRecentFiles();
+
+  void openRecentFile(QAction *);
+
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);

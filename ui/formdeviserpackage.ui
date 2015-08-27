@@ -101,7 +101,7 @@
    <item>
     <widget class="QLabel" name="label_8">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;A package must define the additional offset added to all validation rule numbers to allow these to be uniquely stored. This should be a two digit integer followed by 000000. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;A package must define the additional offset added to all validation rule numbers to allow these to be uniquely stored. This should be a two digit integer followed by 00000. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>

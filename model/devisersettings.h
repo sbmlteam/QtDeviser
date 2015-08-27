@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 
 class DeviserSettings : public QObject
 {
@@ -62,6 +63,10 @@ public:
   QString getVsBatchFile() const;
   void setVsBatchFile(const QString &vsBatchFile);
 
+  QStringList& getRecentFiles();
+  void addRecentFile(const QString& filename);
+  void removeRecentFile(const QString& filename);
+
 signals:
 
 public slots:
@@ -82,6 +87,7 @@ protected:
   QString mPythonIncludes;
   QString mPythonLib;
   QString mVsBatchFile;
+  QStringList mRecentFiles;
 
 
   int mWidth;

@@ -1,6 +1,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QActionGroup>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -24,6 +25,7 @@
 #include <model/devisermapping.h>
 #include <model/deviserenum.h>
 #include <model/deviserplugin.h>
+#include <model/devisersettings.h>
 
 #include <validation/devisermessage.h>
 
@@ -65,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->treeWidget->addAction(ui->actionDuplicate);
   ui->treeWidget->addAction(sep);
   ui->treeWidget->addAction(ui->actionDeleteSelected);
+
+  refreshRecentFiles();
 
   newModel();
 
@@ -117,7 +121,7 @@ MainWindow::editPreferences()
 void
 MainWindow::fixErrors()
 {
-
+  mValidator.fixIssues(mModel);
 }
 
 void
@@ -353,8 +357,12 @@ void MainWindow::openFile(const QString& fileName)
   mModel = new DeviserPackage(fileName);
   mCurrentElement = mModel;
   mCurrentVersion = getCurrentVersion();
+
   setCurrentFile(mFileName);
   updateUI();
+
+  DeviserSettings::getInstance()->addRecentFile(fileName);
+  refreshRecentFiles();
 
 }
 
@@ -645,5 +653,36 @@ MainWindow::duplicateSelected()
 
     break;
   }
+}
+
+void MainWindow::refreshRecentFiles()
+{
+  ui->menuRecentFiles->clear();
+
+  QStringList recentFiles = DeviserSettings::getInstance()->getRecentFiles();
+  int count = 0;
+  foreach(QString filename, recentFiles)
+  {
+    QFileInfo info(filename);
+    if (!info.exists())
+    {
+      DeviserSettings::getInstance()->removeRecentFile(filename);
+      continue;
+    }
+
+    QAction* action = ui->menuRecentFiles->addAction(QString("&%1 %2")
+                      .arg(QString::number(++count), info.fileName()));
+    action->setData(filename);
+  }
+
+}
+
+void MainWindow::openRecentFile(QAction *action)
+{
+  QString filename = action->data().toString();
+  if (filename.isEmpty())
+    return;
+
+  openFile(filename);
 }
 
