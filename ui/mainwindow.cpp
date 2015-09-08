@@ -89,6 +89,11 @@ MainWindow::showAbout()
   about.exec();
 }
 
+void MainWindow::showAboutQt()
+{
+  QMessageBox::aboutQt(this, "Qt");
+}
+
 DeviserVersion*
 MainWindow::getCurrentVersion()
 {

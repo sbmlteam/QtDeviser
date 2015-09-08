@@ -36,6 +36,7 @@ public:
 
 public slots:
   void showAbout();
+  void showAboutQt();
   void addClass();
   void addEnum();
   void addPlugin();
@@ -67,6 +68,7 @@ public slots:
   void documentModified();
 
   bool askForSaveOrStop();
+
 
 
 protected:

@@ -159,6 +159,7 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="actionAboutQt"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menu_Tool">
@@ -355,6 +356,14 @@
    </property>
    <property name="toolTip">
     <string>Duplicates the selected element</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About &amp;Qt</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutQtRole</enum>
    </property>
   </action>
  </widget>
@@ -667,6 +676,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAboutQt</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showAboutQt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -688,5 +713,6 @@
   <slot>deleteSelected()</slot>
   <slot>duplicateSelected()</slot>
   <slot>openRecentFile(QAction*)</slot>
+  <slot>showAboutQt()</slot>
  </slots>
 </ui>
