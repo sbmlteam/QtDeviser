@@ -142,6 +142,7 @@ endif()
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
 set(EXECUTABLE_FLAGS)
+set(EXTRA_FILES)
 
 if(WIN32 AND NOT CYGWIN)
   option(ENABLE_UI_CONSOLE "Show the console window (to see debug messages) when running QtDeviser" OFF)
@@ -159,7 +160,8 @@ if(APPLE)
 
 set(EXECUTABLE_FLAGS MACOSX_BUNDLE)
 set(MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/QtDeviser.plist )
-set(MACOSX_BUNDLE_ICON_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Images/ICON_Deviser.icns )
+set(MACOSX_BUNDLE_ICON_FILE  ICON_Deviser.icns )
+set(EXTRA_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Images/ICON_Deviser.icns )
 set(MACOSX_BUNDLE_BUNDLE_VERSION  “${DEVISER_VERSION_MAJOR}.${DEVISER_VERSION_MINOR}.${DEVISER_VERSION_BUILD}")
 set(MACOSX_BUNDLE_INFO_STRING “Deviser ${MACOSX_BUNDLE_BUNDLE_VERSION} is distributed under the LGPL." )
 set(MACOSX_BUNDLE_GUI_IDENTIFIER  "org.sbml.QtDeviser" )
@@ -175,8 +177,14 @@ add_executable(QtDeviser ${EXECUTABLE_FLAGS} ${CPP_FILES}
   ${HEADERS_MOC}
   ${FORMS_HEADERS}
   ${RESOURCES_RCC}
-  ${DEVISER_CPP_FILES}
+  ${EXTRA_FILES}
 )
+
+if (APPLE)
+add_custom_command(TARGET QtDeviser POST_BUILD 
+  COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:QtDeviser>/../Resources
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Images/ICON_Deviser.icns $<TARGET_FILE_DIR:QtDeviser>/../Resources)
+endif()
 
 install(TARGETS QtDeviser DESTINATION bin)
 
