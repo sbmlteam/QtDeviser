@@ -72,6 +72,8 @@ public slots:
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);
   void closeEvent(QCloseEvent *event);
+  void dragEnterEvent(QDragEnterEvent *e);
+  void dropEvent(QDropEvent *e);
 
 private:
   Ui::MainWindow *ui;

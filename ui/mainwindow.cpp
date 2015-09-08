@@ -3,6 +3,8 @@
 #include <QTextStream>
 #include <QActionGroup>
 #include <QCloseEvent>
+#include <QMimeData>
+#include <QUrl>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -745,5 +747,24 @@ void MainWindow::closeEvent(QCloseEvent *event)
   else
   {
     event->accept();
+  }
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *e)
+{
+  if (e->mimeData()->hasUrls())
+  {
+    e->acceptProposedAction();
+  }
+}
+
+void MainWindow::dropEvent(QDropEvent *e)
+{
+  foreach (const QUrl &url, e->mimeData()->urls())
+  {
+    // open only first file that is dropped
+    const QString &fileName = url.toLocalFile();
+    openFile(fileName);
+    return;
   }
 }
