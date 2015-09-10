@@ -15,6 +15,8 @@
 #include <model/devisersettings.h>
 #include <model/deviserpackage.h>
 
+#include <ui/flowlayout.h>
+
 #include <util.h>
 
 
@@ -29,6 +31,8 @@ DialogGenerate::DialogGenerate(QWidget *parent)
   ui->setupUi(this);
 
   connect (&workerThread, SIGNAL(finished()), this, SLOT(finished()));
+
+  FlowLayout::applyToWidget(ui->tabIntegration);
 
 }
 

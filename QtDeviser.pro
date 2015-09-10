@@ -53,7 +53,8 @@ SOURCES += main.cpp \
            validation/haslistofconstraint.cpp \
            validation/hasmathconstraint.cpp \
            validation/haschildrenconstraint.cpp \
-           validation/isbaseclassconstraint.cpp
+           validation/isbaseclassconstraint.cpp \
+    ui/flowlayout.cpp
 
 
 HEADERS  += util.h \
@@ -99,7 +100,8 @@ HEADERS  += util.h \
             validation/hasmathconstraint.h \
             validation/haschildrenconstraint.h \
             validation/isbaseclassconstraint.h \
-    deviser-version.h
+    deviser-version.h \
+    ui/flowlayout.h
 
 
 

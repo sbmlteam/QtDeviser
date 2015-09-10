@@ -93,7 +93,7 @@
          </size>
         </property>
         <property name="text">
-         <string>default output dir:</string>
+         <string>Default output dir:</string>
         </property>
        </widget>
       </item>
@@ -209,7 +209,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="lblSBMLSourceDir">
         <property name="text">
-         <string>SBML Source dir:</string>
+         <string>libSBML Source dir:</string>
         </property>
        </widget>
       </item>
