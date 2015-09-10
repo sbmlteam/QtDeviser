@@ -18,6 +18,7 @@ DeviserPackage::DeviserPackage()
   , mAdditionalDefinitions()
   , mVersions()
   , mModified(false)
+  , mLanguage()
 {
   createVersion();
   setParent(this);
@@ -33,6 +34,8 @@ DeviserPackage::DeviserPackage(const DeviserPackage& other)
   , mAdditionalDeclarations(other.mAdditionalDeclarations)
   , mAdditionalDefinitions(other.mAdditionalDefinitions)
   , mVersions()
+  , mModified(false)
+  , mLanguage(other.mLanguage)
 {
   cloneElements(other.mVersions, mVersions);
   setParent(this);
@@ -49,6 +52,8 @@ DeviserPackage::DeviserPackage(const QString& fileName)
   , mAdditionalDeclarations()
   , mAdditionalDefinitions()
   , mVersions()
+  , mModified(false)
+  , mLanguage()
 {
   QDomDocument document (fileName);
   QFile file(fileName);
@@ -69,6 +74,8 @@ DeviserPackage::DeviserPackage(QDomElement& element)
   , mAdditionalDeclarations()
   , mAdditionalDefinitions()
   , mVersions()
+  , mModified(false)
+  , mLanguage()
 {
   initializeFrom(element);
 }
@@ -126,6 +133,8 @@ void DeviserPackage::initializeFrom(const QDomElement& element)
 
   initializeListFrom(mVersions, element, "pkgVersion");
 
+  initializeElementFrom(mLanguage, element, "language");
+
   setParent(this);
 
 }
@@ -135,6 +144,8 @@ void DeviserPackage::setParent(DeviserPackage* doc)
   DeviserBase::setParent(doc);
 
   setParentOn(mVersions, doc);
+
+  mLanguage.setParent(doc);
 }
 
 QString DeviserPackage::toXmlString() const
@@ -188,6 +199,9 @@ void DeviserPackage::writeAttributesTo(QXmlStreamWriter& writer) const
 void DeviserPackage::writeElementsTo(QXmlStreamWriter& writer) const
 {
   DeviserBase::writeElementsTo(writer);
+
+  if (!mLanguage.isEmpty())
+    mLanguage.writeTo(writer);
 
   writeListWithName(mVersions, writer, "versions");
 

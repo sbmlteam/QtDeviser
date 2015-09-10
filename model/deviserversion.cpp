@@ -55,6 +55,7 @@ DeviserVersion::initializeFrom(const QDomElement& element)
   mLevel = element.attribute("level").toInt();
   mVersion = element.attribute("version").toInt();
   mPkgVersion = element.attribute("pkg_version").toInt();
+  mIgnorePackageVersion = element.attribute("ignorePackageversion") == "true";
 
   initializeListFrom(mElements, element, "element");
   initializeListFrom(mPlugins, element, "plugin");
@@ -80,6 +81,9 @@ DeviserVersion::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("version", QString::number(mVersion));
   if (mPkgVersion != 0)
     writer.writeAttribute("pkg_version", QString::number(mPkgVersion));
+
+  if (mIgnorePackageVersion)
+    writer.writeAttribute("ignorePackageVersion", "true");
 }
 
 void 
@@ -278,3 +282,14 @@ DeviserVersion::toYuml(bool usecolor /*= true*/) const
 
   return array;
 }
+bool DeviserVersion::getIgnorePackageVersion() const
+{
+    return mIgnorePackageVersion;
+}
+
+void DeviserVersion::setIgnorePackageVersion(bool ignorePackageVersion)
+{
+    mIgnorePackageVersion = ignorePackageVersion;
+    setModified();
+}
+

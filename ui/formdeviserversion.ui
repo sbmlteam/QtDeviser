@@ -56,6 +56,16 @@
        <item>
         <widget class="QLineEdit" name="txtPackageVersion"/>
        </item>
+       <item>
+        <widget class="QCheckBox" name="chkIgnorePackageVersion">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When set to true, deviser will not create functions including the package version for elements in this version. So instead of constructors that take &lt;span style=&quot; font-weight:600;&quot;&gt;level&lt;/span&gt;, &lt;span style=&quot; font-weight:600;&quot;&gt;version&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;packageVersion&lt;/span&gt;, deviser would only generate constructors for &lt;span style=&quot; font-weight:600;&quot;&gt;level&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;version&lt;/span&gt; attributes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Ignore Package Version</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
@@ -187,6 +197,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>chkIgnorePackageVersion</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FormDeviserVersion</receiver>
+   <slot>ignorePackageVersionChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>525</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>versionChanged(QString)</slot>
@@ -194,5 +220,6 @@
   <slot>pkgVersionChanged(QString)</slot>
   <slot>upPressed()</slot>
   <slot>downPressed()</slot>
+  <slot>ignorePackageVersionChanged()</slot>
  </slots>
 </ui>

@@ -25,6 +25,7 @@ public slots:
   void levelChanged(const QString&);
   void versionChanged(const QString&);
   void pkgVersionChanged(const QString&);
+  void ignorePackageVersionChanged();
 
 private:
   Ui::FormDeviserVersion *ui;

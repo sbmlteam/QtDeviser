@@ -85,6 +85,18 @@ template<typename T> void initializeListFrom(QList<T*>& list, const QDomElement&
   }
 }
 
+template<typename T> void initializeElementFrom(T& element, const QDomElement& domElement, const QString& name)
+{
+  const QDomNodeList& nodes = domElement.elementsByTagName(name);
+  for(int i = 0;i < nodes.count(); ++i)
+  {
+    const QDomElement& child = nodes.at(i).toElement();
+    element.initializeFrom(child);
+    return;
+  }
+}
+
+
 template<typename T> void cloneElements(const QList<T*>& source, QList<T*>& destination)
 {
   destination.clear();

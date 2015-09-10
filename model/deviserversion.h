@@ -55,6 +55,9 @@ public:
   virtual void writeTo(QXmlStreamWriter& writer) const;
   virtual QString toYuml(bool usecolor = true) const;
 
+  bool getIgnorePackageVersion() const;
+  void setIgnorePackageVersion(bool ignorePackageVersion);
+
 signals:
   void identityChanged(const QString& oldIdentity, const QString& newIdentity,
                        const DeviserVersion* version);
@@ -71,6 +74,8 @@ protected:
   QList<DeviserPlugin*> mPlugins;
   QList<DeviserEnum*> mEnums;
   QList<DeviserMapping*> mMappings;
+
+  bool mIgnorePackageVersion;
 
 };
 

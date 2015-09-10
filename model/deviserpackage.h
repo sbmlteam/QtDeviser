@@ -3,6 +3,7 @@
 
 #include <model/deviserbase.h>
 #include <model/deviserversion.h>
+#include <model/deviserlanguage.h>
 
 
 class DeviserPackage : public DeviserBase
@@ -80,6 +81,8 @@ protected:
   QList<DeviserVersion*> mVersions;
 
   bool mModified;
+
+  DeviserLanguage mLanguage;
 
 };
 

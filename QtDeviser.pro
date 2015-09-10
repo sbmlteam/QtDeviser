@@ -55,7 +55,9 @@ SOURCES += main.cpp \
            validation/haschildrenconstraint.cpp \
            validation/isbaseclassconstraint.cpp \
     ui/flowlayout.cpp \
-    ui/smoothgraphicsitem.cpp
+    ui/smoothgraphicsitem.cpp \
+    validation/typecodeconstraint.cpp \
+    model/deviserlanguage.cpp
 
 
 HEADERS  += util.h \
@@ -103,7 +105,9 @@ HEADERS  += util.h \
             validation/isbaseclassconstraint.h \
     deviser-version.h \
     ui/flowlayout.h \
-    ui/smoothgraphicsitem.h
+    ui/smoothgraphicsitem.h \
+    validation/typecodeconstraint.h \
+    model/deviserlanguage.h
 
 
 

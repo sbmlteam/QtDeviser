@@ -29,14 +29,17 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
   ui->txtCoreLevel->clear();
   ui->txtCoreVersion->clear();
   ui->txtPackageVersion->clear();
+  ui->chkIgnorePackageVersion->setChecked(false);
 
   ui->lstClasses->clear();
+
 
   if (version != NULL)
   {
     ui->txtCoreLevel->setText(QString::number(version->getLevel()));
     ui->txtCoreVersion->setText(QString::number(version->getVersion()));
     ui->txtPackageVersion->setText(QString::number(version->getPkgVersion()));
+    ui->chkIgnorePackageVersion->setChecked(version->getIgnorePackageVersion());
 
     foreach(DeviserClass* element, version->getElements())
     {
@@ -113,5 +116,11 @@ FormDeviserVersion::pkgVersionChanged(const QString& version)
   if (mVersion == NULL || mbInitializing) return;
   mVersion->setPkgVersion(version.toInt());
 
+}
+
+void FormDeviserVersion::ignorePackageVersionChanged()
+{
+  if (mVersion == NULL || mbInitializing) return;
+  mVersion->setIgnorePackageVersion(ui->chkIgnorePackageVersion->isChecked());
 }
 
