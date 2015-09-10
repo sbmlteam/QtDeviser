@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(QtDeviser)
 
-cmake_policy(SET CMP0020 NEW)
+#cmake_policy(SET CMP0020 NEW)
 
 
 set(DEVISER_VERSION_MAJOR)
