@@ -6,7 +6,7 @@
  *
  * A version string of the form "1.2.3".
  */
-#define DEVISER_DOTTED_VERSION	"0.3.0"
+#define DEVISER_DOTTED_VERSION	"1.0.0"
 
 
 /**
@@ -17,7 +17,7 @@
  * QtDeviser is released, making it easy to use less-than and greater-than
  * comparisons when testing versions numbers.
  */
-#define DEVISER_VERSION		00300
+#define DEVISER_VERSION		10000
 
 
 /**
@@ -25,7 +25,7 @@
  *
  * The numeric version as a string: version 1.2.3 becomes "10203".
  */
-#define DEVISER_VERSION_STRING	"00300"
+#define DEVISER_VERSION_STRING	"10000"
 
 
 #endif // DEVISER_VERSION_H
