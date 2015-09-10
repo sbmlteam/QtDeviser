@@ -146,6 +146,19 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="chkUseSVG">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When checked, SVG will be used to display the drawing, otherwise PNG (i.e.: a bitmap) will be used to display the diagram. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>Use SVG</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="cmdClose">
        <property name="text">
         <string>&amp;Close</string>
@@ -239,6 +252,22 @@
    <hints>
     <hint type="sourcelabel">
      <x>519</x>
+     <y>458</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chkUseSVG</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>DialogUML</receiver>
+   <slot>updateGraph()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>517</x>
      <y>458</y>
     </hint>
     <hint type="destinationlabel">

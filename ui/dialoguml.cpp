@@ -117,7 +117,7 @@ DialogUML::downloadFinished(QNetworkReply *reply)
   if (data.endsWith(".png"))
   {
     QUrl imageUrl ("http://yuml.me/"
-                  + data.replace("png", "svg"));
+                  + (ui->chkUseSVG->isChecked() ?  data.replace("png", "svg") : data));
     QNetworkRequest request(imageUrl);
     mpManager->get(request);
     reply->deleteLater();
@@ -126,6 +126,11 @@ DialogUML::downloadFinished(QNetworkReply *reply)
   }
 
   mpScene->clear();
+
+  QGraphicsItem* item = NULL;
+
+  if (ui->chkUseSVG->isChecked())
+  {
 
   QTemporaryFile file("svg");
   file.setAutoRemove(false);
@@ -136,10 +141,20 @@ DialogUML::downloadFinished(QNetworkReply *reply)
   mFileList.append(file.fileName());
 
 
-  QGraphicsSvgItem* item = new QGraphicsSvgItem(file.fileName());
+  item = new QGraphicsSvgItem(file.fileName());
+
+  }
+  else
+  {
+    QImage image;
+    image.loadFromData(data);
+    item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+  }
 
   mpScene ->addItem(item);
+
   ui->graphicsView->update();
+
   if (ui->chkFitUML->isChecked())
     ui->graphicsView->fitInView(item, Qt::KeepAspectRatio);
   else
