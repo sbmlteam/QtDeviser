@@ -21,7 +21,6 @@ DeviserSettings::DeviserSettings(QObject *parent)
 
 }
 
-
 DeviserSettings*
 DeviserSettings::getInstance()
 {
@@ -77,6 +76,8 @@ DeviserSettings::loadSettings(const QString& settingsFile)
   mSwigExecutable = readElement(root, "Swig");
   mWidth = readElement(root, "Width").toInt();
   mHeight = readElement(root, "Height").toInt();
+  mUseSVG = readElement(root, "UseSVG") != "false";
+  mFitUML = readElement(root, "FitUML") != "false";
 
   mRecentFiles.clear();
   QDomNodeList list =  root.elementsByTagName("file");
@@ -123,8 +124,12 @@ DeviserSettings::saveSettings()
 
   writer.writeTextElement("CMake", mCmakeExecutable);
   writer.writeTextElement("Swig", mSwigExecutable);
+
   writer.writeTextElement("Width", QString::number(mWidth));
   writer.writeTextElement("Height", QString::number(mHeight));
+
+  writer.writeTextElement("UseSVG", mUseSVG ? "true" : "false");
+  writer.writeTextElement("FitUML", mFitUML ? "true" : "false");
 
   writer.writeStartElement("RecentFiles");
   foreach(QString filename, mRecentFiles)
@@ -193,12 +198,31 @@ void DeviserSettings::removeRecentFile(const QString &filename)
   mRecentFiles.removeAll(filename);
   saveSettings();
 }
+bool DeviserSettings::getUseSVG() const
+{
+    return mUseSVG;
+}
+
+void DeviserSettings::setUseSVG(bool useSVG)
+{
+    mUseSVG = useSVG;
+}
+bool DeviserSettings::getFitUML() const
+{
+    return mFitUML;
+}
+
+void DeviserSettings::setFitUML(bool fitUML)
+{
+    mFitUML = fitUML;
+}
+
 
 QString
 DeviserSettings::getSettingsFile()
 {
-  QByteArray dir = Util::isWindows() ?  qgetenv("APPDATA")
-                                      : qgetenv("HOME");
+    QByteArray dir = Util::isWindows() ?  qgetenv("APPDATA")
+                                        : qgetenv("HOME");
 
   {
     QFile file(dir + "/" + ".deviser_config.xml");
@@ -255,6 +279,7 @@ void DeviserSettings::setDeviserRepository(const QString &deviserRepository)
 {
   mDeviserRepository = deviserRepository;
 }
+
 QString DeviserSettings::getDefaultOutputDir() const
 {
   return mDefaultOutputDir;
@@ -264,6 +289,7 @@ void DeviserSettings::setDefaultOutputDir(const QString &defaultOutputDir)
 {
   mDefaultOutputDir = defaultOutputDir;
 }
+
 QString DeviserSettings::getSbmlPkgSpecDir() const
 {
   return mSbmlPkgSpecDir;
@@ -273,6 +299,7 @@ void DeviserSettings::setSbmlPkgSpecDir(const QString &sbmlPkgSpecDir)
 {
   mSbmlPkgSpecDir = sbmlPkgSpecDir;
 }
+
 QString DeviserSettings::getMikTexBinDir() const
 {
   return mMikTexBinDir;
@@ -282,6 +309,7 @@ void DeviserSettings::setMikTexBinDir(const QString &mikTexBinDir)
 {
   mMikTexBinDir = mikTexBinDir;
 }
+
 QString DeviserSettings::getLibSBMLSourceDir() const
 {
   return mLibSBMLSourceDir;
@@ -291,6 +319,7 @@ void DeviserSettings::setLibSBMLSourceDir(const QString &libSBMLSourceDir)
 {
   mLibSBMLSourceDir = libSBMLSourceDir;
 }
+
 QString DeviserSettings::getCompiler() const
 {
   if (mCompiler.isEmpty())
@@ -303,6 +332,7 @@ void DeviserSettings::setCompiler(const QString &compiler)
 {
   mCompiler = compiler;
 }
+
 QString DeviserSettings::getCmakeExecutable() const
 {
   return mCmakeExecutable;
@@ -312,6 +342,7 @@ void DeviserSettings::setCmakeExecutable(const QString &cmakeExecutable)
 {
   mCmakeExecutable = cmakeExecutable;
 }
+
 QString DeviserSettings::getDependencySourceDir() const
 {
   return mDependencySourceDir;
@@ -321,6 +352,7 @@ void DeviserSettings::setDependencySourceDir(const QString &dependencySourceDir)
 {
   mDependencySourceDir = dependencySourceDir;
 }
+
 QString DeviserSettings::getSwigExecutable() const
 {
   return mSwigExecutable;
@@ -330,6 +362,7 @@ void DeviserSettings::setSwigExecutable(const QString &swigExecutable)
 {
   mSwigExecutable = swigExecutable;
 }
+
 QString DeviserSettings::getPythonIncludes() const
 {
   return mPythonIncludes;
@@ -339,6 +372,7 @@ void DeviserSettings::setPythonIncludes(const QString &pythonIncludes)
 {
   mPythonIncludes = pythonIncludes;
 }
+
 QString DeviserSettings::getPythonLib() const
 {
   return mPythonLib;
@@ -349,20 +383,9 @@ void DeviserSettings::setPythonLib(const QString &pythonLib)
   mPythonLib = pythonLib;
 }
 
-
 void DeviserSettings::removeInstance()
 {
   if (mpInstance != NULL)
     delete mpInstance;
   mpInstance = NULL;
 }
-
-
-
-
-
-
-
-
-
-

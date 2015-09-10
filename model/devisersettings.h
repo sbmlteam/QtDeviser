@@ -67,6 +67,12 @@ public:
   void addRecentFile(const QString& filename);
   void removeRecentFile(const QString& filename);
 
+  bool getUseSVG() const;
+  void setUseSVG(bool useSVG);
+
+  bool getFitUML() const;
+  void setFitUML(bool fitUML);
+
 signals:
 
 public slots:
@@ -89,6 +95,8 @@ protected:
   QString mVsBatchFile;
   QStringList mRecentFiles;
 
+  bool mFitUML;
+  bool mUseSVG;
 
   int mWidth;
   int mHeight;

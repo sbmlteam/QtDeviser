@@ -22,6 +22,8 @@
 #include <cstdlib>
 
 #include <ui/smoothgraphicsitem.h>
+#include <model/devisersettings.h>
+
 
 bool DialogUML::mRegistered = false;
 QStringList DialogUML::mFileList = QStringList();
@@ -63,6 +65,12 @@ DialogUML::DialogUML(QWidget *parent)
 
   ui->progressBar->setVisible(false);
 
+  blockSignals(true);
+  ui->chkFitUML->setChecked(DeviserSettings::getInstance()->getFitUML());
+  ui->chkUseSVG->setChecked(DeviserSettings::getInstance()->getUseSVG());
+  blockSignals(false);
+
+  connect(this, SIGNAL(finished(int)), this, SLOT(closing()));
 }
 
 void
@@ -240,5 +248,12 @@ DialogUML::resizeEvent(QResizeEvent * /*event*/)
 {
   if (ui->chkFitUML->isChecked())
     ui->graphicsView->fitInView(mpScene->sceneRect(), Qt::KeepAspectRatio);
+}
+
+void DialogUML::closing()
+{
+  DeviserSettings::getInstance()->setUseSVG(ui->chkUseSVG->isChecked());
+  DeviserSettings::getInstance()->setFitUML(ui->chkFitUML->isChecked());
+  DeviserSettings::getInstance()->saveSettings();
 }
 

@@ -33,6 +33,7 @@ public slots:
   void fitChanged();
   void downloadFinished(QNetworkReply *reply);
   void downloadImageFinished(QNetworkReply *reply);
+  void closing();
 
 protected:
   virtual void resizeEvent(QResizeEvent * event);
