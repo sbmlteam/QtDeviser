@@ -98,7 +98,8 @@ HEADERS  += util.h \
             validation/haslistofconstraint.h \
             validation/hasmathconstraint.h \
             validation/haschildrenconstraint.h \
-            validation/isbaseclassconstraint.h
+            validation/isbaseclassconstraint.h \
+    deviser-version.h
 
 
 
