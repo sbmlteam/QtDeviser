@@ -59,6 +59,8 @@ DialogUML::DialogUML(QWidget *parent)
 
   ui->graphicsView->setScene(mpScene);
 
+  ui->progressBar->setVisible(false);
+
 }
 
 void
@@ -85,7 +87,7 @@ DialogUML::updateGraph()
 
   QNetworkRequest request(baseUri);
 
-  QByteArray yuml; yuml.append(ui->txtEdit->document()->toPlainText());// .toUtf8());
+  QByteArray yuml; yuml.append(ui->txtEdit->document()->toPlainText());
   yuml = yuml.replace("\r\n", ",");
   yuml = yuml.replace("\n", ",");
   yuml = yuml.replace(",,", ",");
@@ -98,6 +100,9 @@ DialogUML::updateGraph()
   multiPart->append(textPart);
   QNetworkReply *reply = mpManager->post(request, multiPart);
   multiPart->setParent(reply);
+
+  ui->progressBar->setVisible(true);
+
 
 }
 
@@ -133,17 +138,16 @@ DialogUML::downloadFinished(QNetworkReply *reply)
 
   QGraphicsSvgItem* item = new QGraphicsSvgItem(file.fileName());
 
-  //QImage image; image.loadFromData(data);
-  //QGraphicsPixmapItem* item =
-  //    new QGraphicsPixmapItem(QPixmap::fromImage(image));
-
-
   mpScene ->addItem(item);
   ui->graphicsView->update();
   if (ui->chkFitUML->isChecked())
     ui->graphicsView->fitInView(item, Qt::KeepAspectRatio);
   else
     ui->graphicsView->scale(1.0f, 1.0f);
+
+  ui->tabWidget->setCurrentWidget(ui->tabYUML);
+
+  ui->progressBar->setVisible(false);
 
   reply->deleteLater();
 }
