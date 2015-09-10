@@ -468,7 +468,7 @@ DeviserClass::toYuml(bool usecolor) const
 
   foreach (const DeviserAttribute* item, list)
   {
-    stream << item->getYumlReferences(mName);
+    stream << item->getYumlReferences(mName) << endl;
   }
   if (hasListOf())
   {
@@ -501,7 +501,7 @@ DeviserClass::toYuml(bool usecolor) const
 
     foreach (const DeviserAttribute* item, list)
     {
-      stream << item->getYumlReferences(mName);
+      stream << item->getYumlReferences(mName) << endl;
     }
 
   }
