@@ -21,6 +21,8 @@
 
 #include <cstdlib>
 
+#include <ui/smoothgraphicsitem.h>
+
 bool DialogUML::mRegistered = false;
 QStringList DialogUML::mFileList = QStringList();
 
@@ -148,7 +150,7 @@ DialogUML::downloadFinished(QNetworkReply *reply)
   {
     QImage image;
     image.loadFromData(data);
-    item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    item = new SmoothGraphicsItem(QPixmap::fromImage(image));
   }
 
   mpScene ->addItem(item);

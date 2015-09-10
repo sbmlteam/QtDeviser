@@ -54,7 +54,8 @@ SOURCES += main.cpp \
            validation/hasmathconstraint.cpp \
            validation/haschildrenconstraint.cpp \
            validation/isbaseclassconstraint.cpp \
-    ui/flowlayout.cpp
+    ui/flowlayout.cpp \
+    ui/smoothgraphicsitem.cpp
 
 
 HEADERS  += util.h \
@@ -101,7 +102,8 @@ HEADERS  += util.h \
             validation/haschildrenconstraint.h \
             validation/isbaseclassconstraint.h \
     deviser-version.h \
-    ui/flowlayout.h
+    ui/flowlayout.h \
+    ui/smoothgraphicsitem.h
 
 
 
