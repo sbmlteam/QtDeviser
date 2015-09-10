@@ -103,7 +103,9 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
 
     ui->txtListOfName->setText(element->getListOfName());
     ui->txtListOfClassName->setText(element->getListOfClassName());
+    if (element->getMinNumberChildren() != 0)
     ui->txtMinNumChildren->setText(QString::number(element->getMinNumberChildren()));
+    if (element->getMaxNumberChildren() != 0)
     ui->txtMaxNumChildren->setText(QString::number(element->getMaxNumberChildren()));
 
     ui->txtDeclaration->setText(element->getAdditionalDeclarations());
