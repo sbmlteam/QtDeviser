@@ -164,7 +164,8 @@ void DeviserSettings::setHeight(int height)
 {
   mHeight = height;
 }
-QString DeviserSettings::getVsBatchFile() const
+
+const QString& DeviserSettings::getVsBatchFile() const
 {
   return mVsBatchFile;
 }
@@ -260,7 +261,7 @@ DeviserSettings::getSettingsFile()
   }
 }
 
-QString DeviserSettings::getPythonInterpreter() const
+const QString& DeviserSettings::getPythonInterpreter() const
 {
   return mPythonInterpreter;
 }
@@ -270,7 +271,7 @@ void DeviserSettings::setPythonInterpreter(const QString &pythonInterpreter)
   mPythonInterpreter = pythonInterpreter;
 }
 
-QString DeviserSettings::getDeviserRepository() const
+const QString& DeviserSettings::getDeviserRepository() const
 {
   return mDeviserRepository;
 }
@@ -280,7 +281,7 @@ void DeviserSettings::setDeviserRepository(const QString &deviserRepository)
   mDeviserRepository = deviserRepository;
 }
 
-QString DeviserSettings::getDefaultOutputDir() const
+const QString& DeviserSettings::getDefaultOutputDir() const
 {
   return mDefaultOutputDir;
 }
@@ -290,7 +291,7 @@ void DeviserSettings::setDefaultOutputDir(const QString &defaultOutputDir)
   mDefaultOutputDir = defaultOutputDir;
 }
 
-QString DeviserSettings::getSbmlPkgSpecDir() const
+const QString& DeviserSettings::getSbmlPkgSpecDir() const
 {
   return mSbmlPkgSpecDir;
 }
@@ -300,7 +301,7 @@ void DeviserSettings::setSbmlPkgSpecDir(const QString &sbmlPkgSpecDir)
   mSbmlPkgSpecDir = sbmlPkgSpecDir;
 }
 
-QString DeviserSettings::getMikTexBinDir() const
+const QString& DeviserSettings::getMikTexBinDir() const
 {
   return mMikTexBinDir;
 }
@@ -310,7 +311,7 @@ void DeviserSettings::setMikTexBinDir(const QString &mikTexBinDir)
   mMikTexBinDir = mikTexBinDir;
 }
 
-QString DeviserSettings::getLibSBMLSourceDir() const
+const QString& DeviserSettings::getLibSBMLSourceDir() const
 {
   return mLibSBMLSourceDir;
 }
@@ -320,7 +321,7 @@ void DeviserSettings::setLibSBMLSourceDir(const QString &libSBMLSourceDir)
   mLibSBMLSourceDir = libSBMLSourceDir;
 }
 
-QString DeviserSettings::getCompiler() const
+const QString& DeviserSettings::getCompiler() const
 {
   if (mCompiler.isEmpty())
     return mVsBatchFile;
@@ -333,7 +334,7 @@ void DeviserSettings::setCompiler(const QString &compiler)
   mCompiler = compiler;
 }
 
-QString DeviserSettings::getCmakeExecutable() const
+const QString& DeviserSettings::getCmakeExecutable() const
 {
   return mCmakeExecutable;
 }
@@ -343,7 +344,7 @@ void DeviserSettings::setCmakeExecutable(const QString &cmakeExecutable)
   mCmakeExecutable = cmakeExecutable;
 }
 
-QString DeviserSettings::getDependencySourceDir() const
+const QString& DeviserSettings::getDependencySourceDir() const
 {
   return mDependencySourceDir;
 }
@@ -353,7 +354,7 @@ void DeviserSettings::setDependencySourceDir(const QString &dependencySourceDir)
   mDependencySourceDir = dependencySourceDir;
 }
 
-QString DeviserSettings::getSwigExecutable() const
+const QString& DeviserSettings::getSwigExecutable() const
 {
   return mSwigExecutable;
 }
@@ -363,7 +364,7 @@ void DeviserSettings::setSwigExecutable(const QString &swigExecutable)
   mSwigExecutable = swigExecutable;
 }
 
-QString DeviserSettings::getPythonIncludes() const
+const QString& DeviserSettings::getPythonIncludes() const
 {
   return mPythonIncludes;
 }
@@ -373,7 +374,7 @@ void DeviserSettings::setPythonIncludes(const QString &pythonIncludes)
   mPythonIncludes = pythonIncludes;
 }
 
-QString DeviserSettings::getPythonLib() const
+const QString& DeviserSettings::getPythonLib() const
 {
   return mPythonLib;
 }

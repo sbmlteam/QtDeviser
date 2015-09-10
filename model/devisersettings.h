@@ -15,40 +15,40 @@ public:
 
   static QString getSettingsFile();
 
-  QString getPythonInterpreter() const;
+  const QString& getPythonInterpreter() const;
   void setPythonInterpreter(const QString &pythonInterpreter);
 
-  QString getDeviserRepository() const;
+  const QString& getDeviserRepository() const;
   void setDeviserRepository(const QString &deviserRepository);
 
-  QString getDefaultOutputDir() const;
+  const QString& getDefaultOutputDir() const;
   void setDefaultOutputDir(const QString &defaultOutputDir);
 
-  QString getSbmlPkgSpecDir() const;
+  const QString& getSbmlPkgSpecDir() const;
   void setSbmlPkgSpecDir(const QString &sbmlPkgSpecDir);
 
-  QString getMikTexBinDir() const;
+  const QString& getMikTexBinDir() const;
   void setMikTexBinDir(const QString &mikTexBinDir);
 
-  QString getLibSBMLSourceDir() const;
+  const QString& getLibSBMLSourceDir() const;
   void setLibSBMLSourceDir(const QString &libSBMLSourceDir);
 
-  QString getCompiler() const;
+  const QString& getCompiler() const;
   void setCompiler(const QString &compiler);
 
-  QString getCmakeExecutable() const;
+  const QString& getCmakeExecutable() const;
   void setCmakeExecutable(const QString &cmakeExecutable);
 
-  QString getDependencySourceDir() const;
+  const QString& getDependencySourceDir() const;
   void setDependencySourceDir(const QString &dependencySourceDir);
 
-  QString getSwigExecutable() const;
+  const QString& getSwigExecutable() const;
   void setSwigExecutable(const QString &swigExecutable);
 
-  QString getPythonIncludes() const;
+  const QString& getPythonIncludes() const;
   void setPythonIncludes(const QString &pythonIncludes);
 
-  QString getPythonLib() const;
+  const QString& getPythonLib() const;
   void setPythonLib(const QString &pythonLib);
 
   void loadSettings(const QString& settingsFile);
@@ -60,7 +60,7 @@ public:
   int getHeight() const;
   void setHeight(int height);
 
-  QString getVsBatchFile() const;
+  const QString& getVsBatchFile() const;
   void setVsBatchFile(const QString &vsBatchFile);
 
   QStringList& getRecentFiles();

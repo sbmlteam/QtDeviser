@@ -402,6 +402,7 @@ DialogGenerate::compileTex()
 
 }
 
+#include <QDebug>
 void
 DialogGenerate::compileLibSBML()
 {
@@ -420,7 +421,9 @@ DialogGenerate::compileLibSBML()
     return;
   }
 
-  if (!QDir(DeviserSettings::getInstance()->getDependencySourceDir()).exists())
+  QString dependencySourceDir = DeviserSettings::getInstance()->getDependencySourceDir();
+
+  if (!QDir(dependencySourceDir).exists())
   {
     addMessage("Error: The dependencies source dir does not exist, please validate your settings.");
     return;
@@ -514,9 +517,9 @@ DialogGenerate::compileLibSBML()
 
     script.close();
 
-    script.setPermissions(QFile::ExeGroup |
-      QFile::ExeOther |
-      QFile::ExeUser);
+    script.setPermissions(QFile::ExeGroup | QFile::ReadGroup |
+                          QFile::ExeOther | QFile::ReadOther |
+                          QFile::ExeUser | QFile::ReadOwner );
 
   }
 
@@ -564,8 +567,10 @@ DialogGenerate::compileDependencies()
     return;
   }
 
+  QString dependencySourceDir = DeviserSettings::getInstance()->getDependencySourceDir();
+  qDebug() << dependencySourceDir;
 
-  if (!QDir(DeviserSettings::getInstance()->getDependencySourceDir()).exists())
+  if (dependencySourceDir.isEmpty() || !QDir(dependencySourceDir).exists())
   {
     addMessage("Error: The dependencies source dir does not exist, please validate your settings.");
     return ;
@@ -603,7 +608,7 @@ DialogGenerate::compileDependencies()
     stream << "@echo off" << endl;
     stream << "call \"" << DeviserSettings::getInstance()->getVsBatchFile() << "\"" << endl;
     stream << "cmake -G \"NMake Makefiles\" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install_dependencies  \""
-           << DeviserSettings::getInstance()->getDependencySourceDir() << "\"" << endl;
+           << dependencySourceDir << "\"" << endl;
     stream << "nmake" << endl;
     stream << "nmake install" << endl;
 
@@ -620,14 +625,14 @@ DialogGenerate::compileDependencies()
 
     stream << "cd  \"" << buildDir << "\"" << endl;
     stream << "cmake -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install_dependencies  \""
-    << DeviserSettings::getInstance()->getDependencySourceDir() << "\"" << endl;
+    << dependencySourceDir << "\"" << endl;
     stream << "make" << endl;
     stream << "make install" << endl;
 
     script.close();
-    script.setPermissions(QFile::ExeGroup |
-                          QFile::ExeOther |
-                          QFile::ExeUser);
+    script.setPermissions(QFile::ExeGroup | QFile::ReadGroup | QFile::WriteGroup |
+                          QFile::ExeOther | QFile::ReadOther | QFile::WriteOther |
+                          QFile::ExeUser | QFile::ReadOwner | QFile::WriteOwner );
 
   }
 
