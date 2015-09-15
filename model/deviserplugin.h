@@ -30,6 +30,7 @@ public:
 
   const QString& getAdditionalDefinitions() const;
   void setAdditionalDefinitions(const QString& additionalDefinitions);
+
   const QString& getTypeCode() const;
   void setTypeCode(const QString& typeCode);
 
@@ -37,13 +38,15 @@ public:
   void setPackage(const QString& package);
 
   const QList<DeviserReferenceAttribute*>& getReferences () const;
-  const QList<DeviserAttribute*>& getAttributes() const;
   QList<DeviserReferenceAttribute*>& getReferences ();
+
+  const QList<DeviserAttribute*>& getAttributes() const;
   QList<DeviserAttribute*>& getAttributes();
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeElementsTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
+
   virtual QString toYuml(bool usecolor = true) const;
 
   DeviserAttribute* createAttribute();

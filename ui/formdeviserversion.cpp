@@ -11,6 +11,9 @@ FormDeviserVersion::FormDeviserVersion(QWidget *parent)
   , mbInitializing(true)
 {
   ui->setupUi(this);
+
+  // for now ignore this checkbox
+  ui->chkIgnorePackageVersion->setVisible(false);
 }
 
 FormDeviserVersion::~FormDeviserVersion()

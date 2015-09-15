@@ -14,10 +14,13 @@ public:
 
   const QString& getName() const;
   void setName(const QString& name);
+
   const QString& getElement() const;
   void setElement(const QString& element);
+
   int getMinNumChildren() const;
   void setMinNumChildren(int minNoChildren);
+
   int getMaxNumChildren() const;
   void setMaxNumChildren(int maxNoChildren);
 

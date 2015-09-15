@@ -10,6 +10,7 @@ class DeviserLanguage : public DeviserBase
 public:
   DeviserLanguage();
   DeviserLanguage(const DeviserLanguage& other);
+
   virtual void initializeFrom(const QDomElement& element);
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;

@@ -18,24 +18,31 @@ public:
 
   const QString& getName() const;
   void setName(const QString& name);
+
   const QString& getBaseClass() const;
   void setBaseClass(const QString& baseClass);
+
   const QString& getTypeCode() const;
   void setTypeCode(const QString& typeCode);
 
   bool hasListOf() const;
   void setHasListOf(bool hasListOf);
+
   bool hasMath() const;
   void setHasMath(bool hasMath);
+
   bool hasChildren() const;
   void setHasChildren(bool hasChildren);
+
   bool isBaseClass() const;
   void setIsBaseClass(bool isBaseClass);
 
   const QString& getElementName() const;
   void setElementName(const QString& elementName);
+
   const QString& getListOfName() const;
   void setListOfName(const QString& listOfName);
+
   const QString& getListOfClassName() const;
   void setListOfClassName(const QString& listOfClassName);
 
@@ -45,19 +52,23 @@ public:
 
   const QString& getAdditionalDeclarations() const;
   void setAdditionalDeclarations(const QString& additionalDeclarations);
+
   const QString& getAdditionalDefinitions() const;
   void setAdditionalDefinitions(const QString& additionalDefinitions);
 
   int getMinNumberChildren() const;
   void setMinNumberChildren(int minNoChildren);
+
   int getMaxNumberChildren() const;
   void setMaxNumberChildren(int maxNoChildren);
 
   const QList<DeviserAttribute*>& getAttributes() const;
-  const QList<DeviserListOfAttribute*>& getListOfAttributes() const;
-  const QList<DeviserConcrete*>& getConcretes() const;
   QList<DeviserAttribute*>& getAttributes();
+
+  const QList<DeviserListOfAttribute*>& getListOfAttributes() const;
   QList<DeviserListOfAttribute*>& getListOfAttributes();
+
+  const QList<DeviserConcrete*>& getConcretes() const;
   QList<DeviserConcrete*>& getConcretes();
 
   DeviserAttribute* createAttribute();

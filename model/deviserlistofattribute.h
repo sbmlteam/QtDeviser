@@ -10,7 +10,9 @@ class DeviserListOfAttribute : public DeviserAttribute
 public:
   DeviserListOfAttribute();
   DeviserListOfAttribute(const DeviserListOfAttribute& other);
+
   virtual void initializeFrom(const QDomElement& element);
+
   virtual void writeTo(QXmlStreamWriter& writer) const;
 };
 

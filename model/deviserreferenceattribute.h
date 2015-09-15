@@ -10,6 +10,7 @@ class DeviserReferenceAttribute : public DeviserBase
 public:
   DeviserReferenceAttribute();
   DeviserReferenceAttribute(const DeviserReferenceAttribute& other);
+
   virtual void initializeFrom(const QDomElement& element);
 
   const QString& getName() const;
@@ -17,6 +18,7 @@ public:
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
+
   virtual QString toYuml(bool usecolor = true) const;
 
 signals:

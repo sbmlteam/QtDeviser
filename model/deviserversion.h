@@ -23,23 +23,25 @@ public:
   QString toString() const;
 
   int getLevel() const;
-  int getVersion() const;
-  int getPkgVersion() const;
-
   void setLevel(int level);
+
+  int getVersion() const;
   void setVersion(int version);
+
+  int getPkgVersion() const;
   void setPkgVersion(int pkgVersion);
 
   const QList<DeviserClass*>& getElements() const;
-  const QList<DeviserPlugin*>& getPlugins() const;
-  const QList<DeviserEnum*>& getEnums() const;
-  const QList<DeviserMapping*>& getMappings() const;
-
   QList<DeviserClass*>& getElements();
-  QList<DeviserPlugin*>& getPlugins();
-  QList<DeviserEnum*>& getEnums();
-  QList<DeviserMapping*>& getMappings();
 
+  const QList<DeviserPlugin*>& getPlugins() const;
+  QList<DeviserPlugin*>& getPlugins();
+
+  const QList<DeviserEnum*>& getEnums() const;
+  QList<DeviserEnum*>& getEnums();
+
+  const QList<DeviserMapping*>& getMappings() const;
+  QList<DeviserMapping*>& getMappings();
 
   DeviserClass* getElement(const QString& name);
   DeviserClass* createElement();
@@ -52,7 +54,9 @@ public:
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeElementsTo(QXmlStreamWriter& writer) const;
+
   virtual void writeTo(QXmlStreamWriter& writer) const;
+
   virtual QString toYuml(bool usecolor = true) const;
 
   bool getIgnorePackageVersion() const;

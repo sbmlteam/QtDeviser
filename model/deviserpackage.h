@@ -25,8 +25,8 @@ public:
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeElementsTo(QXmlStreamWriter& writer) const;
-  virtual void writeTo(QXmlStreamWriter& writer) const;
 
+  virtual void writeTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(const QString& fileName) const;
 
   QList<DeviserVersion*>& getVersions();
@@ -37,18 +37,25 @@ public:
 
   const QString& getName() const;
   void setName(const QString& name);
+
   const QString& getFullName() const;
   void setFullName(const QString& fullName);
+
   int getStartNumber() const;
   void setStartNumber(int startNumber);
+
   int getOffset() const;
   void setOffset(int offset);
+
   int getVersion() const;
   void setVersion(int version);
+
   bool isRequired() const;
   void setRequired(bool isRequired);
+
   const QString& getAdditionalDeclarations() const;
   void setAdditionalDeclarations(const QString& additionalDeclarations);
+
   const QString& getAdditionalDefinitions() const;
   void setAdditionalDefinitions(const QString& additionalDefinitions);
 

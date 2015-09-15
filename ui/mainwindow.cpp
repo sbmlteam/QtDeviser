@@ -73,6 +73,9 @@ MainWindow::MainWindow(QWidget *parent)
 
   refreshRecentFiles();
 
+  resize(DeviserSettings::getInstance()->getWidth(),
+         DeviserSettings::getInstance()->getHeight());
+
   newModel();
 
 }
@@ -751,6 +754,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
   }
   else
   {
+    DeviserSettings::getInstance()->setWidth(width());
+    DeviserSettings::getInstance()->setHeight(height());
+    DeviserSettings::getInstance()->saveSettings();
     event->accept();
   }
 }

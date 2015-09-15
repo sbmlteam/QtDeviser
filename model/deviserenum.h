@@ -24,6 +24,7 @@ public:
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
   virtual void writeElementsTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
+
   virtual QString toYuml(bool usecolor = true) const;
 
   DeviserEnumValue* createValue();
