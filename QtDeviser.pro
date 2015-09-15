@@ -57,7 +57,8 @@ SOURCES += main.cpp \
     ui/flowlayout.cpp \
     ui/smoothgraphicsitem.cpp \
     validation/typecodeconstraint.cpp \
-    model/deviserlanguage.cpp
+    model/deviserlanguage.cpp \
+    ui/workerthread.cpp
 
 
 HEADERS  += util.h \
@@ -107,7 +108,8 @@ HEADERS  += util.h \
     ui/flowlayout.h \
     ui/smoothgraphicsitem.h \
     validation/typecodeconstraint.h \
-    model/deviserlanguage.h
+    model/deviserlanguage.h \
+    ui/workerthread.h
 
 
 

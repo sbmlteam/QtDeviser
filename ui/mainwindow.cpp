@@ -715,7 +715,6 @@ void MainWindow::openRecentFile(QAction *action)
   openFile(filename);
 }
 
-#include <QDebug>
 
 void MainWindow::documentModified()
 {

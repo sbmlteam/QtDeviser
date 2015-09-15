@@ -5,6 +5,8 @@
 #include <QProcess>
 #include <QThread>
 
+#include "workerthread.h"
+
 namespace Ui {
 class DialogGenerate;
 }
@@ -12,36 +14,6 @@ class DialogGenerate;
 
 class DeviserPackage;
 class DeviserVersion;
-
-class WorkerThread : public QThread
-{
-  Q_OBJECT
-
-public:
-
-  WorkerThread(QDialog* parent = NULL);
-
-
-  void setProcess(QProcess* pProcess,
-                  const QString& fileName,
-                  const QStringList& args);
-
-  void run();
-
-public slots:
-  void finished(int exitCode, QProcess::ExitStatus exitStatus);
-
-signals:
-  void finished();
-
-private:
-  QDialog* mpParent;
-  QProcess* mpProcess;
-  QString mFileName;
-  QStringList mArgs;
-
-};
-
 
 class DialogGenerate : public QDialog
 {

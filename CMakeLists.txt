@@ -123,19 +123,41 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/ChooseQtVersion.cmake)
 QT_FIND_MODULES(Core Gui OpenGL Xml Network Svg)
 
-file(GLOB CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.cpp
-                    ${CMAKE_CURRENT_SOURCE_DIR}/model/*.cpp
-                    ${CMAKE_CURRENT_SOURCE_DIR}/validation/*.cpp
-                    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp )
 
-file(GLOB   H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.h
-                    ${CMAKE_CURRENT_SOURCE_DIR}/model/*.h
-                    ${CMAKE_CURRENT_SOURCE_DIR}/validation/*.h
-                    ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+set(CPP_FILES)
+set(H_FILES)
+set(UI_FILES)
+set(RCC_FILES)
 
-file(GLOB  UI_FILES ${CMAKE_CURRENT_SOURCE_DIR}/ui/*.ui )
+foreach(dir . model ui validation)
 
-file(GLOB RCC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.qrc )
+file(GLOB LOCAL_CPP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${dir}/*.cpp)
+
+file(GLOB LOCAL_H_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${dir}/*.h)
+
+file(GLOB LOCAL_UI_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${dir}/*.ui )
+
+file(GLOB LOCAL_RCC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/${dir}/*.qrc )
+
+if (NOT "${dir}" STREQUAL ".")
+source_group(${dir} FILES
+                    ${LOCAL_CPP_FILES}
+                    ${LOCAL_H_FILES}
+                    ${LOCAL_UI_FILES}
+                    ${LOCAL_RCC_FILES})
+endif()
+
+
+set(CPP_FILES ${CPP_FILES} ${LOCAL_CPP_FILES})
+set(H_FILES ${H_FILES} ${LOCAL_H_FILES})
+set(UI_FILES ${UI_FILES} ${LOCAL_UI_FILES})
+set(RCC_FILES ${RCC_FILES} ${LOCAL_RCC_FILES})
+
+
+endforeach()
+
+
+
 
 if (Qt5_FOUND)
 qt5_add_resources(RESOURCES_RCC ${RCC_FILES})

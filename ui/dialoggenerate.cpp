@@ -175,10 +175,10 @@ DialogGenerate::generateTex()
 void
 DialogGenerate::error(QProcess::ProcessError)
 {
-  setEnabled(true);
-  addMessage(mpProcess->readAllStandardError());
+  while(mpProcess->canReadLine())
+    addMessage(mpProcess->readLine());
   addMessage();
-
+  setEnabled(true);
 }
 
 void
@@ -233,15 +233,15 @@ DialogGenerate::addMessage(const QString& message)
   ui->plainTextEdit->insertPlainText (message);
   if (!message.endsWith('\n'))
   ui->plainTextEdit->insertPlainText ("\n");
-  ui->plainTextEdit->moveCursor (QTextCursor::End);
+  ui->plainTextEdit->moveCursor (QTextCursor::End);  
 }
 
 
 void
 DialogGenerate::finished()
 {
-  addMessage(mpProcess->readAllStandardOutput());
-  addMessage(mpProcess->readAllStandardError());
+  while(mpProcess->canReadLine())
+    addMessage(mpProcess->readLine());
   addMessage();
   addMessage("DONE");
   addMessage();
@@ -257,7 +257,6 @@ DialogGenerate::readyOutput()
   while(mpProcess->canReadLine())
     addMessage(mpProcess->readLine());
 
-  //addMessage(mpProcess->readAll());
 }
 
 void
@@ -402,7 +401,6 @@ DialogGenerate::compileTex()
 
 }
 
-#include <QDebug>
 void
 DialogGenerate::compileLibSBML()
 {
@@ -568,7 +566,6 @@ DialogGenerate::compileDependencies()
   }
 
   QString dependencySourceDir = DeviserSettings::getInstance()->getDependencySourceDir();
-  qDebug() << dependencySourceDir;
 
   if (dependencySourceDir.isEmpty() || !QDir(dependencySourceDir).exists())
   {
@@ -724,52 +721,4 @@ DialogGenerate::addToSourceDir()
   addMessage();
 }
 
-
-WorkerThread::WorkerThread(QDialog *parent)
-  : QThread(parent)
-  , mpParent(parent)
-  , mpProcess(NULL)
-  , mFileName()
-  , mArgs()
-{
-
-}
-
-void WorkerThread::setProcess(QProcess *pProcess,
-                              const QString &fileName,
-                              const QStringList &args)
-{
-  mpProcess = pProcess;
-  mFileName = fileName;
-  mArgs = args;
-}
-
-void WorkerThread::run()
-{
-  if (mpProcess == NULL)
-    return;
-
-  mpProcess->start(mFileName, mArgs);
-
-
-  connect(mpProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
-    this, SLOT(finished(int, QProcess::ExitStatus)));
-  connect(mpProcess, SIGNAL(readyReadStandardOutput()),
-    mpParent, SLOT(readyOutput()));
-  connect(mpProcess, SIGNAL(readyReadStandardError()),
-    mpParent, SLOT(readyOutput()));
-  connect(mpProcess, SIGNAL(error(QProcess::ProcessError)),
-    mpParent, SLOT(readyOutput()));
-
-  mpProcess->waitForFinished();
-
-}
-
-void
-WorkerThread::finished(int /*exitCode*/,
-                       QProcess::ExitStatus /*exitStatus*/)
-{
-  mpProcess = NULL;
-  emit finished();
-}
 
