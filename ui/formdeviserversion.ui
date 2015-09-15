@@ -26,7 +26,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtCoreLevel"/>
+        <widget class="QLineEdit" name="txtCoreLevel">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SBML Core &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;level&lt;/span&gt;&lt;span&gt; being targeted by Deviser. Currently only SBML L3V1 is supported.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -40,7 +44,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtCoreVersion"/>
+        <widget class="QLineEdit" name="txtCoreVersion">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SBML Core&lt;/span&gt;&lt;span/&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;version&lt;/span&gt;&lt;span&gt; being targeted by Deviser. Currently only SBML L3V1 is supported.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -54,7 +62,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtPackageVersion"/>
+        <widget class="QLineEdit" name="txtPackageVersion">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;version&lt;/span&gt;&lt;span&gt; of the &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SBML Level 3 Package&lt;/span&gt;&lt;span&gt; being described.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="chkIgnorePackageVersion">
@@ -108,13 +120,26 @@
        </layout>
       </item>
       <item row="1" column="0">
-       <widget class="QListWidget" name="lstClasses"/>
+       <widget class="QListWidget" name="lstClasses">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Classes added to the package definition will be listed here. The order will determine the order in which Deviser generates the code.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txtCoreLevel</tabstop>
+  <tabstop>txtCoreVersion</tabstop>
+  <tabstop>txtPackageVersion</tabstop>
+  <tabstop>chkIgnorePackageVersion</tabstop>
+  <tabstop>cmdDown</tabstop>
+  <tabstop>cmdUp</tabstop>
+  <tabstop>lstClasses</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

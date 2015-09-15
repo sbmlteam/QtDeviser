@@ -157,11 +157,12 @@ QString DeviserPackage::toYuml(bool usecolor ) const
 {
   QByteArray array;
   QTextStream stream(&array, QIODevice::WriteOnly);
+  stream.setCodec("UTF-8");
 
   foreach (const DeviserVersion* version, mVersions)
     stream << version->toYuml(usecolor);
 
-  return array;
+  return QString::fromUtf8(array);
 
 }
 

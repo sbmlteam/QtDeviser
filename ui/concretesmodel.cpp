@@ -35,8 +35,28 @@ ConcretesModel::flags(const QModelIndex &index) const
 QVariant
 ConcretesModel::data(const QModelIndex &index, int role) const
 {
-  if (role != Qt::DisplayRole && role != Qt::EditRole) return QVariant();
+  if (role != Qt::DisplayRole
+      && role != Qt::EditRole
+      && role != Qt::ToolTipRole) return QVariant();
   const DeviserConcrete* attr = (*mData)[index.row()];
+
+  if (role == Qt::ToolTipRole)
+  {
+    switch(index.column())
+    {
+    case 0:
+      return "The name of the instantiation of this class to be used by the XML output.";
+    case 1:
+      return "The <b>Name</b> of the class that will be derived from this base class. Note this class should also be defined within this package. ";
+    case 2:
+      return "The minimum number of child elements that may be present on this element. A missing value or 0 implies there is no minimum.";
+    case 3:
+      return "The maximum number of child elements that may be present on this element. A missing value or 0 implies there is no maximum.";
+    default:
+      return QVariant();
+    }
+  }
+
   switch(index.column())
   {
   case 0:

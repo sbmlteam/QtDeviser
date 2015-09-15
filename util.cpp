@@ -74,8 +74,7 @@ Util::getExtensionColor()
 QString
 Util::getEnumPrefix()
 {
-  //return QString::fromUtf8("\u00ABEnumeration\u00BB;");
-  return QString::fromUtf8("Enumeration;");
+  return QString::fromUtf8("\xC2\xAB%1\xC2\xBB;").arg("Enumeration");
 }
 
 QString

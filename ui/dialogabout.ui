@@ -9,9 +9,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>371</height>
+    <width>532</width>
+    <height>307</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>About DEVISER Edit</string>
@@ -27,6 +33,9 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetFixedSize</enum>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -56,16 +65,16 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="leftMargin">
-       <number>5</number>
+       <number>10</number>
       </property>
       <property name="topMargin">
-       <number>5</number>
+       <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>5</number>
+       <number>10</number>
       </property>
       <property name="bottomMargin">
-       <number>5</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QLabel" name="label_2">
@@ -85,6 +94,12 @@
       </item>
       <item>
        <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;DEVISER Edit&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Version: $$VERSION$$&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;© 2014-2015 SBML Team&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;DEVISER Edit is a tool that allows users to easily create and edit the structure of an XML based description. It provides an interface to the DEVISER functionality for generating code, LaTeX and UML diagrams.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>

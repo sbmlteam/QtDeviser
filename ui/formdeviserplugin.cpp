@@ -84,6 +84,10 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
     foreach(DeviserClass* element, plugin->getParentVersion()->getElements())
     {
       ui->lstDefinedClasses->addItem(element->getName());
+      if (element->hasListOf())
+      {
+        ui->lstDefinedClasses->addItem(element->getActualListOfName());
+      }
     }
 
     foreach(DeviserReferenceAttribute* element, plugin->getReferences())

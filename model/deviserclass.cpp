@@ -436,6 +436,7 @@ DeviserClass::toYuml(bool usecolor) const
 {
   QByteArray array;
   QTextStream stream(&array, QIODevice::WriteOnly);
+  stream.setCodec("UTF-8");
 
   if (!mBaseClass.isEmpty())
   {
@@ -508,5 +509,5 @@ DeviserClass::toYuml(bool usecolor) const
 
   stream << endl;
   stream.flush();    
-  return array;
+  return QString::fromUtf8(array);
 }

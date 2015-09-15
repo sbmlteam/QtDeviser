@@ -35,7 +35,23 @@ EnumModel::flags(const QModelIndex &index) const
 QVariant
 EnumModel::data(const QModelIndex &index, int role) const
 {
-  if (role != Qt::DisplayRole && role != Qt::EditRole) return QVariant();
+  if (role != Qt::DisplayRole
+      && role != Qt::EditRole
+      && role != Qt::ToolTipRole) return QVariant();
+
+  if (role == Qt::ToolTipRole)
+  {
+    switch(index.column())
+    {
+    case 0:
+      return "The name that will be used for this enumeration entry. Note typically the enumeration entry names are given as CLASS_ENUM_VALUE.";
+    case 1:
+      return "The string value of this enumeration entry. This is the text that will appear in the XML output for this enumeration value.";
+    default:
+      return QVariant();
+    }
+  }
+
   const DeviserEnumValue* attr = (*mData)[index.row()];
   switch(index.column())
   {

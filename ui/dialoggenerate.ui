@@ -37,6 +37,9 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="0">
          <widget class="QPushButton" name="cmdGeneratePackageCode">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Creates the directory structure and generates the code based on the package defined.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Generate Package Code</string>
           </property>
@@ -44,6 +47,9 @@
         </item>
         <item row="0" column="0">
          <widget class="QPushButton" name="cmdOpenOutputDir">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Opens the directory specified in the &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Output Dir&lt;/span&gt;&lt;span&gt; field. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Open Output Dir</string>
           </property>
@@ -104,6 +110,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QPushButton" name="cmdGenerateTex">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Generates the tex files necessary to create a minimal specification of the SBML L3 Package described. This includes definitions of classes and attributes and a set of validation rules.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string>Generate Latex</string>
              </property>
@@ -111,6 +120,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="cmdCompileTex">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Invokes the MikTex application to generate a pdf of the specification files. Note this is based on the template for SBML Level 3 Package specifications.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string>Compile TeX</string>
              </property>
@@ -140,6 +152,9 @@
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
           <widget class="QPushButton" name="cmdCompileDependencies">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Invokes the compiler to generate the necessary dependencies for libSBML.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Compile Dependencies</string>
            </property>
@@ -147,6 +162,9 @@
          </item>
          <item row="0" column="1" colspan="3">
           <widget class="QPushButton" name="cmdAddToSourceDir">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Overlays the code generated for this package onto the main libSBML source tree. Note the code generated includes all the necessary CMake files to allow the package code to be integrated into the build.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Add Code To Source Dir</string>
            </property>
@@ -154,6 +172,9 @@
          </item>
          <item row="0" column="4">
           <widget class="QPushButton" name="cmdRemoveFromSourceDir">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Removes the generated code from the main libSBML source tree.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Remove Code From Source Dir</string>
            </property>
@@ -174,6 +195,9 @@
          </item>
          <item row="1" column="0" colspan="2">
           <widget class="QPushButton" name="cmdCompileLibSBML">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Invokes the compiler to generate libSBML with the newly defined package enabled. Note: You need to have added the code to the source tree prior to this step. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Compile libSBML with package</string>
            </property>
@@ -184,8 +208,11 @@
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Opens an interactive python session with the newly compiled libSBML loaded to facilitate manual testing.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
-            <string>Test libSBML</string>
+            <string>Run libSBML Python session</string>
            </property>
           </widget>
          </item>
@@ -261,7 +288,11 @@
       <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLineEdit" name="txtOutDir"/>
+         <widget class="QLineEdit" name="txtOutDir">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The directory where any output will be placed.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QToolButton" name="cmdBrowseOutputDir">
@@ -280,7 +311,11 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="txtPackageFile"/>
+       <widget class="QLineEdit" name="txtPackageFile">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The file corresponding to the package being defined. This field will be populated with the file that has been saved before Generation is possible.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_3">
@@ -290,7 +325,11 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="txtPackageName"/>
+       <widget class="QLineEdit" name="txtPackageName">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The short &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;name&lt;/span&gt;&lt;span&gt; or &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;label&lt;/span&gt;&lt;span&gt; for the package being defined.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

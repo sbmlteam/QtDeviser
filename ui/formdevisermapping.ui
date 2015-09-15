@@ -23,6 +23,9 @@
    </item>
    <item row="1" column="0">
     <widget class="QTableView" name="tblMappings">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;This is the short &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;name&lt;/span&gt;&lt;span&gt; or &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;label&lt;/span&gt;&lt;span&gt; of the package in which the listed class originates.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <attribute name="horizontalHeaderCascadingSectionResizes">
       <bool>true</bool>
      </attribute>

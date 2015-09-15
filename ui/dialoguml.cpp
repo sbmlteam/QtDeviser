@@ -97,7 +97,7 @@ DialogUML::updateGraph()
 
   QNetworkRequest request(baseUri);
 
-  QByteArray yuml; yuml.append(ui->txtEdit->document()->toPlainText());
+  QByteArray yuml; yuml.append(ui->txtEdit->document()->toPlainText().toUtf8());
   yuml = yuml.replace("\r\n", ",");
   yuml = yuml.replace("\n", ",");
   yuml = yuml.replace(",,", ",");
@@ -196,7 +196,7 @@ DialogUML::saveAs()
      QFile file(fileName);
      if (file.open(QIODevice::WriteOnly))
      {
-       file.write(ui->txtEdit->document()->toPlainText().toStdString().c_str());
+       file.write(ui->txtEdit->document()->toPlainText().toUtf8().data());
        file.close();
      }
   }

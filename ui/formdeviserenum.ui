@@ -24,7 +24,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="txtName"/>
+      <widget class="QLineEdit" name="txtName">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The name of the enumeration type. Note the code generator will add ‘_t’ to this name.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -85,6 +89,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txtName</tabstop>
+  <tabstop>toolAdd</tabstop>
+  <tabstop>toolDel</tabstop>
+  <tabstop>tblValues</tabstop>
+ </tabstops>
  <resources>
   <include location="../deviser-resources.qrc"/>
  </resources>

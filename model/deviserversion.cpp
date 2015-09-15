@@ -270,6 +270,7 @@ DeviserVersion::toYuml(bool usecolor /*= true*/) const
 {
   QByteArray array;
   QTextStream stream(&array, QIODevice::WriteOnly);
+  stream.setCodec("UTF-8");
 
   foreach(const DeviserPlugin* item, mPlugins)
     stream << item->toYuml(usecolor);
@@ -280,7 +281,7 @@ DeviserVersion::toYuml(bool usecolor /*= true*/) const
 
   stream.flush();
 
-  return array;
+  return QString::fromUtf8(array);
 }
 bool DeviserVersion::getIgnorePackageVersion() const
 {

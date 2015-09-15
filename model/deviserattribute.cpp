@@ -159,6 +159,8 @@ DeviserAttribute::toYuml(bool /*usecolor*/) const
 {
   QByteArray array;
   QTextStream stream(&array, QIODevice::WriteOnly);
+  stream.setCodec("UTF-8");
+
   QString name = Util::lowerFirst(mName);
   if (!mXMLName.isEmpty())
     name = Util::lowerFirst(mXMLName);
@@ -190,7 +192,7 @@ DeviserAttribute::toYuml(bool /*usecolor*/) const
     //stream << " use=\u201Coptional\u201D";
     stream << " use=optional";
   stream.flush();
-  return array;
+  return QString::fromUtf8(array);
 }
 
 

@@ -254,6 +254,7 @@ DeviserPlugin::toYuml(bool usecolor /*= true*/) const
 {
   QByteArray array;
   QTextStream stream(&array, QIODevice::WriteOnly);
+  stream.setCodec("UTF-8");
 
   stream << "[" << mExtensionPoint;
 
@@ -299,5 +300,5 @@ DeviserPlugin::toYuml(bool usecolor /*= true*/) const
   stream.flush();
 
 
-  return array;
+  return QString::fromUtf8(array);
 }

@@ -106,6 +106,7 @@ DeviserEnum::toYuml(bool usecolor /*= true*/) const
 {
   QByteArray array;
   QTextStream stream(&array, QIODevice::WriteOnly);
+  stream.setCodec("UTF-8");
 
   stream << "[" << Util::getEnumPrefix() << mName;
 
@@ -125,5 +126,5 @@ DeviserEnum::toYuml(bool usecolor /*= true*/) const
 
   stream << "]" << endl;
 
-  return array;
+  return QString::fromUtf8(array);
 }
