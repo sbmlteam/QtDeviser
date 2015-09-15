@@ -141,8 +141,6 @@ bool Util::removeDir(const QString &dirPath, const QString &filter)
   return true;
 }
 
-#include <QDebug>
-
 bool Util::copyDir(const QString &srcPath, const QString &dstPath)
 {
 
@@ -170,9 +168,7 @@ bool Util::copyDir(const QString &srcPath, const QString &dstPath)
       if (!QFile::copy(srcItemPath, dstItemPath)) {
         return false;
       }
-    } else {
-      qDebug() << "Unhandled item" << info.filePath() << "in cpDir";
-    }
+    } 
   }
   return true;
 }

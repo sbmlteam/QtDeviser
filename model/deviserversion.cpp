@@ -1,12 +1,16 @@
 #include "deviserversion.h"
 
 #include "deviserclass.h"
+#include "deviserattribute.h"
 #include "deviserenum.h"
 #include "deviserplugin.h"
 #include "devisermapping.h"
+#include "util.h"
 
 #include <QByteArray>
 #include <QTextStream>
+#include <algorithm>
+
 
 DeviserVersion::DeviserVersion()
   : DeviserBase()
@@ -181,6 +185,16 @@ DeviserVersion::getMappings()
   return mMappings;
 }
 
+bool DeviserVersion::hasMappingFor(const QString &element) const
+{
+  foreach(DeviserMapping* mapping, mMappings)
+  {
+    if (mapping->getName() == element)
+      return true;
+  }
+  return false;
+}
+
 const QList<DeviserClass *> &
 DeviserVersion::getElements() const
 {
@@ -292,5 +306,84 @@ void DeviserVersion::setIgnorePackageVersion(bool ignorePackageVersion)
 {
     mIgnorePackageVersion = ignorePackageVersion;
     setModified();
+}
+
+void DeviserVersion::initializeMappings()
+{
+  QList<QString> usedClasses = getUsedClasses();
+
+  foreach(QString element,Util::getCoreClasses())
+    usedClasses.removeAll(element);
+  foreach(QString element,getDefinedClasses())
+    usedClasses.removeAll(element);
+
+  usedClasses.removeAll("ASTNode*");
+  usedClasses.removeAll("const ASTNode*");
+  usedClasses.removeAll("XMLNode*");
+  usedClasses.removeAll("const XMLNode*");
+
+  foreach(QString item, usedClasses)
+  {
+    if (!hasMappingFor(item))
+    {
+      DeviserMapping* mapping = new DeviserMapping();
+      mapping->setName(item);
+      mapping->setParent(mPackage);
+      mMappings << mapping;
+    }
+  }
+}
+
+QList<QString> DeviserVersion::getUsedClasses() const
+{
+  QList<QString> result;
+
+  foreach (DeviserClass* element, mElements)
+  {
+    if (!element->getBaseClass().isEmpty() &&
+        !result.contains(element->getBaseClass()))
+      result << element->getBaseClass();
+
+    foreach (DeviserAttribute* attribute, element->getAttributes())
+    {
+      if (attribute->getType() == "element" ||
+          attribute->getType() == "inline_lo_element" )
+        if (!result.contains(attribute->getElement()))
+          result << attribute->getElement();
+    }
+  }
+
+  foreach (DeviserPlugin* element, mPlugins)
+  {
+    if (!element->getExtensionPoint().isEmpty() &&
+        !result.contains(element->getExtensionPoint()))
+      result << element->getExtensionPoint();
+
+    foreach (DeviserAttribute* attribute, element->getAttributes())
+    {
+      if (attribute->getType() == "element" ||
+          attribute->getType() == "inline_lo_element" )
+        if (!result.contains(attribute->getElement()))
+          result << attribute->getElement();
+    }
+  }
+
+  std::sort(result.begin(), result.end());
+  return result;
+}
+
+QList<QString> DeviserVersion::getDefinedClasses() const
+{
+  QList<QString> result;
+
+  foreach (DeviserClass* element, mElements)
+  {
+    if (!element->getName().isEmpty() &&
+        !result.contains(element->getName()))
+      result << element->getName();
+  }
+
+  std::sort(result.begin(), result.end());
+  return result;
 }
 

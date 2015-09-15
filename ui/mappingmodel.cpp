@@ -38,7 +38,23 @@ MappingModel::flags(const QModelIndex &index) const
 QVariant
 MappingModel::data(const QModelIndex &index, int role) const
 {
-  if (role != Qt::DisplayRole && role != Qt::EditRole) return QVariant();
+  if (role != Qt::DisplayRole
+      && role != Qt::EditRole
+      && role != Qt::ToolTipRole) return QVariant();
+
+  if (role == Qt::ToolTipRole)
+  {
+    switch(index.column())
+    {
+    case 0:
+      return QVariant();
+    case 1:
+      return "This is the short <b>name</b> or <b>label</b> of the package in which the listed class originates.";
+    default:
+      return QVariant();
+    }
+  }
+
   const DeviserMapping* attr = (*mData)[index.row()];
   switch(index.column())
   {

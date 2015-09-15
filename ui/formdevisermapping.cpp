@@ -28,7 +28,6 @@ FormDeviserMapping::initializeFrom(DeviserVersion* version)
 {
   mVersion = version;
 
-
   ui->tblMappings->setModel(NULL);
   if (mpMappingFilter != NULL)
     mpMappingFilter->deleteLater();
@@ -37,6 +36,8 @@ FormDeviserMapping::initializeFrom(DeviserVersion* version)
 
   if (mVersion != NULL)
   {
+    version->initializeMappings();
+
     mpMappingFilter = new QSortFilterProxyModel(this);
     mpMappings = new MappingModel(this, &version->getMappings());
     mpMappingFilter->setSourceModel(mpMappings);

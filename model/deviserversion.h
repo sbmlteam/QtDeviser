@@ -43,6 +43,8 @@ public:
   const QList<DeviserMapping*>& getMappings() const;
   QList<DeviserMapping*>& getMappings();
 
+  bool hasMappingFor(const QString& element) const;
+
   DeviserClass* getElement(const QString& name);
   DeviserClass* createElement();
 
@@ -61,6 +63,11 @@ public:
 
   bool getIgnorePackageVersion() const;
   void setIgnorePackageVersion(bool ignorePackageVersion);
+
+  void initializeMappings();
+
+  QList<QString> getUsedClasses() const;
+  QList<QString> getDefinedClasses() const;
 
 signals:
   void identityChanged(const QString& oldIdentity, const QString& newIdentity,
