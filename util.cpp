@@ -40,6 +40,7 @@ Util::getCoreClassesMap()
 {
   QMap<QString, QString> result;
   QFile data(":/CoreClasses.txt");
+  data.open(QIODevice::ReadOnly);
   QTextStream in(&data);
 
   while(!in.atEnd()) {
