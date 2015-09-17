@@ -65,7 +65,7 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
 
     ui->chkElementFromCore->setChecked(plugin->getPackage().isEmpty() && plugin->getTypeCode().isEmpty());
     ui->txtPackage->setText(plugin->getPackage());
-    ui->txtPackage->setText(plugin->getTypeCode());
+    ui->txtTypeCode->setText(plugin->getTypeCode());
 
     ui->chkHasAttributes->setChecked(!plugin->getAttributes().empty());
     ui->grpAttributes->setVisible(!plugin->getAttributes().empty());
