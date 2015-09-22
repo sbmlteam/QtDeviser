@@ -295,7 +295,7 @@ DeviserPlugin::toYuml(bool usecolor /*= true*/) const
   for (int i = 0; i < mReferences.count(); ++i)
   {
     const DeviserReferenceAttribute* item = mReferences[i];
-    stream << "[" << mExtensionPoint <<  "]->[" << item->getName() << "]";
+    stream << "[" << mExtensionPoint <<  "]->[" << item->getName() << "]" << endl;
   }
   stream.flush();
 
