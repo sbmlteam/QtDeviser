@@ -349,8 +349,6 @@ MainWindow::displayElement(DeviserBase* element)
 void
 MainWindow::openFile()
 {
-  if (askForSaveOrStop())
-    return;
 
   QString oldDir;
   if (!mFileName.isEmpty())
