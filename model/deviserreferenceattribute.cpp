@@ -14,6 +14,18 @@ DeviserReferenceAttribute::DeviserReferenceAttribute(const DeviserReferenceAttri
 
 }
 
+DeviserReferenceAttribute &
+DeviserReferenceAttribute::operator=(const DeviserReferenceAttribute &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+  mName = rhs.mName;
+
+  return *this;
+}
+
 void
 DeviserReferenceAttribute::initializeFrom(const QDomElement& element)
 {

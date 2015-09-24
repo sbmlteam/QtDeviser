@@ -12,6 +12,8 @@ class DeviserAttribute : public DeviserReferenceAttribute
 public:
   DeviserAttribute();
   DeviserAttribute(const DeviserAttribute& other);
+  DeviserAttribute& operator= (const DeviserAttribute& rhs);
+
   virtual void initializeFrom(const QDomElement& element);
 
   const QString& getXMLName() const;

@@ -10,6 +10,7 @@ class DeviserLanguage : public DeviserBase
 public:
   DeviserLanguage();
   DeviserLanguage(const DeviserLanguage& other);
+  DeviserLanguage& operator= (const DeviserLanguage& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
 
@@ -18,20 +19,23 @@ public:
 
   bool isEmpty() const;
 
-  QString name() const;
+  const QString &name() const;
   void setName(const QString &name);
 
-  QString baseClass() const;
+  const QString &baseClass() const;
   void setBaseClass(const QString &baseClass);
 
-  QString documentClass() const;
+  const QString &documentClass() const;
   void setDocumentClass(const QString &documentClass);
 
-  QString prefix() const;
+  const QString &prefix() const;
   void setPrefix(const QString &prefix);
 
-  QString libraryName() const;
+  const QString &libraryName() const;
   void setLibraryName(const QString &libraryName);
+
+  const QString &listOfClass() const;
+  void setListOfClass(const QString &listOfClass);
 
 protected:
 
@@ -40,6 +44,7 @@ protected:
   QString mDocumentClass;
   QString mPrefix;
   QString mLibraryName;
+  QString mListOfClass;
 
 };
 

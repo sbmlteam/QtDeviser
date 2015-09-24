@@ -3,7 +3,7 @@
 DeviserMapping::DeviserMapping()
   : DeviserBase()
   , mName()
-  , mPackage()
+  , mPackageName()
 {
 
 }
@@ -11,9 +11,22 @@ DeviserMapping::DeviserMapping()
 DeviserMapping::DeviserMapping(const DeviserMapping& other)
   : DeviserBase(other)
   , mName(other.mName)
-  , mPackage(other.mPackage)
+  , mPackageName(other.mPackageName)
 {
 
+}
+
+DeviserMapping &
+DeviserMapping::operator=(const DeviserMapping &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+  mName = rhs.mName;
+  mPackageName = rhs.mPackageName;
+
+  return *this;
 }
 
 void
@@ -22,7 +35,7 @@ DeviserMapping::initializeFrom(const QDomElement& element)
   DeviserBase::initializeFrom(element);
 
   mName = element.attribute("name");
-  mPackage = element.attribute("package");
+  mPackageName = element.attribute("package");
 }
 
 const QString &
@@ -42,13 +55,13 @@ DeviserMapping::setName(const QString &name)
 const QString &
 DeviserMapping::getPackage() const
 {
-  return mPackage;
+  return mPackageName;
 }
 
 void
 DeviserMapping::setPackage(const QString &package)
 {
-  mPackage = package;
+  mPackageName = package;
   emit packageChanged();
   setModified();
 }
@@ -60,8 +73,8 @@ DeviserMapping::writeAttributesTo(QXmlStreamWriter& writer) const
 
   if (!mName.isEmpty())
     writer.writeAttribute("name", mName);
-  if (!mPackage.isEmpty())
-    writer.writeAttribute("package", mPackage);
+  if (!mPackageName.isEmpty())
+    writer.writeAttribute("package", mPackageName);
 
 }
 
@@ -75,6 +88,6 @@ DeviserMapping::writeTo(QXmlStreamWriter& writer) const
 QString
 DeviserMapping::toYuml(bool /*usecolor */) const
 {
-  if (mPackage.isEmpty()) return mName;
-  return QString("%1 = %2").arg(mName, mPackage);
+  if (mPackageName.isEmpty()) return mName;
+  return QString("%1 = %2").arg(mName, mPackageName);
 }

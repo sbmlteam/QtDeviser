@@ -10,6 +10,7 @@ class DeviserReferenceAttribute : public DeviserBase
 public:
   DeviserReferenceAttribute();
   DeviserReferenceAttribute(const DeviserReferenceAttribute& other);
+  DeviserReferenceAttribute& operator= (const DeviserReferenceAttribute& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
 

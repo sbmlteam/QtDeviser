@@ -33,6 +33,28 @@ DeviserPlugin::DeviserPlugin(const DeviserPlugin& other)
 {
   cloneElements(other.mReferences, mReferences);
   cloneElements(other.mAttributes, mAttributes);
+  setParent(mPackage);
+}
+
+DeviserPlugin &
+DeviserPlugin::operator=(const DeviserPlugin &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+  mExtensionPoint = rhs.mExtensionPoint;
+  mAdditionalDeclarations = rhs.mAdditionalDeclarations;
+  mAdditionalDefinitions = rhs.mAdditionalDefinitions;
+  mTypeCode = rhs.mTypeCode;
+  mExtPointPackage = rhs.mExtPointPackage;
+
+
+  cloneElements(rhs.mReferences, mReferences);
+  cloneElements(rhs.mAttributes, mAttributes);
+  setParent(mPackage);
+
+  return *this;
 }
 
 void

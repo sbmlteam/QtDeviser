@@ -18,6 +18,20 @@ DeviserBase::DeviserBase(const DeviserBase &other)
 
 }
 
+DeviserBase &
+DeviserBase::operator=(const DeviserBase &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  mPackage = rhs.mPackage;
+  mVersion = rhs.mVersion;
+  mUserData = rhs.mUserData;
+
+  return *this;
+
+}
+
 void DeviserBase::initializeFrom(const QDomElement& )
 {
 

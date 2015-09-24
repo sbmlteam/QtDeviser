@@ -1,6 +1,7 @@
 #include "deviserclass.h"
 
 #include "deviserenum.h"
+#include "deviserpackage.h"
 #include "deviserattribute.h"
 #include "deviserlistofattribute.h"
 #include "deviserconcrete.h"
@@ -58,6 +59,42 @@ DeviserClass::DeviserClass(const DeviserClass& other)
   cloneElements(other.mAttributes, mAttributes);
   cloneElements(other.mListOfAttributes, mListOfAttributes);
   cloneElements(other.mConcretes, mConcretes);
+  setParent(mPackage);
+
+}
+
+DeviserClass &
+DeviserClass::operator=(const DeviserClass &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+
+  mName = rhs.mName;
+  mBaseClass = rhs.mBaseClass;
+  mTypeCode = rhs.mTypeCode;
+  mHasListOf = rhs.mHasListOf;
+  mHasMath = rhs.mHasMath;
+  mHasChildren = rhs.mHasChildren;
+  mIsBaseClass = rhs.mIsBaseClass;
+  mElementName = rhs.mElementName;
+  mListOfName = rhs.mListOfName;
+  mListOfClassName = rhs.mListOfClassName;
+  mChildrenOverwriteElementName = rhs.mChildrenOverwriteElementName;
+  mAdditionalDeclarations = rhs.mAdditionalDeclarations;
+  mAdditionalDefinitions = rhs.mAdditionalDefinitions;
+  mMinNumberChildren = rhs.mMinNumberChildren;
+  mMaxNumberChildren = rhs.mMaxNumberChildren;
+
+  cloneElements(rhs.mAttributes, mAttributes);
+  cloneElements(rhs.mListOfAttributes, mListOfAttributes);
+  cloneElements(rhs.mConcretes, mConcretes);
+
+  setParent(mPackage);
+
+  return *this;
+
 }
 
 
@@ -219,7 +256,9 @@ DeviserClass::getActualListOfName() const
     return mListOfClassName;
   if (!mListOfName.isEmpty())
     return mListOfName;
-  return "ListOf" + Util::guessPlural(mName);
+  if (mPackage == NULL)
+    return "ListOf" + Util::guessPlural(mName);
+  return mPackage->getDefaultListOfClass() + Util::guessPlural(mName);
 }
 
 void
@@ -474,7 +513,11 @@ DeviserClass::toYuml(bool usecolor) const
   if (hasListOf())
   {
     QString listOf = getActualListOfName();
-    stream << "[ListOf]<>-[" << listOf;
+    stream << "["
+           << (mPackage != NULL ?
+              mPackage->getDefaultListOfClass() :
+              QString::fromUtf8("ListOf"))
+            << "]<>-[" << listOf;
     if (!mListOfAttributes.empty())
       stream << "|";
 

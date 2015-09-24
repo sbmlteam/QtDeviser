@@ -10,6 +10,8 @@ class DeviserMapping : public DeviserBase
 public:
   DeviserMapping();
   DeviserMapping(const DeviserMapping& other);
+  DeviserMapping& operator= (const DeviserMapping& rhs);
+
   virtual void initializeFrom(const QDomElement& element);
 
   const QString& getName() const;
@@ -29,7 +31,7 @@ signals:
 
 protected:
   QString mName;
-  QString mPackage;
+  QString mPackageName;
 };
 
 #endif // DEVISERMAPPING_H

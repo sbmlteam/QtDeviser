@@ -16,6 +16,8 @@ public:
   DeviserVersion();
 
   DeviserVersion(const DeviserVersion& other);
+  DeviserVersion& operator= (const DeviserVersion& rhs);
+
 
   virtual void initializeFrom(const QDomElement& element);
   virtual void setParent(DeviserPackage* doc);

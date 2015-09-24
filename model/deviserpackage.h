@@ -15,6 +15,7 @@ public:
   DeviserPackage(const DeviserPackage& other);
   DeviserPackage(const QString& fileName);
   DeviserPackage(QDomElement& element);
+  DeviserPackage& operator= (const DeviserPackage& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
 
@@ -63,6 +64,12 @@ public:
 
   bool getModified() const;
   void setModified(bool modified);
+
+  const DeviserLanguage& getLanguage() const;
+  DeviserLanguage& getLanguage();
+  void setLanguage(const DeviserLanguage &language);
+  QString getDefaultListOfClass() const;
+
 
 signals:
   void nameChanged();

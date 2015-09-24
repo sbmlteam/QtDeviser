@@ -13,6 +13,8 @@ class DeviserEnum : public DeviserBase
 public:
   DeviserEnum();
   DeviserEnum(const DeviserEnum& other);
+  DeviserEnum& operator= (const DeviserEnum& rhs);
+
   virtual void initializeFrom(const QDomElement& element);
 
   const QString& getName() const;

@@ -10,6 +10,7 @@ class DeviserListOfAttribute : public DeviserAttribute
 public:
   DeviserListOfAttribute();
   DeviserListOfAttribute(const DeviserListOfAttribute& other);
+  DeviserListOfAttribute& operator= (const DeviserListOfAttribute& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
 

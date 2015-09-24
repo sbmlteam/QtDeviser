@@ -10,6 +10,8 @@ class DeviserConcrete : public DeviserBase
 public:
   DeviserConcrete();
   DeviserConcrete(const DeviserConcrete& other);
+  DeviserConcrete& operator= (const DeviserConcrete& rhs);
+
   virtual void initializeFrom(const QDomElement& element);
 
   const QString& getName() const;

@@ -23,6 +23,22 @@ DeviserEnum::DeviserEnum(const DeviserEnum& other)
   setParent(mPackage);
 }
 
+DeviserEnum &
+DeviserEnum::operator=(const DeviserEnum &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+
+  mName = rhs.mName;
+  cloneElements(rhs.mValues, mValues);
+
+  setParent(mPackage);
+
+  return *this;
+}
+
 void
 DeviserEnum::initializeFrom(const QDomElement& element)
 {

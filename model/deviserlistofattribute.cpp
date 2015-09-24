@@ -12,6 +12,17 @@ DeviserListOfAttribute::DeviserListOfAttribute(const DeviserListOfAttribute& oth
 
 }
 
+DeviserListOfAttribute &
+DeviserListOfAttribute::operator=(const DeviserListOfAttribute &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserAttribute::operator =(rhs);
+
+  return *this;
+}
+
 void 
 DeviserListOfAttribute::initializeFrom(const QDomElement& element)
 {

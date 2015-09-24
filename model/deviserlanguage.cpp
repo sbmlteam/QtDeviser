@@ -7,6 +7,7 @@ DeviserLanguage::DeviserLanguage()
  , mDocumentClass()
  , mPrefix()
  , mLibraryName()
+ , mListOfClass()
 {
 
 }
@@ -18,8 +19,27 @@ DeviserLanguage::DeviserLanguage(const DeviserLanguage& other)
   , mDocumentClass(other.mDocumentClass)
   , mPrefix(other.mPrefix)
   , mLibraryName(other.mLibraryName)
+  , mListOfClass(other.mListOfClass)
 {
 
+}
+
+DeviserLanguage &
+DeviserLanguage::operator=(const DeviserLanguage &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+
+  mName = rhs.mName;
+  mBaseClass = rhs.mBaseClass;
+  mDocumentClass = rhs.mDocumentClass;
+  mPrefix = rhs.mPrefix;
+  mLibraryName = rhs.mLibraryName;
+  mListOfClass = rhs.mListOfClass;
+
+  return *this;
 }
 
 
@@ -33,6 +53,7 @@ DeviserLanguage::initializeFrom(const QDomElement& element)
   mDocumentClass = element.attribute("documentClass");
   mPrefix = element.attribute("prefix");
   mLibraryName = element.attribute("libraryName");
+  mListOfClass = element.attribute("listOfClass");
 
 }
 
@@ -42,15 +63,17 @@ DeviserLanguage::writeAttributesTo(QXmlStreamWriter& writer) const
   DeviserBase::writeAttributesTo(writer);
 
   if (!mName.isEmpty())
-  writer.writeAttribute("name", mName);
+    writer.writeAttribute("name", mName);
   if (!mBaseClass.isEmpty())
-  writer.writeAttribute("baseClass", mBaseClass);
+    writer.writeAttribute("baseClass", mBaseClass);
   if (!mDocumentClass.isEmpty())
-  writer.writeAttribute("documentClass", mDocumentClass);
+    writer.writeAttribute("documentClass", mDocumentClass);
   if (!mPrefix.isEmpty())
-  writer.writeAttribute("prefix", mPrefix);
+    writer.writeAttribute("prefix", mPrefix);
   if (!mLibraryName.isEmpty())
-  writer.writeAttribute("libraryName", mLibraryName);
+    writer.writeAttribute("libraryName", mLibraryName);
+  if (!mListOfClass.isEmpty())
+    writer.writeAttribute("listOfClass", mListOfClass);
 
 }
 
@@ -60,60 +83,82 @@ DeviserLanguage::writeTo(QXmlStreamWriter& writer) const
   writeElementsWithNameTo(writer, "language");
 }
 
-bool DeviserLanguage::isEmpty() const
+bool
+DeviserLanguage::isEmpty() const
 {
-  return mName.isEmpty() && mBaseClass.isEmpty() &&
+  return mName.isEmpty() &&
+      mBaseClass.isEmpty() &&
       mDocumentClass.isEmpty();
 }
 
-QString DeviserLanguage::name() const
+const QString &
+DeviserLanguage::name() const
 {
   return mName;
 }
 
-void DeviserLanguage::setName(const QString &name)
+void
+DeviserLanguage::setName(const QString &name)
 {
   mName = name;
 }
-QString DeviserLanguage::baseClass() const
+
+const QString &
+DeviserLanguage::baseClass() const
 {
   return mBaseClass;
 }
 
-void DeviserLanguage::setBaseClass(const QString &baseClass)
+void
+DeviserLanguage::setBaseClass(const QString &baseClass)
 {
   mBaseClass = baseClass;
 }
-QString DeviserLanguage::documentClass() const
+
+const QString &
+DeviserLanguage::documentClass() const
 {
   return mDocumentClass;
 }
 
-void DeviserLanguage::setDocumentClass(const QString &documentClass)
+void
+DeviserLanguage::setDocumentClass(const QString &documentClass)
 {
   mDocumentClass = documentClass;
 }
-QString DeviserLanguage::prefix() const
+
+const QString &
+DeviserLanguage::prefix() const
 {
   return mPrefix;
 }
 
-void DeviserLanguage::setPrefix(const QString &prefix)
+void
+DeviserLanguage::setPrefix(const QString &prefix)
 {
   mPrefix = prefix;
 }
-QString DeviserLanguage::libraryName() const
+
+const QString &
+DeviserLanguage::libraryName() const
 {
   return mLibraryName;
 }
 
-void DeviserLanguage::setLibraryName(const QString &libraryName)
+void
+DeviserLanguage::setLibraryName(const QString &libraryName)
 {
   mLibraryName = libraryName;
 }
 
+const QString &
+DeviserLanguage::listOfClass() const
+{
+  return mListOfClass;
+}
 
-
-
-
-
+void
+DeviserLanguage::setListOfClass(const QString &listOfClass)
+{
+  mListOfClass = listOfClass;
+}

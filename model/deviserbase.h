@@ -16,6 +16,7 @@ class DeviserBase  : public QObject
 public:
   DeviserBase();
   DeviserBase(const DeviserBase& );
+  DeviserBase& operator= (const DeviserBase& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
 
@@ -29,8 +30,6 @@ public:
   virtual void writeElementsTo(QXmlStreamWriter& writer) const;
   virtual void writeElementsWithNameTo(QXmlStreamWriter& writer, const QString& name) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
-
-
 
   DeviserPackage* getParent();
   DeviserVersion* getParentVersion();

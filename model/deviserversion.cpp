@@ -39,6 +39,25 @@ DeviserVersion::DeviserVersion(const DeviserVersion& other)
   cloneElements(other.mPlugins, mPlugins);
   cloneElements(other.mEnums, mEnums);
   cloneElements(other.mMappings, mMappings);
+  setParent(mPackage);
+}
+
+DeviserVersion &
+DeviserVersion::operator=(const DeviserVersion &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  mLevel = rhs.mLevel;
+  mVersion = rhs.mVersion;
+  mPkgVersion = rhs.mPkgVersion;
+  cloneElements(rhs.mElements, mElements);
+  cloneElements(rhs.mPlugins, mPlugins);
+  cloneElements(rhs.mEnums, mEnums);
+  cloneElements(rhs.mMappings, mMappings);
+  setParent(mPackage);
+
+  return *this;
 }
 
 void DeviserVersion::setParent(DeviserPackage* doc)

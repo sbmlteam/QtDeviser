@@ -16,6 +16,20 @@ DeviserEnumValue::DeviserEnumValue(const DeviserEnumValue& other)
 
 }
 
+DeviserEnumValue &
+DeviserEnumValue::operator=(const DeviserEnumValue &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+
+  mName = rhs.mName;
+  mValue = rhs.mValue;
+
+  return *this;
+}
+
 void
 DeviserEnumValue::initializeFrom(const QDomElement& element)
 {

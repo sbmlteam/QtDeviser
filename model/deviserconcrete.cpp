@@ -21,6 +21,21 @@ DeviserConcrete::DeviserConcrete(const DeviserConcrete& other)
 
 }
 
+DeviserConcrete &
+DeviserConcrete::operator=(const DeviserConcrete &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+  mName = rhs.mName;
+  mElement = rhs.mElement;
+  mMinNumChildren = rhs.mMinNumChildren;
+  mMaxNumChildren = rhs.mMaxNumChildren;
+
+  return *this;
+}
+
 void
 DeviserConcrete::initializeFrom(const QDomElement& element)
 {

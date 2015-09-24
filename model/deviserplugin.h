@@ -13,6 +13,8 @@ class DeviserPlugin : public DeviserBase
 public:
   DeviserPlugin();
   DeviserPlugin(const DeviserPlugin& other);
+  DeviserPlugin& operator= (const DeviserPlugin& rhs);
+
   virtual void initializeFrom(const QDomElement& element);
 
   DeviserReferenceAttribute* createReference();

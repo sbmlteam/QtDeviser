@@ -10,6 +10,8 @@ class DeviserEnumValue : public DeviserBase
 public:
   DeviserEnumValue();
   DeviserEnumValue(const DeviserEnumValue& other);
+  DeviserEnumValue& operator= (const DeviserEnumValue& rhs);
+
   virtual void initializeFrom(const QDomElement& element);
 
   const QString& getName() const;

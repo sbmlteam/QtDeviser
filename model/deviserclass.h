@@ -14,6 +14,8 @@ class DeviserClass : public DeviserBase
 public:
   DeviserClass();
   DeviserClass(const DeviserClass& other);
+  DeviserClass& operator= (const DeviserClass& rhs);
+
   virtual void initializeFrom(const QDomElement& element);
 
   const QString& getName() const;

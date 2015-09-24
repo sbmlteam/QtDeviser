@@ -29,6 +29,24 @@ DeviserAttribute::DeviserAttribute(const DeviserAttribute& other)
 
 }
 
+DeviserAttribute &
+DeviserAttribute::operator=(const DeviserAttribute &rhs)
+{
+
+  if (&rhs == this)
+    return *this;
+
+  DeviserReferenceAttribute::operator =(rhs);
+  mXMLName = rhs.mXMLName;
+  mType = rhs.mType;
+  mElement = rhs.mElement;
+  mRequired = rhs.mRequired;
+  mAbstract = rhs.mAbstract;
+
+  return *this;
+
+}
+
 void
 DeviserAttribute::initializeFrom(const QDomElement& element)
 {
@@ -177,7 +195,11 @@ DeviserAttribute::toYuml(bool /*usecolor*/) const
       const DeviserClass* element = getUnderLyingElement();
       if (element == NULL)
         if (isListOf())
-          stream << " : " << "ListOf" << Util::guessPlural(mElement);
+          stream << " : "
+                 << (mPackage != NULL ?
+                    mPackage->getDefaultListOfClass() :
+                    QString::fromUtf8("ListOf"))
+                 << Util::guessPlural(mElement);
         else
           stream << " : " << mElement;
       else
@@ -223,8 +245,10 @@ DeviserAttribute::getYumlReferences(const QString& source) const
 
   QString elementName = mElement;
   const DeviserClass* element = getUnderLyingElement();
-  QString listOfName = QString("ListOf%1")
-      .arg(Util::guessPlural(elementName));
+  QString listOfName = (mPackage != NULL ?
+         mPackage->getDefaultListOfClass() :
+         QString::fromUtf8("ListOf")) + Util::guessPlural(elementName);
+
   QString link = Util::lowerFirst(listOfName);
   if (element != NULL)
   {

@@ -80,6 +80,29 @@ DeviserPackage::DeviserPackage(QDomElement& element)
   initializeFrom(element);
 }
 
+DeviserPackage &
+DeviserPackage::operator=(const DeviserPackage &rhs)
+{
+  if (&rhs == this)
+    return *this;
+
+  DeviserBase::operator =(rhs);
+  mName = rhs.mName;
+  mFullName = rhs.mFullName;
+  mStartNumber = rhs.mStartNumber;
+  mOffset = rhs.mOffset;
+  mRequired = rhs.mRequired;
+  mAdditionalDeclarations = rhs.mAdditionalDeclarations;
+  mAdditionalDefinitions = rhs.mAdditionalDefinitions;
+  mModified = false;
+  mLanguage = rhs.mLanguage;
+
+  cloneElements(rhs.mVersions, mVersions);
+  setParent(this);
+
+  return *this;
+}
+
 DeviserVersion*
 DeviserPackage::createVersion()
 {
@@ -101,12 +124,15 @@ DeviserPackage::createVersion()
 
   return newVersion;
 }
-bool DeviserPackage::getModified() const
+
+bool
+DeviserPackage::getModified() const
 {
   return mModified;
 }
 
-void DeviserPackage::setModified(bool modified)
+void
+DeviserPackage::setModified(bool modified)
 {
   if (mModified == modified)
     return;
@@ -115,8 +141,34 @@ void DeviserPackage::setModified(bool modified)
   emit modifiedChanged();
 }
 
+const DeviserLanguage&
+DeviserPackage::getLanguage() const
+{
+  return mLanguage;
+}
 
-void DeviserPackage::initializeFrom(const QDomElement& element)
+DeviserLanguage&
+DeviserPackage::getLanguage()
+{
+  return mLanguage;
+}
+
+void
+DeviserPackage::setLanguage(const DeviserLanguage &language)
+{
+  mLanguage = language;
+}
+
+QString
+DeviserPackage::getDefaultListOfClass() const
+{
+  if (!mLanguage.listOfClass().isEmpty())
+    return mLanguage.listOfClass();
+  return "ListOf";
+}
+
+void
+DeviserPackage::initializeFrom(const QDomElement& element)
 {
   DeviserBase::initializeFrom(element);
 
@@ -139,7 +191,8 @@ void DeviserPackage::initializeFrom(const QDomElement& element)
 
 }
 
-void DeviserPackage::setParent(DeviserPackage* doc)
+void
+DeviserPackage::setParent(DeviserPackage* doc)
 {
   DeviserBase::setParent(doc);
 
@@ -148,12 +201,14 @@ void DeviserPackage::setParent(DeviserPackage* doc)
   mLanguage.setParent(doc);
 }
 
-QString DeviserPackage::toXmlString() const
+QString
+DeviserPackage::toXmlString() const
 {
   return "";
 }
 
-QString DeviserPackage::toYuml(bool usecolor ) const
+QString
+DeviserPackage::toYuml(bool usecolor ) const
 {
   QByteArray array;
   QTextStream stream(&array, QIODevice::WriteOnly);
@@ -166,7 +221,8 @@ QString DeviserPackage::toYuml(bool usecolor ) const
 
 }
 
-void DeviserPackage::writeAttributesTo(QXmlStreamWriter& writer) const
+void
+DeviserPackage::writeAttributesTo(QXmlStreamWriter& writer) const
 {
   DeviserBase::writeAttributesTo(writer);
 
@@ -197,7 +253,8 @@ void DeviserPackage::writeAttributesTo(QXmlStreamWriter& writer) const
 
 }
 
-void DeviserPackage::writeElementsTo(QXmlStreamWriter& writer) const
+void
+DeviserPackage::writeElementsTo(QXmlStreamWriter& writer) const
 {
   DeviserBase::writeElementsTo(writer);
 
@@ -208,7 +265,8 @@ void DeviserPackage::writeElementsTo(QXmlStreamWriter& writer) const
 
 }
 
-void DeviserPackage::writeTo(QXmlStreamWriter& writer) const
+void
+DeviserPackage::writeTo(QXmlStreamWriter& writer) const
 {
   writeElementsWithNameTo(writer, "package");
 }
