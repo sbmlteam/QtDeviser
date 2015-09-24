@@ -498,7 +498,8 @@ DeviserClass::toYuml(bool usecolor) const
     QString name = Util::lowerFirst(mName);
     if (!mElementName.isEmpty())
       name = Util::lowerFirst(mElementName);
-    stream << QString("[%3]-%2  1..*>[%1]").arg( listOf, name, mName);
+    stream << QString("[%3]-%2  1..*>[%1]").arg( listOf, name, mName)
+           << endl;
 
     foreach (const DeviserAttribute* item, list)
     {
