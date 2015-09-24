@@ -189,8 +189,8 @@ DeviserAttribute::toYuml(bool /*usecolor*/) const
     }
   }
   if (!mRequired)
-    //stream << " use=\u201Coptional\u201D";
-    stream << " use=optional";
+    stream <<  QString::fromUtf8(" use=\xE2\x80\x9Coptional\xE2\x80\x9D");
+
   stream.flush();
   return QString::fromUtf8(array);
 }
