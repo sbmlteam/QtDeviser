@@ -115,6 +115,7 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
     ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
 
     ui->chkIsBaseClass->setChecked(element->isBaseClass() || !element->getConcretes().empty() );
+    ui->grpInstantiations->setVisible(ui->chkIsBaseClass->isChecked());
 
     mpAttributesFilter = new QSortFilterProxyModel(this);
     mpAttributes = new AttributesModel(this, &element->getAttributes());
