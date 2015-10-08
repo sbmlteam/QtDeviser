@@ -92,6 +92,7 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
     ui->txtXMLElementName->setText(element->getElementName());
 
     ui->chkHasListOf->setChecked(
+          element->hasListOf() ||
           !element->getListOfAttributes().empty() ||
           !element->getListOfName().isEmpty() ||
           !element->getListOfClassName().isEmpty() ||
@@ -336,12 +337,18 @@ FormDeviserClass::requiresStateChanged(int)
 void
 FormDeviserClass::isBaseClassStateChanged(int)
 {
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setIsBaseClass(ui->chkIsBaseClass->isChecked());
+
   ui->grpInstantiations->setVisible(ui->chkIsBaseClass->isChecked());
 }
 
 void
 FormDeviserClass::hasListOfStateChanged(int)
 {
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setHasListOf(ui->chkHasListOf->isChecked());
+
   ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
   ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
 
