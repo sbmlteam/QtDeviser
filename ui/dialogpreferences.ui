@@ -211,34 +211,13 @@
        <number>0</number>
       </property>
       <item row="0" column="0">
-       <widget class="QLabel" name="lblSBMLSourceDir">
-        <property name="text">
-         <string>libSBML Source dir:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_12">
-        <item>
-         <widget class="QLineEdit" name="txtLibSBMLSource"/>
-        </item>
-        <item>
-         <widget class="QToolButton" name="cmdBrowseLibSBMLSource">
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
        <widget class="QLabel" name="lblCompiler">
         <property name="text">
          <string>Compiler:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_13">
         <item>
          <widget class="QLineEdit" name="txtCompiler"/>
@@ -252,20 +231,20 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="lblCmakeExecutable">
+      <item row="1" column="0">
+       <widget class="QLabel" name="lblSBMLSourceDir">
         <property name="text">
-         <string>CMake Executable:</string>
+         <string>libSBML Source dir:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_14">
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
         <item>
-         <widget class="QLineEdit" name="txtCMake"/>
+         <widget class="QLineEdit" name="txtLibSBMLSource"/>
         </item>
         <item>
-         <widget class="QToolButton" name="cmdBrowseCMake">
+         <widget class="QToolButton" name="cmdBrowseLibSBMLSource">
           <property name="text">
            <string>...</string>
           </property>
@@ -273,7 +252,7 @@
         </item>
        </layout>
       </item>
-      <item row="3" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="lblDependencies">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -292,13 +271,34 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="2" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_15">
         <item>
          <widget class="QLineEdit" name="txtDependencies"/>
         </item>
         <item>
          <widget class="QToolButton" name="cmdBrowseDeps">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="lblCmakeExecutable">
+        <property name="text">
+         <string>CMake Executable:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_14">
+        <item>
+         <widget class="QLineEdit" name="txtCMake"/>
+        </item>
+        <item>
+         <widget class="QToolButton" name="cmdBrowseCMake">
           <property name="text">
            <string>...</string>
           </property>
