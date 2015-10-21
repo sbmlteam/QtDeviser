@@ -384,7 +384,7 @@ void FormDeviserClass::defaultListOfName()
 
 void FormDeviserClass::defaultBaseClass()
 {
-  if (mElement == NULL || mElement->getParent() == NULL )
+  if (mElement == NULL || mElement->getParent() == NULL  || mElement->getParent()->getLanguage().baseClass().isEmpty())
   {
     ui->txtBaseClass->setText("SBase");
     return;
