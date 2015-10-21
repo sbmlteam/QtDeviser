@@ -371,7 +371,7 @@ void FormDeviserClass::defaultTypeCode()
     return;
   ui->txtTypeCode->setText(QString("SBML_%1_%2")
                            .arg(mElement->getParent()->getName().toUpper())
-                           .arg(ui->txtName->text()));
+                           .arg(ui->txtName->text().toUpper()));
 }
 
 void FormDeviserClass::defaultListOfName()
