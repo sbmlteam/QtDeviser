@@ -5,6 +5,8 @@
 
 #include <model/deviserpackage.h>
 
+#include <ui/dialogdisplaynumbers.h>
+
 FormDeviserPackage::FormDeviserPackage(QWidget *parent)
   : QWidget(parent)
   , ui(new Ui::FormDeviserPackage)
@@ -132,5 +134,6 @@ FormDeviserPackage::declarationChanged(const QString&)
 
 void FormDeviserPackage::showNumbersAndOffsets()
 {
-
+  DialogDisplayNumbers dlg;
+  dlg.exec();
 }

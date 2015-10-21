@@ -58,7 +58,8 @@ SOURCES += main.cpp \
     ui/smoothgraphicsitem.cpp \
     validation/typecodeconstraint.cpp \
     model/deviserlanguage.cpp \
-    ui/workerthread.cpp
+    ui/workerthread.cpp \
+    ui/dialogdisplaynumbers.cpp
 
 
 HEADERS  += util.h \
@@ -109,7 +110,8 @@ HEADERS  += util.h \
     ui/smoothgraphicsitem.h \
     validation/typecodeconstraint.h \
     model/deviserlanguage.h \
-    ui/workerthread.h
+    ui/workerthread.h \
+    ui/dialogdisplaynumbers.h
 
 
 
@@ -124,7 +126,8 @@ FORMS    += ui/mainwindow.ui \
             ui/dialoguml.ui \
             ui/dialoggenerate.ui \
             ui/dialogpreferences.ui \
-            ui/dialogerrors.ui
+            ui/dialogerrors.ui \
+    ui/dialogdisplaynumbers.ui
 
 RESOURCES += \
     deviser-resources.qrc
