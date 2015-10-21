@@ -108,8 +108,8 @@ DeviserPackage::createVersion()
 {
   DeviserVersion* newVersion = new DeviserVersion();
 
-  int level = 0;
-  int version = 0;
+  int level = 3;
+  int version = 1;
   int pkgVersion = 1;
   while (getVersion(level, version, pkgVersion)!=NULL)
     ++pkgVersion;

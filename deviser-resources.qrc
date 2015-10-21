@@ -19,5 +19,7 @@
         <file>images/dialog-error.png</file>
         <file>images/dialog-information.png</file>
         <file>images/dialog-warning.png</file>
+        <file>internal_numbering_within_packages.txt</file>
+        <file>images/tools_wizard.png</file>
     </qresource>
 </RCC>

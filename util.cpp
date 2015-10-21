@@ -29,6 +29,12 @@ Util::lowerFirst(const QString& s)
   return str.left(1).toLower() + str.right(str.length()-1);
 }
 
+QString Util::upperFirst(const QString &s)
+{
+  QString str(s);
+  return str.left(1).toUpper() + str.right(str.length()-1);
+}
+
 QList<QString>
 Util::getCoreClasses()
 {

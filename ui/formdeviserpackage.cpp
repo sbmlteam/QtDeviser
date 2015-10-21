@@ -129,3 +129,8 @@ FormDeviserPackage::declarationChanged(const QString&)
   mPackage->setAdditionalDeclarations(ui->txtDeclaration->text());
 
 }
+
+void FormDeviserPackage::showNumbersAndOffsets()
+{
+
+}

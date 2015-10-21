@@ -47,6 +47,12 @@ public slots:
   void isBaseClassStateChanged(int);
   void hasListOfStateChanged(int);
 
+  void defaultXmlElementName();
+  void defaultTypeCode();
+  void defaultListOfName();
+  void defaultBaseClass();
+  void defaultListOfClassName();
+
 private:
   Ui::FormDeviserClass *ui;
   DeviserClass* mElement;

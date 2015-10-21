@@ -6,6 +6,7 @@
 #include <QSortFilterProxyModel>
 
 #include <model/deviserclass.h>
+#include <model/deviserpackage.h>
 #include <model/deviserattribute.h>
 #include <model/deviserlistofattribute.h>
 #include <model/deviserconcrete.h>
@@ -13,6 +14,8 @@
 #include <ui/attributesmodel.h>
 #include <ui/loattributesmodel.h>
 #include <ui/concretesmodel.h>
+
+#include <util.h>
 
 #include <set>
 
@@ -352,5 +355,47 @@ FormDeviserClass::hasListOfStateChanged(int)
 
   ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
   ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
+
+}
+
+void FormDeviserClass::defaultXmlElementName()
+{
+  if (ui->txtName->text().isEmpty()) return;
+  ui->txtXMLElementName->setText(Util::lowerFirst(ui->txtName->text()));
+}
+
+void FormDeviserClass::defaultTypeCode()
+{
+  if (ui->txtName->text().isEmpty()) return;
+  if (mElement == NULL || mElement->getParent() == NULL || mElement->getParent()->getName().isEmpty())
+    return;
+  ui->txtTypeCode->setText(QString("SBML_%1_%2")
+                           .arg(mElement->getParent()->getName().toUpper())
+                           .arg(ui->txtName->text()));
+}
+
+void FormDeviserClass::defaultListOfName()
+{
+  if (ui->txtName->text().isEmpty()) return;
+  ui->txtListOfName->setText(QString("listOf%1")
+                             .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text()))));
+
+}
+
+void FormDeviserClass::defaultBaseClass()
+{
+  if (mElement == NULL || mElement->getParent() == NULL )
+  {
+    ui->txtBaseClass->setText("SBase");
+    return;
+  }
+  ui->txtBaseClass->setText(mElement->getParent()->getLanguage().baseClass());
+}
+
+void FormDeviserClass::defaultListOfClassName()
+{
+  if (ui->txtName->text().isEmpty()) return;
+  ui->txtListOfClassName->setText(Util::upperFirst( QString("listOf%1")
+                             .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text())))));
 
 }
