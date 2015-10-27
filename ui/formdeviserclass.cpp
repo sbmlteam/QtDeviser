@@ -361,7 +361,9 @@ FormDeviserClass::hasListOfStateChanged(int)
 void FormDeviserClass::defaultXmlElementName()
 {
   if (ui->txtName->text().isEmpty()) return;
-  ui->txtXMLElementName->setText(Util::lowerFirst(ui->txtName->text()));
+  QString newXmlElementName = Util::lowerFirst(ui->txtName->text());
+  ui->txtXMLElementName->setText(newXmlElementName);
+  xmlElementNameChanged(newXmlElementName);
 }
 
 void FormDeviserClass::defaultTypeCode()
@@ -369,33 +371,45 @@ void FormDeviserClass::defaultTypeCode()
   if (ui->txtName->text().isEmpty()) return;
   if (mElement == NULL || mElement->getParent() == NULL || mElement->getParent()->getName().isEmpty())
     return;
-  ui->txtTypeCode->setText(QString("SBML_%1_%2")
-                           .arg(mElement->getParent()->getName().toUpper())
-                           .arg(ui->txtName->text().toUpper()));
+
+  QString newTypeCode = QString("SBML_%1_%2")
+                             .arg(mElement->getParent()->getName().toUpper())
+                             .arg(ui->txtName->text().toUpper()) ;
+  ui->txtTypeCode->setText(newTypeCode);
+  typeCodeChanged(newTypeCode);
 }
 
 void FormDeviserClass::defaultListOfName()
 {
   if (ui->txtName->text().isEmpty()) return;
-  ui->txtListOfName->setText(QString("listOf%1")
-                             .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text()))));
+  QString newListOfName = QString("listOf%1")
+      .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text())));
+  ui->txtListOfName->setText(newListOfName);
+  listOfNameChanged(newListOfName);
 
 }
 
 void FormDeviserClass::defaultBaseClass()
 {
+  QString newBaseClass;
   if (mElement == NULL || mElement->getParent() == NULL  || mElement->getParent()->getLanguage().baseClass().isEmpty())
   {
-    ui->txtBaseClass->setText("SBase");
-    return;
+    newBaseClass = "SBase";
   }
-  ui->txtBaseClass->setText(mElement->getParent()->getLanguage().baseClass());
+  else
+  {
+    newBaseClass = mElement->getParent()->getLanguage().baseClass();
+  }
+  ui->txtBaseClass->setText(newBaseClass);
+  baseClassChanged(newBaseClass);
 }
 
 void FormDeviserClass::defaultListOfClassName()
 {
   if (ui->txtName->text().isEmpty()) return;
-  ui->txtListOfClassName->setText(Util::upperFirst( QString("listOf%1")
-                             .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text())))));
+  QString newListOfClassName = Util::upperFirst( QString("listOf%1")
+                                                 .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text()))));
+  ui->txtListOfClassName->setText(newListOfClassName);
+  listOfClassNameChanged(newListOfClassName);
 
 }
