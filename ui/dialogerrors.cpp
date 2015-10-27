@@ -63,7 +63,7 @@ DialogErrors::DialogErrors(const QList<DeviserMessage*>& errors,
     hlayout->addWidget(pixmap);
 
     QLabel *label = new QLabel(message->message(), ui->scrollAreaWidgetContents);
-
+    label->setTextInteractionFlags(Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
     stream << message->message() << endl << endl;
 
     label->setWordWrap(true);
