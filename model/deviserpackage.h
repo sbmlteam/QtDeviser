@@ -21,7 +21,6 @@ public:
 
   virtual void setParent(DeviserPackage* doc);
 
-  virtual QString toXmlString() const;
   virtual QString toYuml(bool usecolor = true) const;
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;

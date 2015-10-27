@@ -19,9 +19,13 @@ public:
                         QWidget *parent = 0);
   ~DialogErrors();
 
+public slots:
+  void copyErrors();
+
 private:
   Ui::DialogErrors *ui;
   QList<DeviserMessage*> mErrors;
+  QString mMessages;
 };
 
 #endif // DIALOGERRORS_H

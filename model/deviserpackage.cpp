@@ -202,12 +202,6 @@ DeviserPackage::setParent(DeviserPackage* doc)
 }
 
 QString
-DeviserPackage::toXmlString() const
-{
-  return "";
-}
-
-QString
 DeviserPackage::toYuml(bool usecolor ) const
 {
   QByteArray array;

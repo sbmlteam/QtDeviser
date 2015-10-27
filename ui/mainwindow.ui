@@ -366,6 +366,22 @@
     <enum>QAction::AboutQtRole</enum>
    </property>
   </action>
+  <action name="actionCopyXML">
+   <property name="text">
+    <string>Copy XML</string>
+   </property>
+   <property name="toolTip">
+    <string>Copies the XML representation of the current element to the clipboard.</string>
+   </property>
+  </action>
+  <action name="actionCopyUML">
+   <property name="text">
+    <string>Copy yUML</string>
+   </property>
+   <property name="toolTip">
+    <string>Copies the yUML representation of the selected element to the clipboard.</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -692,6 +708,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCopyUML</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>copyUML()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>424</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCopyXML</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>copyXML()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>424</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -714,5 +762,7 @@
   <slot>duplicateSelected()</slot>
   <slot>openRecentFile(QAction*)</slot>
   <slot>showAboutQt()</slot>
+  <slot>copyUML()</slot>
+  <slot>copyXML()</slot>
  </slots>
 </ui>

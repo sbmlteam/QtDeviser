@@ -53,6 +53,9 @@ public slots:
   void showUML();
   void validateDescription();
 
+  void copyUML();
+  void copyXML();
+
   void updateUI();
   void displayElement(DeviserBase* element);
   void treeElementRenamed(const QString&, const QString&,

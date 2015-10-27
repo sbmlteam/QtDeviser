@@ -1,3 +1,4 @@
+#include <QClipboard>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextStream>
@@ -64,11 +65,20 @@ MainWindow::MainWindow(QWidget *parent)
   ui->treeWidget->addAction(ui->actionAdd_Plugin);
   ui->treeWidget->addAction(ui->actionAdd_Enum);
   ui->treeWidget->addAction(ui->actionAdd_Version);
-  QAction* sep = new QAction(this);
-  sep->setSeparator(true);
-  ui->treeWidget->addAction(sep);
+
+  QAction* sep1 = new QAction(this);
+  sep1->setSeparator(true);
+  QAction* sep2 = new QAction(this);
+  sep2->setSeparator(true);
+  QAction* sep3 = new QAction(this);
+  sep3->setSeparator(true);
+
+  ui->treeWidget->addAction(sep1);
   ui->treeWidget->addAction(ui->actionDuplicate);
-  ui->treeWidget->addAction(sep);
+  ui->treeWidget->addAction(sep2);
+  ui->treeWidget->addAction(ui->actionCopyXML);
+  ui->treeWidget->addAction(ui->actionCopyUML);
+  ui->treeWidget->addAction(sep3);
   ui->treeWidget->addAction(ui->actionDeleteSelected);
 
   refreshRecentFiles();
@@ -600,6 +610,46 @@ MainWindow::deleteSelected()
 
     break;
   }
+}
+
+
+
+void
+MainWindow::copyUML()
+{
+  const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
+  if (selectedItems.size() == 0) return;
+
+  foreach(QTreeWidgetItem* item, selectedItems)
+  {
+    DeviserBase* devItem = getDeviserItemForTreeView(item);
+    if (devItem == NULL || dynamic_cast<DeviserMapping*>(devItem) != NULL)
+      continue;
+
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(devItem->toYuml(true));
+    return;
+  }
+
+}
+
+void
+MainWindow::copyXML()
+{
+  const QList<QTreeWidgetItem*>& selectedItems = ui->treeWidget->selectedItems();
+  if (selectedItems.size() == 0) return;
+
+  foreach(QTreeWidgetItem* item, selectedItems)
+  {
+    DeviserBase* devItem = getDeviserItemForTreeView(item);
+    if (devItem == NULL || dynamic_cast<DeviserMapping*>(devItem) != NULL)
+      continue;
+
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(devItem->toXmlString());
+    return;
+  }
+
 }
 
 

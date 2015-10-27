@@ -13,41 +13,64 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lblCount">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>622</width>
+        <height>412</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="lblCount">
+      <widget class="QPushButton" name="cmdCopy">
        <property name="text">
-        <string>  </string>
+        <string>C&amp;opy</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+C</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QScrollArea" name="scrollArea">
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-       <property name="frameShadow">
-        <enum>QFrame::Plain</enum>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
        </property>
-       <property name="lineWidth">
-        <number>0</number>
-       </property>
-       <property name="widgetResizable">
-        <bool>true</bool>
-       </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>620</width>
-          <height>412</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
+      </spacer>
      </item>
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
@@ -97,5 +120,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cmdCopy</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogErrors</receiver>
+   <slot>copyErrors()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>458</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>copyErrors()</slot>
+ </slots>
 </ui>

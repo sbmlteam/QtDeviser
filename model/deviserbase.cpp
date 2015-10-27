@@ -2,6 +2,9 @@
 
 #include "deviserpackage.h"
 
+#include <QTextStream>
+#include <QXmlStreamWriter>
+
 DeviserBase::DeviserBase()
   : mPackage(NULL)
   , mVersion(NULL)
@@ -49,7 +52,17 @@ void DeviserBase::setParentVersion(DeviserVersion* version)
 
 QString DeviserBase::toXmlString() const
 {
-  return QString();
+  QByteArray array;
+
+  QXmlStreamWriter writer(&array);
+  writer.setAutoFormatting(true);  
+  writer.setAutoFormattingIndent(2);
+  writer.setCodec("UTF-8");
+  writer.writeStartDocument();
+  writeTo(writer);
+  writer.writeEndDocument();
+  
+  return QString::fromUtf8(array);  
 }
 
 QString DeviserBase::toYuml(bool /*usecolor*/) const
