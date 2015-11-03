@@ -33,7 +33,7 @@ HasMathConstraint::analyzePackage(DeviserPackage *package)
 
       if (hasMath && numChildren == 0)
       {
-        ADD_MESSAGE(
+        ADD_MESSAGE_WITH_SEVERITY(DEVISER_IGNORE,
               "Class: '" << item->getName()
               <<"' has hasMath=true, but no math child."
               );
@@ -41,7 +41,7 @@ HasMathConstraint::analyzePackage(DeviserPackage *package)
 
       if (!hasMath && numChildren > 0)
       {
-        ADD_MESSAGE(
+        ADD_MESSAGE_WITH_SEVERITY(DEVISER_IGNORE,
               "Class: '" << item->getName()
               <<"' has a child 'math' but hasMath=false"
               );

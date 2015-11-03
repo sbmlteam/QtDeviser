@@ -2,6 +2,7 @@
 
 #include "deviserclass.h"
 #include "deviserattribute.h"
+#include "deviserconcrete.h"
 #include "deviserenum.h"
 #include "deviserplugin.h"
 #include "devisermapping.h"
@@ -370,6 +371,13 @@ QList<QString> DeviserVersion::getUsedClasses() const
         if (!result.contains(attribute->getElement()))
           result << attribute->getElement();
     }
+
+    foreach(DeviserConcrete* concrete, element->getConcretes())
+    {
+      if (!result.contains(concrete->getElement()))
+        result << concrete->getElement();
+    }
+
   }
 
   foreach (DeviserPlugin* element, mPlugins)

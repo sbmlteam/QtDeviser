@@ -38,6 +38,9 @@ DialogErrors::DialogErrors(const QList<DeviserMessage*>& errors,
 
   foreach(DeviserMessage* message, errors)
   {
+    if (message->severity() == DEVISER_IGNORE)
+      continue;
+
     QHBoxLayout *hlayout = new QHBoxLayout();
     QLabel *pixmap = new QLabel(ui->scrollAreaWidgetContents);
     pixmap->setMaximumWidth(50);

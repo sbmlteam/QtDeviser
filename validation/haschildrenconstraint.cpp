@@ -39,12 +39,12 @@ HasChildrenConstraint::analyzePackage(DeviserPackage *package)
 
       if (hasChildren && numChildren == 0)
       {
-        ADD_MESSAGE("Class: '" << item->getName() << "' has hasChildren=true, but no children.");
+        ADD_MESSAGE_WITH_SEVERITY(DEVISER_IGNORE, "Class: '" << item->getName() << "' has hasChildren=true, but no children.");
       }
 
       if (!hasChildren && numChildren > 0)
       {
-        ADD_MESSAGE("Class: '" << item->getName() << "' has hasChildren=false, but children.");
+        ADD_MESSAGE_WITH_SEVERITY(DEVISER_IGNORE, "Class: '" << item->getName() << "' has hasChildren=false, but children.");
       }
     }
   }

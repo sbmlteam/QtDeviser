@@ -481,6 +481,12 @@ DeviserClass::toYuml(bool usecolor) const
   {
     stream << "[" << mBaseClass << "]<>-";
   }
+  else
+  {
+    QString baseClass = mPackage->getLanguage().baseClass();
+    if (baseClass.isEmpty()) baseClass = "SBase";
+    stream << "[" << baseClass << "]<>-";
+  }
 
   stream << "[" << mName;
 

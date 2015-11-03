@@ -7,6 +7,7 @@ class DeviserConstraint;
 
 enum DeviserSeverity
 {
+  DEVISER_IGNORE,
   DEVISER_NOTICE,
   DEVISER_WARNING,
   DEVISER_ERROR,
