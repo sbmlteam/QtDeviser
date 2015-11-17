@@ -7,8 +7,10 @@
 #include <validation/hasmathconstraint.h>
 #include <validation/isbaseclassconstraint.h>
 #include <validation/packageconstraints.h>
-#include <validation/sidrefconstraint.h>
+#include <validation/attributeconstraints.h>
 #include <validation/typecodeconstraint.h>
+#include <validation/enumconstraint.h>
+#include <validation/instantiationconstraint.h>
 
 DeviserValidator::DeviserValidator(QObject *parent)
   : QObject(parent)
@@ -20,8 +22,11 @@ DeviserValidator::DeviserValidator(QObject *parent)
                << new HasMathConstraint(this)
                << new IsBaseClassConstraint(this)
                << new PackageConstraints(this)
-               << new SIdRefConstraint(this)
-               << new TypeCodeConstraint(this);
+               << new AttributeConstraints(this)
+               << new TypeCodeConstraint(this)
+               << new EnumConstraint(this)
+               << new InstantiationConstraint(this)
+                  ;
 }
 
 int DeviserValidator::validatePackage(DeviserPackage *package)

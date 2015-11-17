@@ -23,11 +23,10 @@ int TypeCodeConstraint::analyzePackage(DeviserPackage *package)
 
       ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "The element '"
                                 << element->getName()
-                                << "' has not typecode defined, this is a required attribute.");
+                                << "' has no typecode defined, this is a required attribute.");
       ++count;
 
     }
-
   }
 
   return count;

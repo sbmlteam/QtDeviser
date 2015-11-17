@@ -48,7 +48,6 @@ SOURCES += main.cpp \
            validation/deviservalidator.cpp \
            validation/devisermessage.cpp \
            validation/deviserconstraint.cpp \
-           validation/sidrefconstraint.cpp \
            validation/packageconstraints.cpp \
            validation/haslistofconstraint.cpp \
            validation/hasmathconstraint.cpp \
@@ -59,7 +58,10 @@ SOURCES += main.cpp \
     validation/typecodeconstraint.cpp \
     model/deviserlanguage.cpp \
     ui/workerthread.cpp \
-    ui/dialogdisplaynumbers.cpp
+    ui/dialogdisplaynumbers.cpp \
+    validation/attributeconstraints.cpp \
+    validation/enumconstraint.cpp \
+    validation/instantiationconstraint.cpp
 
 
 HEADERS  += util.h \
@@ -99,7 +101,6 @@ HEADERS  += util.h \
             validation/deviservalidator.h \
             validation/devisermessage.h \
             validation/deviserconstraint.h \
-            validation/sidrefconstraint.h \
             validation/packageconstraints.h \
             validation/haslistofconstraint.h \
             validation/hasmathconstraint.h \
@@ -111,7 +112,10 @@ HEADERS  += util.h \
     validation/typecodeconstraint.h \
     model/deviserlanguage.h \
     ui/workerthread.h \
-    ui/dialogdisplaynumbers.h
+    ui/dialogdisplaynumbers.h \
+    validation/attributeconstraints.h \
+    validation/enumconstraint.h \
+    validation/instantiationconstraint.h
 
 
 
