@@ -148,7 +148,7 @@ bool Util::removeDir(const QString &dirPath, const QString &filter)
   return true;
 }
 
-bool Util::copyDir(const QString &srcPath, const QString &dstPath)
+bool Util::copyDir(const QString &srcPath, const QString &dstPath, bool overwrite)
 {
 
   QDir parentDstDir(QFileInfo(dstPath).path());
@@ -159,7 +159,8 @@ bool Util::copyDir(const QString &srcPath, const QString &dstPath)
   if (srcInfo.isFile())
   {
     QString dstItemPath = dstPath + "/" + srcInfo.fileName();
-
+    if (QFile::exists(dstItemPath) && overwrite)
+      QFile::remove(dstItemPath);
     return  QFile::copy(srcPath, dstItemPath);
   }
 
@@ -168,10 +169,12 @@ bool Util::copyDir(const QString &srcPath, const QString &dstPath)
     QString srcItemPath = srcPath + "/" + info.fileName();
     QString dstItemPath = dstPath + "/" + info.fileName();
     if (info.isDir()) {
-      if (!copyDir(srcItemPath, dstItemPath)) {
+      if (!copyDir(srcItemPath, dstItemPath, overwrite)) {
         return false;
       }
     } else if (info.isFile()) {
+      if (QFile::exists(dstItemPath) && overwrite)
+        QFile::remove(dstItemPath);
       if (!QFile::copy(srcItemPath, dstItemPath)) {
         return false;
       }

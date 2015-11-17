@@ -27,7 +27,7 @@ public:
   static bool isWindows();
 
   static bool removeDir(const QString &dirPath, const QString& filter = "");
-  static bool copyDir(const QString &srcPath, const QString &dstPath);
+  static bool copyDir(const QString &srcPath, const QString &dstPath, bool overwrite = true);
 
 protected:
 

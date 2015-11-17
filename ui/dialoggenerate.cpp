@@ -11,6 +11,7 @@
 #include <QStringList>
 #include <QApplication>
 #include <QDesktopServices>
+#include <QMessageBox>
 
 #include <model/devisersettings.h>
 #include <model/deviserpackage.h>
@@ -693,7 +694,7 @@ DialogGenerate::addToSourceDir()
   QString packageDir = QDir(outDir + "/" + lowerFirst).absolutePath();
   if (!QDir(packageDir).exists())
   {
-    addMessage("Error: please export package first.");
+    addMessage("Error: please select 'Generate Package Code' first.");
     return ;
   }
 
@@ -701,15 +702,29 @@ DialogGenerate::addToSourceDir()
       QDir(DeviserSettings::getInstance()->getLibSBMLSourceDir()).absolutePath();
   if (!QDir(libSBMLSourceDir).exists())
   {
-    addMessage("Error: Missing source dir.");
+    addMessage("Error: Missing 'libSBML source' dir.");
     return ;
   }
 
+  if (QFile::exists(libSBMLSourceDir + "/" + lowerFirst + "-package.cmake"))
+  {
+    if (QMessageBox::question(this, "Overwrite existing files?",
+                              "The package has been previously integrated into the libSBML source tree. Do you want those files to be overwritten? \nWARNING: you will loose all changes that you made in the integrated branch.",
+                              QMessageBox::Yes | QMessageBox::No , QMessageBox::No) != QMessageBox::Yes)
+    {
+      addMessage("'Adding code to source tree' cancelled.");
+      return;
+    }
+  }
 
-  Util::copyDir(
-        packageDir + "/" + "src",
-        libSBMLSourceDir + "/" + "src"
-        );
+
+  if (!Util::copyDir(
+    packageDir + "/" + "src",
+    libSBMLSourceDir + "/" + "src"
+    ))
+  {
+    addMessage("'Adding code to source tree' failed!");
+  }
 
   Util::copyDir(
         packageDir + "/" + lowerFirst + "-package.cmake",
