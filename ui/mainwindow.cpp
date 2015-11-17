@@ -142,6 +142,7 @@ void
 MainWindow::fixErrors()
 {
   mValidator.fixIssues(mModel);
+  updateUI();
 }
 
 void
@@ -791,6 +792,12 @@ bool MainWindow::askForSaveOrStop()
   default:
     return true;
   }
+}
+
+void MainWindow::reloadDocument()
+{
+  if (mFileName.isEmpty()) return;
+  openFile(mFileName);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

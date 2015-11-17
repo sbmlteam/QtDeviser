@@ -134,6 +134,7 @@
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionReload"/>
     <addaction name="menuRecentFiles"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
@@ -380,6 +381,14 @@
    </property>
    <property name="toolTip">
     <string>Copies the yUML representation of the selected element to the clipboard.</string>
+   </property>
+  </action>
+  <action name="actionReload">
+   <property name="text">
+    <string>Reload from disc</string>
+   </property>
+   <property name="toolTip">
+    <string>Reloads the current document from disc.</string>
    </property>
   </action>
  </widget>
@@ -677,22 +686,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>menuRecentFiles</sender>
-   <signal>triggered(QAction*)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>openRecentFile(QAction*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>67</x>
-     <y>24</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionAboutQt</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -740,6 +733,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionReload</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>reloadDocument()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>424</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -764,5 +773,6 @@
   <slot>showAboutQt()</slot>
   <slot>copyUML()</slot>
   <slot>copyXML()</slot>
+  <slot>reloadDocument()</slot>
  </slots>
 </ui>

@@ -72,6 +72,7 @@ public slots:
 
   bool askForSaveOrStop();
 
+  void reloadDocument();
 
 
 protected:
