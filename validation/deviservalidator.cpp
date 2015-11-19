@@ -81,3 +81,22 @@ DeviserValidator::addMessage(DeviserMessage* message)
 {
   mErrors << message;
 }
+
+int
+DeviserValidator::getNumErrors() const
+{
+  return mErrors.count();
+}
+
+int
+DeviserValidator::getNumErrors(DeviserSeverity severity) const
+{
+  int count = 0;
+  foreach(DeviserMessage* message, mErrors)
+  {
+    if (message->severity() == severity)
+      ++count;
+  }
+
+  return count;
+}

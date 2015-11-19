@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QList>
 
-class DeviserMessage;
+#include <validation/devisermessage.h>
+
 class DeviserPackage;
 class DeviserConstraint;
 
@@ -22,6 +23,10 @@ public:
   void setErrors(const QList<DeviserMessage*> &errors);
 
   void addMessage(DeviserMessage* message);
+
+  int getNumErrors() const;
+  int getNumErrors(DeviserSeverity severity) const;
+
 
   QList<DeviserConstraint *> constraints() const;
   void setConstraints(const QList<DeviserConstraint *> &constraints);

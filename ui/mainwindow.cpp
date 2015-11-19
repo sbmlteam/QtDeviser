@@ -151,6 +151,15 @@ MainWindow::generate()
   if (askForSaveOrStop())
     return;
 
+  int count = mValidator.validatePackage(mModel);
+  if (count > 0 &&
+      (mValidator.getNumErrors(DEVISER_ERROR) > 0 ||
+       mValidator.getNumErrors(DEVISER_FATAL_ERROR) > 0 ))
+  {
+    if (validateDescription() == QDialog::Rejected)
+      return;
+  }
+
   DialogGenerate generate(this);
   generate.loadModel(mModel, mCurrentVersion, mFileName);
   generate.exec();
@@ -182,9 +191,34 @@ MainWindow::newModel()
 }
 
 void
+fillExpandedMap(const QTreeWidgetItem* item, std::map<QString, bool> &expandedMap)
+{
+  expandedMap[item->text(0)] = item->isExpanded();
+  for (int i = 0; i < item->childCount(); ++i)
+  {
+    QTreeWidgetItem* child = item->child(i);
+    fillExpandedMap(child, expandedMap);
+  }
+}
+
+void
+fillExpandedMap(const QTreeWidget* widget, std::map<QString, bool> &expandedMap)
+{
+  for (int i = 0; i < widget->topLevelItemCount(); ++i)
+  {
+    QTreeWidgetItem* item = widget->topLevelItem(i);
+    fillExpandedMap(item, expandedMap);
+  }
+}
+
+void
 MainWindow::updateUI()
 {
   blockSignals(true);
+
+  std::map<QString, bool> expandedMap;
+  fillExpandedMap(ui->treeWidget, expandedMap);
+
   // build tree view
   const bool sortingEnabled = ui->treeWidget->isSortingEnabled();
   ui->treeWidget->setSortingEnabled(false);
@@ -204,13 +238,14 @@ MainWindow::updateUI()
 
     QTreeWidgetItem* versionItem = new QTreeWidgetItem(ui->treeWidget);
     versionItem->setText(0, version->toString());
-    versionItem->setExpanded(true);
+    versionItem->setExpanded(expandedMap[version->toString()]);
 
     QTreeWidgetItem* mappingItem = new QTreeWidgetItem(versionItem);
     mappingItem->setText(0, "Mappings");
 
     QTreeWidgetItem* classItem = new QTreeWidgetItem(versionItem);
     classItem->setText(0, "Classes");
+    classItem->setExpanded(expandedMap["Classes"]);
 
     foreach(DeviserClass* element, version->getElements())
     {
@@ -225,6 +260,7 @@ MainWindow::updateUI()
 
     QTreeWidgetItem* pluginItem = new QTreeWidgetItem(versionItem);
     pluginItem->setText(0, "Plugins");
+    pluginItem->setExpanded(expandedMap["Plugins"]);
 
     foreach(DeviserPlugin* element, version->getPlugins())
     {
@@ -239,6 +275,7 @@ MainWindow::updateUI()
 
     QTreeWidgetItem* enumItem = new QTreeWidgetItem(versionItem);
     enumItem->setText(0, "Enums");
+    enumItem->setExpanded(expandedMap["Enums"]);
 
     foreach(DeviserEnum* element, version->getEnums())
     {
@@ -256,6 +293,8 @@ MainWindow::updateUI()
   ui->treeWidget->setSortingEnabled(sortingEnabled);
 
   displayElement(mCurrentElement);
+
+  selectTreeItem(mCurrentElement);
 
   blockSignals(false);
 
@@ -325,7 +364,7 @@ MainWindow::displayElement(DeviserBase* element)
   if (dynamic_cast<DeviserPackage*>(mCurrentElement))
   {
     ctrlPackage->initializeFrom(dynamic_cast<DeviserPackage*>(mCurrentElement));
-    ui->stackedWidget->setCurrentWidget(ctrlPackage);
+    ui->stackedWidget->setCurrentWidget(ctrlPackage);    
   }
   else if (dynamic_cast<DeviserVersion*>(mCurrentElement))
   {
@@ -463,7 +502,7 @@ MainWindow::showUML()
   uml.exec();
 }
 
-void
+int
 MainWindow::validateDescription()
 {
   int count = mValidator.validatePackage(mModel);
@@ -473,13 +512,60 @@ MainWindow::validateDescription()
     QMessageBox::information(this, "Package Validation",
                              "No validation issues have been found.",
                              QMessageBox::Ok, QMessageBox::Ok);
+    return QDialog::Accepted;
   }
   else
   {
     DialogErrors errors(mValidator.errors(), this);
-    errors.exec();
+    return errors.exec();
   }
 }
+
+QTreeWidgetItem *
+MainWindow::getTreeItemForDeviserItem(DeviserBase *item)
+{
+  if (mModel == NULL || item == NULL) return NULL;
+
+  if (dynamic_cast<DeviserPackage*>(item) != NULL)
+  {
+    return ui->treeWidget->topLevelItem(0);
+  }
+
+  DeviserVersion* version = dynamic_cast<DeviserVersion*>(item);
+  if (version != NULL)
+  {
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); ++i)
+    {
+      QTreeWidgetItem* treeItem = ui->treeWidget->topLevelItem(i);
+      if (version->toString() == treeItem->text(0))
+        return treeItem;
+    }
+  }
+
+  DeviserPlugin* plugin = dynamic_cast<DeviserPlugin*> (item);
+  if (plugin != NULL)
+  {
+    QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(plugin->getExtensionPoint(), Qt::MatchExactly | Qt::MatchRecursive);
+    if (items.count() > 0) return items.at(0);
+  }
+
+  DeviserClass* element = dynamic_cast<DeviserClass*> (item);
+  if (element != NULL)
+  {
+    QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(element->getName(), Qt::MatchExactly | Qt::MatchRecursive);
+    if (items.count() > 0) return items.at(0);
+  }
+
+  DeviserEnum* pEnum = dynamic_cast<DeviserEnum*> (item);
+  if (pEnum != NULL)
+  {
+    QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(pEnum->getName(), Qt::MatchExactly | Qt::MatchRecursive);
+    if (items.count() > 0) return items.at(0);
+  }
+
+  return NULL;
+}
+
 
 DeviserBase*
 MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
@@ -527,6 +613,15 @@ MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
   }
 
   return NULL;
+}
+
+void
+MainWindow::selectTreeItem(DeviserBase *item)
+{
+  QTreeWidgetItem *treeItem = getTreeItemForDeviserItem(item);
+  if (treeItem == NULL) return;
+  treeItem->setSelected(true);
+  ui->treeWidget->setCurrentItem(treeItem, 0, QItemSelectionModel::Select);
 }
 
 

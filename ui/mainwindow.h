@@ -51,7 +51,13 @@ public slots:
   void saveFileAs();
   void saveAsFile(const QString&);
   void showUML();
-  void validateDescription();
+  /**
+   * validates the description, returning the code of the
+   * dialog.
+   *
+   * @return the dialog exit code
+   */
+  int validateDescription();
 
   void copyUML();
   void copyXML();
@@ -77,6 +83,8 @@ public slots:
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);
+  QTreeWidgetItem* getTreeItemForDeviserItem(DeviserBase* item);
+  void selectTreeItem(DeviserBase *item);
   void closeEvent(QCloseEvent *event);
   void dragEnterEvent(QDragEnterEvent *e);
   void dropEvent(QDropEvent *e);
