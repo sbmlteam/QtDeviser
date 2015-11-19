@@ -49,7 +49,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Name:</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -69,7 +69,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>TypeCode: </string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TypeCode: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -277,7 +277,7 @@
          <item row="1" column="1">
           <widget class="QLineEdit" name="txtMinNumChildren">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The minimum number of child elements expected when a listOf class is present. Note this needs to be &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;1&lt;/span&gt;&lt;span&gt; if the listOf cannot be empty. A missing entry implies there is no minimum.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The minimum number of child elements expected when a listOf class is present. Note this needs to be &lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;1&lt;/span&gt; if the listOf cannot be empty. A missing entry or &lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt; implies there is no minimum.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -328,7 +328,7 @@
          <item row="1" column="1">
           <widget class="QLineEdit" name="txtMaxNumChildren">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The maximum number of child elements expected when a listOf class is present. A missing entry implies there is no maximum.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The maximum number of child elements expected when a listOf class is present. A missing entry or &lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt; implies there is no maximum.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
