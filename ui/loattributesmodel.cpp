@@ -44,9 +44,9 @@ LoAttributesModel::data(const QModelIndex &index, int role) const
   case 1:
     return attr->getType();
   case 2:
-    return attr->getElement();
-  case 3:
     return attr->getRequired();
+  case 3:
+    return attr->getElement();
   case 4:
     return attr->getAbstract();
   case 5:
@@ -74,10 +74,10 @@ LoAttributesModel::setData(const QModelIndex &index,
     attr->setType(value.toString());
     return true;
   case 2:
-    attr->setElement(value.toString());
+    attr->setRequired(value.toBool());
     return true;
   case 3:
-    attr->setRequired(value.toBool());
+    attr->setElement(value.toString());
     return true;
   case 4:
     attr->setAbstract(value.toBool());
@@ -107,9 +107,9 @@ LoAttributesModel::headerData(int section,
   case 1:
     return "Type";
   case 2:
-    return "Element";
-  case 3:
     return "Required";
+  case 3:
+    return "Element";
   case 4:
     return "isBaseClass";
   case 5:

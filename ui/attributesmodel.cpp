@@ -50,9 +50,9 @@ AttributesModel::data(const QModelIndex &index, int role) const
     case 1:
       return "The type of the attribute/element. Allowed values are: SId, SIdRef, string, bool, double, int, unsigned int, UnitSId, UnitSIdRef, enum, element, lo_element, inline_lo_element.";
     case 2:
-      return "This field provides additional information depending on the <b>Type</b> of the attribute/element. It may be the name of the element, enumeration or object being referenced.";
-    case 3:
       return "States whether the attribute or element is mandatory. This should be <b>true</b> if the attribute/element is mandatory; <b>false</b> if not.";
+    case 3:
+      return "This field provides additional information depending on the <b>Type</b> of the attribute/element. It may be the name of the element, enumeration or object being referenced.";
     case 4:
       return "States whether this element is a base class. This should be <b>true</b> if the element is a base class and therefore not instantiated directly; <b>false</b> if not.";
     case 5:
@@ -69,9 +69,9 @@ AttributesModel::data(const QModelIndex &index, int role) const
   case 1:
     return attr->getType();
   case 2:
-    return attr->getElement();
-  case 3:
     return attr->getRequired();
+  case 3:
+    return attr->getElement();
   case 4:
     return attr->getAbstract();
   case 5:
@@ -99,10 +99,10 @@ AttributesModel::setData(const QModelIndex &index,
     attr->setType(value.toString());
     return true;
   case 2:
-    attr->setElement(value.toString());
+    attr->setRequired(value.toBool());
     return true;
   case 3:
-    attr->setRequired(value.toBool());
+    attr->setElement(value.toString());
     return true;
   case 4:
     attr->setAbstract(value.toBool());
@@ -132,9 +132,9 @@ AttributesModel::headerData(int section,
   case 1:
     return "Type";
   case 2:
-    return "Element";
-  case 3:
     return "Required";
+  case 3:
+    return "Element";
   case 4:
     return "isBaseClass";
   case 5:
