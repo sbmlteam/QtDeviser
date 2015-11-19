@@ -31,7 +31,7 @@ DialogGenerate::DialogGenerate(QWidget *parent)
 {
   ui->setupUi(this);
 
-  connect (&workerThread, SIGNAL(finished()), this, SLOT(finished()));
+  connect (&workerThread, SIGNAL(finished(int)), this, SLOT(finished(int)));
 
   FlowLayout::applyToWidget(ui->tabIntegration);
 
@@ -241,12 +241,39 @@ DialogGenerate::addMessage(const QString& message)
 
 
 void
-DialogGenerate::finished()
+DialogGenerate::finished(int code /*= 0*/)
 {
   while(mpProcess->canReadLine())
     addMessage(mpProcess->readLine());
   addMessage();
-  addMessage("DONE");
+
+  switch(code)
+  {
+  case 1:
+    addMessage("Error: Failed to read file.");
+    break;
+  case 2:
+    addMessage("Error: Missing function argument.");
+    break;
+  case 3:
+    addMessage("Error: Invalid function arguments.");
+    break;
+  case 4:
+    addMessage("Error: Parsing error.");
+    break;
+  case 5:
+    addMessage("Warning: Unknown type used.");
+    break;
+  case 6:
+    addMessage("Error: Unknown error - please report.");
+    break;
+
+  case 0:
+  default:
+    addMessage("DONE");
+    break;
+  }
+
   addMessage();
   setEnabled(true);
 

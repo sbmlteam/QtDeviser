@@ -26,7 +26,7 @@ public slots:
   void finished(int exitCode, QProcess::ExitStatus exitStatus);
 
 signals:
-  void finished();
+  void finished(int);
 
 private:
   QDialog* mpParent;

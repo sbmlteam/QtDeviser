@@ -49,9 +49,9 @@ void WorkerThread::run()
 }
 
 void
-WorkerThread::finished(int /*exitCode*/,
+WorkerThread::finished(int exitCode,
                        QProcess::ExitStatus /*exitStatus*/)
 {
   mpProcess = NULL;
-  emit finished();
+  emit finished(exitCode);
 }

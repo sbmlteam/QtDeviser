@@ -41,7 +41,7 @@ public slots:
   void addToSourceDir();
 
   void addMessage(const QString& message = "");
-  void finished();
+  void finished(int code = 0);
   void readyOutput();
   void error(QProcess::ProcessError);
 
