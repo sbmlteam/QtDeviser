@@ -8,7 +8,7 @@ QT       += core gui xml network svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = QtDeviser
+TARGET = DeviserEdit
 TEMPLATE = app
 
 
@@ -152,4 +152,4 @@ DISTFILES += \
     main.tex
 
 target.path = $$PREFIX/
-INSTALLS += QtDeviser
+INSTALLS += DeviserEdit

@@ -1,13 +1,13 @@
 ###################################################################
 #
-# CMake Build Script for QtDeviser
+# CMake Build Script for DeviserEdit
 #
-# Frank T. Bergmann
+# Frank T. Bergmann 
 #
 #
 
 cmake_minimum_required(VERSION 2.6)
-project(QtDeviser)
+project(DeviserEdit)
 
 
 set(DEVISER_VERSION_MAJOR)
@@ -52,7 +52,7 @@ set(CPACK_SOURCE_PACKAGE_FILE_NAME
   "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 set(CPACK_SOURCE_IGNORE_FILES
   "aa;aa.zip;screenshots;.DS_STORE;testmodels/.DS_Store;/build/;/.bzr/;~$;${CPACK_SOURCE_IGNORE_FILES}")
-set(CPACK_NSIS_CREATE_ICONS "CreateShortCut '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Deviser Edit.lnk' '\$INSTDIR\\\\bin\\\\QtDeviser.exe'")
+set(CPACK_NSIS_CREATE_ICONS "CreateShortCut '\$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Deviser Edit.lnk' '\$INSTDIR\\\\bin\\\\DeviserEdit.exe'")
 include(CPack)
 
 ###############################################################################
@@ -175,7 +175,7 @@ set(EXECUTABLE_FLAGS)
 set(EXTRA_FILES)
 
 if(WIN32 AND NOT CYGWIN)
-  option(ENABLE_UI_CONSOLE "Show the console window (to see debug messages) when running QtDeviser" OFF)
+  option(ENABLE_UI_CONSOLE "Show the console window (to see debug messages) when running Deviser Edit" OFF)
   if (NOT ENABLE_UI_CONSOLE)
     set(EXECUTABLE_FLAGS WIN32)
     if(MSVC)
@@ -202,7 +202,7 @@ set(MACOSX_BUNDLE_COPYRIGHT ${MACOSX_BUNDLE_INFO_STRING})
 endif()
 
 
-add_executable(QtDeviser ${EXECUTABLE_FLAGS} ${CPP_FILES}
+add_executable(DeviserEdit ${EXECUTABLE_FLAGS} ${CPP_FILES}
   ${H_FILES}
   ${HEADERS_MOC}
   ${FORMS_HEADERS}
@@ -211,14 +211,14 @@ add_executable(QtDeviser ${EXECUTABLE_FLAGS} ${CPP_FILES}
 )
 
 if (APPLE)
-add_custom_command(TARGET QtDeviser POST_BUILD 
-  COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:QtDeviser>/../Resources
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Images/ICON_Deviser.icns $<TARGET_FILE_DIR:QtDeviser>/../Resources)
+add_custom_command(TARGET DeviserEdit POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:DeviserEdit>/../Resources
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Images/ICON_Deviser.icns $<TARGET_FILE_DIR:DeviserEdit>/../Resources)
 endif()
 
-install(TARGETS QtDeviser DESTINATION bin)
+install(TARGETS DeviserEdit DESTINATION bin)
 
-QT_BIND_TO_TARGET(QtDeviser)
+QT_BIND_TO_TARGET(DeviserEdit)
 
 SET(DIRS)
 
@@ -242,7 +242,7 @@ endif()
 
 if (NOT APPLE)
 
-  SET(APPS "\${CMAKE_INSTALL_PREFIX}/bin/QtDeviser${CMAKE_EXECUTABLE_SUFFIX}" CACHE INTERNAL "")
+  SET(APPS "\${CMAKE_INSTALL_PREFIX}/bin/DeviserEdit${CMAKE_EXECUTABLE_SUFFIX}" CACHE INTERNAL "")
   if (EXTRA_LIBS)
   install(TARGETS EXTRA_LIBS DESTINATION bin)
   endif()
@@ -259,7 +259,7 @@ endif()
 
 message(STATUS         
 "
- Project QtDeviser ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}
+ Project Deviser Edit ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}
  ===========================
  
  Install Prefix : ${CMAKE_INSTALL_PREFIX}

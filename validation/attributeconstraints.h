@@ -2,6 +2,7 @@
 #define SIDREFCONSTRAINT_H
 
 #include <QString>
+#include <QStringList>
 
 #include "deviserconstraint.h"
 
