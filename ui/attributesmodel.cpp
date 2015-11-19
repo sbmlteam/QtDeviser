@@ -39,20 +39,18 @@ AttributesModel::data(const QModelIndex &index, int role) const
       role != Qt::EditRole &&
       role != Qt::ToolTipRole) return QVariant();
 
-  const DeviserAttribute* attr = (*mData)[index.row()];
-
   if (role == Qt::ToolTipRole)
   {
     switch(index.column())
     {
     case 0:
-      return "The name of the attribute/element to be used by code generation.  The XML output may use a different name (see <b>XML Name</b>).";
+      return "The name of the attribute/element to be used by code generation.  The XML output may use a different name (see <b>XML Name</b>). This field is required.";
     case 1:
-      return "The type of the attribute/element. Allowed values are: SId, SIdRef, string, bool, double, int, unsigned int, UnitSId, UnitSIdRef, enum, element, lo_element, inline_lo_element.";
+      return "The type of the attribute/element. Allowed values are: SId, SIdRef, string, bool, double, int, unsigned int, UnitSId, UnitSIdRef, enum, element, lo_element, inline_lo_element. This field is required.";
     case 2:
       return "States whether the attribute or element is mandatory. This should be <b>true</b> if the attribute/element is mandatory; <b>false</b> if not.";
     case 3:
-      return "This field provides additional information depending on the <b>Type</b> of the attribute/element. It may be the name of the element, enumeration or object being referenced.";
+      return "This field provides additional information depending on the <b>Type</b> of the attribute/element. It may be the name of the element, enumeration or object being referenced. This field is required for attributes of type SIdRef, enum, element, lo_element, inline_lo_element.";
     case 4:
       return "States whether this element is a base class. This should be <b>true</b> if the element is a base class and therefore not instantiated directly; <b>false</b> if not.";
     case 5:
@@ -61,6 +59,8 @@ AttributesModel::data(const QModelIndex &index, int role) const
       return QVariant();
     }
   }
+
+  const DeviserAttribute* attr = (*mData)[index.row()];
 
   switch(index.column())
   {

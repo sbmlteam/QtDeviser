@@ -45,9 +45,9 @@ ConcretesModel::data(const QModelIndex &index, int role) const
     switch(index.column())
     {
     case 0:
-      return "The name of the instantiation of this class to be used by the XML output.";
+      return "The name of the instantiation of this class to be used by the XML output. This field is required.";
     case 1:
-      return "The <b>Name</b> of the class that will be derived from this base class. Note this class should also be defined within this package. ";
+      return "The <b>Name</b> of the class that will be derived from this base class. Note this class should also be defined within this package. This field is required.";
     case 2:
       return "The minimum number of child elements that may be present on this element. A missing value or 0 implies there is no minimum.";
     case 3:

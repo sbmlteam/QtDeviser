@@ -62,7 +62,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The name of the class that will be used by the code generation. The XML output may use a different name (see &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;XML ElementName&lt;/span&gt;&lt;span&gt;).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The name of the class that will be used by the code generation. The XML output may use a different name (see &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;XML ElementName&lt;/span&gt;&lt;span&gt;).This field is required.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -82,7 +82,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The value that will be used in an enumeration of types for this package. Typically a TypeCode takes the form SBML_PACKAGE_CLASS.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value that will be used in an enumeration of types for this package. Typically a TypeCode takes the form SBML_PACKAGE_CLASS. This field is required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>

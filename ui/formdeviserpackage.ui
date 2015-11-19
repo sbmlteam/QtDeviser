@@ -34,7 +34,11 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="txtName"/>
+       <widget class="QLineEdit" name="txtName">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The short &lt;span style=&quot; font-weight:600;&quot;&gt;name&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;label&lt;/span&gt; given to this package. This will be used in the associated URL and as the package XML prefix. This field is required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
@@ -52,7 +56,7 @@
       <item row="1" column="1">
        <widget class="QLineEdit" name="txtFullName">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The full title of the package as it would be written in a specification document.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>The full title of the package as it would be written in a specification document. This field is required.</string>
         </property>
        </widget>
       </item>
