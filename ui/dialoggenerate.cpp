@@ -35,6 +35,8 @@ DialogGenerate::DialogGenerate(QWidget *parent)
 
   FlowLayout::applyToWidget(ui->tabIntegration);
 
+  ui->cmdTestLibSBML->setVisible(false);
+
 }
 
 DialogGenerate::~DialogGenerate()
@@ -730,8 +732,8 @@ DialogGenerate::addToSourceDir()
         packageDir + "/" + lowerFirst + "-package.cmake",
         libSBMLSourceDir
         );
-
   addMessage();
+
   addMessage("DONE");
   addMessage();
 }
