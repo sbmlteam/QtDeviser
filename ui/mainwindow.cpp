@@ -542,25 +542,45 @@ MainWindow::getTreeItemForDeviserItem(DeviserBase *item)
     }
   }
 
+  version = item->getParentVersion();
+
+  if (version == NULL) return NULL;
+
+  QTreeWidgetItem* versionItem = getTreeItemForDeviserItem(version);
+  if (versionItem == NULL) return NULL;
+
+
   DeviserPlugin* plugin = dynamic_cast<DeviserPlugin*> (item);
   if (plugin != NULL)
   {
     QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(plugin->getExtensionPoint(), Qt::MatchExactly | Qt::MatchRecursive);
-    if (items.count() > 0) return items.at(0);
+    foreach(QTreeWidgetItem* treeItem, items)
+    {
+      if (treeItem->parent()->parent() == versionItem)
+        return treeItem;
+    }
   }
 
   DeviserClass* element = dynamic_cast<DeviserClass*> (item);
   if (element != NULL)
   {
     QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(element->getName(), Qt::MatchExactly | Qt::MatchRecursive);
-    if (items.count() > 0) return items.at(0);
+    foreach(QTreeWidgetItem* treeItem, items)
+    {
+      if (treeItem->parent()->parent() == versionItem)
+        return treeItem;
+    }
   }
 
   DeviserEnum* pEnum = dynamic_cast<DeviserEnum*> (item);
   if (pEnum != NULL)
   {
     QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(pEnum->getName(), Qt::MatchExactly | Qt::MatchRecursive);
-    if (items.count() > 0) return items.at(0);
+    foreach(QTreeWidgetItem* treeItem, items)
+    {
+      if (treeItem->parent()->parent() == versionItem)
+        return treeItem;
+    }
   }
 
   return NULL;
