@@ -749,6 +749,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>menuRecentFiles</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openRecentFile(QAction*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>67</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>424</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
