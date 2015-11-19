@@ -45,6 +45,8 @@ public slots:
   void readyOutput();
   void error(QProcess::ProcessError);
 
+  void toggleControls(bool enable) const;
+
 private:
   Ui::DialogGenerate *ui;
   DeviserPackage* mPackage;

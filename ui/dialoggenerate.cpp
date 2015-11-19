@@ -171,7 +171,7 @@ DialogGenerate::generateTex()
                           args);
   workerThread.start();
 
-  setEnabled(false);  
+  toggleControls(false);
 
 }
 
@@ -181,7 +181,15 @@ DialogGenerate::error(QProcess::ProcessError)
   while(mpProcess->canReadLine())
     addMessage(mpProcess->readLine());
   addMessage();
-  setEnabled(true);
+  toggleControls(true);
+}
+
+void
+DialogGenerate::toggleControls(bool enable) const
+{
+  ui->widgetControls->setEnabled(enable);
+  ui->widgetsButtons->setEnabled(enable);
+  ui->widgetTitle->setEnabled(enable);
 }
 
 void
@@ -226,7 +234,7 @@ DialogGenerate::generatePackageCode()
                           args);
   workerThread.start();
 
-  setEnabled(false);
+  toggleControls(false);
 }
 
 void
@@ -275,7 +283,7 @@ DialogGenerate::finished(int code /*= 0*/)
   }
 
   addMessage();
-  setEnabled(true);
+  toggleControls(true);
 
 }
 
@@ -427,7 +435,7 @@ DialogGenerate::compileTex()
   workerThread.setProcess(mpProcess, executable, args);
   workerThread.start();
 
-  setEnabled(false);
+  toggleControls(false);
 
 }
 
@@ -572,7 +580,7 @@ DialogGenerate::compileLibSBML()
 
   }
 
-  setEnabled(false);
+  toggleControls(false);
 
 }
 
@@ -684,7 +692,7 @@ DialogGenerate::compileDependencies()
 
   }
 
-  setEnabled(false);
+  toggleControls(false);
 
 }
 
