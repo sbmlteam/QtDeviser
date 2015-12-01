@@ -90,6 +90,8 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
 
     return true;
   }
+  else if (attribute->getType() == "SIdRef")
+    return false;
 
   if (attribute->getType().isEmpty())
   {
