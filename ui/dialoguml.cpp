@@ -1,13 +1,16 @@
 #include "dialoguml.h"
 #include "ui_dialoguml.h"
 
-#include "mainwindow.h"
+#include <ui/smoothgraphicsitem.h>
+#include <ui/mainwindow.h>
 
-#include "model/deviserversion.h"
+#include <model/deviserversion.h>
+#include <model/devisersettings.h>
 
 #include <QFileDialog>
 #include <QScrollBar>
 #include <QGraphicsPixmapItem>
+
 #include <QGraphicsSvgItem>
 
 #include <QNetworkRequest>
@@ -20,9 +23,6 @@
 #include <QTemporaryFile>
 
 #include <cstdlib>
-
-#include <ui/smoothgraphicsitem.h>
-#include <model/devisersettings.h>
 
 
 bool DialogUML::mRegistered = false;
@@ -45,7 +45,6 @@ DialogUML::DialogUML(QWidget *parent)
   , mpDownloadManager(new QNetworkAccessManager(this))
   , mCurrent("")
 {  
-
 
   if (!mRegistered)
   {
@@ -113,7 +112,6 @@ DialogUML::updateGraph()
 
   ui->progressBar->setVisible(true);
 
-
 }
 
 
@@ -141,18 +139,15 @@ DialogUML::downloadFinished(QNetworkReply *reply)
 
   if (ui->chkUseSVG->isChecked())
   {
+    QTemporaryFile file("svg");
+    file.setAutoRemove(false);
+    file.open();
+    file.write(data);
+    file.close();
 
-  QTemporaryFile file("svg");
-  file.setAutoRemove(false);
-  file.open();
-  file.write(data);
-  file.close();
+    mFileList.append(file.fileName());
 
-  mFileList.append(file.fileName());
-
-
-  item = new QGraphicsSvgItem(file.fileName());
-
+    item = new QGraphicsSvgItem(file.fileName());
   }
   else
   {
@@ -175,6 +170,9 @@ DialogUML::downloadFinished(QNetworkReply *reply)
   ui->progressBar->setVisible(false);
 
   reply->deleteLater();
+
+  emit finishedUpdate();
+
 }
 
 void
@@ -216,7 +214,6 @@ DialogUML::exportImage(const QString& filename, const QString& ext)
 
 }
 
-
 void
 DialogUML::downloadImageFinished(QNetworkReply *reply)
 {
@@ -227,8 +224,10 @@ DialogUML::downloadImageFinished(QNetworkReply *reply)
   file.close();
 
   reply->deleteLater();
-}
 
+  emit finishedDownload();
+
+}
 
 void
 DialogUML::styleChanged()
@@ -241,7 +240,6 @@ DialogUML::fitChanged()
 {
   updateGraph();
 }
-
 
 void
 DialogUML::resizeEvent(QResizeEvent * /*event*/)
@@ -256,4 +254,3 @@ void DialogUML::closing()
   DeviserSettings::getInstance()->setFitUML(ui->chkFitUML->isChecked());
   DeviserSettings::getInstance()->saveSettings();
 }
-

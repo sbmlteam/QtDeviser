@@ -27,6 +27,8 @@ public:
                  DeviserVersion* version,
                  const QString& fileName);
 
+  void createImagesIn(const QString& destDir);
+  void downloadFiles(const QString& destDir, const QString& yuml, const QString& baseName);
 
 public slots:
   void testLibSBML();

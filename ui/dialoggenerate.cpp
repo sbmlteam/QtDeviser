@@ -2,21 +2,26 @@
 #include "ui_dialoggenerate.h"
 
 #include <QDir>
-#include <QFile>
-#include <QTextStream>
 #include <QUrl>
+#include <QFile>
 #include <QProcess>
-#include <QProcessEnvironment>
+#include <QEventLoop>
+#include <QTextStream>
 #include <QFileDialog>
 #include <QStringList>
+#include <QMessageBox>
 #include <QApplication>
 #include <QDesktopServices>
-#include <QMessageBox>
+#include <QProcessEnvironment>
 
-#include <model/devisersettings.h>
+#include <model/deviserenum.h>
+#include <model/deviserclass.h>
+#include <model/deviserplugin.h>
 #include <model/deviserpackage.h>
+#include <model/devisersettings.h>
 
 #include <ui/flowlayout.h>
+#include <ui/dialoguml.h>
 
 #include <util.h>
 
@@ -65,7 +70,71 @@ DialogGenerate::loadModel(DeviserPackage* package,
   ui->txtOutDir->setText(
         DeviserSettings::getInstance()->getDefaultOutputDir());
   ui->txtPackageName->setText(package->getName());
-  ui->txtPackageFile->setText(fileName);  
+  ui->txtPackageFile->setText(fileName);
+}
+
+void DialogGenerate::createImagesIn(const QString &destDir)
+{
+
+  foreach(DeviserVersion* version, mPackage->getVersions())
+  {
+    const QString& yuml = version->toYuml();
+    downloadFiles(destDir, yuml, QString("%1/%2_version_%3_complete")
+                  .arg(destDir)
+                  .arg(mPackage->getName().toLower())
+                  .arg(version->getPkgVersion()));
+
+    foreach(DeviserClass* element, version->getElements())
+    {
+      const QString& yuml = element->toYuml();
+      downloadFiles(destDir, yuml, QString("%1/%2_%3_uml")
+                    .arg(destDir)
+                    .arg(mPackage->getName().toLower())
+                    .arg(element->getName().toLower()));
+    }
+
+    foreach(DeviserPlugin* plugin, version->getPlugins())
+    {
+      const QString& yuml = plugin->toYuml();
+      downloadFiles(destDir, yuml, QString("%1/%2_extended_%3_uml")
+                    .arg(destDir)
+                    .arg(mPackage->getName().toLower())
+                    .arg(plugin->getExtensionPoint().toLower()));
+    }
+
+    foreach(DeviserEnum* element, version->getEnums())
+    {
+      const QString& yuml = element->toYuml();
+      downloadFiles(destDir, yuml, QString("%1/%2_type_enum_%3_uml")
+                    .arg(destDir)
+                    .arg(mPackage->getName().toLower())
+                    .arg(element->getName().toLower()));
+    }
+  }
+}
+
+void DialogGenerate::downloadFiles(const QString &destDir, const QString &yuml, const QString &baseName)
+{
+  QEventLoop loop1;
+  QEventLoop loop2;
+  DialogUML *uml = new DialogUML(this);
+
+  connect(uml, SIGNAL(finishedUpdate()), &loop1, SLOT(quit()));
+  connect(uml, SIGNAL(finishedDownload()), &loop2, SLOT(quit()));
+  uml->loadYuml(yuml);
+  QFileInfo info(baseName);
+  addMessage("...Uploading Yuml for: " + info.baseName() );
+  loop1.exec();
+
+  uml->exportImage(baseName + ".pdf","pdf");
+  addMessage("...Downloading PDF");
+
+  loop2.exec();
+  uml->exportImage(baseName + ".png","png");
+  addMessage("...Downloading PNG");
+  loop2.exec();
+
+  addMessage("...DONE");
 }
 
 void
@@ -152,6 +221,8 @@ DialogGenerate::generateTex()
     {
       QDir().mkdir(dest);
     }
+
+  createImagesIn(dest);
 
   QString deviser = DeviserSettings::getInstance()->getDeviserRepository()
       + "/generator/deviser.py";

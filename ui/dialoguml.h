@@ -35,6 +35,10 @@ public slots:
   void downloadImageFinished(QNetworkReply *reply);
   void closing();
 
+signals:
+  void finishedDownload();
+  void finishedUpdate();
+
 protected:
   virtual void resizeEvent(QResizeEvent * event);
 
