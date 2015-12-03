@@ -224,7 +224,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tabLatex">
          <attribute name="title">
@@ -253,6 +253,13 @@
               </property>
               <property name="text">
                <string>Generate Latex</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cmdGenerateLatexWithFigures">
+              <property name="text">
+               <string>Generate Latex with Figures</string>
               </property>
              </widget>
             </item>
@@ -558,6 +565,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cmdGenerateLatexWithFigures</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogGenerate</receiver>
+   <slot>generateTexWithFigures()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>329</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>466</x>
+     <y>239</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>testLibSBML()</slot>
@@ -570,5 +593,6 @@
   <slot>compileDependencies()</slot>
   <slot>browseOutputDir()</slot>
   <slot>addToSourceDir()</slot>
+  <slot>generateTexWithFigures()</slot>
  </slots>
 </ui>

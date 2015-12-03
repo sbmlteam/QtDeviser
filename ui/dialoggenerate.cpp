@@ -79,7 +79,7 @@ void DialogGenerate::createImagesIn(const QString &destDir)
   foreach(DeviserVersion* version, mPackage->getVersions())
   {
     const QString& yuml = version->toYuml();
-    downloadFiles(destDir, yuml, QString("%1/%2_version_%3_complete")
+    downloadFiles(yuml, QString("%1/%2_version_%3_complete")
                   .arg(destDir)
                   .arg(mPackage->getName().toLower())
                   .arg(version->getPkgVersion()));
@@ -87,7 +87,7 @@ void DialogGenerate::createImagesIn(const QString &destDir)
     foreach(DeviserClass* element, version->getElements())
     {
       const QString& yuml = element->toYuml();
-      downloadFiles(destDir, yuml, QString("%1/%2_%3_uml")
+      downloadFiles(yuml, QString("%1/%2_%3_uml")
                     .arg(destDir)
                     .arg(mPackage->getName().toLower())
                     .arg(element->getName().toLower()));
@@ -96,7 +96,7 @@ void DialogGenerate::createImagesIn(const QString &destDir)
     foreach(DeviserPlugin* plugin, version->getPlugins())
     {
       const QString& yuml = plugin->toYuml();
-      downloadFiles(destDir, yuml, QString("%1/%2_extended_%3_uml")
+      downloadFiles(yuml, QString("%1/%2_extended_%3_uml")
                     .arg(destDir)
                     .arg(mPackage->getName().toLower())
                     .arg(plugin->getExtensionPoint().toLower()));
@@ -105,7 +105,7 @@ void DialogGenerate::createImagesIn(const QString &destDir)
     foreach(DeviserEnum* element, version->getEnums())
     {
       const QString& yuml = element->toYuml();
-      downloadFiles(destDir, yuml, QString("%1/%2_type_enum_%3_uml")
+      downloadFiles(yuml, QString("%1/%2_type_enum_%3_uml")
                     .arg(destDir)
                     .arg(mPackage->getName().toLower())
                     .arg(element->getName().toLower()));
@@ -113,7 +113,7 @@ void DialogGenerate::createImagesIn(const QString &destDir)
   }
 }
 
-void DialogGenerate::downloadFiles(const QString &destDir, const QString &yuml, const QString &baseName)
+void DialogGenerate::downloadFiles(const QString &yuml, const QString &baseName)
 {
   QEventLoop loop1;
   QEventLoop loop2;
@@ -188,7 +188,7 @@ DialogGenerate::openOutputDir()
 }
 
 void
-DialogGenerate::generateTex()
+DialogGenerate::generateTex(bool withFigures)
 {
   ui->plainTextEdit->clear();
   addMessage("Generating LaTex");
@@ -222,6 +222,7 @@ DialogGenerate::generateTex()
       QDir().mkdir(dest);
     }
 
+  if (withFigures)
   createImagesIn(dest);
 
   QString deviser = DeviserSettings::getInstance()->getDeviserRepository()
@@ -244,6 +245,11 @@ DialogGenerate::generateTex()
 
   toggleControls(false);
 
+}
+
+void DialogGenerate::generateTexWithFigures()
+{
+  generateTex(true);
 }
 
 void

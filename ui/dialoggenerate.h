@@ -28,13 +28,14 @@ public:
                  const QString& fileName);
 
   void createImagesIn(const QString& destDir);
-  void downloadFiles(const QString& destDir, const QString& yuml, const QString& baseName);
+  void downloadFiles(const QString& yuml, const QString& baseName);
 
 public slots:
   void testLibSBML();
   void removeFromSourceDir();
   void openOutputDir();
-  void generateTex();
+  void generateTex(bool withFigures=false);
+  void generateTexWithFigures();
   void generatePackageCode();
   void compileTex();
   void compileLibSBML();
