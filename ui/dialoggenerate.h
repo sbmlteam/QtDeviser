@@ -15,9 +15,20 @@ class DialogGenerate;
 class DeviserPackage;
 class DeviserVersion;
 
+
 class DialogGenerate : public QDialog
 {
   Q_OBJECT
+
+  enum  Actions
+  {
+    COMPILE_TEX,
+    COMPILE_LIBSBML,
+    COMPILE_DEPENDENCIES,
+    GENERATE_TEX,
+    GENERATE_PACKAGE_CODE,
+    OTHER
+  };
 
 public:
   explicit DialogGenerate(QWidget *parent = 0);
@@ -57,6 +68,9 @@ private:
   QProcess *mpProcess;
 
   WorkerThread workerThread;
+
+  Actions mLastAction;
+
 };
 
 #endif // DIALOGGENERATE_H

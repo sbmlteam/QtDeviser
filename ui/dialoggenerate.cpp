@@ -33,6 +33,7 @@ DialogGenerate::DialogGenerate(QWidget *parent)
   , mVersion(NULL)
   , mpProcess(NULL)
   , workerThread(this)
+  , mLastAction(OTHER)
 {
   ui->setupUi(this);
 
@@ -190,6 +191,8 @@ DialogGenerate::openOutputDir()
 void
 DialogGenerate::generateTex(bool withFigures)
 {
+  mLastAction = GENERATE_TEX;
+
   ui->plainTextEdit->clear();
   addMessage("Generating LaTex");
   addMessage("================");
@@ -282,6 +285,9 @@ DialogGenerate::toggleControls(bool enable) const
 void
 DialogGenerate::generatePackageCode()
 {
+  mLastAction = GENERATE_PACKAGE_CODE;
+
+
   ui->plainTextEdit->clear();
   addMessage("Generating Package Code");
   addMessage("=======================");
@@ -342,6 +348,17 @@ DialogGenerate::finished(int code /*= 0*/)
     addMessage(mpProcess->readLine());
   addMessage();
 
+  if (mLastAction != GENERATE_PACKAGE_CODE &&
+      mLastAction != GENERATE_TEX)
+  {
+    addMessage("DONE");
+    addMessage();
+    toggleControls(true);
+    mLastAction = OTHER;
+    return;
+  }
+
+
   switch(code)
   {
   case 1:
@@ -371,6 +388,7 @@ DialogGenerate::finished(int code /*= 0*/)
 
   addMessage();
   toggleControls(true);
+  mLastAction = OTHER;
 
 }
 
@@ -387,6 +405,8 @@ DialogGenerate::readyOutput()
 void
 DialogGenerate::compileTex()
 {
+  mLastAction = COMPILE_TEX;
+
   ui->plainTextEdit->clear();
   addMessage("Compile Latex");
   addMessage("=============");
@@ -538,6 +558,8 @@ DialogGenerate::compileTex()
 void
 DialogGenerate::compileLibSBML()
 {
+  mLastAction = COMPILE_LIBSBML;
+
   ui->plainTextEdit->clear();
   addMessage("Compiling LibSBML");
   addMessage("=================");
@@ -683,6 +705,8 @@ DialogGenerate::compileLibSBML()
 void
 DialogGenerate::compileDependencies()
 {
+  mLastAction = COMPILE_DEPENDENCIES;
+
   ui->plainTextEdit->clear();
 
   addMessage("Compile Dependencies");
