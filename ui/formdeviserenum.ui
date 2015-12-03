@@ -69,6 +69,34 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Quick Add: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="txtQuickAdd">
+       <property name="toolTip">
+        <string>Enter the value of the new enum value to be created. </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="toolQuickAdd">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When clicked, a new enum value will be created with the upper case package name, the upper case enum name and the value under &lt;span style=&quot; font-weight:600;&quot;&gt;Quick Add&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../deviser-resources.qrc">
+         <normaloff>:/images/tools_wizard.png</normaloff>:/images/tools_wizard.png</iconset>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="2" column="0">
@@ -91,7 +119,6 @@
  </widget>
  <tabstops>
   <tabstop>txtName</tabstop>
-  <tabstop>toolAdd</tabstop>
   <tabstop>toolDel</tabstop>
   <tabstop>tblValues</tabstop>
  </tabstops>
@@ -147,10 +174,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>toolQuickAdd</sender>
+   <signal>clicked()</signal>
+   <receiver>FormDeviserEnum</receiver>
+   <slot>quickAdd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>378</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRow()</slot>
   <slot>deleteRow()</slot>
   <slot>nameChanged(QString)</slot>
+  <slot>quickAdd()</slot>
  </slots>
 </ui>

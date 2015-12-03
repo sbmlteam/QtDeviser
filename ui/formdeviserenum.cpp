@@ -7,6 +7,7 @@
 
 #include <model/deviserenum.h>
 #include <model/deviserenumvalue.h>
+#include <model/deviserpackage.h>
 
 #include <ui/enummodel.h>
 
@@ -61,6 +62,27 @@ FormDeviserEnum::addRow()
 
   mpValues->beginAdding();
   mEnum->createValue();
+  mpValues->endAdding();
+
+}
+
+void FormDeviserEnum::quickAdd()
+{
+  if (mEnum == NULL || mEnum ->getParent() == NULL) return;
+
+  if (mEnum->getName().isEmpty()) return;
+  if (mEnum->getParent()->getName().isEmpty()) return;
+
+  QString newValue = ui->txtQuickAdd->text();
+  if (newValue.isEmpty()) return;
+
+  mpValues->beginAdding();
+  DeviserEnumValue* value = mEnum->createValue();
+  value->setValue(newValue);
+  value->setName(QString("%1_%2_%3")
+                 .arg(mEnum->getParent()->getName().toUpper())
+                 .arg(mEnum->getName().toUpper())
+                 .arg(newValue.toUpper()));
   mpValues->endAdding();
 
 }
