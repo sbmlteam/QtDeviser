@@ -223,7 +223,17 @@ DialogGenerate::generateTex(bool withFigures)
     }
 
   if (withFigures)
-  createImagesIn(dest);
+  {
+    QString figures = dest + "/figures";
+    QDir figuresDir(figures);
+    if (!figuresDir.exists())
+      if (!figuresDir.mkdir("."))
+      {
+        QDir().mkdir(figures);
+      }
+
+    createImagesIn(figures);
+  }
 
   QString deviser = DeviserSettings::getInstance()->getDeviserRepository()
       + "/generator/deviser.py";
@@ -409,6 +419,15 @@ DialogGenerate::compileTex()
     return;
   }
 
+  QFile pdfFile (destDir.absolutePath() + "/" + "main.pdf");
+  if (pdfFile.exists())
+  {
+    if (!pdfFile.remove())
+    {
+      addMessage("Error: The PDF is already present and cannot be overwritten. Please ensure that it is not open in a PDF viewer.");
+      return;
+    }
+  }
 
   QFile mainFile (destDir.absolutePath() + "/" + "main.tex");
   if (!mainFile .exists())
