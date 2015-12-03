@@ -224,7 +224,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tabLatex">
          <attribute name="title">
@@ -392,6 +392,7 @@
   <tabstop>cmdGeneratePackageCode</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>cmdGenerateTex</tabstop>
+  <tabstop>cmdGenerateLatexWithFigures</tabstop>
   <tabstop>cmdCompileTex</tabstop>
   <tabstop>cmdCompileDependencies</tabstop>
   <tabstop>cmdAddToSourceDir</tabstop>
