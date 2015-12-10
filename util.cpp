@@ -6,6 +6,8 @@
 #include <QString>
 #include <QTextStream>
 
+#include <model/devisersettings.h>
+
 Util::Util()
 {
 
@@ -58,6 +60,41 @@ Util::getCoreClassesMap()
   data.close();
 
   return result;
+}
+
+QStringList Util::getKnownTypes()
+{
+  return QStringList()
+      << "enum"
+      << "array"
+      << "element"
+      << "lo_element"
+      << "inline_lo_element"
+      << "string"
+      << "double"
+      << "int"
+      << "bool"
+      << "boolean"
+      << "uint"
+      << "unsigned int"
+      << "positive int"
+      << "non-negative int"
+      << "integer"
+      << "unsigned integer"
+      << "positive integer"
+      << "non-negative integer"
+      << "ID"
+      << "IDRef"
+      << "SId"
+      << "SIdRef"
+      << "UnitSId"
+      << "UnitSIdRef";
+}
+
+QStringList& Util::getUserDefinedTypes()
+{
+  DeviserSettings* instance = DeviserSettings::getInstance();
+  return instance->getUserDefinedTypes();
 }
 
 QString

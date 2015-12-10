@@ -53,6 +53,8 @@ public:
 
   DeviserAttribute* createAttribute();
 
+  void getUsedTypes(QStringList& list) const;
+
 signals:
   void extensionPointChanged(const QString& oldName, const QString& newName,
                              const DeviserVersion* version);

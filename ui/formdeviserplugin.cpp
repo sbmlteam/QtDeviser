@@ -12,6 +12,7 @@
 #include <model/deviserattribute.h>
 
 #include <ui/attributesmodel.h>
+#include <ui/typechooserdelegate.h>
 
 FormDeviserPlugin::FormDeviserPlugin(QWidget *parent)
   : QWidget(parent)
@@ -22,6 +23,9 @@ FormDeviserPlugin::FormDeviserPlugin(QWidget *parent)
   , mbInitializing(true)
 {
   ui->setupUi(this);
+
+  TypeChooserDelegate* combo1 = new TypeChooserDelegate(ui->tblAttributes);
+  ui->tblAttributes->setItemDelegate(combo1);
 }
 
 FormDeviserPlugin::~FormDeviserPlugin()

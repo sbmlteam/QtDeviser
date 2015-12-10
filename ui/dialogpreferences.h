@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <QStandardItemModel>
+#include <QSortFilterProxyModel>
 
 namespace Ui {
 class DialogPreferences;
@@ -16,7 +18,7 @@ class DialogPreferences : public QDialog
   Q_OBJECT
 
 public:
-  explicit DialogPreferences(QWidget *parent = 0);
+  explicit DialogPreferences(DeviserPackage* package, QWidget *parent = 0);
   ~DialogPreferences();
 
   void loadSettings();
@@ -24,6 +26,10 @@ public:
 
 
 public slots:
+
+  void addType();
+  void delType();
+
   void browsePython();
   void browseDeviserRepo();
   void browseOutputDir();
@@ -39,6 +45,13 @@ public slots:
 
 private:
   Ui::DialogPreferences *ui;
+  QStandardItemModel* mpTypes;
+  QSortFilterProxyModel* mpTypesFilter;
+
+  DeviserPackage* mpModel;
+
+  bool mbInitializing;
+
 };
 
 #endif // DIALOGPREFERENCES_H

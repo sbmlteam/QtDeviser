@@ -86,6 +86,13 @@ DeviserSettings::loadSettings(const QString& settingsFile)
     mRecentFiles << list.at(i).toElement().text();
   }
 
+  mUserDefinedTypes.clear();
+  list =  root.elementsByTagName("type");
+  for (int i = 0; i < list.count(); ++i)
+  {
+    mUserDefinedTypes << list.at(i).toElement().text();
+  }
+
 }
 
 void
@@ -136,7 +143,13 @@ DeviserSettings::saveSettings()
   {
     writer.writeTextElement("file", filename);
   }
+  writer.writeEndElement();
 
+  writer.writeStartElement("UserDefinedTypes");
+  foreach(QString type, mUserDefinedTypes)
+  {
+    writer.writeTextElement("type", type);
+  }
   writer.writeEndElement();
 
   writer.writeEndElement();
@@ -199,6 +212,27 @@ void DeviserSettings::removeRecentFile(const QString &filename)
   mRecentFiles.removeAll(filename);
   saveSettings();
 }
+
+QStringList &
+DeviserSettings::getUserDefinedTypes()
+{
+  return mUserDefinedTypes;
+}
+
+void
+DeviserSettings::addType(const QString &type)
+{
+  mUserDefinedTypes.append(type);
+  saveSettings();
+}
+
+void
+DeviserSettings::removeType(const QString &type)
+{
+  mUserDefinedTypes.removeAll(type);
+  saveSettings();
+}
+
 bool DeviserSettings::getUseSVG() const
 {
     return mUseSVG;

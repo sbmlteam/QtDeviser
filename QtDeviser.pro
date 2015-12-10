@@ -61,7 +61,8 @@ SOURCES += main.cpp \
     ui/dialogdisplaynumbers.cpp \
     validation/attributeconstraints.cpp \
     validation/enumconstraint.cpp \
-    validation/instantiationconstraint.cpp
+    validation/instantiationconstraint.cpp \
+    ui/typechooserdelegate.cpp
 
 
 HEADERS  += util.h \
@@ -115,7 +116,8 @@ HEADERS  += util.h \
     ui/dialogdisplaynumbers.h \
     validation/attributeconstraints.h \
     validation/enumconstraint.h \
-    validation/instantiationconstraint.h
+    validation/instantiationconstraint.h \
+    ui/typechooserdelegate.h
 
 
 

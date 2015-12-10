@@ -71,6 +71,8 @@ public:
   QList<QString> getUsedClasses() const;
   QList<QString> getDefinedClasses() const;
 
+  void getUsedTypes(QStringList& list) const;
+
 signals:
   void identityChanged(const QString& oldIdentity, const QString& newIdentity,
                        const DeviserVersion* version);

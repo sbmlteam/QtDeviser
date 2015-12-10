@@ -2,13 +2,21 @@
 #include "ui_dialogpreferences.h"
 
 #include <model/devisersettings.h>
+#include <model/deviserpackage.h>
 #include <util.h>
 
 #include <QFileDialog>
+#include <QMessageBox>
 
-DialogPreferences::DialogPreferences(QWidget *parent)
+#include <set>
+
+DialogPreferences::DialogPreferences(DeviserPackage* package, QWidget *parent)
  : QDialog(parent)
  , ui(new Ui::DialogPreferences)
+ , mpTypes(NULL)
+ , mpTypesFilter(NULL)
+ , mpModel(package)
+ , mbInitializing(true)
 {
   ui->setupUi(this);
 }
@@ -31,6 +39,25 @@ DialogPreferences::loadSettings()
   ui->txtSbmlPkgSpec->setText(settings->getSbmlPkgSpecDir());
   ui->txtSwig->setText(settings->getSwigExecutable());
 
+  ui->tblUserDefinedTypes->setModel(NULL);
+  if (mpTypesFilter != NULL)
+    mpTypesFilter->deleteLater();
+  if (mpTypes != NULL)
+    mpTypes->deleteLater();
+
+  mpTypesFilter = new QSortFilterProxyModel(this);
+  mpTypes = new QStandardItemModel(this);
+  mpTypes->setHorizontalHeaderLabels( QStringList() << "type");
+
+  foreach(QString type, settings->getUserDefinedTypes())
+  {
+    mpTypes->appendRow(new QStandardItem( type ));
+  }
+  mpTypesFilter->setSourceModel(mpTypes);
+  ui->tblUserDefinedTypes->setModel(mpTypesFilter);
+
+
+
 }
 
 void
@@ -51,8 +78,53 @@ DialogPreferences::saveSettings()
   settings->setSbmlPkgSpecDir(ui->txtSbmlPkgSpec->text());
   settings->setSwigExecutable(ui->txtSwig->text());
 
+  QStringList& types = settings->getUserDefinedTypes();
+  types.clear();
+
+  for (int i = 0; i < mpTypes->rowCount(); ++i)
+  {
+    types << mpTypes->data(mpTypes->index(i, 0)).toString();
+  }
+
   settings->saveSettings();
 
+}
+
+void DialogPreferences::addType()
+{
+  mpTypes->appendRow( new QStandardItem( "newType" ) );
+}
+
+void DialogPreferences::delType()
+{
+  const QModelIndexList& list = ui->tblUserDefinedTypes->selectionModel()->selectedIndexes();
+  if (list.count() == 0) return;
+
+  std::set<int> rows;
+
+  QStringList usedTypes = mpModel->getUsedTypes();
+
+  foreach(const QModelIndex& index, list)
+  {
+    rows.insert(index.row());
+    QString type = mpTypesFilter->data(index).toString();
+    if (usedTypes.contains(type))
+    {
+      QMessageBox::critical(this, "Type still in use",
+                            QString("The type '%1' cannot be deleted, as it is still used in the model. Please make sure that the type is no longer in use before deleting it.").arg(type),
+                            QMessageBox::Ok, QMessageBox::Ok);
+      return;
+    }
+  }
+
+
+
+  std::set<int>::reverse_iterator it = rows.rbegin();
+  while (it != rows.rend())
+  {
+    mpTypes->removeRow(*it);
+    ++it;
+  }
 }
 
 

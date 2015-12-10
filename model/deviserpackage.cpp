@@ -5,6 +5,7 @@
 #include <QDomDocument>
 #include <QByteArray>
 #include <QTextStream>
+#include <QStringList>
 
 DeviserPackage::DeviserPackage()
   : DeviserBase()
@@ -165,6 +166,18 @@ DeviserPackage::getDefaultListOfClass() const
   if (!mLanguage.listOfClass().isEmpty())
     return mLanguage.listOfClass();
   return "ListOf";
+}
+
+QStringList
+DeviserPackage::getUsedTypes() const
+{
+  QStringList result;
+  foreach (DeviserVersion* version, mVersions)
+  {
+    version->getUsedTypes(result);
+  }
+
+  return result;
 }
 
 void

@@ -2,7 +2,7 @@
 #
 # CMake Build Script for DeviserEdit
 #
-# Frank T. Bergmann 
+# Frank T. Bergmann
 #
 #
 

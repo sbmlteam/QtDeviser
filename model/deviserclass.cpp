@@ -10,6 +10,7 @@
 
 #include <QByteArray>
 #include <QTextStream>
+#include <QStringList>
 
 DeviserClass::DeviserClass()
   : DeviserBase()
@@ -560,4 +561,20 @@ DeviserClass::toYuml(bool usecolor) const
   stream << endl;
   stream.flush();    
   return QString::fromUtf8(array);
+}
+
+void
+DeviserClass::getUsedTypes(QStringList &list) const
+{
+  foreach (DeviserAttribute* attribute, mAttributes)
+  {
+    if (!list.contains(attribute->getType()))
+      list.append(attribute->getType());
+  }
+
+  foreach (DeviserAttribute* attribute, mListOfAttributes)
+  {
+    if (!list.contains(attribute->getType()))
+      list.append(attribute->getType());
+  }
 }

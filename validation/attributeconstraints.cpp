@@ -2,10 +2,12 @@
 
 #include <model/devisertypes.h>
 
+#include <util.h>
+
 AttributeConstraints::AttributeConstraints(DeviserValidator* validator)
   : DeviserConstraint(validator)
   , mKnownElementTypes()
-  , mKnownTypes()
+  , mKnownTypes(Util::getKnownTypes())
 {
 
   mKnownElementTypes << "enum"
@@ -15,27 +17,6 @@ AttributeConstraints::AttributeConstraints(DeviserValidator* validator)
               << "inline_lo_element"
                  ;
 
-  mKnownTypes << mKnownElementTypes
-              << "string"
-              << "double"
-              << "bool"
-              << "boolean"
-              << "int"
-              << "uint"
-              << "unsigned int"
-              << "positive int"
-              << "non-negative int"
-              << "integer"
-              << "unsigned integer"
-              << "positive integer"
-              << "non-negative integer"
-              << "id"
-              << "idref"
-              << "sid"
-              << "sidref"
-              << "unitsid"
-              << "unitsidref"
-              ;
 }
 
 int AttributeConstraints::analyzePackage(DeviserPackage *package)
@@ -102,7 +83,7 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
     return true;
   }
 
-  if (mKnownElementTypes.contains(attribute->getType().toLower()))
+  if (mKnownElementTypes.contains(attribute->getType().toLower(), Qt::CaseInsensitive))
   {
     if (attribute->getElement().isEmpty())
     {
@@ -130,7 +111,7 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
     result = true;
   }
 
-  if (!mKnownTypes.contains(attribute->getType().toLower()))
+  if (!mKnownTypes.contains(attribute->getType().toLower(), Qt::CaseInsensitive))
   {
     ADD_MESSAGE_WITH_SEVERITY(DEVISER_WARNING,
                               "The attribute '"

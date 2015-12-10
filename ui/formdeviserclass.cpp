@@ -14,6 +14,7 @@
 #include <ui/attributesmodel.h>
 #include <ui/loattributesmodel.h>
 #include <ui/concretesmodel.h>
+#include <ui/typechooserdelegate.h>
 
 #include <util.h>
 
@@ -32,6 +33,12 @@ FormDeviserClass::FormDeviserClass(QWidget *parent)
   , mbInitializing(true)
 {
   ui->setupUi(this);
+
+  TypeChooserDelegate* combo1 = new TypeChooserDelegate(ui->tblAttributes);
+  ui->tblAttributes->setItemDelegate(combo1);
+  TypeChooserDelegate* combo2 = new TypeChooserDelegate(ui->tblLoAttributes);
+  ui->tblAttributes->setItemDelegate(combo2);
+
 }
 
 FormDeviserClass::~FormDeviserClass()

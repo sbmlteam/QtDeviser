@@ -17,6 +17,10 @@ public:
   static QList<QString> getCoreClasses();
   static QMap<QString, QString> getCoreClassesMap();
 
+  static QStringList getKnownTypes();
+  static QStringList& getUserDefinedTypes();
+
+
   static QString getClassColor();
   static QString getEnumColor();
   static QString getExtensionColor();

@@ -67,6 +67,10 @@ public:
   void addRecentFile(const QString& filename);
   void removeRecentFile(const QString& filename);
 
+  QStringList& getUserDefinedTypes();
+  void addType(const QString& type);
+  void removeType(const QString& type);
+
   bool getUseSVG() const;
   void setUseSVG(bool useSVG);
 
@@ -94,6 +98,7 @@ protected:
   QString mPythonLib;
   QString mVsBatchFile;
   QStringList mRecentFiles;
+  QStringList mUserDefinedTypes;
 
   bool mFitUML;
   bool mUseSVG;

@@ -132,7 +132,7 @@ MainWindow::getCurrentVersion()
 void
 MainWindow::editPreferences()
 {
-  DialogPreferences preferences(this);
+  DialogPreferences preferences(mModel, this);
   preferences.loadSettings();
   if (preferences.exec() == QDialog::Accepted)
     preferences.saveSettings();

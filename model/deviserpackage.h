@@ -68,7 +68,7 @@ public:
   DeviserLanguage& getLanguage();
   void setLanguage(const DeviserLanguage &language);
   QString getDefaultListOfClass() const;
-
+  QStringList getUsedTypes() const;
 
 signals:
   void nameChanged();

@@ -7,6 +7,7 @@
 
 #include <QByteArray>
 #include <QTextStream>
+#include <QStringList>
 
 DeviserPlugin::DeviserPlugin()
   : DeviserBase()
@@ -254,6 +255,15 @@ DeviserPlugin::createAttribute()
   setParent(mPackage);
   setModified();
   return result;
+}
+
+void DeviserPlugin::getUsedTypes(QStringList &list) const
+{
+  foreach (DeviserAttribute* attribute, mAttributes)
+  {
+    if (!list.contains(attribute->getType()))
+      list.append(attribute->getType());
+  }
 }
 
 void

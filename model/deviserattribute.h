@@ -56,6 +56,8 @@ protected:
   bool mRequired;
   bool mAbstract;
 
+  static QStringList mKnownTypes;
+
 };
 
 #endif // DEVISERATTRIBUTE_H

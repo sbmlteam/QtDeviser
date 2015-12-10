@@ -414,3 +414,18 @@ QList<QString> DeviserVersion::getDefinedClasses() const
   return result;
 }
 
+void
+DeviserVersion::getUsedTypes(QStringList &list) const
+{
+  foreach (DeviserClass* element, mElements)
+  {
+    element->getUsedTypes(list);
+  }
+
+  foreach (DeviserPlugin* element, mPlugins)
+  {
+    element->getUsedTypes(list);
+  }
+
+}
+

@@ -83,6 +83,8 @@ public:
 
   virtual QString toYuml(bool usecolor = true) const;
 
+  void getUsedTypes(QStringList& list) const;
+
 signals:
   void nameChanged(const QString& oldName, const QString& newName,
                    const DeviserVersion* version);

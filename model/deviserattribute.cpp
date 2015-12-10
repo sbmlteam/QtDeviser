@@ -4,8 +4,12 @@
 #include "deviserversion.h"
 #include "util.h"
 
+#include <model/devisersettings.h>
+
 #include <QTextStream>
 #include <QByteArray>
+
+QStringList DeviserAttribute::mKnownTypes = Util::getKnownTypes();
 
 DeviserAttribute::DeviserAttribute()
   : DeviserReferenceAttribute()
@@ -54,6 +58,36 @@ DeviserAttribute::initializeFrom(const QDomElement& element)
 
   mRequired = element.attribute("required").toLower() == "true";
   mType = element.attribute("type");
+
+  bool found = false;
+  foreach (QString str, mKnownTypes)
+  {
+    if (QString::compare( mType, str, Qt::CaseInsensitive) == 0 )
+    {
+      mType = str;
+      found = true;
+      break;
+    }
+  }
+
+  if (!found)
+  {
+    DeviserSettings* instance = DeviserSettings::getInstance();
+    QStringList& userDefinedTypes = instance->getUserDefinedTypes();
+    foreach (QString str, userDefinedTypes)
+    {
+      if (QString::compare( mType, str, Qt::CaseInsensitive) == 0 )
+      {
+        mType = str;
+        found = true;
+        break;
+      }
+    }
+
+    if (!found)
+      userDefinedTypes.append(mType);
+  }
+
   mElement = element.attribute("element");
   mXMLName = element.attribute("xmlName");
   mAbstract = element.attribute("abstract").toLower() == "true";
