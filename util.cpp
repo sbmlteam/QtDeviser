@@ -84,7 +84,7 @@ QStringList Util::getKnownTypes()
       << "positive integer"
       << "non-negative integer"
       << "ID"
-      << "IDRef"
+      << "IDREF"
       << "SId"
       << "SIdRef"
       << "UnitSId"
