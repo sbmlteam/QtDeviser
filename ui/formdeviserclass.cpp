@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QTableWidgetItem>
 #include <QSortFilterProxyModel>
+#include <QMessageBox>
 
 #include <model/deviserclass.h>
 #include <model/deviserpackage.h>
@@ -98,7 +99,15 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
   {
     ui->txtName->setText(element->getName());
     ui->txtBaseClass->setText(element->getBaseClass());
+
+    const QString& typeCode = element->getTypeCode();
+    const QString defaultTypeCode = element->getDefaultTypeCode();
+    bool haveDefault = typeCode.isEmpty() || (typeCode == defaultTypeCode);
     ui->txtTypeCode->setText(element->getTypeCode());
+    ui->chkUseDefault->setChecked(true);
+
+    ui->stackTypeCode->setCurrentIndex( haveDefault ? 1 : 0);
+
     ui->txtXMLElementName->setText(element->getElementName());
 
     ui->chkHasListOf->setChecked(
@@ -375,20 +384,24 @@ void FormDeviserClass::defaultXmlElementName()
 
 void FormDeviserClass::defaultTypeCode()
 {
-  if (ui->txtName->text().isEmpty()) return;
-  if (mElement == NULL || mElement->getParent() == NULL || mElement->getParent()->getName().isEmpty())
+  QString defaultTypeCode = mElement->getDefaultTypeCode();
+  if (defaultTypeCode.isEmpty())
+  {
+    QMessageBox::critical(this, "Can't generate type code", "The type code can only be generated, once the package has been named, and the name of the class has been specified.");
     return;
+  }
 
-  QString newTypeCode = QString("SBML_%1_%2")
-                             .arg(mElement->getParent()->getName().toUpper())
-                             .arg(ui->txtName->text().toUpper()) ;
-  ui->txtTypeCode->setText(newTypeCode);
-  typeCodeChanged(newTypeCode);
+  ui->txtTypeCode->setText(defaultTypeCode);
+  typeCodeChanged(defaultTypeCode);
 }
 
 void FormDeviserClass::defaultListOfName()
 {
-  if (ui->txtName->text().isEmpty()) return;
+  if (ui->txtName->text().isEmpty())
+  {
+    QMessageBox::critical(this, "Can't generate name", "The listOf name can only be generated, once the class has been specified.");
+    return;
+  }
   QString newListOfName = QString("listOf%1")
       .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text())));
   ui->txtListOfName->setText(newListOfName);
@@ -413,10 +426,32 @@ void FormDeviserClass::defaultBaseClass()
 
 void FormDeviserClass::defaultListOfClassName()
 {
-  if (ui->txtName->text().isEmpty()) return;
+  if (ui->txtName->text().isEmpty())
+  {
+    QMessageBox::critical(this, "Can't generate name", "The listOf class name can only be generated, once the class has been specified.");
+    return;
+  }
+
   QString newListOfClassName = Util::upperFirst( QString("listOf%1")
                                                  .arg(Util::upperFirst(Util::guessPlural(ui->txtName->text()))));
   ui->txtListOfClassName->setText(newListOfClassName);
   listOfClassNameChanged(newListOfClassName);
+
+}
+
+void FormDeviserClass::defaultToggled(bool isChecked)
+{
+  if (mbInitializing || mElement == NULL) return;
+
+  const QString& typeCode = mElement->getTypeCode();
+  if (typeCode.isEmpty() && !isChecked)
+  {
+    QString defaultTypecode = mElement->getDefaultTypeCode();
+    mElement->setTypeCode(defaultTypecode);
+    ui->txtTypeCode->setText(defaultTypecode);
+    typeCodeChanged(defaultTypecode);
+  }
+
+  ui->stackTypeCode->setCurrentIndex( isChecked ? 1 : 0);
 
 }

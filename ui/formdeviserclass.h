@@ -2,6 +2,7 @@
 #define FORMDEVISERCLASS_H
 
 #include <QWidget>
+#include <QCheckBox>
 
 namespace Ui {
 class FormDeviserClass;
@@ -52,6 +53,8 @@ public slots:
   void defaultListOfName();
   void defaultBaseClass();
   void defaultListOfClassName();
+
+  void defaultToggled(bool isChecked);
 
 private:
   Ui::FormDeviserClass *ui;

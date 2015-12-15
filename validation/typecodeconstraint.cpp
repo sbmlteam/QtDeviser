@@ -21,9 +21,12 @@ int TypeCodeConstraint::analyzePackage(DeviserPackage *package)
       if (!element->getTypeCode().isEmpty())
         continue;
 
+      if (!element->getDefaultTypeCode().isEmpty())
+        continue;
+
       ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "The element '"
                                 << element->getName()
-                                << "' has no typecode defined, this is a required attribute.");
+                                << "' has no typecode defined, and it can not be generated automatically.");
       ++count;
 
     }

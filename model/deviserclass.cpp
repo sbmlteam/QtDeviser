@@ -174,6 +174,20 @@ DeviserClass::setTypeCode(const QString &typeCode)
   setModified();
 }
 
+QString DeviserClass::getDefaultTypeCode() const
+{
+  if (mName.isEmpty()) return "";
+  if (getParent() == NULL || getParent()->getName().isEmpty()) return "";
+
+  QString language = mPackage->getLanguage().name().toUpper();
+  if (language.isEmpty()) language = "SBML";
+
+  return QString("%1_%2_%3")
+      .arg(language)
+      .arg(getParent()->getName().toUpper())
+      .arg(mName.toUpper()) ;
+}
+
 bool
 DeviserClass::hasListOf() const
 {
@@ -392,6 +406,8 @@ DeviserClass::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("name", mName);
   if (!mTypeCode.isEmpty())
     writer.writeAttribute("typeCode", mTypeCode);
+  else
+    writer.writeAttribute("typeCode", getDefaultTypeCode());
 
   writer.writeAttribute("hasListOf", mHasListOf ? "true" : "false");
   writer.writeAttribute("hasChildren", mHasChildren ? "true" : "false");

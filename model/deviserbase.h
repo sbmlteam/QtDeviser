@@ -32,6 +32,7 @@ public:
   virtual void writeTo(QXmlStreamWriter& writer) const;
 
   DeviserPackage* getParent();
+  const DeviserPackage* getParent() const;
   DeviserVersion* getParentVersion();
 
 protected:

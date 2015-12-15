@@ -4,6 +4,7 @@
 #include <set>
 
 #include <QSortFilterProxyModel>
+#include <QMessageBox>
 
 #include <model/deviserenum.h>
 #include <model/deviserenumvalue.h>
@@ -68,13 +69,28 @@ FormDeviserEnum::addRow()
 
 void FormDeviserEnum::quickAdd()
 {
-  if (mEnum == NULL || mEnum ->getParent() == NULL) return;
+  if (mEnum == NULL || mEnum ->getParent() == NULL)
+  {
+    return;
+  }
 
-  if (mEnum->getName().isEmpty()) return;
-  if (mEnum->getParent()->getName().isEmpty()) return;
+  if (mEnum->getName().isEmpty())
+  {
+    QMessageBox::critical(this, "Can't add element", "A new element can only be added if the enum has a name.");
+    return;
+  }
+  if (mEnum->getParent()->getName().isEmpty())
+  {
+    QMessageBox::critical(this, "Can't add element", "A new element can only be added if the package has a name.");
+    return;
+  }
 
   QString newValue = ui->txtQuickAdd->text();
-  if (newValue.isEmpty()) return;
+  if (newValue.isEmpty())
+  {
+    QMessageBox::critical(this, "Can't add element", "A new element can only be added if the text under 'quick add' is not empty.");
+    return;
+  }
 
   mpValues->beginAdding();
   DeviserEnumValue* value = mEnum->createValue();

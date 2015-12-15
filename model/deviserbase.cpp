@@ -100,6 +100,12 @@ DeviserBase::getParent()
   return mPackage;
 }
 
+const DeviserPackage*
+DeviserBase::getParent() const
+{
+  return mPackage;
+}
+
 DeviserVersion*
 DeviserBase::getParentVersion()
 {

@@ -27,6 +27,9 @@ public:
   const QString& getTypeCode() const;
   void setTypeCode(const QString& typeCode);
 
+  QString getDefaultTypeCode() const;
+
+
   bool hasListOf() const;
   void setHasListOf(bool hasListOf);
 

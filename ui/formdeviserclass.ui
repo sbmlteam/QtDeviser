@@ -46,14 +46,7 @@
         <property name="topMargin">
          <number>0</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
+        <item row="0" column="2">
          <widget class="QLineEdit" name="txtName">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -66,6 +59,13 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
@@ -73,20 +73,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="txtTypeCode">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value that will be used in an enumeration of types for this package. Typically a TypeCode takes the form SBML_PACKAGE_CLASS. This field is required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
+        <item row="3" column="2">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QCheckBox" name="chkHasListOf">
@@ -111,17 +98,88 @@
          </layout>
         </item>
         <item row="1" column="2">
-         <widget class="QToolButton" name="cmdDefaultTypeCode">
-          <property name="toolTip">
-           <string>Clicking this button will populate the field with the default value assumed by SBML and libSBML convention.</string>
+         <widget class="QStackedWidget" name="stackTypeCode">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="text">
-           <string/>
+          <property name="currentIndex">
+           <number>1</number>
           </property>
-          <property name="icon">
-           <iconset resource="../deviser-resources.qrc">
-            <normaloff>:/images/tools_wizard.png</normaloff>:/images/tools_wizard.png</iconset>
-          </property>
+          <widget class="QWidget" name="page">
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLineEdit" name="txtTypeCode">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value that will be used in an enumeration of types for this package. Typically a TypeCode takes the form SBML_PACKAGE_CLASS. This field is required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="cmdDefaultTypeCode">
+              <property name="toolTip">
+               <string>Clicking this button will populate the field with the default value assumed by SBML and libSBML convention.</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../deviser-resources.qrc">
+                <normaloff>:/images/tools_wizard.png</normaloff>:/images/tools_wizard.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_2">
+           <layout class="QGridLayout" name="gridLayout_6">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="chkUseDefault">
+              <property name="toolTip">
+               <string>When checked the default type code of form SBML_&lt;PACKAGE&gt;_&lt;NAME&gt; will be used.</string>
+              </property>
+              <property name="text">
+               <string>Use default type code</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -658,7 +716,6 @@
  </widget>
  <tabstops>
   <tabstop>txtName</tabstop>
-  <tabstop>txtTypeCode</tabstop>
   <tabstop>chkHasListOf</tabstop>
   <tabstop>chkIsBaseClass</tabstop>
   <tabstop>txtBaseClass</tabstop>
@@ -1102,6 +1159,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>chkUseDefault</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>FormDeviserClass</receiver>
+   <slot>defaultToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>292</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>nameChanged(QString)</slot>
@@ -1130,5 +1203,6 @@
   <slot>defaultXmlElementName()</slot>
   <slot>defaultListOfClassName()</slot>
   <slot>defaultListOfName()</slot>
+  <slot>defaultToggled(bool)</slot>
  </slots>
 </ui>
