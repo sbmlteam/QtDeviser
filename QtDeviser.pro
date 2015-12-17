@@ -62,7 +62,8 @@ SOURCES += main.cpp \
     validation/attributeconstraints.cpp \
     validation/enumconstraint.cpp \
     validation/instantiationconstraint.cpp \
-    ui/typechooserdelegate.cpp
+    ui/typechooserdelegate.cpp \
+    ui/attributedelegate.cpp
 
 
 HEADERS  += util.h \
@@ -117,7 +118,8 @@ HEADERS  += util.h \
     validation/attributeconstraints.h \
     validation/enumconstraint.h \
     validation/instantiationconstraint.h \
-    ui/typechooserdelegate.h
+    ui/typechooserdelegate.h \
+    ui/attributedelegate.h
 
 
 

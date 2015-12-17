@@ -38,6 +38,9 @@
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The short &lt;span style=&quot; font-weight:600;&quot;&gt;name&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;label&lt;/span&gt; given to this package. This will be used in the associated URL and as the package XML prefix. This field is required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="0">
@@ -57,6 +60,9 @@
        <widget class="QLineEdit" name="txtFullName">
         <property name="toolTip">
          <string>The full title of the package as it would be written in a specification document. This field is required.</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
         </property>
        </widget>
       </item>
@@ -97,7 +103,11 @@
     <widget class="QWidget" name="widget_2" native="true">
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="1">
-       <widget class="QLineEdit" name="txtNumber"/>
+       <widget class="QLineEdit" name="txtNumber">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_3">
@@ -156,7 +166,11 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="txtOffset"/>
+       <widget class="QLineEdit" name="txtOffset">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="2">
        <widget class="QToolButton" name="cmdShowOffset">
@@ -442,6 +456,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>txtName</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>nameModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>417</x>
+     <y>29</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtFullName</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>fullNameModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>417</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtOffset</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>offsetModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>405</x>
+     <y>290</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtNumber</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserPackage</receiver>
+   <slot>numberModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>405</x>
+     <y>199</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>nameChanged(QString)</slot>
@@ -455,5 +533,9 @@
   <slot>browseDeclaration()</slot>
   <slot>browseImplementation()</slot>
   <slot>showNumbersAndOffsets()</slot>
+  <slot>nameModified(QString)</slot>
+  <slot>fullNameModified(QString)</slot>
+  <slot>numberModified(QString)</slot>
+  <slot>offsetModified(QString)</slot>
  </slots>
 </ui>

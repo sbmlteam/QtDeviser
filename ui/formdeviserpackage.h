@@ -32,6 +32,11 @@ public slots:
   void declarationChanged(const QString&);
   void showNumbersAndOffsets();
 
+  void nameModified(const QString &);
+  void fullNameModified(const QString&);
+  void numberModified(const QString&);
+  void offsetModified(const QString&);
+
 private:
   Ui::FormDeviserPackage *ui;
   DeviserPackage* mPackage;

@@ -25,6 +25,7 @@ public slots:
   void quickAdd();
   void deleteRow();
   void nameChanged(const QString&);
+  void nameModified(const QString&);
 
 
 private:

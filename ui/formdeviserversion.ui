@@ -66,6 +66,9 @@
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;version&lt;/span&gt;&lt;span&gt; of the &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SBML Level 3 Package&lt;/span&gt;&lt;span&gt; being described.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -238,6 +241,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>txtPackageVersion</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserVersion</receiver>
+   <slot>pkgVersionModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>416</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>versionChanged(QString)</slot>
@@ -246,5 +265,6 @@
   <slot>upPressed()</slot>
   <slot>downPressed()</slot>
   <slot>ignorePackageVersionChanged()</slot>
+  <slot>pkgVersionModified(QString)</slot>
  </slots>
 </ui>

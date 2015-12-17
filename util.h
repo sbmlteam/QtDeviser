@@ -20,6 +20,7 @@ public:
   static QStringList getKnownTypes();
   static QStringList& getUserDefinedTypes();
 
+  static QString getErrorStyleSheet();
 
   static QString getClassColor();
   static QString getEnumColor();

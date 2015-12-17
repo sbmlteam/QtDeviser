@@ -1,6 +1,8 @@
 #include "formdeviserversion.h"
 #include "ui_formdeviserversion.h"
 
+#include "util.h"
+
 #include <model/deviserversion.h>
 #include <model/deviserclass.h>
 
@@ -42,6 +44,7 @@ FormDeviserVersion::initializeFrom(DeviserVersion* version)
     ui->txtCoreLevel->setText(QString::number(version->getLevel()));
     ui->txtCoreVersion->setText(QString::number(version->getVersion()));
     ui->txtPackageVersion->setText(QString::number(version->getPkgVersion()));
+    pkgVersionModified(QString::number(version->getPkgVersion()));
     ui->chkIgnorePackageVersion->setChecked(version->getIgnorePackageVersion());
 
     foreach(DeviserClass* element, version->getElements())
@@ -118,6 +121,16 @@ FormDeviserVersion::pkgVersionChanged(const QString& version)
 {
   if (mVersion == NULL || mbInitializing) return;
   mVersion->setPkgVersion(version.toInt());
+
+}
+
+void
+FormDeviserVersion::pkgVersionModified(const QString &value)
+{
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+    ui->txtPackageVersion->setStyleSheet(Util::getErrorStyleSheet());
+  else
+    ui->txtPackageVersion->setStyleSheet("");
 
 }
 

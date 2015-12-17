@@ -16,6 +16,7 @@
 #include <ui/loattributesmodel.h>
 #include <ui/concretesmodel.h>
 #include <ui/typechooserdelegate.h>
+#include <ui/attributedelegate.h>
 
 #include <util.h>
 
@@ -35,10 +36,10 @@ FormDeviserClass::FormDeviserClass(QWidget *parent)
 {
   ui->setupUi(this);
 
-  TypeChooserDelegate* combo1 = new TypeChooserDelegate(ui->tblAttributes);
-  ui->tblAttributes->setItemDelegate(combo1);
-  TypeChooserDelegate* combo2 = new TypeChooserDelegate(ui->tblLoAttributes);
-  ui->tblAttributes->setItemDelegate(combo2);
+  AttributeDelegate* delegate1 = new AttributeDelegate(ui->tblAttributes);
+  ui->tblAttributes->setItemDelegate(delegate1);
+  AttributeDelegate* delegate2 = new AttributeDelegate(ui->tblLoAttributes);
+  ui->tblLoAttributes->setItemDelegate(delegate2);
 
 }
 
@@ -98,12 +99,14 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
   if (mElement != NULL)
   {
     ui->txtName->setText(element->getName());
+    nameModified(element->getName());
     ui->txtBaseClass->setText(element->getBaseClass());
 
     const QString& typeCode = element->getTypeCode();
     const QString defaultTypeCode = element->getDefaultTypeCode();
     bool haveDefault = typeCode.isEmpty() || (typeCode == defaultTypeCode);
     ui->txtTypeCode->setText(element->getTypeCode());
+    typeCodeModified(element->getTypeCode());
     ui->chkUseDefault->setChecked(true);
 
     ui->stackTypeCode->setCurrentIndex( haveDefault ? 1 : 0);
@@ -454,4 +457,22 @@ void FormDeviserClass::defaultToggled(bool isChecked)
 
   ui->stackTypeCode->setCurrentIndex( isChecked ? 1 : 0);
 
+}
+
+void
+FormDeviserClass::nameModified(const QString &value)
+{
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+    ui->txtName->setStyleSheet(Util::getErrorStyleSheet());
+  else
+    ui->txtName->setStyleSheet("");
+}
+
+void
+FormDeviserClass::typeCodeModified(const QString &value)
+{
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+    ui->txtTypeCode->setStyleSheet(Util::getErrorStyleSheet());
+  else
+    ui->txtTypeCode->setStyleSheet("");
 }

@@ -1,5 +1,6 @@
 #include "formdeviserenum.h"
 #include "ui_formdeviserenum.h"
+#include "util.h"
 
 #include <set>
 
@@ -45,6 +46,7 @@ FormDeviserEnum::initializeFrom(DeviserEnum* devEnum)
   if (mEnum != NULL)
   {
     ui->txtName->setText(devEnum->getName());
+    nameModified(devEnum->getName());
 
     mpValuesFilter = new QSortFilterProxyModel(this);
     mpValues = new EnumModel(this, &mEnum->getValues());
@@ -131,4 +133,13 @@ FormDeviserEnum::nameChanged(const QString& name)
 
   mEnum->setName(name);
 
+}
+
+void
+FormDeviserEnum::nameModified(const QString &value)
+{
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+    ui->txtName->setStyleSheet(Util::getErrorStyleSheet());
+  else
+    ui->txtName->setStyleSheet("");
 }

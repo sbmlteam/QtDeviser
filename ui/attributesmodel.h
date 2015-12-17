@@ -12,6 +12,16 @@ class DeviserAttribute;
 class AttributesModel : public QAbstractTableModel
 {
 public:
+  enum COLUMS
+  {
+    REQUIRED,
+    NAME,
+    TYPE,
+    ELEMENT,
+    ABSTRACT,
+    XMLName
+  };
+
   AttributesModel(QObject * parent, QList<DeviserAttribute*>* data);
 
   virtual int rowCount(const QModelIndex &) const;
@@ -22,8 +32,8 @@ public:
   virtual Qt::ItemFlags flags(const QModelIndex &index) const;
 
   void addAttribute(DeviserAttribute* attr);
-  DeviserAttribute* getAttribute(int row);
-  DeviserAttribute* removeAttribute(int row);
+  virtual DeviserAttribute* getAttribute(int row);
+  virtual DeviserAttribute* removeAttribute(int row);
 
   void beginAdding();
   void endAdding();

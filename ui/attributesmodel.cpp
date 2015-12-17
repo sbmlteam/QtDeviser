@@ -1,5 +1,7 @@
 #include "attributesmodel.h"
 
+#include <QBrush>
+
 #include <model/deviserattribute.h>
 
 AttributesModel::AttributesModel(
@@ -35,46 +37,84 @@ AttributesModel::flags(const QModelIndex &index) const
 QVariant
 AttributesModel::data(const QModelIndex &index, int role) const
 {
-  if (role != Qt::DisplayRole &&
-      role != Qt::EditRole &&
-      role != Qt::ToolTipRole) return QVariant();
-
   if (role == Qt::ToolTipRole)
   {
     switch(index.column())
     {
-    case 0:
+    case NAME:
       return "The name of the attribute/element to be used by code generation.  The XML output may use a different name (see <b>XML Name</b>). This field is required.";
-    case 1:
+    case TYPE:
       return "The type of the attribute/element. Allowed values are: SId, SIdRef, string, bool, double, int, unsigned int, IDREF, UnitSId, UnitSIdRef, enum, element, lo_element, inline_lo_element. This field is required.";
-    case 2:
+    case REQUIRED:
       return "States whether the attribute or element is mandatory. This should be <b>true</b> if the attribute/element is mandatory; <b>false</b> if not.";
-    case 3:
+    case ELEMENT:
       return "This field provides additional information depending on the <b>Type</b> of the attribute/element. It may be the name of the element, enumeration or object being referenced. This field is required for attributes of type SIdRef, enum, element, lo_element, inline_lo_element.";
-    case 4:
+    case ABSTRACT:
       return "States whether this element is a base class. This should be <b>true</b> if the element is a base class and therefore not instantiated directly; <b>false</b> if not.";
-    case 5:
+    case XMLName:
       return "The name of the attribute/element as used by the XML output. If blank, this defaults to the <b>Name</b> given.";
     default:
       return QVariant();
     }
   }
 
+  if (role == Qt::BackgroundRole)
+  {
+    switch(index.column())
+    {
+    case TYPE:
+    case NAME:
+      if (index.data().toString().isEmpty())
+        return QBrush(QColor(255, 0, 0, 127));
+      else
+        return QVariant();
+
+    case ELEMENT:
+    {
+      QString element = index.data().toString();
+      if (!element.isEmpty())
+        return QVariant();
+
+      QString type = index.model()->index(index.row(), TYPE).data().toString();
+      if (type == "element"
+          || type == "inline_lo_element"
+          || type == "lo_element"
+          || type == "enum"
+          || type == "array"
+          || type == "SIdRef"
+          || type == "IDREF"
+          || type == "UnitSIdRef"
+          )
+        return QBrush(QColor(255, 0, 0, 127));
+      else
+        return QVariant();
+    }
+    default:
+      return QVariant();
+    }
+
+  }
+
+  if (role != Qt::DisplayRole &&
+      role != Qt::EditRole ) return QVariant();
+
+
+
   const DeviserAttribute* attr = (*mData)[index.row()];
 
   switch(index.column())
   {
-  case 0:
+  case NAME:
     return attr->getName();
-  case 1:
+  case TYPE:
     return attr->getType();
-  case 2:
+  case REQUIRED:
     return attr->getRequired();
-  case 3:
+  case ELEMENT:
     return attr->getElement();
-  case 4:
+  case ABSTRACT:
     return attr->getAbstract();
-  case 5:
+  case XMLName:
     return attr->getXMLName();
   default:
     return QVariant();
@@ -92,22 +132,22 @@ AttributesModel::setData(const QModelIndex &index,
 
   switch(index.column())
   {
-  case 0:
+  case NAME:
     attr->setName(value.toString());
     return true;
-  case 1:
+  case TYPE:
     attr->setType(value.toString());
     return true;
-  case 2:
+  case REQUIRED:
     attr->setRequired(value.toBool());
     return true;
-  case 3:
+  case ELEMENT:
     attr->setElement(value.toString());
     return true;
-  case 4:
+  case ABSTRACT:
     attr->setAbstract(value.toBool());
     return true;
-  case 5:
+  case XMLName:
     attr->setXMLName(value.toString());
     return true;
   default:
@@ -127,17 +167,17 @@ AttributesModel::headerData(int section,
 
   switch(section)
   {
-  case 0:
+  case NAME:
     return "Name";
-  case 1:
+  case TYPE:
     return "Type";
-  case 2:
+  case REQUIRED:
     return "Required";
-  case 3:
+  case ELEMENT:
     return "Element";
-  case 4:
+  case ABSTRACT:
     return "isBaseClass";
-  case 5:
+  case XMLName:
     return "XML name";
   default:
     return QVariant();

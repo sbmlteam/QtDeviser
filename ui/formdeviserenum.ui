@@ -28,6 +28,9 @@
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The name of the enumeration type. Note the code generator will add ‘_t’ to this name. This field is required.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -190,11 +193,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>txtName</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserEnum</receiver>
+   <slot>nameModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>221</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addRow()</slot>
   <slot>deleteRow()</slot>
   <slot>nameChanged(QString)</slot>
   <slot>quickAdd()</slot>
+  <slot>nameModified(QString)</slot>
  </slots>
 </ui>

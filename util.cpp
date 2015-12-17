@@ -97,6 +97,17 @@ QStringList& Util::getUserDefinedTypes()
   return instance->getUserDefinedTypes();
 }
 
+QString Util::getErrorStyleSheet()
+{
+  return "QLineEdit, QLineEdit:hover {"
+         "  background-color: rgba(255,0,0,127);"
+         "  selection-background-color:rgba(255,0,0,127);"
+         "  border-width: 1px;"
+         "  border-color: black;"
+         "  border: 1px solid gray;"
+         "}";
+}
+
 QString
 Util::getClassColor()
 {

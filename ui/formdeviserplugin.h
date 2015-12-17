@@ -27,6 +27,7 @@ public slots:
   void packageChanged(const QString&);
   void implementationChanged(const QString&);
   void extensionPointChanged(const QString&);
+  void extensionModified(const QString&);
   void declarationChanged(const QString&);
 
   void upClicked();

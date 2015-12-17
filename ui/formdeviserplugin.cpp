@@ -1,5 +1,6 @@
 #include "formdeviserplugin.h"
 #include "ui_formdeviserplugin.h"
+#include "util.h"
 
 #include <set>
 
@@ -13,6 +14,7 @@
 
 #include <ui/attributesmodel.h>
 #include <ui/typechooserdelegate.h>
+#include <ui/attributedelegate.h>
 
 FormDeviserPlugin::FormDeviserPlugin(QWidget *parent)
   : QWidget(parent)
@@ -24,8 +26,9 @@ FormDeviserPlugin::FormDeviserPlugin(QWidget *parent)
 {
   ui->setupUi(this);
 
-  TypeChooserDelegate* combo1 = new TypeChooserDelegate(ui->tblAttributes);
-  ui->tblAttributes->setItemDelegate(combo1);
+  AttributeDelegate* delegate = new AttributeDelegate(ui->tblAttributes);
+  ui->tblAttributes->setItemDelegate(delegate);
+
 }
 
 FormDeviserPlugin::~FormDeviserPlugin()
@@ -66,6 +69,7 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
   if (mPlugin != NULL)
   {
     ui->txtExtensionPoint->setText(plugin->getExtensionPoint());
+    extensionModified(plugin->getExtensionPoint());
 
     ui->chkElementFromCore->setChecked(plugin->getPackage().isEmpty() && plugin->getTypeCode().isEmpty());
     ui->txtPackage->setText(plugin->getPackage());
@@ -132,6 +136,14 @@ FormDeviserPlugin::extensionPointChanged(const QString& extPoint)
 {
   if (mPlugin == NULL || mbInitializing) return;
   mPlugin->setExtensionPoint(extPoint);
+}
+
+void FormDeviserPlugin::extensionModified(const QString &value)
+{
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+    ui->txtExtensionPoint->setStyleSheet(Util::getErrorStyleSheet());
+  else
+    ui->txtExtensionPoint->setStyleSheet("");
 }
 
 void

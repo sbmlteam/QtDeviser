@@ -57,19 +57,24 @@
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The name of the class that will be used by the code generation. The XML output may use a different name (see &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;XML ElementName&lt;/span&gt;&lt;span&gt;).This field is required.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
+          </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Name: 	
+&amp;#9758;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TypeCode: &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TypeCode:  	
+&amp;#9758;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -106,7 +111,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page">
            <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -132,6 +137,12 @@
               </property>
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value that will be used in an enumeration of types for this package. Typically a TypeCode takes the form SBML_PACKAGE_CLASS. This field is required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
               </property>
              </widget>
             </item>
@@ -716,28 +727,35 @@
  </widget>
  <tabstops>
   <tabstop>txtName</tabstop>
+  <tabstop>txtBaseClass</tabstop>
+  <tabstop>cmdDefaultBaseClass</tabstop>
+  <tabstop>txtTypeCode</tabstop>
+  <tabstop>cmdDefaultTypeCode</tabstop>
+  <tabstop>txtXMLElementName</tabstop>
+  <tabstop>cmdDefaultXmlElementName</tabstop>
   <tabstop>chkHasListOf</tabstop>
   <tabstop>chkIsBaseClass</tabstop>
-  <tabstop>txtBaseClass</tabstop>
-  <tabstop>txtXMLElementName</tabstop>
   <tabstop>chkRequiresAdditionalCode</tabstop>
   <tabstop>txtListOfClassName</tabstop>
+  <tabstop>cmdDefaulListOfClassName</tabstop>
   <tabstop>txtListOfName</tabstop>
+  <tabstop>cmdDefaultListOfName</tabstop>
   <tabstop>txtMinNumChildren</tabstop>
   <tabstop>txtMaxNumChildren</tabstop>
-  <tabstop>tblAttributes</tabstop>
   <tabstop>cmdAddAttr</tabstop>
   <tabstop>cmdDelAttr</tabstop>
-  <tabstop>tblLoAttributes</tabstop>
+  <tabstop>tblAttributes</tabstop>
   <tabstop>cmdAddLoAttr</tabstop>
   <tabstop>cmdDelLoAttr</tabstop>
-  <tabstop>tblInstantiations</tabstop>
+  <tabstop>tblLoAttributes</tabstop>
   <tabstop>cmdAddConcrete</tabstop>
   <tabstop>cmdDelConcrete</tabstop>
+  <tabstop>tblInstantiations</tabstop>
   <tabstop>txtDeclaration</tabstop>
   <tabstop>cmdBrowseDeclaration</tabstop>
   <tabstop>txtImplementation</tabstop>
   <tabstop>cmdBrowseImplementation</tabstop>
+  <tabstop>chkUseDefault</tabstop>
  </tabstops>
  <resources>
   <include location="../deviser-resources.qrc"/>
@@ -1175,6 +1193,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>txtName</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserClass</receiver>
+   <slot>nameModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>211</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>292</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtTypeCode</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserClass</receiver>
+   <slot>typeCodeModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>133</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>292</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>nameChanged(QString)</slot>
@@ -1204,5 +1254,7 @@
   <slot>defaultListOfClassName()</slot>
   <slot>defaultListOfName()</slot>
   <slot>defaultToggled(bool)</slot>
+  <slot>nameModified(QString)</slot>
+  <slot>typeCodeModified(QString)</slot>
  </slots>
 </ui>

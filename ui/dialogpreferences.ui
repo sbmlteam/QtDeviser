@@ -180,7 +180,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="lblMikTexDir">
             <property name="text">
-             <string>MikTeX bin dir:</string>
+             <string>TeX bin dir:</string>
             </property>
            </widget>
           </item>

@@ -56,6 +56,9 @@ public slots:
 
   void defaultToggled(bool isChecked);
 
+  void nameModified(const QString&);
+  void typeCodeModified(const QString&);
+
 private:
   Ui::FormDeviserClass *ui;
   DeviserClass* mElement;
