@@ -1,6 +1,8 @@
 #include "loattributesmodel.h"
 
 #include <model/deviserlistofattribute.h>
+#include <model/devisersettings.h>
+
 #include <ui/attributesmodel.h>
 
 #include <QBrush>
@@ -67,7 +69,7 @@ LoAttributesModel::data(const QModelIndex &index, int role) const
     case AttributesModel::TYPE:
     case AttributesModel::NAME:
       if (index.data().toString().isEmpty())
-        return QBrush(QColor(255, 0, 0, 127));
+        return QBrush(DeviserSettings::getInstance()->getValidationColor());
       else
         return QVariant();
 
@@ -87,7 +89,7 @@ LoAttributesModel::data(const QModelIndex &index, int role) const
           || type == "IDREF"
           || type == "UnitSIdRef"
           )
-        return QBrush(QColor(255, 0, 0, 127));
+        return QBrush(DeviserSettings::getInstance()->getValidationColor());
       else
         return QVariant();
     }

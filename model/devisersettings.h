@@ -2,6 +2,7 @@
 #define DEVISERSETTINGS_H
 
 #include <QObject>
+#include <QColor>
 #include <QString>
 #include <QStringList>
 
@@ -77,6 +78,9 @@ public:
   bool getFitUML() const;
   void setFitUML(bool fitUML);
 
+  QColor getValidationColor() const;
+  void setValidationColor(const QColor& validationColor);
+
 signals:
 
 public slots:
@@ -105,6 +109,8 @@ protected:
 
   int mWidth;
   int mHeight;
+
+  QColor mValidationColor;
 
 private:
 

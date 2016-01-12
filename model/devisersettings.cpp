@@ -35,11 +35,13 @@ DeviserSettings::getInstance()
   return mpInstance;
 }
 
-QString readElement(QDomElement& element, const QString& name)
+QString readElement(QDomElement& element, const QString& name, const QString& def = "")
 {
   QDomNodeList list = element.elementsByTagName(name);
-  if (list.isEmpty()) return "";
-  return list.at(0).toElement().text();
+  if (list.isEmpty()) return def;
+  QString value = list.at(0).toElement().text();
+  if (value.isEmpty()) return def;
+  return value;
 }
 
 void
@@ -78,6 +80,7 @@ DeviserSettings::loadSettings(const QString& settingsFile)
   mHeight = readElement(root, "Height").toInt();
   mUseSVG = readElement(root, "UseSVG") != "false";
   mFitUML = readElement(root, "FitUML") != "false";
+  mValidationColor = Util::parseColor(readElement(root, "ValidationColor", "7fff0000"));
 
   mRecentFiles.clear();
   QDomNodeList list =  root.elementsByTagName("file");
@@ -137,6 +140,8 @@ DeviserSettings::saveSettings()
 
   writer.writeTextElement("UseSVG", mUseSVG ? "true" : "false");
   writer.writeTextElement("FitUML", mFitUML ? "true" : "false");
+
+  writer.writeTextElement("ValidationColor", Util::toARgbString(mValidationColor));
 
   writer.writeStartElement("RecentFiles");
   foreach(QString filename, mRecentFiles)
@@ -251,13 +256,23 @@ void DeviserSettings::setFitUML(bool fitUML)
 {
     mFitUML = fitUML;
 }
+QColor DeviserSettings::getValidationColor() const
+{
+  return mValidationColor;
+}
+
+void DeviserSettings::setValidationColor(const QColor& validationColor)
+{
+  mValidationColor = validationColor;
+}
+
 
 
 QString
 DeviserSettings::getSettingsFile()
 {
-    QByteArray dir = Util::isWindows() ?  qgetenv("APPDATA")
-                                        : qgetenv("HOME");
+  QByteArray dir = Util::isWindows() ?  qgetenv("APPDATA")
+                                      : qgetenv("HOME");
 
   {
     QFile file(dir + "/" + ".deviser_config.xml");

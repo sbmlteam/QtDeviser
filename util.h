@@ -2,6 +2,7 @@
 #define UTIL_H
 
 #include <QList>
+#include <QColor>
 #include <QString>
 #include <QMap>
 
@@ -33,6 +34,10 @@ public:
 
   static bool removeDir(const QString &dirPath, const QString& filter = "");
   static bool copyDir(const QString &srcPath, const QString &dstPath, bool overwrite = true);
+
+  static QString toARgbString(const QColor& color);
+  static QString byteToHex(int oByte);
+  static QColor parseColor(const QString& sColor);
 
 protected:
 

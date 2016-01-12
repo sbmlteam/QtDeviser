@@ -2,6 +2,7 @@
 
 #include <QBrush>
 
+#include <model/devisersettings.h>
 #include <model/deviserattribute.h>
 
 AttributesModel::AttributesModel(
@@ -65,7 +66,7 @@ AttributesModel::data(const QModelIndex &index, int role) const
     case TYPE:
     case NAME:
       if (index.data().toString().isEmpty())
-        return QBrush(QColor(255, 0, 0, 127));
+        return QBrush(DeviserSettings::getInstance()->getValidationColor());
       else
         return QVariant();
 
@@ -85,7 +86,7 @@ AttributesModel::data(const QModelIndex &index, int role) const
           || type == "IDREF"
           || type == "UnitSIdRef"
           )
-        return QBrush(QColor(255, 0, 0, 127));
+        return QBrush(DeviserSettings::getInstance()->getValidationColor());
       else
         return QVariant();
     }

@@ -7,6 +7,7 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QColorDialog>
 
 #include <set>
 
@@ -17,6 +18,7 @@ DialogPreferences::DialogPreferences(DeviserPackage* package, QWidget *parent)
  , mpTypesFilter(NULL)
  , mpModel(package)
  , mbInitializing(true)
+ , mColor(255,0,0,127)
 {
   ui->setupUi(this);
 }
@@ -38,6 +40,20 @@ DialogPreferences::loadSettings()
   ui->txtPythonLib->setText(settings->getPythonLib());
   ui->txtSbmlPkgSpec->setText(settings->getSbmlPkgSpecDir());
   ui->txtSwig->setText(settings->getSwigExecutable());
+
+  mColor = settings->getValidationColor();
+
+  ui->cmdValidationColor->setStyleSheet(QString("QPushButton, QPushButton:hover{"
+                                        "  background-color: rgba(%1,%2,%3,%4);"
+                                        "  selection-background-color:rgba(%1,%2,%3,%4);"
+                                        "  border-width: 1px;"
+                                        "  border-color: black;"
+                                        "  border: 1px solid gray;"
+                                        "}")
+                                        .arg(mColor.red())
+                                        .arg(mColor.green())
+                                        .arg(mColor.blue())
+                                        .arg(mColor.alpha()));
 
   ui->tblUserDefinedTypes->setModel(NULL);
   if (mpTypesFilter != NULL)
@@ -77,6 +93,7 @@ DialogPreferences::saveSettings()
   settings->setPythonLib(ui->txtPythonLib->text());
   settings->setSbmlPkgSpecDir(ui->txtSbmlPkgSpec->text());
   settings->setSwigExecutable(ui->txtSwig->text());
+  settings->setValidationColor(mColor);
 
   QStringList& types = settings->getUserDefinedTypes();
   types.clear();
@@ -301,5 +318,23 @@ DialogPreferences::browsePythonLib()
   if (fileName.isEmpty())
     return;
   ui->txtPythonLib->setText(fileName);
+}
+
+void
+DialogPreferences::selectValidationColor()
+{
+  mColor = QColorDialog::getColor(mColor, this, "Select Validation Color", QColorDialog::ShowAlphaChannel);
+  ui->cmdValidationColor->setStyleSheet(QString("QPushButton, QPushButton:hover{"
+                                        "  background-color: rgba(%1,%2,%3,%4);"
+                                        "  selection-background-color:rgba(%1,%2,%3,%4);"
+                                        "  border-width: 1px;"
+                                        "  border-color: black;"
+                                        "  border: 1px solid gray;"
+                                        "}")
+                                        .arg(mColor.red())
+                                        .arg(mColor.green())
+                                        .arg(mColor.blue())
+                                        .arg(mColor.alpha()));
+
 }
 

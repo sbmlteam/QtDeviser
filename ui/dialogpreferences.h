@@ -1,10 +1,12 @@
 #ifndef DIALOGPREFERENCES_H
 #define DIALOGPREFERENCES_H
 
+#include <QColor>
 #include <QDialog>
 
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
+
 
 namespace Ui {
 class DialogPreferences;
@@ -43,6 +45,8 @@ public slots:
   void browsePythonInclude();
   void browsePythonLib();
 
+  void selectValidationColor();
+
 private:
   Ui::DialogPreferences *ui;
   QStandardItemModel* mpTypes;
@@ -51,6 +55,8 @@ private:
   DeviserPackage* mpModel;
 
   bool mbInitializing;
+
+  QColor mColor;
 
 };
 

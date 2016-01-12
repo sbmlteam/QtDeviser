@@ -73,7 +73,9 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
 
     ui->chkElementFromCore->setChecked(plugin->getPackage().isEmpty() && plugin->getTypeCode().isEmpty());
     ui->txtPackage->setText(plugin->getPackage());
+    packageModified(plugin->getPackage());
     ui->txtTypeCode->setText(plugin->getTypeCode());
+    typeCodeModified(plugin->getTypeCode());
 
     ui->chkHasAttributes->setChecked(!plugin->getAttributes().empty());
     ui->grpAttributes->setVisible(!plugin->getAttributes().empty());
@@ -104,8 +106,6 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
     foreach(DeviserReferenceAttribute* element, plugin->getReferences())
       ui->lstChildClasses->addItem(element->getName());
 
-
-
   }
 
 
@@ -120,7 +120,8 @@ FormDeviserPlugin::typeCodeChanged(const QString& tc)
 
 }
 
-void FormDeviserPlugin::typeCodeModified(const QString&value)
+void
+FormDeviserPlugin::typeCodeModified(const QString&value)
 {
   if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
     ui->txtTypeCode->setStyleSheet(Util::getErrorStyleSheet());
@@ -135,7 +136,8 @@ FormDeviserPlugin::packageChanged(const QString& package)
   mPlugin->setPackage(package);
 }
 
-void FormDeviserPlugin::packageModified(const QString&value)
+void
+FormDeviserPlugin::packageModified(const QString&value)
 {
   if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
     ui->txtPackage->setStyleSheet(Util::getErrorStyleSheet());

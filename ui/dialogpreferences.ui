@@ -20,7 +20,17 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
-   <item row="0" column="0">
+   <item row="2" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -499,16 +509,33 @@
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Misc</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Validation Color: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="cmdValidationColor">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Choose Validation Color</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -773,6 +800,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cmdValidationColor</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogPreferences</receiver>
+   <slot>selectValidationColor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>342</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>browsePython()</slot>
@@ -789,5 +832,6 @@
   <slot>browsePythonLib()</slot>
   <slot>addType()</slot>
   <slot>delType()</slot>
+  <slot>selectValidationColor()</slot>
  </slots>
 </ui>

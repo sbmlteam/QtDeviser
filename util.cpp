@@ -99,13 +99,19 @@ QStringList& Util::getUserDefinedTypes()
 
 QString Util::getErrorStyleSheet()
 {
-  return "QLineEdit, QLineEdit:hover {"
-         "  background-color: rgba(255,0,0,127);"
-         "  selection-background-color:rgba(255,0,0,127);"
+  QColor color = DeviserSettings::getInstance()->getValidationColor();
+
+  return QString("QLineEdit, QLineEdit:hover {"
+         "  background-color: rgba(%1,%2,%3,%4);"
+         "  selection-background-color:rgba(%1,%2,%3,%4);"
          "  border-width: 1px;"
          "  border-color: black;"
          "  border: 1px solid gray;"
-         "}";
+         "}")
+      .arg(color.red())
+      .arg(color.green())
+      .arg(color.blue())
+      .arg(color.alpha());
 }
 
 QString
@@ -171,15 +177,19 @@ bool Util::removeDir(const QString &dirPath, const QString &filter)
     return QFile (dirPath).remove();
   }
 
-
   QDir dir(dirPath);
   if (!dir.exists())
     return true;
-  foreach(const QFileInfo &info, dir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot)) {
-    if (info.isDir()) {
+
+  foreach(const QFileInfo &info, dir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot))
+  {
+    if (info.isDir())
+    {
       if (!removeDir(info.filePath(), filter))
         return false;
-    } else {
+    }
+    else
+    {
       if (!filter.isEmpty() && !info.fileName().contains(filter))
         continue;
 
@@ -193,10 +203,12 @@ bool Util::removeDir(const QString &dirPath, const QString &filter)
    QDir parentDir(QFileInfo(dirPath).path());
    return parentDir.rmdir(QFileInfo(dirPath).fileName());
   }
+
   return true;
 }
 
-bool Util::copyDir(const QString &srcPath, const QString &dstPath, bool overwrite)
+bool
+Util::copyDir(const QString &srcPath, const QString &dstPath, bool overwrite)
 {
 
   QDir parentDstDir(QFileInfo(dstPath).path());
@@ -213,21 +225,73 @@ bool Util::copyDir(const QString &srcPath, const QString &dstPath, bool overwrit
   }
 
   QDir srcDir(srcPath);
-  foreach(const QFileInfo &info, srcDir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot)) {
+  foreach(const QFileInfo &info, srcDir.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot))
+  {
     QString srcItemPath = srcPath + "/" + info.fileName();
     QString dstItemPath = dstPath + "/" + info.fileName();
-    if (info.isDir()) {
-      if (!copyDir(srcItemPath, dstItemPath, overwrite)) {
+    if (info.isDir())
+    {
+      if (!copyDir(srcItemPath, dstItemPath, overwrite))
+      {
         return false;
       }
-    } else if (info.isFile()) {
+    }
+    else if (info.isFile())
+    {
       if (QFile::exists(dstItemPath) && overwrite)
         QFile::remove(dstItemPath);
-      if (!QFile::copy(srcItemPath, dstItemPath)) {
+      if (!QFile::copy(srcItemPath, dstItemPath))
+      {
         return false;
       }
     } 
   }
   return true;
+}
+
+QString
+Util::toARgbString(const QColor& color)
+{
+  return
+      byteToHex(color.alpha()) +
+      byteToHex(color.red()) +
+      byteToHex(color.green()) +
+      byteToHex(color.blue())
+      ;
+}
+
+QString
+Util::byteToHex(int oByte)
+{
+  if (oByte == 0)
+    return QString("00");
+  QString sResult = QString::number(oByte, 16);
+  if (sResult.length() == 1)
+    sResult = "0" + sResult;
+  return sResult;
+}
+
+QColor
+Util::parseColor(const QString& sColor)
+{
+  QColor oResult;
+  if (sColor.isEmpty()) return oResult;
+
+  if (sColor.length() == 8)
+  {
+    int nAlpha = sColor.mid(0,2).toInt(NULL, 16);
+    int nRed = sColor.mid(2,2).toInt(NULL, 16);
+    int nGreen = sColor.mid(4,2).toInt(NULL, 16);
+    int nBlue = sColor.mid(6,2).toInt(NULL, 16);
+    oResult = QColor(nRed, nGreen, nBlue, nAlpha);
+  }
+  else if (sColor.length() == 6)
+  {
+    int nRed = sColor.mid(0,2).toInt(NULL, 16);
+    int nGreen = sColor.mid(2,2).toInt(NULL, 16);
+    int nBlue = sColor.mid(4,2).toInt(NULL, 16);
+    oResult = QColor(nRed, nGreen, nBlue, 255);
+  }
+  return oResult;
 }
 
