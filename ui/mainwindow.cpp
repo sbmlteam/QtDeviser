@@ -61,26 +61,6 @@ MainWindow::MainWindow(QWidget *parent)
 
   ui->stackedWidget->setCurrentWidget(ctrlPackage);
 
-  ui->treeWidget->addAction(ui->actionAdd_Class);
-  ui->treeWidget->addAction(ui->actionAdd_Plugin);
-  ui->treeWidget->addAction(ui->actionAdd_Enum);
-  ui->treeWidget->addAction(ui->actionAdd_Version);
-
-  QAction* sep1 = new QAction(this);
-  sep1->setSeparator(true);
-  QAction* sep2 = new QAction(this);
-  sep2->setSeparator(true);
-  QAction* sep3 = new QAction(this);
-  sep3->setSeparator(true);
-
-  ui->treeWidget->addAction(sep1);
-  ui->treeWidget->addAction(ui->actionDuplicate);
-  ui->treeWidget->addAction(sep2);
-  ui->treeWidget->addAction(ui->actionCopyXML);
-  ui->treeWidget->addAction(ui->actionCopyUML);
-  ui->treeWidget->addAction(sep3);
-  ui->treeWidget->addAction(ui->actionDeleteSelected);
-
   refreshRecentFiles();
 
   resize(DeviserSettings::getInstance()->getWidth(),
@@ -914,6 +894,63 @@ void MainWindow::reloadDocument()
 {
   if (mFileName.isEmpty()) return;
   openFile(mFileName);
+}
+
+void MainWindow::generateContextMenuForTree(const QPoint& point)
+{
+  QMenu menu;
+
+  menu.addAction(ui->actionAdd_Class);
+  menu.addAction(ui->actionAdd_Plugin);
+  menu.addAction(ui->actionAdd_Enum);
+  menu.addAction(ui->actionAdd_Version);
+
+  QTreeWidgetItem* item = ui->treeWidget->itemAt(point);
+
+  if (item != NULL)
+  {
+    DeviserBase* deviserItem = getDeviserItemForTreeView(item);
+
+    if (deviserItem != NULL)
+    {
+      bool isPlugin = dynamic_cast<DeviserPlugin*> (deviserItem) != NULL;
+      bool isClass = dynamic_cast<DeviserClass*> (deviserItem) != NULL;
+      bool isEnum = dynamic_cast<DeviserEnum*> (deviserItem) != NULL;
+      bool isVersion = dynamic_cast<DeviserVersion*> (deviserItem) != NULL;
+      bool isPackage = dynamic_cast<DeviserPackage*> (deviserItem) != NULL;
+      bool isCommon = isVersion || isClass || isPlugin || isEnum;
+
+      QAction* sep1 = new QAction(this);
+      sep1->setSeparator(true);
+      QAction* sep2 = new QAction(this);
+      sep2->setSeparator(true);
+      QAction* sep3 = new QAction(this);
+      sep3->setSeparator(true);
+
+      if (isCommon)
+      {
+        menu.addAction(sep1);
+        menu.addAction(ui->actionDuplicate);
+      }
+
+      if (isCommon || isPackage)
+      {
+        menu.addAction(sep2);
+        menu.addAction(ui->actionCopyXML);
+        menu.addAction(ui->actionCopyUML);
+      }
+
+      if (isCommon)
+      {
+        menu.addAction(sep3);
+        menu.addAction(ui->actionDeleteSelected);
+      }
+
+    }
+
+  }
+
+  menu.exec(ui->treeWidget->mapToGlobal(point));
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

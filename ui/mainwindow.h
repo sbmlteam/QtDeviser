@@ -80,6 +80,8 @@ public slots:
 
   void reloadDocument();
 
+  void generateContextMenuForTree(const QPoint& point);
+
 
 protected:
   DeviserBase* getDeviserItemForTreeView(QTreeWidgetItem* item);

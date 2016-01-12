@@ -56,7 +56,7 @@
         </size>
        </property>
        <property name="contextMenuPolicy">
-        <enum>Qt::ActionsContextMenu</enum>
+        <enum>Qt::CustomContextMenu</enum>
        </property>
        <attribute name="headerVisible">
         <bool>false</bool>
@@ -765,6 +765,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>treeWidget</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>generateContextMenuForTree(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>424</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -790,5 +806,6 @@
   <slot>copyUML()</slot>
   <slot>copyXML()</slot>
   <slot>reloadDocument()</slot>
+  <slot>generateContextMenuForTree(QPoint)</slot>
  </slots>
 </ui>
