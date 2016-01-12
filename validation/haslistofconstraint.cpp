@@ -37,6 +37,7 @@ HasListOfConstraint::analyzePackage(DeviserPackage *package)
 
           if (!hasListOf)
           {
+            ++result;
             ADD_MESSAGE(
                   "Class: '" << item->getName() <<
                   "' uses a list of '"<< current->getName() <<
@@ -60,6 +61,7 @@ HasListOfConstraint::analyzePackage(DeviserPackage *package)
 
           if (!hasListOf)
           {
+            ++result;
             ADD_MESSAGE(
                   "Plugin for '" << item->getExtensionPoint() <<
                   "' uses a list of '"<< current->getName() <<
@@ -76,6 +78,7 @@ HasListOfConstraint::analyzePackage(DeviserPackage *package)
           ++countUses;
           if (!hasListOf)
           {
+            ++result;
             ADD_MESSAGE(
                   "Plugin for '" << item->getExtensionPoint() <<
                   "' uses a list of '"<< current->getName() <<
@@ -88,6 +91,7 @@ HasListOfConstraint::analyzePackage(DeviserPackage *package)
 
       if (hasListOf && countUses == 0)
       {
+        ++result;
         ADD_MESSAGE(
               "Class: '" << current->getName() <<
               "' is marked as having a list of, but no listOf of it is used."
