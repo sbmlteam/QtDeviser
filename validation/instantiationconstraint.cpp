@@ -18,6 +18,13 @@ int InstantiationConstraint::analyzePackage(DeviserPackage *package)
     {
       foreach(DeviserConcrete* instantiation, pClass->getConcretes())
       {
+        if (instantiation->getName().isEmpty())
+        {
+          ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "In class '"
+                                    << pClass->getName()
+                                    << "' an instantiation has no XML name, this is a required attribute.");
+          ++errors;
+        }
         if (instantiation->getElement().isEmpty())
         {
           ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "The instantiation '"
