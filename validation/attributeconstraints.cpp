@@ -29,6 +29,15 @@ int AttributeConstraints::analyzePackage(DeviserPackage *package)
   {
     foreach (DeviserClass* element, version->getElements())
     {
+      if (element->getName().isEmpty())
+      {
+        ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR,
+                                  "There is an unnamed class in version '"
+                                  << version->toString()
+                                  << "', this is a required attribute");
+        ++count;
+      }
+
       foreach(DeviserAttribute* attribute, element->getAttributes())
       {
         if (checkAttribute(attribute, element->getName()))
@@ -44,6 +53,15 @@ int AttributeConstraints::analyzePackage(DeviserPackage *package)
 
     foreach (DeviserPlugin* element, version->getPlugins())
     {
+      if (element->getExtensionPoint().isEmpty())
+      {
+        ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR,
+                                  "There is a plugin without extensionpoint in version '"
+                                  << version->toString()
+                                  << "', this is a required attribute");
+        ++count;
+      }
+
       foreach(DeviserAttribute* attribute, element->getAttributes())
       {
         if (checkAttribute(attribute, element->getExtensionPoint()))
@@ -60,6 +78,16 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
                                       const QString& name)
 {
   bool result = false;
+
+  if (attribute->getName().isEmpty())
+  {
+    ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "The element '"
+                << name
+                << "' has an unnamed attribute. This is a required attribute.");
+
+    result = true;
+  }
+
   if (attribute->getType() == "SIdRef" && attribute->getElement().isEmpty())
   {
 
