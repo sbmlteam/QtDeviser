@@ -89,12 +89,15 @@ FormDeviserPlugin::initializeFrom(DeviserPlugin* plugin)
                                               !plugin->getAdditionalDeclarations().isEmpty());
     ui->grpAdditional->setVisible(ui->chkRequiresAdditionalCode->isChecked());
 
-    foreach(DeviserClass* element, plugin->getParentVersion()->getElements())
+    if (plugin->getParentVersion() != NULL)
     {
-      ui->lstDefinedClasses->addItem(element->getName());
-      if (element->hasListOf())
+      foreach(DeviserClass* element, plugin->getParentVersion()->getElements())
       {
-        ui->lstDefinedClasses->addItem(element->getActualListOfName());
+        ui->lstDefinedClasses->addItem(element->getName());
+        if (element->hasListOf())
+        {
+          ui->lstDefinedClasses->addItem(element->getActualListOfName());
+        }
       }
     }
 

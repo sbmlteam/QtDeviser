@@ -813,7 +813,7 @@ MainWindow::duplicateSelected()
 
       newItem->setName(newItem->getName() + "_copy");
       mCurrentVersion->getEnums().append(newItem);
-
+      newItem->setParentVersion(mCurrentVersion);
       mCurrentElement = newItem;
 
       updateUI();
@@ -826,7 +826,7 @@ MainWindow::duplicateSelected()
 
       newItem->setName(newItem->getName() + "_copy");
       mCurrentVersion->getElements().append(newItem);
-
+      newItem->setParentVersion(mCurrentVersion);
       mCurrentElement = newItem;
 
       updateUI();
@@ -838,6 +838,7 @@ MainWindow::duplicateSelected()
 
       newItem->setExtensionPoint(newItem->getExtensionPoint() + "_copy");
       mCurrentVersion->getPlugins().append(newItem);
+      newItem->setParentVersion(mCurrentVersion);
 
       mCurrentElement = newItem;
 
