@@ -345,6 +345,9 @@
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The short &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;name&lt;/span&gt;&lt;span&gt; or &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;label&lt;/span&gt;&lt;span&gt; of the package being extended by this plugin object.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -362,6 +365,9 @@
          <widget class="QLineEdit" name="txtTypeCode">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;The TypeCode of the specific class being extended by this plugin object.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }QLineEdit:hover { background-color: rgba(255,0,0,127);selection-background-color:rgba(255,0,0,127) }</string>
           </property>
          </widget>
         </item>
@@ -669,6 +675,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>txtTypeCode</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>typeCodeModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>613</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtPackage</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>FormDeviserPlugin</receiver>
+   <slot>packageModified(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>224</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>extensionPointChanged(QString)</slot>
@@ -688,5 +726,7 @@
   <slot>upClicked()</slot>
   <slot>downClicked()</slot>
   <slot>extensionModified(QString)</slot>
+  <slot>packageModified(QString)</slot>
+  <slot>typeCodeModified(QString)</slot>
  </slots>
 </ui>

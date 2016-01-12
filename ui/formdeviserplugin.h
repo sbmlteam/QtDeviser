@@ -24,7 +24,9 @@ public:
 
 public slots:
   void typeCodeChanged(const QString&);
+  void typeCodeModified(const QString&);
   void packageChanged(const QString&);
+  void packageModified(const QString&);
   void implementationChanged(const QString&);
   void extensionPointChanged(const QString&);
   void extensionModified(const QString&);

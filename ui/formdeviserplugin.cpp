@@ -120,11 +120,27 @@ FormDeviserPlugin::typeCodeChanged(const QString& tc)
 
 }
 
+void FormDeviserPlugin::typeCodeModified(const QString&value)
+{
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+    ui->txtTypeCode->setStyleSheet(Util::getErrorStyleSheet());
+  else
+    ui->txtTypeCode->setStyleSheet("");
+}
+
 void
 FormDeviserPlugin::packageChanged(const QString& package)
 {
   if (mPlugin == NULL || mbInitializing) return;
   mPlugin->setPackage(package);
+}
+
+void FormDeviserPlugin::packageModified(const QString&value)
+{
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+    ui->txtPackage->setStyleSheet(Util::getErrorStyleSheet());
+  else
+    ui->txtPackage->setStyleSheet("");
 }
 
 void
