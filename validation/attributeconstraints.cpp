@@ -107,7 +107,7 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
     ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR,
                               "The attribute '"
                               << attribute->getName()
-                              << "' has no type defined, this is a required attribute for that type.");
+                              << "' has no type defined, this is a required attribute.");
     return true;
   }
 
@@ -121,7 +121,7 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
                                 << attribute->getName()
                                 << "' is of type '"
                                 << attribute->getType()
-                                << "' but has no element defined, this is a required attribute for that type.");
+                                << "' but has no element defined, this is a required attribute.");
       result = true;
 
     }
