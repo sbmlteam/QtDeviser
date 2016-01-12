@@ -28,6 +28,7 @@ IsBaseClassConstraint::analyzePackage(DeviserPackage *package)
           ++countUses;
           if (!isAbstract)
           {
+            ++result;
             ADD_MESSAGE("Class: '" << item->getName()
                         << "' uses BaseClass '" << item->getBaseClass()
                         << "', which is not marked as 'isBaseClass'.");
@@ -37,6 +38,7 @@ IsBaseClassConstraint::analyzePackage(DeviserPackage *package)
 
       if (isAbstract && countUses== 0)
       {
+        ++result;
         ADD_MESSAGE("Class: '" << current->getName()
                     << "' is marked as 'isBaseClass', but not used.");
       }
@@ -69,6 +71,7 @@ IsBaseClassConstraint::fixIssue(DeviserPackage* package)
           if (!isAbstract)
           {
             current->setIsBaseClass(true);
+            result = true;
           }
         }
       }
@@ -76,6 +79,7 @@ IsBaseClassConstraint::fixIssue(DeviserPackage* package)
       if (isAbstract && countUses== 0)
       {
         current->setIsBaseClass(false);
+        result = true;
       }
 
     }
