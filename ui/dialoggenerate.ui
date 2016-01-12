@@ -252,24 +252,24 @@
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Generates the tex files necessary to create a minimal specification of the SBML L3 Package described. This includes definitions of classes and attributes and a set of validation rules.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string>Generate Latex</string>
+               <string>Generate LaTeX</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="cmdGenerateLatexWithFigures">
               <property name="text">
-               <string>Generate Latex with Figures</string>
+               <string>Generate LaTeX with Figures</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="cmdCompileTex">
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Invokes the MikTex application to generate a pdf of the specification files. Note this is based on the template for SBML Level 3 Package specifications.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span&gt;Invokes the TeX application to generate a pdf of the specification files. Note this is based on the template for SBML Level 3 Package specifications.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string>Compile TeX</string>
+               <string>Compile LaTeX</string>
               </property>
              </widget>
             </item>
