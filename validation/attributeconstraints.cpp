@@ -93,7 +93,7 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
 
     ADD_MESSAGE("The attribute '"
                 << attribute->getName()
-                << "' of plugin '"
+                << "' of element '"
                 << name
                 << "' is of type SIdRef, but has no element set. This is needed for validation purposes.");
 
