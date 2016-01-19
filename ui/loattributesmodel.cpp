@@ -87,7 +87,6 @@ LoAttributesModel::data(const QModelIndex &index, int role) const
           || type == "array"
           || type == "SIdRef"
           || type == "IDREF"
-          || type == "UnitSIdRef"
           )
         return QBrush(DeviserSettings::getInstance()->getValidationColor());
       else
