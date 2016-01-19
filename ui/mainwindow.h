@@ -68,6 +68,9 @@ public slots:
                           const DeviserVersion* version);
   void selectionChanged();
   void deleteSelected();
+
+  DeviserBase *findNextItem(QTreeWidgetItem* item, DeviserBase* currentDeviserItem);
+
   void duplicateSelected();
 
   void refreshRecentFiles();

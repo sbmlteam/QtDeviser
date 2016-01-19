@@ -572,6 +572,8 @@ MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
 {
   if (mModel == NULL) return NULL;
 
+  if (item == NULL) return NULL;
+
   if (item->text(0) == "Package")
   {
     return mModel;
@@ -618,6 +620,7 @@ MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
 void
 MainWindow::selectTreeItem(DeviserBase *item)
 {
+  if (item == NULL) return;
   QTreeWidgetItem *treeItem = getTreeItemForDeviserItem(item);
   if (treeItem == NULL) return;
   treeItem->setSelected(true);
@@ -659,16 +662,21 @@ MainWindow::deleteSelected()
         == QMessageBox::No)
       break;
 
+    DeviserBase* nextItem = findNextItem(item, devItem);
+
 
     if (dynamic_cast<DeviserVersion*>(devItem) != NULL)
     {
       QTreeWidgetItem* toBeDeleted = ui->treeWidget->takeTopLevelItem(ui->treeWidget->indexOfTopLevelItem(item));
+
       if (toBeDeleted != NULL)
         delete toBeDeleted;
 
       int index = mModel->getVersions().indexOf(dynamic_cast<DeviserVersion*>(devItem));
       if (index != -1)
-        delete mModel->getVersions().takeAt(index);
+      {
+        mModel->getVersions().takeAt(index)->deleteLater();
+      }
     }
     else
     {
@@ -680,7 +688,7 @@ MainWindow::deleteSelected()
           DeviserEnum* element = dynamic_cast<DeviserEnum*>(devItem);
           int index = mCurrentVersion->getEnums().indexOf(element);
           if (index != -1)
-            delete mCurrentVersion->getEnums().takeAt(index);
+            mCurrentVersion->getEnums().takeAt(index)->deleteLater();
 
         }
         else if (dynamic_cast<DeviserClass*>(devItem) != NULL)
@@ -688,14 +696,14 @@ MainWindow::deleteSelected()
           DeviserClass* element = dynamic_cast<DeviserClass*>(devItem);
           int index = mCurrentVersion->getElements().indexOf(element);
           if (index != -1)
-            delete mCurrentVersion->getElements().takeAt(index);
+            mCurrentVersion->getElements().takeAt(index)->deleteLater();
         }
         else if (dynamic_cast<DeviserPlugin*>(devItem) != NULL)
         {
           DeviserPlugin* element = dynamic_cast<DeviserPlugin*>(devItem);
           int index = mCurrentVersion->getPlugins().indexOf(element);
           if (index != -1)
-            delete mCurrentVersion->getPlugins().takeAt(index);
+            mCurrentVersion->getPlugins().takeAt(index)->deleteLater();
         }
 
         QTreeWidgetItem* toBeDeleted = item->parent()->takeChild(item->parent()->indexOfChild(item));
@@ -704,8 +712,44 @@ MainWindow::deleteSelected()
       }
     }
 
+    selectTreeItem(nextItem);
+
     break;
   }
+}
+
+DeviserBase* MainWindow::findNextItem(QTreeWidgetItem* item, DeviserBase* currentDeviserItem)
+{
+  if (currentDeviserItem != mCurrentElement)
+    return mCurrentElement;
+
+  QTreeWidgetItem *parent = item->parent();
+  QTreeWidgetItem *nextSibling = NULL;
+  DeviserBase* nextItem = NULL;
+
+  if (parent != NULL)
+  {
+    int currentIndex = parent->indexOfChild(item);
+    nextSibling = parent->child(currentIndex + 1);
+    if (nextSibling == NULL && currentIndex > 0)
+      nextSibling = parent->child(currentIndex - 1);
+    if (nextSibling == NULL)
+      nextItem = mCurrentVersion;
+    else
+      nextItem = getDeviserItemForTreeView(nextSibling);
+  }
+  else
+  {
+    int topLevelIndex = ui->treeWidget->indexOfTopLevelItem(item);
+    nextSibling = ui->treeWidget->topLevelItem(topLevelIndex + 1);
+    if (nextSibling == NULL && topLevelIndex > 0)
+      nextSibling = ui->treeWidget->topLevelItem(topLevelIndex - 1);
+    if (nextSibling == NULL)
+      nextItem = mCurrentVersion;
+    else
+      nextItem = getDeviserItemForTreeView(nextSibling);
+  }
+  return nextItem;
 }
 
 
