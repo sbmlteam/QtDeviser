@@ -118,15 +118,14 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
           !element->getListOfAttributes().empty() ||
           !element->getListOfName().isEmpty() ||
           !element->getListOfClassName().isEmpty() ||
-          element->getMaxNumberChildren() != 0 ||
-        element->getMinNumberChildren() != 0
+          element->getMaxNumberChildren() != 0
         );
     ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
     ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
 
     ui->txtListOfName->setText(element->getListOfName());
     ui->txtListOfClassName->setText(element->getListOfClassName());
-    if (element->getMinNumberChildren() != 0)
+    if (element->getMinNumberChildren() != 1)
     ui->txtMinNumChildren->setText(QString::number(element->getMinNumberChildren()));
     if (element->getMaxNumberChildren() != 0)
     ui->txtMaxNumChildren->setText(QString::number(element->getMaxNumberChildren()));

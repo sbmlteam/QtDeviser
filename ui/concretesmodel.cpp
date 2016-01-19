@@ -49,7 +49,7 @@ ConcretesModel::data(const QModelIndex &index, int role) const
     case 1:
       return "The <b>Name</b> of the class that will be derived from this base class. Note this class should also be defined within this package. This field is required.";
     case 2:
-      return "The minimum number of child elements that may be present on this element. A missing value or 0 implies there is no minimum.";
+      return "The minimum number of child elements that may be present on this element. A missing entry means there is at least one element in the list, 0 implies that the list can be empty.";
     case 3:
       return "The maximum number of child elements that may be present on this element. A missing value or 0 implies there is no maximum.";
     default:

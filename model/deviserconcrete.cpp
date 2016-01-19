@@ -112,10 +112,9 @@ DeviserConcrete::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("name", mName);
   if (!mElement.isEmpty())
     writer.writeAttribute("element", mElement);
-  if (mMinNumChildren != 0)
-    writer.writeAttribute("minNumChildren", QString::number(mMinNumChildren));
-  if (mMaxNumChildren != 0)
-    writer.writeAttribute("maxNumChildren", QString::number(mMaxNumChildren));
+
+  writer.writeAttribute("minNumChildren", QString::number(mMinNumChildren));
+  writer.writeAttribute("maxNumChildren", QString::number(mMaxNumChildren));
 
 }
 

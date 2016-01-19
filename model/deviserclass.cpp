@@ -414,10 +414,11 @@ DeviserClass::writeAttributesTo(QXmlStreamWriter& writer) const
   writer.writeAttribute("hasMath", mHasMath ? "true" : "false");
   writer.writeAttribute("childrenOverwriteElementName", mChildrenOverwriteElementName ? "true" : "false");
 
-  if (mMinNumberChildren != 0)
+  if (mHasListOf)
+  {
     writer.writeAttribute("minNumListOfChildren", QString::number(mMinNumberChildren));
-  if (mMaxNumberChildren!= 0)
     writer.writeAttribute("maxNumListOfChildren", QString::number(mMaxNumberChildren));
+  }
 
   if (!mBaseClass.isEmpty())
     writer.writeAttribute("baseClass", mBaseClass);

@@ -345,7 +345,7 @@
          <item row="1" column="1">
           <widget class="QLineEdit" name="txtMinNumChildren">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The minimum number of child elements expected when a listOf class is present. Note this needs to be &lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;1&lt;/span&gt; if the listOf cannot be empty. A missing entry or &lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt; implies there is no minimum.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The minimum number of child elements expected when a listOf class is present. Note this needs to be &lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;1&lt;/span&gt; if the listOf cannot be empty. A missing entry means there is at least one element in the list, &lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt; implies that the list can be empty.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
