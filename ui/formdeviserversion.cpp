@@ -127,7 +127,7 @@ FormDeviserVersion::pkgVersionChanged(const QString& version)
 void
 FormDeviserVersion::pkgVersionModified(const QString &value)
 {
-  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value))
+  if (value.isEmpty() || QRegExp("\\s*").exactMatch(value) || value.toInt() < 0)
     ui->txtPackageVersion->setStyleSheet(Util::getErrorStyleSheet());
   else
     ui->txtPackageVersion->setStyleSheet("");

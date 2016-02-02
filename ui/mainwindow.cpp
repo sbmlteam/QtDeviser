@@ -328,7 +328,7 @@ MainWindow::treeElementRenamed(const QString& oldId, const QString& newId,
   foreach(QTreeWidgetItem* item, items)
   {
     QString currentParent = item->parent() == NULL ? "" : item->parent()->parent()->text(0);
-    if (parentVersion == currentParent)
+    if (parentVersion == currentParent || parentVersion == newId)
     {
       item->setText(0, newId);
       break;

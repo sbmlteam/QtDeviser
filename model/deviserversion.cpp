@@ -22,6 +22,7 @@ DeviserVersion::DeviserVersion()
   , mPlugins()
   , mEnums()
   , mMappings()
+  , mIgnorePackageVersion(false)
 {
 
 }
@@ -35,6 +36,7 @@ DeviserVersion::DeviserVersion(const DeviserVersion& other)
   , mPlugins()
   , mEnums()
   , mMappings()
+  , mIgnorePackageVersion(false)
 {
   cloneElements(other.mElements, mElements);
   cloneElements(other.mPlugins, mPlugins);
@@ -52,6 +54,8 @@ DeviserVersion::operator=(const DeviserVersion &rhs)
   mLevel = rhs.mLevel;
   mVersion = rhs.mVersion;
   mPkgVersion = rhs.mPkgVersion;
+  mIgnorePackageVersion = rhs.mIgnorePackageVersion;
+
   cloneElements(rhs.mElements, mElements);
   cloneElements(rhs.mPlugins, mPlugins);
   cloneElements(rhs.mEnums, mEnums);
@@ -103,7 +107,7 @@ DeviserVersion::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("level", QString::number(mLevel));
   if (mVersion != 0)
     writer.writeAttribute("version", QString::number(mVersion));
-  if (mPkgVersion != 0)
+  if (mPkgVersion >= 0)
     writer.writeAttribute("pkg_version", QString::number(mPkgVersion));
 
   if (mIgnorePackageVersion)
@@ -172,6 +176,8 @@ void
 DeviserVersion::setPkgVersion(int pkgVersion)
 {
   if (pkgVersion == mPkgVersion) return;
+
+  if (pkgVersion < 0) return;
 
   QString oldId = toString();
   mPkgVersion = pkgVersion;
