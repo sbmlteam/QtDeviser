@@ -144,7 +144,7 @@ Util::getExecutableFilter()
 #ifdef Q_OS_WIN
   return "Executable files (*.exe; *.bat; *.cmd);;All files (*.*)";
 #else
-  return "Executable files (*.*, *.sh);;All files (*.*)";
+  return "Executable files (*.*; *.sh);;All files (*.*)";
 #endif
 }
 
@@ -157,6 +157,16 @@ Util::getLibFilter()
 #else
   return "Library files (*.a*; *.so; *.dylib);;All files (*.*)";
 #endif
+}
+
+QString Util::getHeaderFilter()
+{
+  return "Header files (*.h; *.h++; *.hpp; *.hh; *.hxx);;All files (*.*)";
+}
+
+QString Util::getImplementationFilter()
+{
+  return "C++ files (*.c; *.c++; *.cpp; *.cc; *.cxx);;All files (*.*)";
 }
 
 

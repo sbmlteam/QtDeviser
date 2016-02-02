@@ -29,6 +29,8 @@ public:
   static QString getEnumPrefix();
   static QString getExecutableFilter();
   static QString getLibFilter();
+  static QString getHeaderFilter();
+  static QString getImplementationFilter();
 
   static bool isWindows();
 

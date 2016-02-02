@@ -65,7 +65,7 @@ void
 FormDeviserPackage::browseImplementation()
 {
   if (mPackage == NULL || mbInitializing) return;
-  QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, "C++ files (*.c, *.c++, *.cpp, *.cc, *.cxx);;All files (*.*)");
+  QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, Util::getImplementationFilter());
   mPackage->setAdditionalDefinitions(fileName);
   ui->txtImplementation->setText(fileName);
 }
@@ -74,7 +74,7 @@ void
 FormDeviserPackage::browseDeclaration()
 {
   if (mPackage == NULL || mbInitializing) return;
-  QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, "Header files (*.h, *.h++, *.hpp, *.hh, *.hxx);;All files (*.*)");
+  QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, Util::getHeaderFilter());
   mPackage->setAdditionalDeclarations(fileName);
   ui->txtDeclaration->setText(fileName);
 }
