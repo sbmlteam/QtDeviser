@@ -141,7 +141,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>The next two entries are needed, in order to compile the latex sources:</string>
+          <string>The next two entries are needed to compile the latex sources:</string>
          </property>
         </widget>
        </item>
@@ -214,7 +214,7 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The next entries are needed, to compile the package with libSBML:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The next entries are needed to compile the package with libSBML:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -415,10 +415,10 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>WARNING: Types added here will not be supported by Deviser. TeX generation will work and use the name of the type as given. C++ code generation will produce invalid code by using FIXME_[type] as the data type; where [type] will be the name of the type as given. Generated code will need to be manually adjusted. The Deviser code generation can be easily adapted to accept a user defined types and instructions are given in Appendix C of the User Manual.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;The Deviser code generation can be easily adapted to accept a user defined types and instructions are given in Appendix C of the User Manual.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;WARNING: Types added here will not be supported by Deviser. TeX generation will work and use the name of the type as given. C++ code generation will produce invalid code by using FIXME_[type] as the data type; where [type] will be the name of the type as given. Generated code will need to be manually adjusted. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+          <set>Qt::AlignJustify|Qt::AlignTop</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
