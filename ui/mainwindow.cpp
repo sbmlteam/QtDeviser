@@ -322,8 +322,26 @@ void
 MainWindow::treeElementRenamed(const QString& oldId, const QString& newId,
                                const DeviserVersion* version)
 {
-  QList<QTreeWidgetItem*> items = ui->treeWidget->findItems(oldId, Qt::MatchExactly | Qt::MatchRecursive);
   QString parentVersion = version == NULL ? "" : version->toString();
+
+  // try selected items first
+  QList<QTreeWidgetItem*> items = ui->treeWidget->selectedItems();
+
+  foreach(QTreeWidgetItem* item, items)
+  {
+    if (item->text(0) != oldId)
+      continue;
+
+    QString currentParent = item->parent() == NULL ? "" : item->parent()->parent()->text(0);
+    if (parentVersion == currentParent || parentVersion == newId)
+    {
+      item->setText(0, newId);
+      return;
+    }
+  }
+
+  // only then use the item with the old name
+  items = ui->treeWidget->findItems(oldId, Qt::MatchExactly | Qt::MatchRecursive);
 
   foreach(QTreeWidgetItem* item, items)
   {
@@ -331,7 +349,7 @@ MainWindow::treeElementRenamed(const QString& oldId, const QString& newId,
     if (parentVersion == currentParent || parentVersion == newId)
     {
       item->setText(0, newId);
-      break;
+      return;
     }
   }
 }
@@ -581,19 +599,21 @@ MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
 
   if (item->text(0).startsWith("Version"))
   {
+    int index = ui->treeWidget->indexOfTopLevelItem(item) -1;
+    if (index > 0 && index < mModel->getVersions().count())
+      return mModel->getVersions().at(index);
     return mModel->getVersion(item->text(0));
   }
 
   if (item->text(0) == "Mappings")
   {
     return new DeviserMapping();
-
   }
-
 
   QTreeWidgetItem* parent = item->parent();
   if (parent == NULL) return NULL;
 
+  int itemIndex = parent->indexOfChild(item);
   QTreeWidgetItem* parentsParent = parent != NULL ? parent->parent() : NULL;
 
   mCurrentVersion = parentsParent != NULL ? mModel->getVersion(parentsParent->text(0)) :
@@ -601,16 +621,22 @@ MainWindow::getDeviserItemForTreeView(QTreeWidgetItem* item)
   
   if (parent != NULL && parent->text(0) == "Classes")
   {
+    if (itemIndex < mCurrentVersion->getElements().count())
+      return mCurrentVersion->getElements().at(itemIndex);
     return mCurrentVersion->getElement(item->text(0));
   }
   
   if (parent != NULL && parent->text(0) == "Plugins")
   {
+    if (itemIndex < mCurrentVersion->getPlugins().count())
+      return mCurrentVersion->getPlugins().at(itemIndex);
     return mCurrentVersion->getPlugin(item->text(0));
   }
   
   if (parent != NULL && parent->text(0) == "Enums")
   {
+    if (itemIndex < mCurrentVersion->getEnums().count())
+      return mCurrentVersion->getEnums().at(itemIndex);
     return mCurrentVersion->getEnum(item->text(0));
   }
 

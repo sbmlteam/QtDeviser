@@ -62,6 +62,7 @@ SOURCES += main.cpp \
     validation/attributeconstraints.cpp \
     validation/enumconstraint.cpp \
     validation/instantiationconstraint.cpp \
+    validation/uniquenameconstraint.cpp \
     ui/typechooserdelegate.cpp \
     ui/attributedelegate.cpp
 
@@ -108,6 +109,7 @@ HEADERS  += util.h \
             validation/hasmathconstraint.h \
             validation/haschildrenconstraint.h \
             validation/isbaseclassconstraint.h \
+            validation/uniquenameconstraint.h \
     deviser-version.h \
     ui/flowlayout.h \
     ui/smoothgraphicsitem.h \

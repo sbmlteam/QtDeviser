@@ -18,6 +18,7 @@ HasListOfConstraint::analyzePackage(DeviserPackage *package)
 
     foreach (DeviserClass* current , version->getElements())
     {
+
       bool hasListOf = current->hasListOf();
 
       int countUses = 0;

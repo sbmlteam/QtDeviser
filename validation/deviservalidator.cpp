@@ -11,6 +11,7 @@
 #include <validation/typecodeconstraint.h>
 #include <validation/enumconstraint.h>
 #include <validation/instantiationconstraint.h>
+#include <validation/uniquenameconstraint.h>
 
 DeviserValidator::DeviserValidator(QObject *parent)
   : QObject(parent)
@@ -26,6 +27,7 @@ DeviserValidator::DeviserValidator(QObject *parent)
                << new TypeCodeConstraint(this)
                << new EnumConstraint(this)
                << new InstantiationConstraint(this)
+               << new UniqueNameConstraint(this)
                   ;
 }
 
