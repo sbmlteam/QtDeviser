@@ -10,6 +10,7 @@ class MainWindow;
 }
 
 class QTreeWidgetItem;
+class QHelpEngine;
 
 class FormDeviserPackage;
 class FormDeviserVersion;
@@ -17,6 +18,8 @@ class FormDeviserEnum;
 class FormDeviserMapping;
 class FormDeviserClass;
 class FormDeviserPlugin;
+
+class HelpWindow;
 
 class DeviserPackage;
 class DeviserBase;
@@ -36,6 +39,7 @@ public:
 
 public slots:
   void showAbout();
+  void showHelp();
   void showAboutQt();
   void addClass();
   void addEnum();
@@ -111,6 +115,10 @@ private:
   QString mFileName;
 
   DeviserValidator mValidator;
+
+  HelpWindow* mpHelpWindow;
+  QHelpEngine* mpHelpEngine;
+
 
 };
 

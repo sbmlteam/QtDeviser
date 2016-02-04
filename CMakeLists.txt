@@ -3,7 +3,7 @@
 # CMake Build Script for DeviserEdit
 #
 # Frank T. Bergmann
-#
+# 
 #
 
 cmake_minimum_required(VERSION 2.6)
@@ -121,7 +121,7 @@ set (CMAKE_PREFIX_PATH "${PREFIX_PATH}")
 endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/ChooseQtVersion.cmake)
-QT_FIND_MODULES(Core Gui OpenGL Xml Network Svg)
+QT_FIND_MODULES(Core Gui OpenGL Xml Network Svg Help WebKit)
 
 
 set(CPP_FILES)
@@ -215,6 +215,10 @@ add_custom_command(TARGET DeviserEdit POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:DeviserEdit>/../Resources
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Images/ICON_Deviser.icns $<TARGET_FILE_DIR:DeviserEdit>/../Resources)
 endif()
+
+add_custom_command(TARGET DeviserEdit POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Deviser.qch $<TARGET_FILE_DIR:DeviserEdit>/
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Deviser.qhc $<TARGET_FILE_DIR:DeviserEdit>/)
 
 install(TARGETS DeviserEdit DESTINATION bin)
 

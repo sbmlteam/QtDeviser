@@ -162,6 +162,7 @@
     </property>
     <addaction name="actionAboutQt"/>
     <addaction name="actionAbout"/>
+    <addaction name="actionHelp_Contents"/>
    </widget>
    <widget class="QMenu" name="menu_Tool">
     <property name="title">
@@ -319,7 +320,7 @@
     <string>About</string>
    </property>
    <property name="shortcut">
-    <string>F1</string>
+    <string>Shift+F1</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
@@ -389,6 +390,17 @@
    </property>
    <property name="toolTip">
     <string>Reloads the current document from disc.</string>
+   </property>
+  </action>
+  <action name="actionHelp_Contents">
+   <property name="text">
+    <string>Help Contents...</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
  </widget>
@@ -781,6 +793,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionHelp_Contents</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showHelp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>424</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addClass()</slot>
@@ -807,5 +835,6 @@
   <slot>copyXML()</slot>
   <slot>reloadDocument()</slot>
   <slot>generateContextMenuForTree(QPoint)</slot>
+  <slot>showHelp()</slot>
  </slots>
 </ui>

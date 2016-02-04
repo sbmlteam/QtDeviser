@@ -7,6 +7,8 @@
 #include <QMimeData>
 #include <QUrl>
 
+#include <QHelpEngine>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -16,6 +18,8 @@
 #include "formdevisermapping.h"
 #include "formdeviserclass.h"
 #include "formdeviserplugin.h"
+
+#include "helpwindow.h"
 
 #include "dialogabout.h"
 #include "dialoguml.h"
@@ -48,6 +52,9 @@ MainWindow::MainWindow(QWidget *parent)
   , mCurrentVersion(NULL)
   , mCurrentElement(NULL)
   , mFileName()
+  , mValidator()
+  , mpHelpWindow(NULL)
+  , mpHelpEngine(NULL)
 
 {
   ui->setupUi(this);
@@ -80,6 +87,29 @@ MainWindow::showAbout()
 {
   DialogAbout about(this);
   about.exec();
+}
+
+void
+MainWindow::showHelp()
+{
+
+  if (mpHelpWindow == NULL)
+  {
+    mpHelpWindow = new HelpWindow(this);
+
+  }
+
+  if (mpHelpEngine == NULL)
+  {
+    mpHelpEngine = new QHelpEngine(QApplication::applicationDirPath() +  "/Deviser.qhc", this);
+    mpHelpEngine->setupData();
+
+    mpHelpWindow->setHelpEngine(mpHelpEngine);
+
+  }
+
+  mpHelpWindow->show();
+
 }
 
 void MainWindow::showAboutQt()

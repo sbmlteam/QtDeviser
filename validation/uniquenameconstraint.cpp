@@ -2,6 +2,8 @@
 
 #include <model/devisertypes.h>
 
+#include <QStringList>
+
 UniqueNameConstraint::UniqueNameConstraint(DeviserValidator* validator)
   : DeviserConstraint(validator)
 {

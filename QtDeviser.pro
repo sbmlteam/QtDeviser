@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui xml network svg
+QT       += core gui xml network svg help webkitwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -64,7 +64,9 @@ SOURCES += main.cpp \
     validation/instantiationconstraint.cpp \
     validation/uniquenameconstraint.cpp \
     ui/typechooserdelegate.cpp \
-    ui/attributedelegate.cpp
+    ui/attributedelegate.cpp \
+    ui/helpwindow.cpp \
+    ui/helpbrowser.cpp
 
 
 HEADERS  += util.h \
@@ -121,7 +123,9 @@ HEADERS  += util.h \
     validation/enumconstraint.h \
     validation/instantiationconstraint.h \
     ui/typechooserdelegate.h \
-    ui/attributedelegate.h
+    ui/attributedelegate.h \
+    ui/helpwindow.h \
+    ui/helpbrowser.h
 
 
 
@@ -137,7 +141,8 @@ FORMS    += ui/mainwindow.ui \
             ui/dialoggenerate.ui \
             ui/dialogpreferences.ui \
             ui/dialogerrors.ui \
-    ui/dialogdisplaynumbers.ui
+    ui/dialogdisplaynumbers.ui \
+    ui/helpwindow.ui
 
 RESOURCES += \
     deviser-resources.qrc
