@@ -10,8 +10,6 @@
 #include <QAction>
 #include <QDesktopServices>
 
-#define  USE_WEBVIEW 0
-
 #if USE_WEBVIEW
 
 #include <QWebPage>
@@ -55,10 +53,6 @@ void HelpNetworkReply::abort()
   // nothing to do
 }
 
-#include <qglobal.h>
-
-#include <iostream>
-
 qint64 HelpNetworkReply::readData(char *buffer, qint64 maxlen)
 {
   
@@ -67,7 +61,6 @@ qint64 HelpNetworkReply::readData(char *buffer, qint64 maxlen)
   if (len) {
     memcpy(buffer, data.constData(), len);
     data.remove(0, len);
-    std::cout << buffer;
   }
   if (!data.length())
     QTimer::singleShot(0, this, SIGNAL(finished()));
@@ -188,9 +181,7 @@ HelpBrowser::HelpBrowser(QWidget* parent)
   : QWebView(parent)
   , mpHelpEngine(NULL)
 {
-//  settings()->setAttribute(QWebSettings::PluginsEnabled, false);
-//  settings()->setAttribute(QWebSettings::JavaEnabled, false);
-  QWebSettings::globalSettings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+  //QWebSettings::globalSettings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
   QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptEnabled, true);
   connect(this, SIGNAL(urlChanged(QUrl)), this, SIGNAL(sourceChanged(QUrl)));
   setAcceptDrops(false);
@@ -200,11 +191,8 @@ HelpBrowser::HelpBrowser(QHelpEngine* helpEngine, QWidget *parent)
   : QWebView(parent)
   , mpHelpEngine(helpEngine)
 {
-  settings()->setAttribute(QWebSettings::JavascriptEnabled, true);
+  QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptEnabled, true);
 
-//  settings()->setAttribute(QWebSettings::PluginsEnabled, false);
-//  settings()->setAttribute(QWebSettings::JavaEnabled, false);
-//
   connect(this, SIGNAL(urlChanged(QUrl)), this, SIGNAL(sourceChanged(QUrl)));
   setAcceptDrops(false);
 }
@@ -232,20 +220,8 @@ void HelpBrowser::setHelpEngine(QHelpEngine* helpEngine)
 
 }
 
-//QVariant
-//HelpBrowser::loadResource(int type, const QUrl& name)
-//{
-//  //if (mpHelpEngine != NULL &&  name.scheme() == "qthelp")
-//    return QVariant(mpHelpEngine->fileData(name));
-//  //else
-//  //  return QTextBrowser::loadResource(type, name);
-//}
-
-#include <QDebug>
 void HelpBrowser::setSource(const QUrl &url)
 {
-   qDebug() << page()->currentFrame()->toHtml();
-
   if (!homeUrl.isValid())
     homeUrl = url;
 
@@ -262,11 +238,13 @@ void HelpBrowser::load(const QUrl& url)
 {
   if (mpHelpEngine != NULL &&  url.scheme() == "qthelp")
   {
-    QWebView::load("file:///C:/DropBoxSBML/Dropbox/sbmlteam/deviser/qthelp/" + QFileInfo(url.path()).fileName());
+    //QWebView::load("file:///C:/DropBoxSBML/Dropbox/sbmlteam/deviser/qthelp/" + QFileInfo(url.path()).fileName());
+    QWebView::setHtml(mpHelpEngine->fileData(url));
   }
-    //QWebView::setHtml(mpHelpEngine->fileData(url));
   else
+  {
     QWebView::load(url);
+  }
 }
 
 #else //USE_WEBVIEW

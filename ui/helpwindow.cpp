@@ -53,9 +53,6 @@ void HelpWindow::setHelpEngine(QHelpEngine* engine)
   connect(queryWidget, SIGNAL(search()), this, SLOT(search()));
   connect(resultWidget, SIGNAL(requestShowLink(QUrl)), ui->textBrowser, SLOT(setSource(QUrl)));
 
-  connect(mpSearchEngine, SIGNAL(searchingStarted()), this, SLOT(searchingStarted()));
-  connect(mpSearchEngine, SIGNAL(searchingFinished(int)), this, SLOT(searchingFinished(int)));
-
   mpSearchEngine->reindexDocumentation();
 
   connect(engine->contentWidget(),
