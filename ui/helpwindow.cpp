@@ -1,5 +1,5 @@
 #include "helpwindow.h"
-#include "helpbrowser.h"
+#include <ui/helpbrowser.h>
 #include "ui_helpwindow.h"
 
 #include <QHelpContentWidget>

@@ -5,9 +5,6 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 
-#include <QWebPage>
-#include <QWebFrame>
-#include <QTimer>
 
 #include <QDir>
 #include <QAction>
@@ -16,6 +13,10 @@
 #define  USE_WEBVIEW 0
 
 #if USE_WEBVIEW
+
+#include <QWebPage>
+#include <QWebFrame>
+#include <QTimer>
 
 class HelpNetworkReply : public QNetworkReply
 {

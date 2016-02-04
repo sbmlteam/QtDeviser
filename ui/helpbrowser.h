@@ -2,12 +2,12 @@
 #define HELPBROWSER_H
 
 #include <QTextBrowser>
-#include <QWebView>
 #include <QHelpEngine>
 #include <QUrl>
 
 #define  USE_WEBVIEW 0
 #if USE_WEBVIEW
+#include <QWebView>
 
 class HelpBrowser : public QWebView
 {
