@@ -171,6 +171,7 @@ endif()
 
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/ui)
 set(EXECUTABLE_FLAGS)
 set(EXTRA_FILES)
 
