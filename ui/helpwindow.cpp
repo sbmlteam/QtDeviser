@@ -7,6 +7,7 @@
 #include <QHelpSearchEngine>
 #include <QHelpSearchQueryWidget>
 #include <QHelpSearchResultWidget>
+#include <QTimer>
 
 #include <QVBoxLayout>
 
@@ -29,41 +30,48 @@ void HelpWindow::setHelpEngine(QHelpEngine* engine)
   QTabWidget* tWidget = new QTabWidget;
   tWidget->setMaximumWidth(200);
 
-  tWidget->addTab(engine->contentWidget(), "Contents");
 
   QWidget *widget = new QWidget(this);
   QVBoxLayout *vLayout = new QVBoxLayout(widget);
+
   QHelpSearchQueryWidget* queryWidget = mpSearchEngine->queryWidget();
   QHelpSearchResultWidget* resultWidget = mpSearchEngine->resultWidget();
+  QHelpContentWidget * contentWidget = engine->contentWidget();
 
   vLayout->addWidget(queryWidget);
   vLayout->addWidget(resultWidget);
 
   widget->setLayout(vLayout);
-
   widget->setFocusProxy(queryWidget);
 
+  mpSearchEngine->reindexDocumentation();
+
+  tWidget->addTab(contentWidget, "Contents");
   tWidget->addTab(widget, "Search");
-  //tWidget->addTab(engine->indexWidget(), "Index");
+  tWidget->addTab(engine->indexWidget(), "Index");
 
   ui->dockWidget->setWidget(tWidget);
-
-  engine->contentWidget()->expandAll();
 
   connect(queryWidget, SIGNAL(search()), this, SLOT(search()));
   connect(resultWidget, SIGNAL(requestShowLink(QUrl)), ui->textBrowser, SLOT(setSource(QUrl)));
 
-  mpSearchEngine->reindexDocumentation();
-
-  connect(engine->contentWidget(),
+  connect(contentWidget,
           SIGNAL(linkActivated(QUrl)),
           ui->textBrowser, SLOT(setSource(QUrl)));
   connect(engine->indexWidget(),
           SIGNAL(linkActivated(QUrl, QString)),
           ui->textBrowser, SLOT(setSource(QUrl)));
 
+
+  contentWidget->setItemsExpandable(true);
+
+
   ui->textBrowser->setSource(QUrl("qthelp://org.sphinx.deviser.1.0/doc/deviser.html"));
 
+
+  // expanding the content for whatever reason does not work
+  // right away, so we delay it for a bit.
+  QTimer::singleShot(100, contentWidget, SLOT(expandAll()));
 
 }
 
