@@ -19,7 +19,7 @@
      <widget class="HelpBrowser" name="textBrowser">
       <property name="minimumSize">
        <size>
-        <width>640</width>
+        <width>700</width>
         <height>480</height>
        </size>
       </property>
