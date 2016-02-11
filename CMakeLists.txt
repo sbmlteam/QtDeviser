@@ -231,6 +231,11 @@ if (APPLE)
 add_custom_command(TARGET DeviserEdit POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:DeviserEdit>/../Resources
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Images/ICON_Deviser.icns $<TARGET_FILE_DIR:DeviserEdit>/../Resources)
+
+# add target to bundle up the qt libraries in the app
+ADD_CUSTOM_TARGET(macdeploy
+ macdeployqt "${CMAKE_CURRENT_BINARY_DIR}/DeviserEdit.app" -dmg) 
+
 endif()
 
 add_custom_command(TARGET DeviserEdit POST_BUILD
@@ -272,10 +277,6 @@ if (NOT APPLE)
       include(BundleUtilities)
       fixup_bundle(\"${APPS}\" \"\" \"${DIRS}\")
       " COMPONENT Runtime)
-
-  # add target to bundle up the qt libraries in the app
-  ADD_CUSTOM_TARGET(macdeploy
-  macdeployqt "${CMAKE_CURRENT_BINARY_DIR}/DeviserEdit.app -dmg") 
 
 endif()
 
