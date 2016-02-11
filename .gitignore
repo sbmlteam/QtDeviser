@@ -6,3 +6,6 @@ qrc*cpp
 ui*h
 Info.plist
 QtDeviser.xcodeproj
+
+installer/dist
+Setup*.exe
