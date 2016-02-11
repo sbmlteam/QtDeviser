@@ -273,6 +273,10 @@ if (NOT APPLE)
       fixup_bundle(\"${APPS}\" \"\" \"${DIRS}\")
       " COMPONENT Runtime)
 
+  # add target to bundle up the qt libraries in the app
+  ADD_CUSTOM_TARGET(macdeploy
+  macdeployqt "${CMAKE_CURRENT_BINARY_DIR}/DeviserEdit.app -dmg") 
+
 endif()
 
 
