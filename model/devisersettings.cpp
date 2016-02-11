@@ -17,6 +17,7 @@ DeviserSettings* DeviserSettings::mpInstance = NULL;
 
 DeviserSettings::DeviserSettings(QObject *parent)
   : QObject(parent)
+  , mValidationColor(Util::parseColor("fffeb0a0"))
 {
 
 }
