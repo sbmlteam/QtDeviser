@@ -80,7 +80,7 @@ DeviserSettings::loadSettings(const QString& settingsFile)
   mHeight = readElement(root, "Height").toInt();
   mUseSVG = readElement(root, "UseSVG") != "false";
   mFitUML = readElement(root, "FitUML") != "false";
-  mValidationColor = Util::parseColor(readElement(root, "ValidationColor", "7fff0000"));
+  mValidationColor = Util::parseColor(readElement(root, "ValidationColor", "fffeb0a0"));
 
   mRecentFiles.clear();
   QDomNodeList list =  root.elementsByTagName("file");
