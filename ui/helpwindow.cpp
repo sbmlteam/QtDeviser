@@ -48,7 +48,10 @@ void HelpWindow::setHelpEngine(QHelpEngine* engine)
 
   tWidget->addTab(contentWidget, "Contents");
   tWidget->addTab(widget, "Search");
-  tWidget->addTab(engine->indexWidget(), "Index");
+
+  // no use in displaying the index for now as we don't
+  // have one specified yet
+  //tWidget->addTab(engine->indexWidget(), "Index");
 
   ui->dockWidget->setWidget(tWidget);
 
