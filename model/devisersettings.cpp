@@ -286,28 +286,31 @@ DeviserSettings::getSettingsFile()
       return QFileInfo(file).absoluteFilePath();
   }
 
-  dir.clear();
-  dir.append(QApplication::applicationDirPath());
-  {
-    QFile file(dir + "/" + "deviser_config.xml");
-    if (file.exists())
-      return QFileInfo(file).absoluteFilePath();
-  }
-
-
-  // file does not exist, lets return the default
-
+  // file does not exist, lets create the
+  // default config file
+  QString destination;
   if (Util::isWindows())
   {
-    QByteArray dir = qgetenv("APPDATA");
-    return QFileInfo(dir + "/" + "deviser_config.xml").absoluteFilePath();
+    destination = dir + "/" + "deviser_config.xml";
+  }
+  else
+  {
+    destination = dir + "/" + ".deviser_config.xml";
   }
 
-  // on all other platforms we hide
+  QString appDir = QApplication::applicationDirPath();
   {
-    QByteArray dir = qgetenv("HOME");
-    return QFileInfo(dir + "/" + ".deviser_config.xml").absoluteFilePath();
-  }
+    QFile defaultFile(appDir + "/" + "default_config.xml");
+    if (defaultFile.exists())
+    {
+      defaultFile.copy(destination);
+    }
+  }  
+
+  // we found no defaults, this is bad, but we want the new
+  // configuration saved in the default location
+  return destination;
+
 }
 
 const QString& DeviserSettings::getPythonInterpreter() const
