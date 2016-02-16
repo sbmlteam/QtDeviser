@@ -234,7 +234,9 @@ add_custom_command(TARGET DeviserEdit POST_BUILD
 
 # add target to bundle up the qt libraries in the app
 ADD_CUSTOM_TARGET(macdeploy
- macdeployqt "${CMAKE_CURRENT_BINARY_DIR}/DeviserEdit.app" -dmg) 
+ macdeployqt "${CMAKE_CURRENT_BINARY_DIR}/DeviserEdit.app" -dmg)
+
+ADD_DEPENDENCIES(macdeploy DeviserEdit)
 
 endif()
 
