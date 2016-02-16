@@ -2,7 +2,9 @@
 
 #include <QApplication>
 #include <QFile>
+#include <QDir>
 #include <QFileInfo>
+#include <QProcess>
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -105,6 +107,12 @@ DeviserSettings::saveSettings()
   QString fileName = getSettingsFile();
   if (fileName.isEmpty()) return;
 
+  saveSettings(fileName);
+}
+
+void
+DeviserSettings::saveSettings(const QString& fileName)
+{
   QFile file(fileName);
   if (!file.open(QIODevice::WriteOnly))
     return;
@@ -268,6 +276,41 @@ void DeviserSettings::setValidationColor(const QColor& validationColor)
 }
 
 
+QString detectExecutable(const QString& name)
+{
+  QProcess p;
+  QStringList params;
+
+  params << name;
+  p.start("which", params);
+  p.waitForFinished(-1);
+
+  return p.readAll().trimmed();
+}
+
+QString detectDir(const QString& name)
+{
+  QString dir = qApp->applicationDirPath();
+
+  // try next to the executable
+  QDir here(dir + "/" + name);
+  if (here.exists())
+    return here.absolutePath();
+
+  // try one directory up from the executable
+  QDir oneUp(dir + "/../" + name);
+  if (oneUp.exists())
+    return oneUp.absolutePath();
+
+  // try resources dir
+  QDir resources(dir + "/../Resources/" + name);
+  if (resources.exists())
+    return resources.absolutePath();
+
+  // not found
+  return QString();
+}
+
 
 QString
 DeviserSettings::getSettingsFile()
@@ -305,8 +348,33 @@ DeviserSettings::getSettingsFile()
     if (defaultFile.exists())
     {
       defaultFile.copy(destination);
+      return destination;
     }
   }  
+
+  // at this point we have no usable defaults. So on platforms other than
+  // windows (where we include the defaults in the installer) we try to detect
+  // them ourselves.
+
+  if (!Util::isWindows())
+  {
+    DeviserSettings settings;
+
+    // detect executables
+    settings.setCmakeExecutable(detectExecutable("cmake"));
+    settings.setCompiler(detectExecutable("g++"));
+    settings.setMikTexBinDir(QFileInfo(detectExecutable("g++")).absolutePath());
+    settings.setPythonInterpreter(detectExecutable("python"));
+    settings.setSwigExecutable(detectExecutable("swig"));
+
+    // detect local paths
+    settings.setDependencySourceDir(detectDir("libSBML-dependencies"));
+    settings.setDeviserRepository(detectDir("deviser"));
+    settings.setSbmlPkgSpecDir(detectDir("sbmlpkgspec"));
+
+    // now save the settings
+    settings.saveSettings(destination);
+  }
 
   // we found no defaults, this is bad, but we want the new
   // configuration saved in the default location

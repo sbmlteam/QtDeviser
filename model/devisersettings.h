@@ -86,6 +86,9 @@ signals:
 public slots:
 
 protected:
+
+  void saveSettings(const QString& fileName);
+
   static DeviserSettings* mpInstance;
 
   QString mPythonInterpreter;
