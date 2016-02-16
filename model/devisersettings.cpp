@@ -363,7 +363,7 @@ DeviserSettings::getSettingsFile()
     // detect executables
     settings.setCmakeExecutable(detectExecutable("cmake"));
     settings.setCompiler(detectExecutable("g++"));
-    settings.setMikTexBinDir(QFileInfo(detectExecutable("g++")).absolutePath());
+    settings.setMikTexBinDir(QFileInfo(detectExecutable("pdflatex")).absolutePath());
     settings.setPythonInterpreter(detectExecutable("python"));
     settings.setSwigExecutable(detectExecutable("swig"));
 
