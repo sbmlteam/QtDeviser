@@ -1,10 +1,14 @@
 #include "ui/mainwindow.h"
+#include "deviser-version.h"
+
 #include <QApplication>
 
 #include <QFile>
 #include <QTextCodec>
 #include <QProcess>
 #include <QMetaType>
+
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -20,8 +24,18 @@ int main(int argc, char *argv[])
   MainWindow w;
 
   for (int i = 1; i < argc; ++i)
-    if (QFile(argv[i]).exists())
-      w.openFile(argv[i]);
+  {
+    QString current(argv[i]);
+
+    if (current == "--version")
+    {
+      std::cout << "DeviserEdit " << DEVISER_DOTTED_VERSION << std::endl;
+      return 0;
+    }
+
+    if (QFile(current).exists())
+      w.openFile(current);
+  }
 
   w.show();
 
