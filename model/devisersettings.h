@@ -10,7 +10,7 @@ class DeviserSettings : public QObject
 {
   Q_OBJECT
 public:
-  explicit DeviserSettings(QObject *parent = 0);
+  explicit DeviserSettings(QObject *parent = 0);  
 
   static DeviserSettings* getInstance();
 
@@ -87,7 +87,20 @@ public slots:
 
 protected:
 
+  /**
+   * save the settings file under the given name
+   */
   void saveSettings(const QString& fileName);
+
+  /**
+   * detect a directory with specified name around the executable
+   */
+  static QString detectDir(const QString& name);
+
+  /**
+   * detect an executable in the path (non-windows only)
+   */
+  static QString detectExecutable(const QString& name);
 
   static DeviserSettings* mpInstance;
 

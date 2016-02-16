@@ -54,7 +54,31 @@ DeviserSettings::loadSettings(const QString& settingsFile)
   if (fileName.isEmpty()) return;
 
   QFile file(fileName);
-  if (!file.exists()) return;
+
+  if (!file.exists())
+  {
+
+    // even through we don't have a settings file, we try to detect
+    // them ourselves.
+
+    if (!Util::isWindows())
+    {
+      // detect executables
+      setCmakeExecutable(detectExecutable("cmake"));
+      setCompiler(detectExecutable("g++"));
+      setMikTexBinDir(QFileInfo(detectExecutable("pdflatex")).absolutePath());
+      setPythonInterpreter(detectExecutable("python"));
+      setSwigExecutable(detectExecutable("swig"));
+
+      // detect local paths
+      setDependencySourceDir(detectDir("libSBML-dependencies"));
+      setDeviserRepository(detectDir("deviser"));
+      setSbmlPkgSpecDir(detectDir("sbmlpkgspec"));
+    }
+
+    return;
+  }
+
   file.open(QIODevice::ReadOnly);
 
 
@@ -276,7 +300,8 @@ void DeviserSettings::setValidationColor(const QColor& validationColor)
 }
 
 
-QString detectExecutable(const QString& name)
+QString
+DeviserSettings::detectExecutable(const QString& name)
 {
   QProcess p;
   QStringList params;
@@ -288,7 +313,8 @@ QString detectExecutable(const QString& name)
   return p.readAll().trimmed();
 }
 
-QString detectDir(const QString& name)
+QString
+DeviserSettings::detectDir(const QString& name)
 {
   QString dir = qApp->applicationDirPath();
 
@@ -352,31 +378,8 @@ DeviserSettings::getSettingsFile()
     }
   }  
 
-  // at this point we have no usable defaults. So on platforms other than
-  // windows (where we include the defaults in the installer) we try to detect
-  // them ourselves.
 
-  if (!Util::isWindows())
-  {
-    DeviserSettings settings;
-
-    // detect executables
-    settings.setCmakeExecutable(detectExecutable("cmake"));
-    settings.setCompiler(detectExecutable("g++"));
-    settings.setMikTexBinDir(QFileInfo(detectExecutable("pdflatex")).absolutePath());
-    settings.setPythonInterpreter(detectExecutable("python"));
-    settings.setSwigExecutable(detectExecutable("swig"));
-
-    // detect local paths
-    settings.setDependencySourceDir(detectDir("libSBML-dependencies"));
-    settings.setDeviserRepository(detectDir("deviser"));
-    settings.setSbmlPkgSpecDir(detectDir("sbmlpkgspec"));
-
-    // now save the settings
-    settings.saveSettings(destination);
-  }
-
-  // we found no defaults, this is bad, but we want the new
+  // we found no defaults, but we want the new
   // configuration saved in the default location
   return destination;
 
