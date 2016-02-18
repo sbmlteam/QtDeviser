@@ -69,12 +69,12 @@ DeviserSettings::loadSettings(const QString& settingsFile)
       setMikTexBinDir(QFileInfo(detectExecutable("pdflatex")).absolutePath());
       setPythonInterpreter(detectExecutable("python"));
       setSwigExecutable(detectExecutable("swig"));
-
-      // detect local paths
-      setDependencySourceDir(detectDir("libSBML-dependencies"));
-      setDeviserRepository(detectDir("deviser"));
-      setSbmlPkgSpecDir(detectDir("sbmlpkgspec"));
     }
+
+    // detect local paths
+    setDependencySourceDir(detectDir("libSBML-dependencies"));
+    setDeviserRepository(detectDir("deviser"));
+    setSbmlPkgSpecDir(detectDir("sbmlpkgspec"));
 
     return;
   }
@@ -386,7 +386,7 @@ DeviserSettings::getSettingsFile()
 }
 
 const QString& DeviserSettings::getPythonInterpreter() const
-{
+{  
   return mPythonInterpreter;
 }
 
@@ -395,8 +395,14 @@ void DeviserSettings::setPythonInterpreter(const QString &pythonInterpreter)
   mPythonInterpreter = pythonInterpreter;
 }
 
-const QString& DeviserSettings::getDeviserRepository() const
+const QString& DeviserSettings::getDeviserRepository()
 {
+  if (!QDir(mDeviserRepository).exists())
+  {
+    QString dir = detectDir("deviser");
+    if (!dir.isEmpty())
+      setDeviserRepository(dir);
+  }
   return mDeviserRepository;
 }
 
@@ -415,8 +421,14 @@ void DeviserSettings::setDefaultOutputDir(const QString &defaultOutputDir)
   mDefaultOutputDir = defaultOutputDir;
 }
 
-const QString& DeviserSettings::getSbmlPkgSpecDir() const
+const QString& DeviserSettings::getSbmlPkgSpecDir()
 {
+  if (!QDir(mSbmlPkgSpecDir).exists())
+  {
+    QString dir = detectDir("sbmlpkgspec");
+    if (!dir.isEmpty())
+      setSbmlPkgSpecDir(dir);
+  }
   return mSbmlPkgSpecDir;
 }
 
@@ -468,8 +480,14 @@ void DeviserSettings::setCmakeExecutable(const QString &cmakeExecutable)
   mCmakeExecutable = cmakeExecutable;
 }
 
-const QString& DeviserSettings::getDependencySourceDir() const
+const QString& DeviserSettings::getDependencySourceDir()
 {
+  if (!QDir(mDependencySourceDir).exists())
+  {
+    QString dir = detectDir("libSBML-dependencies");
+    if (!dir.isEmpty())
+      setDependencySourceDir(dir);
+  }
   return mDependencySourceDir;
 }
 

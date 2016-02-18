@@ -19,13 +19,13 @@ public:
   const QString& getPythonInterpreter() const;
   void setPythonInterpreter(const QString &pythonInterpreter);
 
-  const QString& getDeviserRepository() const;
+  const QString& getDeviserRepository();
   void setDeviserRepository(const QString &deviserRepository);
 
   const QString& getDefaultOutputDir() const;
   void setDefaultOutputDir(const QString &defaultOutputDir);
 
-  const QString& getSbmlPkgSpecDir() const;
+  const QString& getSbmlPkgSpecDir();
   void setSbmlPkgSpecDir(const QString &sbmlPkgSpecDir);
 
   const QString& getMikTexBinDir() const;
@@ -40,7 +40,7 @@ public:
   const QString& getCmakeExecutable() const;
   void setCmakeExecutable(const QString &cmakeExecutable);
 
-  const QString& getDependencySourceDir() const;
+  const QString& getDependencySourceDir();
   void setDependencySourceDir(const QString &dependencySourceDir);
 
   const QString& getSwigExecutable() const;
