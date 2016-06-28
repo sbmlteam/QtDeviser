@@ -178,10 +178,10 @@
             <item row="0" column="0">
              <widget class="QCheckBox" name="chkUseDefault">
               <property name="toolTip">
-               <string>When checked the default type code of form SBML_&lt;PACKAGE&gt;_&lt;NAME&gt; will be used.</string>
+               <string>When checked the default typecode of form SBML_&lt;PACKAGE&gt;_&lt;NAME&gt; will be used.</string>
               </property>
               <property name="text">
-               <string>Use default type code</string>
+               <string>Use default typecode</string>
               </property>
               <property name="checked">
                <bool>true</bool>

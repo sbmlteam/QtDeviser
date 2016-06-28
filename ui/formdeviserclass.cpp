@@ -389,7 +389,7 @@ void FormDeviserClass::defaultTypeCode()
   QString defaultTypeCode = mElement->getDefaultTypeCode();
   if (defaultTypeCode.isEmpty())
   {
-    QMessageBox::critical(this, "Can't generate type code", "The type code can only be generated, once the package has been named, and the name of the class has been specified.");
+    QMessageBox::critical(this, "Can't generate typecode", "The typecode can only be generated, once the package has been named, and the name of the class has been specified.");
     return;
   }
 
