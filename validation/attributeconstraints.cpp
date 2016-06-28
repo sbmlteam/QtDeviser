@@ -15,6 +15,7 @@ AttributeConstraints::AttributeConstraints(DeviserValidator* validator)
               << "element"
               << "lo_element"
               << "inline_lo_element"
+              << "vector"
                  ;
 
 }

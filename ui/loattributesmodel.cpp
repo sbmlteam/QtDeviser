@@ -52,7 +52,7 @@ LoAttributesModel::data(const QModelIndex &index, int role) const
     case AttributesModel::REQUIRED:
       return "States whether the attribute or element is mandatory. This should be <b>true</b> if the attribute/element is mandatory; <b>false</b> if not.";
     case AttributesModel::ELEMENT:
-      return "This field provides additional information depending on the <b>Type</b> of the attribute/element. It may be the name of the element, enumeration or object being referenced. This field is required for attributes of type SIdRef, enum, element, lo_element, inline_lo_element.";
+      return "This field provides additional information depending on the <b>Type</b> of the attribute/element. It may be the name of the element, enumeration or object being referenced. This field is required for attributes of type SIdRef, array, enum, element, lo_element, inline_lo_element, vector.";
     case AttributesModel::ABSTRACT:
       return "States whether this element is a base class. This should be <b>true</b> if the element is a base class and therefore not instantiated directly; <b>false</b> if not.";
     case AttributesModel::XMLName:
@@ -85,6 +85,7 @@ LoAttributesModel::data(const QModelIndex &index, int role) const
           || type == "lo_element"
           || type == "enum"
           || type == "array"
+          || type == "vector"
           || type == "SIdRef"
           || type == "IDREF"
           )

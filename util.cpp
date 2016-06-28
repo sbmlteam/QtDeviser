@@ -88,7 +88,8 @@ QStringList Util::getKnownTypes()
       << "SId"
       << "SIdRef"
       << "UnitSId"
-      << "UnitSIdRef";
+      << "UnitSIdRef"
+      << "vector";
 }
 
 QStringList& Util::getUserDefinedTypes()
