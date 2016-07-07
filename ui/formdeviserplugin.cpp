@@ -250,6 +250,7 @@ FormDeviserPlugin::browseImplementation()
 {
   if (mPlugin == NULL || mbInitializing) return;
   QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, Util::getImplementationFilter());
+  if (fileName.isNull()) return;
   mPlugin->setAdditionalDefinitions(fileName);
   ui->txtImplementation->setText(fileName);
 }
@@ -259,6 +260,7 @@ FormDeviserPlugin::browseDeclaration()
 {
   if (mPlugin == NULL || mbInitializing) return;
   QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, Util::getHeaderFilter());
+  if (fileName.isNull()) return;
   mPlugin->setAdditionalDeclarations(fileName);
   ui->txtDeclaration->setText(fileName);
 }

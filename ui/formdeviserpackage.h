@@ -22,8 +22,10 @@ public:
 public slots:
   void browseImplementation();
   void browseDeclaration();
+  void browseCopyright();
   void additionalCodeStateChanged(int);
   void requiredStateChanged(int);
+  void copyrightChanged(const QString&);
   void offsetChanged(const QString&);
   void numberChanged(const QString&);
   void nameChanged(const QString&);

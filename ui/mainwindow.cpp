@@ -18,6 +18,7 @@
 #include "formdevisermapping.h"
 #include "formdeviserclass.h"
 #include "formdeviserplugin.h"
+#include "formdeviserlanguage.h"
 
 #include "helpwindow.h"
 
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
   , ctrlMapping(new FormDeviserMapping(this))
   , ctrlClass(new FormDeviserClass(this))
   , ctrlPlugin(new FormDeviserPlugin(this))
+  , ctrlLanguage(new FormDeviserLanguage(this))
   , mModel(NULL)
   , mCurrentVersion(NULL)
   , mCurrentElement(NULL)
@@ -65,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->stackedWidget->addWidget(ctrlMapping);
   ui->stackedWidget->addWidget(ctrlClass);
   ui->stackedWidget->addWidget(ctrlPlugin);
+  ui->stackedWidget->addWidget(ctrlLanguage);
 
   ui->stackedWidget->setCurrentWidget(ctrlPackage);
 
@@ -420,7 +423,11 @@ MainWindow::displayElement(DeviserBase* element)
     ctrlMapping->initializeFrom(mCurrentVersion);
     ui->stackedWidget->setCurrentWidget(ctrlMapping);
   }
-
+  else if (dynamic_cast<DeviserLanguage*>(mCurrentElement))
+  {
+    ctrlLanguage->initializeFrom(dynamic_cast<DeviserLanguage*>(mCurrentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlLanguage);
+  }
 
 }
 
@@ -528,6 +535,11 @@ MainWindow::showUML()
   DialogUML uml(this);
   uml.loadYuml(getCurrentVersion()->toYuml(true));
   uml.exec();
+}
+
+void MainWindow::editLanguage()
+{
+  displayElement(&mModel->getLanguage());
 }
 
 int

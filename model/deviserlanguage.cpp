@@ -8,6 +8,12 @@ DeviserLanguage::DeviserLanguage()
  , mPrefix()
  , mLibraryName()
  , mListOfClass()
+ , mIsPackage(true)
+ , mLibraryMajorVersion(-1)
+ , mLibraryMinorVersion(-1)
+ , mLibraryRevision(-1)
+ , mDependencies()
+ , mLanguageVersions()
 {
 
 }
@@ -20,8 +26,15 @@ DeviserLanguage::DeviserLanguage(const DeviserLanguage& other)
   , mPrefix(other.mPrefix)
   , mLibraryName(other.mLibraryName)
   , mListOfClass(other.mListOfClass)
+  , mIsPackage(other.mIsPackage)
+  , mLibraryMajorVersion(other.mLibraryMajorVersion)
+  , mLibraryMinorVersion(other.mLibraryMinorVersion)
+  , mLibraryRevision(other.mLibraryRevision)
+  , mDependencies()
+  , mLanguageVersions()
 {
-
+  cloneElements(other.mDependencies, mDependencies);
+  cloneElements(other.mLanguageVersions, mLanguageVersions);
 }
 
 DeviserLanguage &
@@ -39,6 +52,17 @@ DeviserLanguage::operator=(const DeviserLanguage &rhs)
   mLibraryName = rhs.mLibraryName;
   mListOfClass = rhs.mListOfClass;
 
+  mIsPackage = rhs.mIsPackage;
+
+  mLibraryMajorVersion = rhs.mLibraryMajorVersion;
+  mLibraryMinorVersion = rhs.mLibraryMinorVersion;
+  mLibraryRevision = rhs.mLibraryRevision;
+
+  cloneElements(rhs.mDependencies, mDependencies);
+  cloneElements(rhs.mLanguageVersions, mLanguageVersions);
+
+  setParent(mPackage);
+
   return *this;
 }
 
@@ -54,6 +78,29 @@ DeviserLanguage::initializeFrom(const QDomElement& element)
   mPrefix = element.attribute("prefix");
   mLibraryName = element.attribute("libraryName");
   mListOfClass = element.attribute("listOfClass");
+  mIsPackage = element.attribute("isPackage", "true").toLower() == "true";
+
+  const QDomNodeList& nodes = element.elementsByTagName("library_version");
+  for(int i = 0;i < nodes.count(); ++i)
+  {
+    const QDomElement& child = nodes.at(i).toElement();
+    mLibraryMajorVersion = child.attribute("major", "-1").toInt();
+    mLibraryMinorVersion = child.attribute("minor", "-1").toInt();
+    mLibraryRevision = child.attribute("revision", "-1").toInt();
+    break;
+  }
+
+  initializeListFrom(mLanguageVersions, element, "version");
+  initializeListFrom(mDependencies, element, "dependency");
+
+}
+
+void DeviserLanguage::setParent(DeviserPackage* doc)
+{
+  DeviserBase::setParent(doc);
+
+  setParentOn(mDependencies, doc, mVersion);
+  setParentOn(mLanguageVersions, doc, mVersion);  
 
 }
 
@@ -74,6 +121,31 @@ DeviserLanguage::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("libraryName", mLibraryName);
   if (!mListOfClass.isEmpty())
     writer.writeAttribute("listOfClass", mListOfClass);
+  if (!mIsPackage)
+    writer.writeAttribute("isPackage", "false");
+
+}
+
+void DeviserLanguage::writeElementsTo(QXmlStreamWriter& writer) const
+{
+  DeviserBase::writeElementsTo(writer);
+
+  if (mLibraryMajorVersion >= 0 || mLibraryMinorVersion >=0)
+  {
+    writer.writeStartElement("library_version");
+
+    if (mLibraryMajorVersion >=0)
+      writer.writeAttribute("major", QString::number(mLibraryMajorVersion));
+    if (mLibraryMinorVersion >=0)
+      writer.writeAttribute("minor", QString::number(mLibraryMinorVersion));
+    if (mLibraryRevision >=0)
+      writer.writeAttribute("revision", QString::number(mLibraryRevision));
+
+    writer.writeEndElement();
+  }
+
+  writeListWithName(mLanguageVersions, writer, "language_versions");
+  writeListWithName(mDependencies, writer, "dependencies");
 
 }
 
@@ -161,4 +233,98 @@ void
 DeviserLanguage::setListOfClass(const QString &listOfClass)
 {
   mListOfClass = listOfClass;
+}
+
+bool
+DeviserLanguage::isPackage() const
+{
+  return mIsPackage;
+}
+
+void
+DeviserLanguage::setIsPackage(bool isPackage)
+{
+  mIsPackage = isPackage;
+}
+
+int
+DeviserLanguage::libraryMajorVersion() const
+{
+  return mLibraryMajorVersion;
+}
+
+void
+DeviserLanguage::setLibraryMajorVersion(int libraryMajorVersion)
+{
+  mLibraryMajorVersion = libraryMajorVersion;
+}
+
+int
+DeviserLanguage::libraryMinorVersion() const
+{
+  return mLibraryMinorVersion;
+}
+
+void
+DeviserLanguage::setLibraryMinorVersion(int libraryMinorVersion)
+{
+  mLibraryMinorVersion = libraryMinorVersion;
+}
+
+int
+DeviserLanguage::libraryRevision() const
+{
+  return mLibraryRevision;
+}
+
+void
+DeviserLanguage::setLibraryRevision(int libraryRevision)
+{
+  mLibraryRevision = libraryRevision;
+}
+
+const QList<DeviserLanguageDependency*>&
+DeviserLanguage::getDependencies() const
+{
+  return mDependencies;
+}
+
+QList<DeviserLanguageDependency*>&
+DeviserLanguage::getDependencies()
+{
+  return mDependencies;
+}
+
+const QList<DeviserLanguageVersion*>&
+DeviserLanguage::getVersions() const
+{
+  return mLanguageVersions;
+}
+
+QList<DeviserLanguageVersion*>&
+DeviserLanguage::getVersions()
+{
+  return mLanguageVersions;
+}
+
+DeviserLanguageDependency*
+DeviserLanguage::createDependency()
+{
+  DeviserLanguageDependency *result = new DeviserLanguageDependency();
+  result->setLibraryName(QString("library_%1").arg(mDependencies.size()));
+  mDependencies.append(result);
+  setParent(mPackage);
+  setModified();
+  return result;
+}
+
+DeviserLanguageVersion*
+DeviserLanguage::createVersion()
+{
+  DeviserLanguageVersion *result = new DeviserLanguageVersion();
+  result->setNamespaceUri(QString("ns1_%1").arg(mLanguageVersions.size()));
+  mLanguageVersions.append(result);
+  setParent(mPackage);
+  setModified();
+  return result;
 }

@@ -18,6 +18,7 @@ class FormDeviserEnum;
 class FormDeviserMapping;
 class FormDeviserClass;
 class FormDeviserPlugin;
+class FormDeviserLanguage;
 
 class HelpWindow;
 
@@ -55,6 +56,7 @@ public slots:
   void saveFileAs();
   void saveAsFile(const QString&);
   void showUML();
+  void editLanguage();
   /**
    * validates the description, returning the code of the
    * dialog.
@@ -107,6 +109,7 @@ private:
   FormDeviserMapping* ctrlMapping;
   FormDeviserClass* ctrlClass;
   FormDeviserPlugin* ctrlPlugin;
+  FormDeviserLanguage* ctrlLanguage;
 
   DeviserPackage* mModel;
   DeviserVersion* mCurrentVersion;

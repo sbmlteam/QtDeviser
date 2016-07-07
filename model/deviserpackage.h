@@ -70,6 +70,9 @@ public:
   QString getDefaultListOfClass() const;
   QStringList getUsedTypes() const;
 
+  QString getCustomCopyright() const;
+  void setCustomCopyright(const QString& customCopyright);
+
 signals:
   void nameChanged();
   void fullNameChanged();
@@ -96,6 +99,7 @@ protected:
   bool mModified;
 
   DeviserLanguage mLanguage;
+  QString mCustomCopyright;
 
 };
 

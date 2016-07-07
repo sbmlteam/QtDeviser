@@ -1,7 +1,12 @@
 #ifndef DEVISERLANGUAGE_H
 #define DEVISERLANGUAGE_H
 
+#include <QMap>
+#include <QList>
+
 #include <model/deviserbase.h>
+#include <model/deviserlanguageversion.h>
+#include <model/deviserlanguagedependency.h>
 
 class DeviserLanguage : public DeviserBase
 {
@@ -13,8 +18,10 @@ public:
   DeviserLanguage& operator= (const DeviserLanguage& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
+  virtual void setParent(DeviserPackage* doc);
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;
+  virtual void writeElementsTo(QXmlStreamWriter& writer) const;
   virtual void writeTo(QXmlStreamWriter& writer) const;
 
   bool isEmpty() const;
@@ -37,6 +44,27 @@ public:
   const QString &listOfClass() const;
   void setListOfClass(const QString &listOfClass);
 
+  bool isPackage() const;
+  void setIsPackage(bool isPackage);
+
+  int libraryMajorVersion() const;
+  void setLibraryMajorVersion(int libraryMajorVersion);
+
+  int libraryMinorVersion() const;
+  void setLibraryMinorVersion(int libraryMinorVersion);
+
+  int libraryRevision() const;
+  void setLibraryRevision(int libraryRevision);
+
+  const QList<DeviserLanguageDependency*>& getDependencies() const;
+  QList<DeviserLanguageDependency*>& getDependencies();
+
+  const QList<DeviserLanguageVersion*>& getVersions() const;
+  QList<DeviserLanguageVersion*>& getVersions();
+
+  DeviserLanguageDependency* createDependency();
+  DeviserLanguageVersion* createVersion();
+
 protected:
 
   QString mName;
@@ -45,6 +73,16 @@ protected:
   QString mPrefix;
   QString mLibraryName;
   QString mListOfClass;
+
+  bool mIsPackage;
+
+  int mLibraryMajorVersion;
+  int mLibraryMinorVersion;
+  int mLibraryRevision;
+
+  QList<DeviserLanguageDependency*> mDependencies;
+  QList<DeviserLanguageVersion*> mLanguageVersions;
+
 
 };
 

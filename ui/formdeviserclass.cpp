@@ -163,6 +163,7 @@ FormDeviserClass::browseDefinitionClick()
 {  
   if (mElement == NULL) return;
   QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, Util::getImplementationFilter());
+  if (fileName.isNull()) return;
   mElement->setAdditionalDefinitions(fileName);
   ui->txtImplementation->setText(fileName);
 }
@@ -172,6 +173,7 @@ FormDeviserClass::browseDeclarationClick()
 {
   if (mElement == NULL) return;
   QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, Util::getHeaderFilter());
+  if (fileName.isNull()) return;
   mElement->setAdditionalDeclarations(fileName);
   ui->txtDeclaration->setText(fileName);
 }

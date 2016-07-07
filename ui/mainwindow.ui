@@ -154,6 +154,7 @@
     <addaction name="actionValidate_Description"/>
     <addaction name="actionFix_Errors"/>
     <addaction name="separator"/>
+    <addaction name="actionEdit_Language"/>
     <addaction name="actionEdit_Preferences"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -401,6 +402,14 @@
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionEdit_Language">
+   <property name="text">
+    <string>Edit Language</string>
+   </property>
+   <property name="toolTip">
+    <string>Modify language settings, to generate a new library.</string>
    </property>
   </action>
  </widget>
@@ -800,8 +809,24 @@
    <slot>showHelp()</slot>
    <hints>
     <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
      <x>424</x>
      <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEdit_Language</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>editLanguage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>414</x>
+     <y>317</y>
     </hint>
     <hint type="destinationlabel">
      <x>424</x>
@@ -836,5 +861,6 @@
   <slot>reloadDocument()</slot>
   <slot>generateContextMenuForTree(QPoint)</slot>
   <slot>showHelp()</slot>
+  <slot>editLanguage()</slot>
  </slots>
 </ui>

@@ -13,6 +13,9 @@ class DeviserPackage;
 class DeviserPlugin;
 class DeviserReferenceAttribute;
 class DeviserVersion;
+class DeviserLangage;
+class DeviserLangageVersion;
+class DeviserLangageDependency;
 
 #endif // DEVISERFWD_H
 

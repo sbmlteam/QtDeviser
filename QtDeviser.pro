@@ -66,7 +66,12 @@ SOURCES += main.cpp \
     ui/typechooserdelegate.cpp \
     ui/attributedelegate.cpp \
     ui/helpwindow.cpp \
-    ui/helpbrowser.cpp
+    ui/helpbrowser.cpp \
+    model/deviserlanguagedependency.cpp \
+    model/deviserlanguageversion.cpp \
+    ui/formdeviserlanguage.cpp \
+    ui/dependencymodel.cpp \
+    ui/languageversionmodel.cpp
 
 
 HEADERS  += util.h \
@@ -125,7 +130,12 @@ HEADERS  += util.h \
     ui/typechooserdelegate.h \
     ui/attributedelegate.h \
     ui/helpwindow.h \
-    ui/helpbrowser.h
+    ui/helpbrowser.h \
+    model/deviserlanguagedependency.h \
+    model/deviserlanguageversion.h \
+    ui/formdeviserlanguage.h \
+    ui/dependencymodel.h \
+    ui/languageversionmodel.h
 
 
 
@@ -142,7 +152,8 @@ FORMS    += ui/mainwindow.ui \
             ui/dialogpreferences.ui \
             ui/dialogerrors.ui \
     ui/dialogdisplaynumbers.ui \
-    ui/helpwindow.ui
+    ui/helpwindow.ui \
+    ui/formdeviserlanguage.ui
 
 RESOURCES += \
     deviser-resources.qrc

@@ -179,6 +179,16 @@ DeviserPackage::getUsedTypes() const
 
   return result;
 }
+QString DeviserPackage::getCustomCopyright() const
+{
+  return mCustomCopyright;
+}
+
+void DeviserPackage::setCustomCopyright(const QString& customCopyright)
+{
+  mCustomCopyright = customCopyright;
+}
+
 
 void
 DeviserPackage::initializeFrom(const QDomElement& element)
@@ -195,6 +205,8 @@ DeviserPackage::initializeFrom(const QDomElement& element)
   mOffset = element.attribute("offset").toInt();
   mVersion = element.attribute("version").toInt();
   mRequired = element.attribute("required").toLower() == "true";
+
+  mCustomCopyright = element.attribute("customCopyright");
 
   initializeListFrom(mVersions, element, "pkgVersion");
 
@@ -258,6 +270,8 @@ DeviserPackage::writeAttributesTo(QXmlStreamWriter& writer) const
   if (!mAdditionalDefinitions.isEmpty())
     writer.writeAttribute("additionalDefs", mAdditionalDefinitions);
 
+  if (!mCustomCopyright.isEmpty())
+    writer.writeAttribute("customCopyright", mCustomCopyright);
 }
 
 void

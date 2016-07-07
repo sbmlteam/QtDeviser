@@ -42,7 +42,11 @@ void FormDeviserPackage::initializeFrom(DeviserPackage* package)
   {
     ui->txtDeclaration->setText(package->getAdditionalDeclarations());
     ui->txtImplementation->setText(package->getAdditionalDefinitions());
-    ui->chkRequiresAdditionalCode->setChecked(!package->getAdditionalDefinitions().isEmpty() || !package->getAdditionalDeclarations().isEmpty());
+    ui->txtCopyright->setText(package->getCustomCopyright());
+    ui->chkRequiresAdditionalCode->setChecked(
+          !package->getAdditionalDefinitions().isEmpty() ||
+          !package->getAdditionalDeclarations().isEmpty()||
+          !package->getCustomCopyright().isEmpty());
     ui->groupBox->setVisible(ui->chkRequiresAdditionalCode->isChecked());
 
     ui->txtName->setText(package->getName());
@@ -66,6 +70,7 @@ FormDeviserPackage::browseImplementation()
 {
   if (mPackage == NULL || mbInitializing) return;
   QString fileName = QFileDialog::getOpenFileName(this, "Select Implementation file", NULL, Util::getImplementationFilter());
+  if (fileName.isNull()) return;
   mPackage->setAdditionalDefinitions(fileName);
   ui->txtImplementation->setText(fileName);
 }
@@ -75,8 +80,18 @@ FormDeviserPackage::browseDeclaration()
 {
   if (mPackage == NULL || mbInitializing) return;
   QString fileName = QFileDialog::getOpenFileName(this, "Select Declaration file", NULL, Util::getHeaderFilter());
+  if (fileName.isNull()) return;
   mPackage->setAdditionalDeclarations(fileName);
   ui->txtDeclaration->setText(fileName);
+}
+
+void FormDeviserPackage::browseCopyright()
+{
+  if (mPackage == NULL || mbInitializing) return;
+  QString fileName = QFileDialog::getOpenFileName(this, "Select Custom Copyright file", NULL, "Text files (*.txt);;All files (*.*)");
+  if (fileName.isNull()) return;
+  mPackage->setCustomCopyright(fileName);
+  ui->txtCopyright->setText(fileName);
 }
 
 void
@@ -90,6 +105,12 @@ FormDeviserPackage::requiredStateChanged(int)
 {
   if (mPackage == NULL || mbInitializing) return;
   mPackage->setRequired(ui->chkRequired->isChecked());
+}
+
+void FormDeviserPackage::copyrightChanged(const QString&)
+{
+  if (mPackage == NULL || mbInitializing) return;
+  mPackage->setCustomCopyright(ui->txtCopyright->text());
 }
 
 void
