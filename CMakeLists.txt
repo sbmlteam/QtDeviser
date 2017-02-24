@@ -174,15 +174,15 @@ endforeach()
 
 
 
-
 if (Qt5_FOUND)
-qt5_add_resources(RESOURCES_RCC ${RCC_FILES})
-qt5_wrap_cpp(HEADERS_MOC ${H_FILES})
-qt5_wrap_ui(FORMS_HEADERS ${UI_FILES})
+  qt5_add_resources(RESOURCES_RCC ${RCC_FILES})
+  qt5_wrap_cpp(HEADERS_MOC ${H_FILES})
+  qt5_wrap_ui(FORMS_HEADERS ${UI_FILES})
+  set(QTVERSION 5)
 elseif(Qt4_FOUND OR QT4_FOUND)
-qt4_add_resources(RESOURCES_RCC ${RCC_FILES})
-qt4_wrap_cpp(HEADERS_MOC ${H_FILES})
-qt4_wrap_ui(FORMS_HEADERS ${UI_FILES})
+  qt4_add_resources(RESOURCES_RCC ${RCC_FILES})
+  qt4_wrap_cpp(HEADERS_MOC ${H_FILES})
+  qt4_wrap_ui(FORMS_HEADERS ${UI_FILES})
 endif()
 
 include_directories(${CMAKE_BINARY_DIR})
@@ -292,6 +292,7 @@ message(STATUS
  
  Install Prefix : ${CMAKE_INSTALL_PREFIX}
                 
+ Qt Version     : ${QTVERSION}
  C   FLAGS      : ${CMAKE_C_FLAGS}
  CXX FLAGS      : ${CMAKE_CXX_FLAGS}
  Extra Libs     : ${EXTRA_LIBS} 
