@@ -137,7 +137,7 @@ set (CMAKE_PREFIX_PATH "${PREFIX_PATH}")
 endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/ChooseQtVersion.cmake)
-QT_FIND_MODULES(Core Gui OpenGL Xml Network Svg Help WebKit)
+QT_FIND_MODULES(Core Gui OpenGL Xml Network Svg Help)
 
 
 set(CPP_FILES)
