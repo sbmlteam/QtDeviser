@@ -657,9 +657,14 @@ DialogGenerate::compileLibSBML()
     QTextStream stream(&script);
 
     stream << "@echo off" << endl;
+    if (DeviserSettings::getInstance()->getCmakeExecutable().isEmpty())
+      stream << "SET CMAKE=cmake" << endl;
+    else
+      stream << "SET CMAKE=" << DeviserSettings::getInstance()->getCmakeExecutable() << endl;
+
     stream << "call \"" << DeviserSettings::getInstance()->getVsBatchFile() << "\"" << endl;
 
-    stream << "cmake -G \"NMake Makefiles\" "
+    stream << "\"%CMAKE%\" -G \"NMake Makefiles\" "
               "-DCMAKE_BUILD_TYPE=Release "
               "-DSWIG_EXECUTABLE=\"" << DeviserSettings::getInstance()->getSwigExecutable() << "\" "
               "-DWITH_PYTHON=ON "
@@ -687,9 +692,14 @@ DialogGenerate::compileLibSBML()
     script.open(QIODevice::WriteOnly);
     QTextStream stream(&script);
 
-    stream << "cd  \"" << buildDir << "\"" << endl;
+    stream << "cd \"" << buildDir << "\"" << endl;
 
-    stream << "cmake -G \"Unix Makefiles\" "
+    if (DeviserSettings::getInstance()->getCmakeExecutable().isEmpty())
+      stream << "CMAKE=cmake" << endl;
+    else
+      stream << "CMAKE=" << DeviserSettings::getInstance()->getCmakeExecutable() << endl;
+
+    stream << "$CMAKE -G \"Unix Makefiles\" "
               "-DCMAKE_BUILD_TYPE=Release "
               "-DSWIG_EXECUTABLE=\"" << DeviserSettings::getInstance()->getSwigExecutable() << "\" "
               "-DWITH_PYTHON=ON "
