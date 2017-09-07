@@ -218,6 +218,9 @@ void DeviserSettings::setHeight(int height)
 
 const QString& DeviserSettings::getVsBatchFile() const
 {
+  if (mCompiler.contains(".bat"))
+    return mCompiler;
+
   return mVsBatchFile;
 }
 
