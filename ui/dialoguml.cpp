@@ -90,7 +90,7 @@ DialogUML::~DialogUML()
 void
 DialogUML::updateGraph()
 {
-  QUrl baseUri ("http://yuml.me/diagram/"
+  QUrl baseUri ("https://yuml.me/diagram/"
                 + ui->cmdStyle->currentText()
                 + "/class/");
 
@@ -124,7 +124,7 @@ DialogUML::downloadFinished(QNetworkReply *reply)
 
   if (data.endsWith(".png"))
   {
-    QUrl imageUrl ("http://yuml.me/"
+    QUrl imageUrl ("https://yuml.me/"
                   + (ui->chkUseSVG->isChecked() ?  data.replace("png", "svg") : data));
     QNetworkRequest request(imageUrl);
     mpManager->get(request);
@@ -210,7 +210,7 @@ DialogUML::exportImage(const QString& filename, const QString& ext)
   QString type = mCurrent;
   type = type.replace("svg", ext);
 
-  mpDownloadManager->get(QNetworkRequest(QUrl("http://yuml.me/" + type)));
+  mpDownloadManager->get(QNetworkRequest(QUrl("https://yuml.me/" + type)));
 
 }
 
