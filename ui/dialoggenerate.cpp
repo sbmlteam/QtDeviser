@@ -215,6 +215,22 @@ DialogGenerate::generateTex(bool withFigures)
     return;
   }
 
+
+  QString deviserRepo = DeviserSettings::getInstance()->getDeviserRepository();
+  if (deviserRepo.isEmpty() || !QDir(deviserRepo).exists())
+  {
+    addMessage("Error: No deviser repository dir specified, or deviser repository dir does not exist.");
+    return;
+  }
+
+  QString python = DeviserSettings::getInstance()->getPythonInterpreter();
+  if (python.isEmpty())
+  {
+    addMessage("Error: No python interpreter specified.");
+    return;
+  }
+
+
   QString lowerCasePackageName = packageName.toLower();
   QString dest = outDir + "/" + lowerCasePackageName + "-spec";
   QDir destDir(dest);
@@ -304,6 +320,20 @@ DialogGenerate::generatePackageCode()
   if (outDir.isEmpty() || !QDir(outDir).exists())
   {
     addMessage("Error: No output dir specified, or output dir does not exist.");
+    return;
+  }
+
+  QString deviserRepo = DeviserSettings::getInstance()->getDeviserRepository();
+  if (deviserRepo.isEmpty() || !QDir(deviserRepo).exists())
+  {
+    addMessage("Error: No deviser repository dir specified, or deviser repository dir does not exist.");
+    return;
+  }
+
+  QString python = DeviserSettings::getInstance()->getPythonInterpreter();
+  if (python.isEmpty())
+  {
+    addMessage("Error: No python interpreter specified.");
     return;
   }
 
@@ -496,7 +526,14 @@ DialogGenerate::compileTex()
 
   if (Util::isWindows() && !QFile(mikTexDir + "/" + "texify.exe").exists())
   {
-    addMessage("Error: texify.exe was not present in '" + mikTexDir + "' please ensure you have the path entered correctly.");
+    if (mikTexDir.isEmpty() || !QDir(mikTexDir).exists())
+    {
+      addMessage("Error: miktex dir is empty or does not exist.");
+    }
+    else
+    {
+      addMessage("Error: texify.exe was not present in '" + mikTexDir + "' please ensure you have the path entered correctly.");
+    }
     return;
   }
 
