@@ -84,7 +84,7 @@ AttributesModel::data(const QModelIndex &index, int role) const
           || type == "array"
           || type == "vector"
           || type == "SIdRef"
-          || type == "IDREF"
+//     || type == "IDREF"
           )
         return QBrush(DeviserSettings::getInstance()->getValidationColor());
       else
