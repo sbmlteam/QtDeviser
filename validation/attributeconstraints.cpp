@@ -88,6 +88,15 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
 
     result = true;
   }
+  else if (attribute->getName() == "level" || attribute->getName() == "version")
+  {
+    ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "The attribute '"
+      << attribute->getName()
+      << "' of element '"
+      << name
+      << "' uses the name 'level' or 'version' which will cause compilation issues.");
+
+  }
 
   if (attribute->getType() == "SIdRef" && attribute->getElement().isEmpty())
   {
