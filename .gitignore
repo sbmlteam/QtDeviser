@@ -1,6 +1,7 @@
 /images/*.db
 /*.user
-build
+build*
+release
 moc*cpp
 qrc*cpp
 ui*h
