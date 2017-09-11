@@ -986,7 +986,7 @@ bool MainWindow::askForSaveOrStop()
 
   switch(QMessageBox::question(this, "Save Changes?",
                                "The document contains unsaved changes\n"
-                               "Do you want to save the changes before exiting?",
+                               "Do you want to save the changes before continuing?",
                                QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
                                QMessageBox::Save))
   {
