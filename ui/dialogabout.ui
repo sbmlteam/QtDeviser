@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>532</width>
-    <height>307</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -101,7 +101,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;DEVISER Edit&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Version: $$VERSION$$&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;© 2014-2015 SBML Team&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;DEVISER Edit is a tool that allows users to easily create and edit the structure of an XML based description. It provides an interface to the DEVISER functionality for generating code, LaTeX and UML diagrams.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;DEVISER Edit&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Version: $$VERSION$$&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;© 2014-2017 SBML Team&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;DEVISER Edit is a tool that allows users to easily create and edit the structure of an XML based description. It provides an interface to the DEVISER functionality for generating code, LaTeX and UML diagrams.&lt;/p&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;For more information visit the &lt;a href=&quot;http://sbml.org &quot;&gt;SBML Website&lt;/a&gt; or the &lt;a href=&quot;https://github.com/sbmlteam/deviser &quot;&gt;Deviser GitHub repository&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="textFormat">
          <enum>Qt::RichText</enum>
@@ -116,7 +116,7 @@
          <bool>true</bool>
         </property>
        </widget>
-      </item>
+      </item>    
      </layout>
     </widget>
    </item>
