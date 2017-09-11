@@ -197,7 +197,7 @@ FormDeviserClass::delConcrete()
     mpConcretes->removeAttribute(*it);
     ++it;
   }
-
+  mElement->setModified();
 }
 
 void
@@ -219,6 +219,7 @@ FormDeviserClass::delListOfAttribute()
     mpLoAttributes->removeAttribute(*it);
     ++it;
   }
+  mElement->setModified();
 
 }
 
@@ -241,6 +242,7 @@ FormDeviserClass::delAttribute()
     mpAttributes->removeAttribute(*it);
     ++it;
   }
+  mElement->setModified();
 }
 
 void

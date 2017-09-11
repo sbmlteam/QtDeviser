@@ -132,6 +132,8 @@ protected:
   QList<DeviserAttribute*> mAttributes;
   QList<DeviserListOfAttribute*> mListOfAttributes;
   QList<DeviserConcrete*> mConcretes;
+
+  friend class FormDeviserClass;
 };
 
 #endif // DEVISERCLASS_H
