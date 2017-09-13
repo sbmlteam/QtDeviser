@@ -59,13 +59,15 @@ Section "MainSection" SEC01
   File "dist\DeviserEdit\DeviserEdit.exe"
   
   ; qt 5 files 
-  File "dist\DeviserEdit\icudt53.dll"
-  File "dist\DeviserEdit\icuin53.dll"
-  File "dist\DeviserEdit\icuuc53.dll"
+  File "dist\DeviserEdit\icudt59.dll"
+  File "dist\DeviserEdit\icuin59.dll"
+  File "dist\DeviserEdit\icuuc59.dll"
   File "dist\DeviserEdit\libEGL.dll"
   File "dist\DeviserEdit\libGLESv2.dll"
   File "dist\DeviserEdit\msvcp120.dll"
   File "dist\DeviserEdit\msvcr120.dll"
+  File "dist\DeviserEdit\msvcp140.dll"
+  File "dist\DeviserEdit\vcruntime140.dll"
   SetOutPath "$INSTDIR\sqldrivers"
   File "dist\DeviserEdit\sqldrivers\qsqlite.dll"
   SetOutPath "$INSTDIR\platforms"
@@ -82,7 +84,12 @@ Section "MainSection" SEC01
   File "dist\DeviserEdit\Qt5Svg.dll"
   File "dist\DeviserEdit\Qt5Widgets.dll"
   File "dist\DeviserEdit\Qt5Xml.dll"
-
+  ; openssl files
+  File "dist\DeviserEdit\ssleay32.dll"
+  File "dist\DeviserEdit\libeay32.dll"
+  ; vc redist vs2015x86
+  File "dist\vcredist\vcredist_msvc2015_x86.exe"
+    
   
   ; setting up shortcuts 
   CreateDirectory "$SMPROGRAMS\Deviser"
@@ -174,11 +181,17 @@ Section Uninstall
 
   Delete "$INSTDIR\msvcr120.dll"
   Delete "$INSTDIR\msvcp120.dll"
+  Delete "$INSTDIR\msvcp140.dll"
+  Delete "$INSTDIR\vcruntime140.dll"
+  Delete "$INSTDIR\ssleay32.dll"
+  Delete "$INSTDIR\libeay32.dll"
+  Delete "$INSTDIR\vcredist_msvc2015_x86.exe"
+
   Delete "$INSTDIR\libGLESv2.dll"
   Delete "$INSTDIR\libEGL.dll"
-  Delete "$INSTDIR\icuuc53.dll"
-  Delete "$INSTDIR\icuin53.dll"
-  Delete "$INSTDIR\icudt53.dll"
+  Delete "$INSTDIR\icuuc59.dll"
+  Delete "$INSTDIR\icuin59.dll"
+  Delete "$INSTDIR\icudt59.dll"
   Delete "$INSTDIR\DeviserEdit.exe"
   Delete "$INSTDIR\Deviser.qhc"
   Delete "$INSTDIR\Deviser.qch"

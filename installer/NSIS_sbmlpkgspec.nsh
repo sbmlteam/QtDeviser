@@ -3,7 +3,6 @@
 Section sbmlpkgspec
   SetOverwrite ifnewer
   SetOutPath "$INSTDIR\sbmlpkgspec"
-  File "dist\sbmlpkgspec\.svnignore"
   File "dist\sbmlpkgspec\AUTHORS.txt"
   File "dist\sbmlpkgspec\COPYING.html"
   File "dist\sbmlpkgspec\COPYING.txt"
