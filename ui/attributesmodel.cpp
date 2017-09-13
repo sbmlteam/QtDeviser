@@ -45,7 +45,7 @@ AttributesModel::data(const QModelIndex &index, int role) const
     case NAME:
       return "The name of the attribute/element to be used by code generation.  The XML output may use a different name (see <b>XML Name</b>). This field is required.";
     case TYPE:
-      return "The type of the attribute/element. Allowed values are: SId, SIdRef, string, bool, double, int, unsigned int, IDREF, UnitSId, UnitSIdRef, enum, element, lo_element, inline_lo_element. This field is required.";
+      return "The type of the attribute/element. Allowed values are: SId, SIdRef, string, bool, double, int, unsigned int, ID, IDREF, UnitSId, UnitSIdRef, enum, array, vector, element, lo_element, inline_lo_element. This field is required.";
     case REQUIRED:
       return "States whether the attribute or element is mandatory. This should be <b>true</b> if the attribute/element is mandatory; <b>false</b> if not.";
     case ELEMENT:
