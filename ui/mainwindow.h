@@ -57,6 +57,7 @@ public slots:
   void saveAsFile(const QString&);
   void showUML();
   void editLanguage();
+  void saveTempFile();
   /**
    * validates the description, returning the code of the
    * dialog.
@@ -100,6 +101,8 @@ protected:
   void dragEnterEvent(QDragEnterEvent *e);
   void dropEvent(QDropEvent *e);
 
+  void timerEvent(QTimerEvent* event);
+
 private:
   Ui::MainWindow *ui;
 
@@ -117,10 +120,14 @@ private:
 
   QString mFileName;
 
+  QString mTempFilename;
+
   DeviserValidator mValidator;
 
   HelpWindow* mpHelpWindow;
   QHelpEngine* mpHelpEngine;
+
+  int mAutoSaveTime;
 
 
 };

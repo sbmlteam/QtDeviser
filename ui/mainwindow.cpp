@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
   , mCurrentVersion(NULL)
   , mCurrentElement(NULL)
   , mFileName()
+  , mTempFilename()
   , mValidator()
   , mpHelpWindow(NULL)
   , mpHelpEngine(NULL)
@@ -477,6 +478,12 @@ void MainWindow::openFile(const QString& fileName)
 
 }
 
+void 
+MainWindow::timerEvent(QTimerEvent *event)
+{
+  saveTempFile();
+}
+
 void
 MainWindow::setCurrentFile(const QString& fileName)
 {
@@ -503,6 +510,24 @@ MainWindow::saveFile()
 }
 
 void
+MainWindow::saveTempFile()
+{
+  if (mModel == NULL) return;
+  if (mTempFilename.isEmpty())
+  {
+    QString oldDir;
+    if (!mFileName.isEmpty())
+    {
+      oldDir = QFileInfo(mFileName).dir().absolutePath();
+    }
+    mTempFilename = oldDir + "/temp_deviser_file.xml";
+  }
+
+  saveAsFile(mTempFilename);
+
+}
+
+void
 MainWindow::saveFileAs()
 {
   if (mModel == NULL) return;
@@ -523,9 +548,26 @@ MainWindow::saveAsFile(const QString& name)
 {
   if (mModel == NULL) return;
 
-  mFileName = name;
-  mModel->writeTo(mFileName);
-  setCurrentFile(mFileName);
+  if (name == mTempFilename)
+  {
+    mModel->writeTo(mTempFilename);
+  }
+  else
+  {
+    mFileName = name;
+    mModel->writeTo(mFileName);
+    setCurrentFile(mFileName);
+    // delete any temp file we may have written
+    if (!mTempFilename.isEmpty())
+    {
+      QFile file(mTempFilename);
+      if (file.exists())
+      {
+        file.remove();
+      }
+    }
+    mTempFilename.clear();
+  }
 
 }
 
