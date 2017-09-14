@@ -154,7 +154,7 @@
     <addaction name="actionValidate_Description"/>
     <addaction name="actionFix_Errors"/>
     <addaction name="separator"/>
-    <addaction name="actionEdit_Language"/>
+    <!--<addaction name="actionEdit_Language"/>-->
     <addaction name="actionEdit_Preferences"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -404,14 +404,14 @@
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionEdit_Language">
+  <!--<action name="actionEdit_Language">
    <property name="text">
     <string>Edit Language</string>
    </property>
    <property name="toolTip">
     <string>Modify language settings, to generate a new library.</string>
    </property>
-  </action>
+  </action>-->
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -818,7 +818,7 @@
     </hint>
    </hints>
   </connection>
-  <connection>
+  <!--<connection>
    <sender>actionEdit_Language</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -833,7 +833,7 @@
      <y>299</y>
     </hint>
    </hints>
-  </connection>
+  </connection>-->
  </connections>
  <slots>
   <slot>addClass()</slot>
