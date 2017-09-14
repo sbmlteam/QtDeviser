@@ -36,8 +36,8 @@ DialogPreferences::loadSettings()
   ui->txtMikTexBinDir->setText(settings->getMikTexBinDir());
   ui->txtOutputDir->setText(settings->getDefaultOutputDir());
   ui->txtPython->setText(settings->getPythonInterpreter());
-  ui->txtPythonIncludes->setText(settings->getPythonIncludes());
-  ui->txtPythonLib->setText(settings->getPythonLib());
+  //ui->txtPythonIncludes->setText(settings->getPythonIncludes());
+  //ui->txtPythonLib->setText(settings->getPythonLib());
   ui->txtSbmlPkgSpec->setText(settings->getSbmlPkgSpecDir());
   ui->txtSwig->setText(settings->getSwigExecutable());
 
@@ -89,8 +89,8 @@ DialogPreferences::saveSettings()
   settings->setMikTexBinDir(ui->txtMikTexBinDir->text());
   settings->setDefaultOutputDir(ui->txtOutputDir->text());
   settings->setPythonInterpreter(ui->txtPython->text());
-  settings->setPythonIncludes(ui->txtPythonIncludes->text());
-  settings->setPythonLib(ui->txtPythonLib->text());
+  //settings->setPythonIncludes(ui->txtPythonIncludes->text());
+  //settings->setPythonLib(ui->txtPythonLib->text());
   settings->setSbmlPkgSpecDir(ui->txtSbmlPkgSpec->text());
   settings->setSwigExecutable(ui->txtSwig->text());
   settings->setValidationColor(mColor);
@@ -295,29 +295,29 @@ DialogPreferences::browseSWIG()
 void
 DialogPreferences::browsePythonInclude()
 {
-  QString dir =
-      QFileDialog::getExistingDirectory(
-        this,
-        "Select libSBML include dir", ui->txtPythonIncludes->text());
+  //QString dir =
+  //    QFileDialog::getExistingDirectory(
+  //      this,
+  //      "Select libSBML include dir", ui->txtPythonIncludes->text());
 
-  if (dir.isEmpty())
-    return;
-  ui->txtPythonIncludes->setText(dir);
+  //if (dir.isEmpty())
+  //  return;
+  //ui->txtPythonIncludes->setText(dir);
 
 }
 
 void
 DialogPreferences::browsePythonLib()
 {
-  QString fileName =
-      QFileDialog::getOpenFileName(
-        this,
-        "Select Python lib", ui->txtPythonLib->text(),
-        Util::getLibFilter());
+  //QString fileName =
+  //    QFileDialog::getOpenFileName(
+  //      this,
+  //      "Select Python lib", ui->txtPythonLib->text(),
+  //      Util::getLibFilter());
 
-  if (fileName.isEmpty())
-    return;
-  ui->txtPythonLib->setText(fileName);
+  //if (fileName.isEmpty())
+  //  return;
+  //ui->txtPythonLib->setText(fileName);
 }
 
 void
