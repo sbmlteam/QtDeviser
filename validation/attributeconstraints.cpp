@@ -79,6 +79,7 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
                                       const QString& name)
 {
   bool result = false;
+  QString lowerName = attribute->getName().toLower();
 
   if (attribute->getName().isEmpty())
   {
@@ -88,13 +89,19 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
 
     result = true;
   }
-  else if (attribute->getName() == "level" || attribute->getName() == "version")
+  else if (lowerName == "level" || lowerName == "version" 
+    || lowerName == "packageversion" || lowerName == "metaid"
+    || lowerName == "notes" || lowerName == "annotation"
+    || lowerName == "sboterm" || lowerName == "line"
+    || lowerName == "column" || lowerName == "model"
+    || lowerName == "modelhistory" || lowerName == "cvterms"
+    || lowerName == "attribute" || lowerName == "uri" || lowerName == "prefix")
   {
     ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "The attribute '"
       << attribute->getName()
       << "' of element '"
       << name
-      << "' uses the name 'level' or 'version' which will cause compilation issues.");
+      << "' uses a restricted name which will cause compilation issues.");
 
   }
 
