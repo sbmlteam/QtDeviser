@@ -58,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
   , mValidator()
   , mpHelpWindow(NULL)
   , mpHelpEngine(NULL)
+  , mAutoSaveTime(300000)
 
 {
   ui->setupUi(this);
@@ -194,6 +195,7 @@ MainWindow::newModel()
 
   mModel = new DeviserPackage();
   connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
+//  startTimer(mAutoSaveTime);
 
   mCurrentElement = mModel;
   mCurrentVersion = mModel->getVersions()[0];
@@ -464,6 +466,7 @@ void MainWindow::openFile(const QString& fileName)
   mFileName = fileName;
   mModel = new DeviserPackage(fileName);
   connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
+//  startTimer(mAutoSaveTime);
 
   mCurrentElement = mModel;
   mCurrentVersion = getCurrentVersion();
