@@ -59,7 +59,6 @@ MainWindow::MainWindow(QWidget *parent)
   , mpHelpWindow(NULL)
   , mpHelpEngine(NULL)
   , mAutoSaveTime(300000)
-  , mAutoSaveTime(20000)
 
 {
   ui->setupUi(this);
