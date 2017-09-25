@@ -428,8 +428,8 @@ MainWindow::displayElement(DeviserBase* element)
   }
   else if (dynamic_cast<DeviserLanguage*>(mCurrentElement))
   {
-    ctrlLanguage->initializeFrom(dynamic_cast<DeviserLanguage*>(mCurrentElement));
-    ui->stackedWidget->setCurrentWidget(ctrlLanguage);
+    //ctrlLanguage->initializeFrom(dynamic_cast<DeviserLanguage*>(mCurrentElement));
+    //ui->stackedWidget->setCurrentWidget(ctrlLanguage);
   }
 
 }
