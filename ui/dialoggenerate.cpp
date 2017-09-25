@@ -172,6 +172,8 @@ DialogGenerate::removeFromSourceDir()
   Util::removeDir(libSBMLSourceDir + "/" + "src/sbml/packages" + "/" + lowerFirst + "-register.cxx");
   Util::removeDir(libSBMLSourceDir + "/" + "src/sbml/packages" + "/" + lowerFirst + "-register.h");
   Util::removeDir(libSBMLSourceDir + "/" + "src/sbml/packages" + "/" + lowerFirst );
+  Util::removeDir(libSBMLSourceDir + "/" + "examples" + "/" + lowerFirst + "-package.cmake");
+  Util::removeDir(libSBMLSourceDir + "/" + "examples/c++" + "/" + lowerFirst);
 
   Util::removeDir(libSBMLSourceDir + "/" + "src/bindings" , lowerFirst);
 
@@ -925,6 +927,14 @@ DialogGenerate::addToSourceDir()
   if (!Util::copyDir(
     packageDir + "/" + "src",
     libSBMLSourceDir + "/" + "src"
+    ))
+  {
+    addMessage("'Adding code to source tree' failed!");
+  }
+
+  if (!Util::copyDir(
+    packageDir + "/" + "examples",
+    libSBMLSourceDir + "/" + "examples"
     ))
   {
     addMessage("'Adding code to source tree' failed!");
