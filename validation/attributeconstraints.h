@@ -7,6 +7,7 @@
 #include "deviserconstraint.h"
 
 class DeviserAttribute;
+class DeviserVersion;
 
 class AttributeConstraints : public DeviserConstraint
 {
@@ -20,8 +21,12 @@ protected:
   virtual bool checkAttribute(DeviserAttribute *attribute,
                               const QString& name);
 
+  virtual bool checkAttributeLOElement(DeviserAttribute *attribute,
+                                       DeviserVersion* version);
+
   QStringList mKnownElementTypes;
   QStringList mKnownTypes;
+  QStringList mClasses;
 };
 
 #endif // SIDREFCONSTRAINT_H

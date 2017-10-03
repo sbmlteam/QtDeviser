@@ -8,6 +8,7 @@ AttributeConstraints::AttributeConstraints(DeviserValidator* validator)
   : DeviserConstraint(validator)
   , mKnownElementTypes()
   , mKnownTypes(Util::getKnownTypes())
+  , mClasses()
 {
 
   mKnownElementTypes << "enum"
@@ -28,6 +29,7 @@ int AttributeConstraints::analyzePackage(DeviserPackage *package)
 
   foreach (DeviserVersion* version, package->getVersions())
   {
+    mClasses.clear();
     foreach (DeviserClass* element, version->getElements())
     {
       if (element->getName().isEmpty())
@@ -42,6 +44,8 @@ int AttributeConstraints::analyzePackage(DeviserPackage *package)
       foreach(DeviserAttribute* attribute, element->getAttributes())
       {
         if (checkAttribute(attribute, element->getName()))
+          ++count;
+        if (checkAttributeLOElement(attribute, version))
           ++count;
       }
 
@@ -168,5 +172,34 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
   }
 
   return result;
+}
+
+bool AttributeConstraints::checkAttributeLOElement(DeviserAttribute *attribute, DeviserVersion* version)
+{
+
+  if (attribute->getType() != "lo_element")
+  {
+    return false;
+  }
+  else
+  {
+    if (mClasses.empty())
+    {
+      foreach(DeviserClass* element, version->getElements())
+      {
+        mClasses << element->getName();
+      }
+    }
+    if (!mClasses.contains(attribute->getElement().toLower(), Qt::CaseInsensitive))
+    {
+      ADD_MESSAGE_WITH_SEVERITY(DEVISER_WARNING,
+        "The listOf element '"
+        << attribute->getName()
+        << "' is using an element name that is not recognized. "
+        << "It should be the singular class name of the items in the ListOf.");
+      return true;
+    }
+  }
+  return false;
 }
 
