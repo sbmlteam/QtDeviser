@@ -43,6 +43,16 @@ IsBaseClassConstraint::analyzePackage(DeviserPackage *package)
                     << "' is marked as 'isBaseClass', but not used.");
       }
 
+      if (isAbstract)
+      {
+        if (current->getConcretes().size() == 0)
+        {
+          ++result;
+          ADD_MESSAGE_WITH_SEVERITY(DEVISER_ERROR, "The class '"
+            << current->getName()
+            << "' is marked as 'isBaseClass' but no instantiation classes are listed.");
+        }
+      }
     }
   }
 
