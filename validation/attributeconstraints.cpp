@@ -106,7 +106,8 @@ bool AttributeConstraints::checkAttribute(DeviserAttribute *attribute,
       << "' of element '"
       << name
       << "' uses a restricted name which will cause compilation issues.");
-
+    
+    result = true;
   }
 
   if (attribute->getType() == "SIdRef" && attribute->getElement().isEmpty())
