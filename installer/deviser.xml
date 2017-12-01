@@ -1,0 +1,155 @@
+<project>
+    <shortName>deviser</shortName>
+    <fullName>DEVISER (by the SBML Team)</fullName>
+    <version>1.0</version>
+    <readmeFile>../readme.md</readmeFile>
+    <licenseFile>dist/deviser/LICENSE.txt</licenseFile>
+    <htmlLicenseFile>dist/deviser/LICENSE.html</htmlLicenseFile>
+    <leftImage>Setup_Bitrock.png</leftImage>
+    <logoImage>../images/ICON_Deviser_48x48.png</logoImage>
+    <componentList>
+        <component>
+            <name>default</name>
+            <description>Default Component</description>
+            <canBeEdited>1</canBeEdited>
+            <selected>1</selected>
+            <show>1</show>
+            <desktopShortcutList>
+                <shortcut>
+                    <comment>Starts Deviser Edit</comment>
+                    <exec>${installdir}/DeviserEdit.sh</exec>
+                    <icon>${installdir}/DeviserEdit.png</icon>
+                    <name>Deviser Edit</name>
+                    <path>${installdir}</path>
+                    <platforms>all</platforms>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec></windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon></windowsIcon>
+                    <windowsPath></windowsPath>
+                </shortcut>
+            </desktopShortcutList>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfiles</name>
+                    <platforms>all</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>dist/deviser</origin>
+                        </distributionDirectory>
+                        <distributionDirectory>
+                            <origin>dist/sbmlpkgspec</origin>
+                        </distributionDirectory>
+                        <distributionFile>
+                            <origin>dist/DeviserEdit/Deviser.qhc</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>dist/DeviserEdit/DeviserEdit</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>dist/DeviserEdit/DeviserEdit.sh</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>dist/DeviserEdit/DeviserEdit.png</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>dist/DeviserEdit/Deviser.qhc</origin>
+                        </distributionFile>
+                        <distributionDirectory>
+                            <origin>dist/qt4</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                    <shortcutList>
+                        <shortcut>
+                            <comment>Uninstall</comment>
+                            <exec>${installdir}/${uninstallerName}</exec>
+                            <icon></icon>
+                            <name>Uninstall ${product_fullname}</name>
+                            <path>${installdir}</path>
+                            <platforms>all</platforms>
+                            <runAsAdmin>0</runAsAdmin>
+                            <runInTerminal>0</runInTerminal>
+                            <windowsExec>${installdir}/${uninstallerName}.exe</windowsExec>
+                            <windowsExecArgs></windowsExecArgs>
+                            <windowsIcon></windowsIcon>
+                            <windowsPath>${installdir}</windowsPath>
+                        </shortcut>
+                    </shortcutList>
+                </folder>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileslinux</name>
+                    <platforms>linux</platforms>
+                </folder>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                </folder>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfilesosx</name>
+                    <platforms>osx</platforms>
+                </folder>
+            </folderList>
+            <startMenuShortcutList>
+                <startMenuShortcut>
+                    <comment>Uninstall ${product_fullname}</comment>
+                    <name>Uninstall ${product_fullname}</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/${uninstallerName}.exe</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon></windowsIcon>
+                    <windowsPath>${installdir}/</windowsPath>
+                </startMenuShortcut>
+            </startMenuShortcutList>
+        </component>
+    </componentList>
+    <postInstallationActionList>
+        <changePermissions>
+            <files>${installdir}/DeviserEdit.sh</files>
+            <permissions>0755</permissions>
+            <ruleList>
+                <platformTest>
+                    <type>unix</type>
+                </platformTest>
+            </ruleList>
+        </changePermissions>
+        <changePermissions>
+            <files>${installdir}/DeviserEdit</files>
+            <permissions>0755</permissions>
+            <ruleList>
+                <platformTest>
+                    <type>unix</type>
+                </platformTest>
+            </ruleList>
+        </changePermissions>
+    </postInstallationActionList>
+    <enableRollback>1</enableRollback>
+    <enableTimestamp>1</enableTimestamp>
+    <saveRelativePaths>1</saveRelativePaths>
+    <vendor>SBML Team</vendor>
+    <parameterList>
+        <directoryParameter>
+            <name>installdir</name>
+            <description>Installer.Parameter.installdir.description</description>
+            <explanation>Installer.Parameter.installdir.explanation</explanation>
+            <value></value>
+            <default>${platform_install_prefix}/${product_shortname}-${product_version}</default>
+            <allowEmptyValue>0</allowEmptyValue>
+            <ask>yes</ask>
+            <cliOptionName>prefix</cliOptionName>
+            <mustBeWritable>yes</mustBeWritable>
+            <mustExist>0</mustExist>
+            <width>30</width>
+        </directoryParameter>
+    </parameterList>
+</project>
+
