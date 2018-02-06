@@ -14,11 +14,14 @@ Lucian P. Smith and [Mike Hucka](http://www.cds.caltech.edu/~mhucka).
 
 *Repository*:   [https://github.com/sbmlteam/deviser](https://github.com/sbmlteam/deviser)
 
+*Repository for GUI*:   [https://github.com/sbmlteam/QtDeviser](https://github.com/sbmlteam/QtDeviser)
+
 
 *Pivotal tracker*: [https://www.pivotaltracker.com/n/projects/977192](https://www.pivotaltracker.com/n/projects/977192)
 
 
-
+	This is the repository for the Deviser Edit Tool that provides a Graphical User Interface 
+    to facilitate creating the xml descriptions used by Deviser.
 
 
 ## Background ##
