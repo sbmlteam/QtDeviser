@@ -1,12 +1,12 @@
 <project>
     <shortName>deviser</shortName>
-    <fullName>DEVISER (by the SBML Team)</fullName>
-    <version>1.0</version>
-    <readmeFile>../readme.md</readmeFile>
+    <fullName>Deviser</fullName>
+    <version>1.0.0</version>
+    <readmeFile>dist/README.md</readmeFile>
     <licenseFile>dist/deviser/LICENSE.txt</licenseFile>
     <htmlLicenseFile>dist/deviser/LICENSE.html</htmlLicenseFile>
-    <leftImage>Setup_Bitrock.png</leftImage>
-    <logoImage>../images/ICON_Deviser_48x48.png</logoImage>
+    <leftImage>dist/Setup_Bitrock.png</leftImage>
+    <logoImage>dist/ICON_Deviser_48x48.png</logoImage>
     <componentList>
         <component>
             <name>default</name>
@@ -56,10 +56,13 @@
                             <origin>dist/DeviserEdit/DeviserEdit.png</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>dist/DeviserEdit/Deviser.qhc</origin>
+                            <origin>dist/DeviserEdit/Deviser.qch</origin>
                         </distributionFile>
                         <distributionDirectory>
-                            <origin>dist/qt4</origin>
+                            <origin>dist/lib</origin>
+                        </distributionDirectory>
+                        <distributionDirectory>
+                            <origin>dist/plugins</origin>
                         </distributionDirectory>
                     </distributionFileList>
                     <shortcutList>
@@ -83,7 +86,7 @@
                     <description>Program Files</description>
                     <destination>${installdir}</destination>
                     <name>programfileslinux</name>
-                    <platforms>linux</platforms>
+                    <platforms>linux-x64</platforms>
                 </folder>
                 <folder>
                     <description>Program Files</description>
