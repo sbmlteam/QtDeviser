@@ -78,6 +78,9 @@ MainWindow::MainWindow(QWidget *parent)
   resize(DeviserSettings::getInstance()->getWidth(),
          DeviserSettings::getInstance()->getHeight());
 
+  if (!DeviserSettings::haveLanguage())
+    ui->menu_Edit->removeAction(ui->actionEdit_Language);
+
   newModel();
 
 }
@@ -426,10 +429,10 @@ MainWindow::displayElement(DeviserBase* element)
     ctrlMapping->initializeFrom(mCurrentVersion);
     ui->stackedWidget->setCurrentWidget(ctrlMapping);
   }
-  else if (dynamic_cast<DeviserLanguage*>(mCurrentElement))
+  else if (dynamic_cast<DeviserLanguage*>(mCurrentElement) && DeviserSettings::haveLanguage())
   {
-    //ctrlLanguage->initializeFrom(dynamic_cast<DeviserLanguage*>(mCurrentElement));
-    //ui->stackedWidget->setCurrentWidget(ctrlLanguage);
+    ctrlLanguage->initializeFrom(dynamic_cast<DeviserLanguage*>(mCurrentElement));
+    ui->stackedWidget->setCurrentWidget(ctrlLanguage);
   }
 
 }

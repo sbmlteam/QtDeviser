@@ -1,5 +1,6 @@
 #include "ui/mainwindow.h"
 #include "deviser-version.h"
+#include "model/devisersettings.h"
 
 #include <QApplication>
 
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
   a.setApplicationDisplayName("Deviser Edit");
 #endif
 
-  MainWindow w;
+  QString openFileName(QString::null);
 
   for (int i = 1; i < argc; ++i)
   {
@@ -33,9 +34,19 @@ int main(int argc, char *argv[])
       return 0;
     }
 
+    if (current.toLower() == "--havelanguage")
+    {
+      DeviserSettings::setHaveLanguage(true);
+    }
+
     if (QFile(current).exists())
-      w.openFile(current);
+      openFileName = current;
+
   }
+
+  MainWindow w;
+  if (!openFileName.isNull())
+    w.openFile(openFileName);
 
   w.show();
 

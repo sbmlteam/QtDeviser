@@ -81,6 +81,9 @@ public:
   QColor getValidationColor() const;
   void setValidationColor(const QColor& validationColor);
 
+  static bool haveLanguage();
+  static void setHaveLanguage(bool haveLanguage);
+
 signals:
 
 public slots:
@@ -127,6 +130,8 @@ protected:
   int mHeight;
 
   QColor mValidationColor;
+
+  static int mHaveLanguage;
 
 private:
 

@@ -16,6 +16,7 @@
 #include <cstdlib>
 
 DeviserSettings* DeviserSettings::mpInstance = NULL;
+int DeviserSettings::mHaveLanguage = -1;
 
 DeviserSettings::DeviserSettings(QObject *parent)
   : QObject(parent)
@@ -300,6 +301,21 @@ QColor DeviserSettings::getValidationColor() const
 void DeviserSettings::setValidationColor(const QColor& validationColor)
 {
   mValidationColor = validationColor;
+}
+
+bool DeviserSettings::haveLanguage()
+{
+  if (DeviserSettings::mHaveLanguage == -1)
+  {
+    setHaveLanguage(getenv("DEVISER_HAVE_LANGUAGE") != NULL);
+  }
+
+  return DeviserSettings::mHaveLanguage == 1;
+}
+
+void DeviserSettings::setHaveLanguage(bool haveLanguage)
+{
+  DeviserSettings::mHaveLanguage = haveLanguage ? 1 : 0;
 }
 
 
