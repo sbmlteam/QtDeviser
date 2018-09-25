@@ -304,6 +304,13 @@ DeviserClass::getChildrenOverwriteElementName() const
   return mChildrenOverwriteElementName;
 }
 
+void DeviserClass::setChildrenOverwriteElementName(bool childrenOverwriteElementName)
+{
+  mChildrenOverwriteElementName = childrenOverwriteElementName;
+  emit childrenOverwriteElementNameChanged();
+  setModified();
+}
+
 const QString &
 DeviserClass::getAdditionalDeclarations() const
 {

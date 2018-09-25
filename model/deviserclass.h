@@ -54,6 +54,7 @@ public:
   QString getActualListOfName() const;
 
   bool getChildrenOverwriteElementName() const;
+  void setChildrenOverwriteElementName(bool childrenOverwriteElementName);
 
   const QString& getAdditionalDeclarations() const;
   void setAdditionalDeclarations(const QString& additionalDeclarations);
@@ -94,6 +95,7 @@ signals:
   void baseClassChanged();
   void typeCodeChanged();
   void hasListOfChanged();
+  void childrenOverwriteElementNameChanged();
   void hasMathChanged();
   void hasChildrenChanged();
   void isBaseClassChanged();

@@ -289,6 +289,19 @@
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QCheckBox" name="chkChildrenOverwriteName">
+          <property name="toolTip">
+           <string>Check this, if children overwrite the element name.</string>
+          </property>
+          <property name="statusTip">
+           <string/>
+          </property>
+          <property name="text">
+           <string>Overwrite name</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -1224,6 +1237,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>chkChildrenOverwriteName</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>FormDeviserClass</receiver>
+   <slot>childrenOverwriteElementNameChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>292</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>nameChanged(QString)</slot>
@@ -1255,5 +1284,6 @@
   <slot>defaultToggled(bool)</slot>
   <slot>nameModified(QString)</slot>
   <slot>typeCodeModified(QString)</slot>
+  <slot>childrenOverwriteElementNameChanged(int)</slot>
  </slots>
 </ui>

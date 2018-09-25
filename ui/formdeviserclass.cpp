@@ -123,6 +123,8 @@ FormDeviserClass::initializeFrom(DeviserClass* element)
     ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
     ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
 
+    ui->chkChildrenOverwriteName->setChecked(element->getChildrenOverwriteElementName());
+
     ui->txtListOfName->setText(element->getListOfName());
     ui->txtListOfClassName->setText(element->getListOfClassName());
     if (element->getMinNumberChildren() != 1)
@@ -378,6 +380,12 @@ FormDeviserClass::hasListOfStateChanged(int)
   ui->ctrlListOf->setVisible(ui->chkHasListOf->isChecked());
   ui->grpListOfAttributes->setVisible(ui->chkHasListOf->isChecked());
 
+}
+
+void FormDeviserClass::childrenOverwriteElementNameChanged(int)
+{
+  if (mElement == NULL || mbInitializing) return;
+  mElement->setChildrenOverwriteElementName(ui->chkChildrenOverwriteName->isChecked());
 }
 
 void FormDeviserClass::defaultXmlElementName()

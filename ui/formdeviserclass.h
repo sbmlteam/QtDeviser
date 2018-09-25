@@ -47,6 +47,7 @@ public slots:
   void requiresStateChanged(int);
   void isBaseClassStateChanged(int);
   void hasListOfStateChanged(int);
+  void childrenOverwriteElementNameChanged(int);
 
   void defaultXmlElementName();
   void defaultTypeCode();
