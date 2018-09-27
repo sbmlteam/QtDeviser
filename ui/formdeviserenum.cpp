@@ -100,7 +100,7 @@ void FormDeviserEnum::quickAdd()
   value->setName(QString("%1_%2_%3")
                  .arg(mEnum->getParent()->getName().toUpper())
                  .arg(mEnum->getName().toUpper())
-                 .arg(newValue.toUpper()));
+                 .arg(newValue.replace(" ", "_").toUpper()));
   mpValues->endAdding();
 
 }
