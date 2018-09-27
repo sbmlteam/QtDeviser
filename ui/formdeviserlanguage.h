@@ -32,6 +32,8 @@ public slots:
   void majorChanged(QString);
   void minorChanged(QString);
   void revisionChanged(QString);
+  void annotationElementNameChanged(QString);
+  void listOfNameChanged(QString);
   void addVersion();
   void delVersion();
   void addDependency();

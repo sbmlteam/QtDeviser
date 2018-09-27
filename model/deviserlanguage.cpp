@@ -8,6 +8,7 @@ DeviserLanguage::DeviserLanguage()
  , mPrefix()
  , mLibraryName()
  , mListOfClass()
+ , mAnnotationElementName()
  , mIsPackage(true)
  , mLibraryMajorVersion(-1)
  , mLibraryMinorVersion(-1)
@@ -26,6 +27,7 @@ DeviserLanguage::DeviserLanguage(const DeviserLanguage& other)
   , mPrefix(other.mPrefix)
   , mLibraryName(other.mLibraryName)
   , mListOfClass(other.mListOfClass)
+  , mAnnotationElementName(other.mAnnotationElementName)
   , mIsPackage(other.mIsPackage)
   , mLibraryMajorVersion(other.mLibraryMajorVersion)
   , mLibraryMinorVersion(other.mLibraryMinorVersion)
@@ -51,6 +53,7 @@ DeviserLanguage::operator=(const DeviserLanguage &rhs)
   mPrefix = rhs.mPrefix;
   mLibraryName = rhs.mLibraryName;
   mListOfClass = rhs.mListOfClass;
+  mAnnotationElementName = rhs.mAnnotationElementName;
 
   mIsPackage = rhs.mIsPackage;
 
@@ -78,6 +81,7 @@ DeviserLanguage::initializeFrom(const QDomElement& element)
   mPrefix = element.attribute("prefix");
   mLibraryName = element.attribute("libraryName");
   mListOfClass = element.attribute("listOfClass");
+  mAnnotationElementName = element.attribute("annotationElementName");
   mIsPackage = element.attribute("isPackage", "true").toLower() == "true";
 
   const QDomNodeList& nodes = element.elementsByTagName("library_version");
@@ -121,6 +125,8 @@ DeviserLanguage::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("libraryName", mLibraryName);
   if (!mListOfClass.isEmpty())
     writer.writeAttribute("listOfClass", mListOfClass);
+  if (!mAnnotationElementName.isEmpty())
+    writer.writeAttribute("annotationElementName", mAnnotationElementName);
   if (!mIsPackage)
     writer.writeAttribute("isPackage", "false");
 
@@ -327,4 +333,14 @@ DeviserLanguage::createVersion()
   setParent(mPackage);
   setModified();
   return result;
+}
+
+QString DeviserLanguage::getAnnotationElementName() const
+{
+  return mAnnotationElementName;
+}
+
+void DeviserLanguage::setAnnotationElementName(const QString& annotationElementName)
+{
+  mAnnotationElementName = annotationElementName;
 }

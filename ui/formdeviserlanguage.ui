@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>480</height>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -270,7 +270,41 @@
         </property>
        </widget>
       </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>List of Class:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="txtListOfName">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Annotation Element Name:</string>
+        </property>
+       </widget>
+      </item>
       <item row="6" column="1">
+       <widget class="QLineEdit" name="txtAnnotationElementName">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
@@ -328,7 +362,7 @@
         </item>
        </layout>
       </item>
-      <item row="6" column="0">
+      <item row="7" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
          <string>Library Version</string>
@@ -552,6 +586,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>txtAnnotationElementName</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserLanguage</receiver>
+   <slot>annotationElementNameChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>386</x>
+     <y>206</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>txtListOfName</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>FormDeviserLanguage</receiver>
+   <slot>listOfNameChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>386</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>isPackageToggled()</slot>
@@ -560,6 +626,8 @@
   <slot>documentClassChanged(QString)</slot>
   <slot>baseClassChanged(QString)</slot>
   <slot>libraryNameChanged(QString)</slot>
+  <slot>listOfNameChanged(QString)</slot>
+  <slot>annotationElementNameChanged(QString)</slot>
   <slot>majorChanged(QString)</slot>
   <slot>minorChanged(QString)</slot>
   <slot>revisionChanged(QString)</slot>

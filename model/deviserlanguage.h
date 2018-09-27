@@ -56,6 +56,9 @@ public:
   int libraryRevision() const;
   void setLibraryRevision(int libraryRevision);
 
+  QString getAnnotationElementName() const;
+  void setAnnotationElementName(const QString& annotationElementName);
+
   const QList<DeviserLanguageDependency*>& getDependencies() const;
   QList<DeviserLanguageDependency*>& getDependencies();
 
@@ -73,6 +76,7 @@ protected:
   QString mPrefix;
   QString mLibraryName;
   QString mListOfClass;
+  QString mAnnotationElementName;
 
   bool mIsPackage;
 

@@ -37,6 +37,8 @@ FormDeviserLanguage::initializeFrom(DeviserLanguage* language)
   ui->txtBaseClass->clear();
   ui->txtDocumentClass->clear();
   ui->txtLibraryName->clear();
+  ui->txtListOfName->clear();
+  ui->txtAnnotationElementName->clear();
   ui->txtMajor->clear();
   ui->txtMinor->clear();
   ui->txtRevision->clear();
@@ -61,6 +63,8 @@ FormDeviserLanguage::initializeFrom(DeviserLanguage* language)
     ui->txtBaseClass->setText(language->baseClass());
     ui->txtDocumentClass->setText(language->documentClass());
     ui->txtLibraryName->setText(language->libraryName());
+    ui->txtListOfName->setText(language->listOfClass());
+    ui->txtAnnotationElementName->setText(language->getAnnotationElementName());
     if (language->libraryMajorVersion() >=0)
     ui->txtMajor->setText(QString::number(language->libraryMajorVersion()));
     if (language->libraryMinorVersion() >=0)
@@ -134,8 +138,20 @@ void FormDeviserLanguage::libraryNameChanged(QString)
 {
   if (mLanguage == NULL || mbInitializing) return;
   mLanguage->setLibraryName(ui->txtLibraryName->text());
-
 }
+
+void FormDeviserLanguage::annotationElementNameChanged(QString)
+{
+  if (mLanguage == NULL || mbInitializing) return;
+  mLanguage->setAnnotationElementName(ui->txtAnnotationElementName->text());
+}
+
+void FormDeviserLanguage::listOfNameChanged(QString)
+{
+  if (mLanguage == NULL || mbInitializing) return;
+  mLanguage->setListOfClass(ui->txtListOfName->text());
+}
+
 
 void FormDeviserLanguage::majorChanged(QString)
 {
@@ -143,7 +159,7 @@ void FormDeviserLanguage::majorChanged(QString)
   bool valid = false;
   int intValue = ui->txtMajor->text().toInt(&valid);
   if (!valid) return;
-  mLanguage->setLibraryRevision(intValue);
+  mLanguage->setLibraryMajorVersion(intValue);
 
 }
 
@@ -153,7 +169,7 @@ void FormDeviserLanguage::minorChanged(QString)
   bool valid = false;
   int intValue = ui->txtMinor->text().toInt(&valid);
   if (!valid) return;
-  mLanguage->setLibraryRevision(intValue);
+  mLanguage->setLibraryMinorVersion(intValue);
 
 }
 
