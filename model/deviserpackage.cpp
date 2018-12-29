@@ -20,6 +20,7 @@ DeviserPackage::DeviserPackage()
   , mVersions()
   , mModified(false)
   , mLanguage()
+  , mCustomCopyright()
 {
   createVersion();
   setParent(this);
@@ -37,6 +38,7 @@ DeviserPackage::DeviserPackage(const DeviserPackage& other)
   , mVersions()
   , mModified(false)
   , mLanguage(other.mLanguage)
+  , mCustomCopyright(other.mCustomCopyright)
 {
   cloneElements(other.mVersions, mVersions);
   setParent(this);
@@ -55,6 +57,7 @@ DeviserPackage::DeviserPackage(const QString& fileName)
   , mVersions()
   , mModified(false)
   , mLanguage()
+  , mCustomCopyright()
 {
   QDomDocument document (fileName);
   QFile file(fileName);
@@ -77,6 +80,7 @@ DeviserPackage::DeviserPackage(QDomElement& element)
   , mVersions()
   , mModified(false)
   , mLanguage()
+  , mCustomCopyright()
 {
   initializeFrom(element);
 }
@@ -97,6 +101,7 @@ DeviserPackage::operator=(const DeviserPackage &rhs)
   mAdditionalDefinitions = rhs.mAdditionalDefinitions;
   mModified = false;
   mLanguage = rhs.mLanguage;
+  mCustomCopyright = rhs.mCustomCopyright;
 
   cloneElements(rhs.mVersions, mVersions);
   setParent(this);
