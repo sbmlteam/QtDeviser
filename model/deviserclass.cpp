@@ -205,6 +205,10 @@ DeviserClass::setHasListOf(bool hasListOf)
 bool
 DeviserClass::hasMath() const
 {
+  foreach (const DeviserAttribute* attribute, mAttributes)
+    if (attribute->getElement() == "ASTNode*")
+      return true;
+
   return mHasMath;
 }
 
@@ -219,6 +223,7 @@ DeviserClass::setHasMath(bool hasMath)
 bool
 DeviserClass::hasChildren() const
 {
+  if (hasMath()) return true;
   return mHasChildren;
 }
 
@@ -417,8 +422,8 @@ DeviserClass::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("typeCode", getDefaultTypeCode());
 
   writer.writeAttribute("hasListOf", mHasListOf ? "true" : "false");
-  writer.writeAttribute("hasChildren", mHasChildren ? "true" : "false");
-  writer.writeAttribute("hasMath", mHasMath ? "true" : "false");
+  writer.writeAttribute("hasChildren", hasChildren() ? "true" : "false");
+  writer.writeAttribute("hasMath", hasMath() ? "true" : "false");
   writer.writeAttribute("childrenOverwriteElementName", mChildrenOverwriteElementName ? "true" : "false");
 
   if (mHasListOf)
