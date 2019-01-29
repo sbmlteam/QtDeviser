@@ -9,7 +9,10 @@ DeviserLanguage::DeviserLanguage()
  , mLibraryName()
  , mListOfClass()
  , mAnnotationElementName()
+ , mTopLevelElementName()
  , mIsPackage(true)
+ , mUsesASTNode(true)
+ , mUsesXMLNode(true)
  , mLibraryMajorVersion(-1)
  , mLibraryMinorVersion(-1)
  , mLibraryRevision(-1)
@@ -28,7 +31,10 @@ DeviserLanguage::DeviserLanguage(const DeviserLanguage& other)
   , mLibraryName(other.mLibraryName)
   , mListOfClass(other.mListOfClass)
   , mAnnotationElementName(other.mAnnotationElementName)
+  , mTopLevelElementName(other.mTopLevelElementName)
   , mIsPackage(other.mIsPackage)
+  , mUsesASTNode(other.mUsesASTNode)
+  , mUsesXMLNode(other.mUsesXMLNode)
   , mLibraryMajorVersion(other.mLibraryMajorVersion)
   , mLibraryMinorVersion(other.mLibraryMinorVersion)
   , mLibraryRevision(other.mLibraryRevision)
@@ -54,8 +60,11 @@ DeviserLanguage::operator=(const DeviserLanguage &rhs)
   mLibraryName = rhs.mLibraryName;
   mListOfClass = rhs.mListOfClass;
   mAnnotationElementName = rhs.mAnnotationElementName;
+  mTopLevelElementName = rhs.mTopLevelElementName;
 
   mIsPackage = rhs.mIsPackage;
+  mUsesASTNode = rhs.mUsesASTNode;
+  mUsesXMLNode = rhs.mUsesXMLNode;
 
   mLibraryMajorVersion = rhs.mLibraryMajorVersion;
   mLibraryMinorVersion = rhs.mLibraryMinorVersion;
@@ -82,7 +91,10 @@ DeviserLanguage::initializeFrom(const QDomElement& element)
   mLibraryName = element.attribute("libraryName");
   mListOfClass = element.attribute("listOfClass");
   mAnnotationElementName = element.attribute("annotationElementName");
+  mTopLevelElementName = element.attribute("topLevelElementName");
   mIsPackage = element.attribute("isPackage", "true").toLower() == "true";
+  mUsesASTNode = element.attribute("uses_ASTNode", "true").toLower() == "true";
+  mUsesXMLNode = element.attribute("uses_XMLNode", "true").toLower() == "true";
 
   const QDomNodeList& nodes = element.elementsByTagName("library_version");
   for(int i = 0;i < nodes.count(); ++i)
@@ -127,8 +139,12 @@ DeviserLanguage::writeAttributesTo(QXmlStreamWriter& writer) const
     writer.writeAttribute("listOfClass", mListOfClass);
   if (!mAnnotationElementName.isEmpty())
     writer.writeAttribute("annotationElementName", mAnnotationElementName);
+  if (!mTopLevelElementName.isEmpty())
+    writer.writeAttribute("topLevelElementName", mAnnotationElementName);
   if (!mIsPackage)
     writer.writeAttribute("isPackage", "false");
+  writer.writeAttribute("uses_ASTNode", mUsesASTNode ? "true" : "false");
+  writer.writeAttribute("uses_XMLNode", mUsesXMLNode ? "true" : "false");
 
 }
 
@@ -333,6 +349,36 @@ DeviserLanguage::createVersion()
   setParent(mPackage);
   setModified();
   return result;
+}
+
+QString DeviserLanguage::getTopLevelElementName() const
+{
+  return mTopLevelElementName;
+}
+
+void DeviserLanguage::setTopLevelElementName(const QString& topLevelElementName)
+{
+  mTopLevelElementName = topLevelElementName;
+}
+
+bool DeviserLanguage::getUsesASTNode() const
+{
+  return mUsesASTNode;
+}
+
+void DeviserLanguage::setUsesASTNode(bool usesASTNode)
+{
+  mUsesASTNode = usesASTNode;
+}
+
+bool DeviserLanguage::getUsesXMLNode() const
+{
+  return mUsesXMLNode;
+}
+
+void DeviserLanguage::setUsesXMLNode(bool usesXMLNode)
+{
+  mUsesXMLNode = usesXMLNode;
 }
 
 QString DeviserLanguage::getAnnotationElementName() const

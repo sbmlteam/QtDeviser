@@ -24,6 +24,8 @@ public:
 
 public slots:
   void isPackageToggled();
+  void usesASTNodeToggled();
+  void usesXMLNodeToggled();
   void markupNameChanged(QString);
   void prefixChanged(QString);
   void documentClassChanged(QString);
@@ -33,6 +35,7 @@ public slots:
   void minorChanged(QString);
   void revisionChanged(QString);
   void annotationElementNameChanged(QString);
+  void topLevelElementNameChanged(QString);
   void listOfNameChanged(QString);
   void addVersion();
   void delVersion();

@@ -39,11 +39,15 @@ FormDeviserLanguage::initializeFrom(DeviserLanguage* language)
   ui->txtLibraryName->clear();
   ui->txtListOfName->clear();
   ui->txtAnnotationElementName->clear();
+  ui->txtTopLevelElementName->clear();
   ui->txtMajor->clear();
   ui->txtMinor->clear();
   ui->txtRevision->clear();
   ui->txtName->clear();
   ui->txtPrefix->clear();
+
+  ui->chkUsesASTNode->setChecked(true);
+  ui->chkUsesXMLNode->setChecked(true);
 
   ui->tblDependencies->setModel(NULL);
   if (mpDependenciesFilter != NULL)
@@ -65,6 +69,7 @@ FormDeviserLanguage::initializeFrom(DeviserLanguage* language)
     ui->txtLibraryName->setText(language->libraryName());
     ui->txtListOfName->setText(language->listOfClass());
     ui->txtAnnotationElementName->setText(language->getAnnotationElementName());
+    ui->txtTopLevelElementName->setText(language->getTopLevelElementName());
     if (language->libraryMajorVersion() >=0)
     ui->txtMajor->setText(QString::number(language->libraryMajorVersion()));
     if (language->libraryMinorVersion() >=0)
@@ -75,6 +80,8 @@ FormDeviserLanguage::initializeFrom(DeviserLanguage* language)
     ui->txtPrefix->setText(language->prefix());
 
     ui->chkIsPackage->setChecked(language->isPackage());
+    ui->chkUsesASTNode->setChecked(language->getUsesASTNode());
+    ui->chkUsesXMLNode->setChecked(language->getUsesXMLNode());
     ui->grpDependencies->setEnabled(!language->isPackage());
     ui->grpLanguageVersions->setEnabled(!language->isPackage());
     ui->grpLanguage->setEnabled(!language->isPackage());
@@ -105,6 +112,18 @@ void FormDeviserLanguage::isPackageToggled()
   ui->grpLanguageVersions->setEnabled(!mLanguage->isPackage());
   ui->grpLanguage->setEnabled(!mLanguage->isPackage());
   mbInitializing = false;
+}
+
+void FormDeviserLanguage::usesASTNodeToggled()
+{
+  if (mbInitializing || mLanguage == NULL) return;
+  mLanguage->setUsesASTNode(ui->chkUsesASTNode->isChecked());
+}
+
+void FormDeviserLanguage::usesXMLNodeToggled()
+{
+  if (mbInitializing || mLanguage == NULL) return;
+  mLanguage->setUsesXMLNode(ui->chkUsesXMLNode->isChecked());
 }
 
 void FormDeviserLanguage::markupNameChanged(QString)
@@ -144,6 +163,12 @@ void FormDeviserLanguage::annotationElementNameChanged(QString)
 {
   if (mLanguage == NULL || mbInitializing) return;
   mLanguage->setAnnotationElementName(ui->txtAnnotationElementName->text());
+}
+
+void FormDeviserLanguage::topLevelElementNameChanged(QString)
+{
+  if (mLanguage == NULL || mbInitializing) return;
+  mLanguage->setTopLevelElementName(ui->txtTopLevelElementName->text());
 }
 
 void FormDeviserLanguage::listOfNameChanged(QString)

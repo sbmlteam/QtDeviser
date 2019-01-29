@@ -68,6 +68,15 @@ public:
   DeviserLanguageDependency* createDependency();
   DeviserLanguageVersion* createVersion();
 
+  QString getTopLevelElementName() const;
+  void setTopLevelElementName(const QString& topLevelElementName);
+
+  bool getUsesASTNode() const;
+  void setUsesASTNode(bool usesASTNode);
+
+  bool getUsesXMLNode() const;
+  void setUsesXMLNode(bool usesXMLNode);
+
 protected:
 
   QString mName;
@@ -77,8 +86,11 @@ protected:
   QString mLibraryName;
   QString mListOfClass;
   QString mAnnotationElementName;
+  QString mTopLevelElementName;
 
   bool mIsPackage;
+  bool mUsesASTNode;
+  bool mUsesXMLNode;
 
   int mLibraryMajorVersion;
   int mLibraryMinorVersion;
