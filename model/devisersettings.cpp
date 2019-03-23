@@ -16,7 +16,7 @@
 #include <cstdlib>
 
 DeviserSettings* DeviserSettings::mpInstance = NULL;
-int DeviserSettings::mHaveLanguage = -1;
+int DeviserSettings::mHaveLanguage = 1;
 
 DeviserSettings::DeviserSettings(QObject *parent)
   : QObject(parent)

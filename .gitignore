@@ -10,3 +10,6 @@ QtDeviser.xcodeproj
 
 installer/dist
 Setup*.exe
+
+.vs
+.vscode
