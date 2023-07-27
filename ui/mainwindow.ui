@@ -117,7 +117,7 @@
      <x>0</x>
      <y>0</y>
      <width>850</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
@@ -136,6 +136,8 @@
     <addaction name="actionOpen"/>
     <addaction name="actionReload"/>
     <addaction name="menuRecentFiles"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport_YAML"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
@@ -412,6 +414,14 @@
     <string>Modify language settings, to generate a new library.</string>
    </property>
   </action>
+  <action name="actionImport_YAML">
+   <property name="text">
+    <string>Import YAML</string>
+   </property>
+    <property name="toolTip">
+      <string>Import Yaml file from modelspec10, to generate a new library.</string>
+    </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -594,7 +604,23 @@
     </hint>
    </hints>
   </connection>
-  <connection>
+   <connection>
+     <sender>actionImport_YAML</sender>
+     <signal>triggered()</signal>
+     <receiver>MainWindow</receiver>
+     <slot>importYAML()</slot>
+     <hints>
+       <hint type="sourcelabel">
+         <x>-1</x>
+         <y>-1</y>
+       </hint>
+       <hint type="destinationlabel">
+         <x>293</x>
+         <y>228</y>
+       </hint>
+     </hints>
+   </connection>
+   <connection>
    <sender>actionSave</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -771,22 +797,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>menuRecentFiles</sender>
-   <signal>triggered(QAction*)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>openRecentFile(QAction*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>67</x>
-     <y>24</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>424</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>treeWidget</sender>
    <signal>customContextMenuRequested(QPoint)</signal>
    <receiver>MainWindow</receiver>
@@ -825,8 +835,8 @@
    <slot>editLanguage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>414</x>
-     <y>317</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>424</x>
