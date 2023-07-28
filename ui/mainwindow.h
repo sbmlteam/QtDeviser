@@ -52,6 +52,8 @@ public slots:
   void newModel();
   void openFile();
   void openFile(const QString&);
+  void importYAML();
+  void importYAML(const QString&);
   void saveFile();
   void saveFileAs();
   void saveAsFile(const QString&);

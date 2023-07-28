@@ -484,7 +484,51 @@ void MainWindow::openFile(const QString& fileName)
 
 }
 
-void 
+void
+MainWindow::importYAML()
+{
+
+  QString oldDir;
+  if (!mFileName.isEmpty())
+  {
+    oldDir = QFileInfo(mFileName).dir().absolutePath();
+  }
+
+  QString fileName = QFileDialog::getOpenFileName(this, "Open YAML Description", oldDir, "YAML files (*.yaml);;All files (*.*)");
+
+  if (!fileName.isEmpty())
+    openFile(fileName);
+
+}
+
+void MainWindow::importYAML(const QString& fileName)
+{
+  if (mModel != NULL)
+  {
+    mCurrentElement = NULL;
+    mCurrentVersion = NULL;
+    delete mModel;
+  }
+
+  mFileName = fileName;
+  mModel = new DeviserPackage(fileName);
+  connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
+  startTimer(mAutoSaveTime);
+
+  mCurrentElement = mModel;
+  mCurrentVersion = getCurrentVersion();
+
+  setCurrentFile(mFileName);
+  updateUI();
+
+  DeviserSettings::getInstance()->addRecentFile(fileName);
+  refreshRecentFiles();
+
+  mModel->setModified(false);
+
+}
+
+void
 MainWindow::timerEvent(QTimerEvent *event)
 {
   saveTempFile();

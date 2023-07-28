@@ -855,6 +855,7 @@
   <slot>showAbout()</slot>
   <slot>newModel()</slot>
   <slot>openFile()</slot>
+  <slot>importYAML()</slot>
   <slot>saveFile()</slot>
   <slot>saveAsFile(QString)</slot>
   <slot>fixErrors()</slot>
