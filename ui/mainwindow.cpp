@@ -9,6 +9,8 @@
 
 #include <QHelpEngine>
 
+#include <yaml-cpp/yaml.h>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -497,7 +499,7 @@ MainWindow::importYAML()
   QString fileName = QFileDialog::getOpenFileName(this, "Open YAML Description", oldDir, "YAML files (*.yaml);;All files (*.*)");
 
   if (!fileName.isEmpty())
-    openFile(fileName);
+    importYAML(fileName);
 
 }
 
@@ -511,6 +513,9 @@ void MainWindow::importYAML(const QString& fileName)
   }
 
   mFileName = fileName;
+  // need to create a QtDomElement from a yaml file
+  const std::string& fn = fileName.toStdString();
+  YAML::Node yaml_text = YAML::LoadFile(fn);
   mModel = new DeviserPackage(fileName);
   connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
   startTimer(mAutoSaveTime);
