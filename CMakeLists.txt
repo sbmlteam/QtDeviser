@@ -73,11 +73,51 @@ include(CPack)
 
 ###############################################################################
 #
-# Need some variables set up, such as the name for the libSBML
-# library and the Path and file separator characters. The
-# MISC_PREFIX variable will cause libsbml bindings, examples and
-# documentation to be installed in PREFIX/${MISC_PREFIX}.
-#
+# Set the default dependency directory.
+set(DEVISER_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
+    "Directory containing libraries that DEVISER depends upon. (Particularly important on Windows.)")
+if("${DEVISER_DEPENDENCY_DIR}" STREQUAL "")
+  set(DEVISER_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
+  "Directory containing libraries that DEVISER depends upon. (Particularly important on Windows.)" FORCE)
+endif()
+
+option (WITH_YAML-CPP "Build the libraries linked to YAML-CPP" ON)
+if (WITH_YAML-CPP)
+    # locate YAML-CPP
+    find_library(YAML-CPP_LIBRARY
+        NAMES yaml-cpp.lib
+        PATHS ${DEVISER_DEPENDENCY_DIR}/YAML_CPP/lib
+        /usr/local/lib
+            /usr/lib
+        DOC "The file name of the YAML-CPP library."
+    )
+
+    find_path(YAML-CPP_INCLUDE_DIR
+        NAMES yaml-cpp/yaml.h
+        PATHS ${DEVISER_DEPENDENCY_DIR}/YAML_CPP/include
+        /usr/local/include
+            /usr/include 
+        DOC "The directory containing the YAML-CPP include files."
+    )
+
+    # to make seamless use of libsbml/YAML-CPP we want include dir to
+    set(YAML-CPP_INCLUDE_DIR "${YAML-CPP_INCLUDE_DIR}")
+    set(XTRA_INC "${YAML-CPP_INCLUDE_DIR}")
+
+    set(LINKED_LIBRARY ${YAML-CPP_LIBRARY})
+    set (LINKED_INCLUDE_DIR ${YAML-CPP_INCLUDE_DIR})
+    set(LINKED_NAME "YAML-CPP")
+
+    if (NOT EXISTS "${YAML-CPP_INCLUDE_DIR}/yaml-cpp/yaml.h")
+        message(FATAL_ERROR "The include directory ${YAML-CPP_INCLUDE_DIR} specified for YAML-CPP appears to be invalid. 
+        It should contain the file yaml-cpp/yaml.h, but it does not. 
+        Please specify the YAML-CPP_INCLUDE_DIR variable.")
+    endif()
+
+    include_directories(${YAML-CPP_INCLUDE_DIR})
+
+endif()
+
 
 if(UNIX OR CYGWIN)
     set(PATH_SEP "/")
@@ -87,9 +127,13 @@ else()
     set(FILE_SEP ";")
 endif()
 
-set(EXTRA_LIBS "" CACHE STRING "List of additional libraries to link against." )
+set(EXTRA_LIBS ${LINKED_LIBRARY} CACHE STRING "List of additional libraries to link against." )
 set(EXTRA_FLAGS "" CACHE STRING "List of extra flags." )
-set(EXTRA_INCLUDE "" CACHE STRING "List of include diretories." )
+set(EXTRA_INCLUDE_DIRS ${XTRA_INC} CACHE STRING "List of additional include directories to add." FORCE)
+
+
+set (DEVISER_LIBS ${DEVISER_LIBS} ${LINKED_LIBRARY})
+
 
 if (EXTRA_FLAGS)
 foreach(${flag} ${EXTRA_FLAGS})
@@ -271,9 +315,9 @@ endif()
 if (NOT APPLE)
 
   SET(APPS "\${CMAKE_INSTALL_PREFIX}/bin/DeviserEdit${CMAKE_EXECUTABLE_SUFFIX}" CACHE INTERNAL "")
-  if (EXTRA_LIBS)
-  install(TARGETS EXTRA_LIBS DESTINATION bin)
-  endif()
+ # if (EXTRA_LIBS)
+ # install(TARGETS EXTRA_LIBS DESTINATION bin)
+ # endif()
   # ensure that next to the binaries also dependencies are copied
   install(CODE "
       include(BundleUtilities)
@@ -295,7 +339,12 @@ message(STATUS
  Qt Version     : ${QTVERSION}
  C   FLAGS      : ${CMAKE_C_FLAGS}
  CXX FLAGS      : ${CMAKE_CXX_FLAGS}
- Extra Libs     : ${EXTRA_LIBS} 
  
+ Extra Libs     : ${EXTRA_LIBS} 
+  ${LINKED_NAME} library configuration:
+     ${LINKED_NAME} library                  = ${LINKED_LIBRARY}
+     ${LINKED_NAME} include                  = -I${LINKED_INCLUDE_DIR}
+     EXTRA INCLUDES                          = -I${EXTRA_INCLUDE_DIRS}
+
 "
 )
