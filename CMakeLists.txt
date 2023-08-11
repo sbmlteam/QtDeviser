@@ -284,6 +284,8 @@ ADD_DEPENDENCIES(macdeploy DeviserEdit)
 
 endif()
 
+target_link_libraries(DeviserEdit ${LINKED_LIBRARY})
+
 add_custom_command(TARGET DeviserEdit POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Deviser.qch $<TARGET_FILE_DIR:DeviserEdit>/
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Deviser.qhc $<TARGET_FILE_DIR:DeviserEdit>/)
@@ -311,6 +313,7 @@ endif()
 if (QT_BINARY_DIR)
   SET(DIRS ${QT_BINARY_DIR} ${DIRS})
 endif()
+
 
 if (NOT APPLE)
 
