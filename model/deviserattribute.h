@@ -15,6 +15,7 @@ public:
   DeviserAttribute& operator= (const DeviserAttribute& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
+  virtual void initializeFrom(YamlClass element);
 
   const QString& getXMLName() const;
   void setXMLName(const QString& name);

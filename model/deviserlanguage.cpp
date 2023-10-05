@@ -111,6 +111,38 @@ DeviserLanguage::initializeFrom(const QDomElement& element)
 
 }
 
+void
+DeviserLanguage::initializeFrom(YamlClass element)
+{
+  DeviserBase::initializeFrom(element);
+
+  mName = QString::fromUtf8(element.getName().c_str());
+  //mBaseClass = element.attribute("baseClass");
+  //mDocumentClass = element.attribute("documentClass");
+  //mPrefix = element.attribute("prefix");
+  //mLibraryName = element.attribute("libraryName");
+  //mListOfClass = element.attribute("listOfClass");
+  //mAnnotationElementName = element.attribute("annotationElementName");
+  //mTopLevelElementName = element.attribute("topLevelElementName");
+  //mIsPackage = element.attribute("isPackage", "true").toLower() == "true";
+  //mUsesASTNode = element.attribute("uses_ASTNode", "true").toLower() == "true";
+  //mUsesXMLNode = element.attribute("uses_XMLNode", "true").toLower() == "true";
+
+  //const QDomNodeList& nodes = element.elementsByTagName("library_version");
+  //for (int i = 0; i < nodes.count(); ++i)
+  //{
+  //  const QDomElement& child = nodes.at(i).toElement();
+  //  mLibraryMajorVersion = child.attribute("major", "-1").toInt();
+  //  mLibraryMinorVersion = child.attribute("minor", "-1").toInt();
+  //  mLibraryRevision = child.attribute("revision", "-1").toInt();
+  //  break;
+  //}
+
+//  initializeListFrom(mLanguageVersions, element, "version");
+//  initializeListFrom(mDependencies, element, "dependency");
+
+}
+
 void DeviserLanguage::setParent(DeviserPackage* doc)
 {
   DeviserBase::setParent(doc);

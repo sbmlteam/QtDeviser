@@ -8,6 +8,8 @@
 #include <model/deviserlanguageversion.h>
 #include <model/deviserlanguagedependency.h>
 
+#include "yamlspec.h"
+
 class DeviserLanguage : public DeviserBase
 {
   Q_OBJECT
@@ -18,6 +20,7 @@ public:
   DeviserLanguage& operator= (const DeviserLanguage& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
+  virtual void initializeFrom(YamlClass element);
   virtual void setParent(DeviserPackage* doc);
 
   virtual void writeAttributesTo(QXmlStreamWriter& writer) const;

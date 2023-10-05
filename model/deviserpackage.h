@@ -5,6 +5,8 @@
 #include <model/deviserversion.h>
 #include <model/deviserlanguage.h>
 
+#include "yamlspec.h"
+
 
 class DeviserPackage : public DeviserBase
 {
@@ -15,9 +17,12 @@ public:
   DeviserPackage(const DeviserPackage& other);
   DeviserPackage(const QString& fileName);
   DeviserPackage(QDomElement& element);
+  DeviserPackage(YamlSpec spec);
+
   DeviserPackage& operator= (const DeviserPackage& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
+  virtual void initializeFrom(YamlSpec spec);
 
   virtual void setParent(DeviserPackage* doc);
 

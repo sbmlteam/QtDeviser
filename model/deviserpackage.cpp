@@ -85,6 +85,30 @@ DeviserPackage::DeviserPackage(QDomElement& element)
   initializeFrom(element);
 }
 
+DeviserPackage::DeviserPackage(YamlSpec spec)
+  : DeviserBase()
+  , mName()
+  , mFullName()
+  , mStartNumber(0)
+  , mOffset(0)
+  , mVersion(1)
+  , mRequired(false)
+  , mAdditionalDeclarations()
+  , mAdditionalDefinitions()
+  , mVersions()
+  , mModified(false)
+  , mLanguage()
+  , mCustomCopyright()
+{
+  //QDomDocument document(fileName);
+  //QFile file(fileName);
+  //document.setContent(&file);
+  //QDomElement root = document.documentElement();
+  initializeFrom(spec);
+  //mModified = false;
+}
+
+
 DeviserPackage &
 DeviserPackage::operator=(const DeviserPackage &rhs)
 {
@@ -220,6 +244,35 @@ DeviserPackage::initializeFrom(const QDomElement& element)
   setParent(this);
 
 }
+
+void
+DeviserPackage::initializeFrom(YamlSpec spec)
+{
+  DeviserBase::initializeFrom(spec);
+  if (spec.getTopLevel())
+  {
+    mName = QString::fromStdString(spec.getTopLevel()->getName());
+    mFullName = mName;
+  }
+  //mAdditionalDeclarations = element.attribute("additionalDecls");
+  //mAdditionalDefinitions = element.attribute("additionalDefs");
+
+
+  //mStartNumber = element.attribute()("number").toInt();
+  //mOffset = element.attribute("offset").toInt();
+  //mVersion = element.attribute("version").toInt();
+  //mRequired = element.attribute("required").toLower() == "true";
+
+  //mCustomCopyright = element.attribute("customCopyright");
+
+//  initializeListFrom(mVersions, *(spec.getChildClass(0)), spec.getChildClass(0)->getName());
+ 
+  //initializeElementFrom(mLanguage, element, "language");
+
+  setParent(this);
+
+}
+
 
 void
 DeviserPackage::setParent(DeviserPackage* doc)

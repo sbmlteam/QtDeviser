@@ -127,6 +127,33 @@ void DeviserClass::initializeFrom(const QDomElement& element)
   initializeListFrom(mConcretes, element, "concrete");
 }
 
+void DeviserClass::initializeFrom(YamlClass element)
+{
+  DeviserBase::initializeFrom(element);
+
+  mName = QString::fromUtf8(element.getName().c_str());
+  /*mBaseClass = element.attribute("baseClass");
+
+  mTypeCode = element.attribute("typeCode");
+  mHasListOf = element.attribute("hasListOf").toLower() == "true";
+  mHasChildren = element.attribute("hasChildren").toLower() == "true";
+  mHasMath = element.attribute("hasMath").toLower() == "true";
+  mIsBaseClass = element.attribute("abstract").toLower() == "true";
+  mMinNumberChildren = element.attribute("minNumListOfChildren").toInt();
+  mMaxNumberChildren = element.attribute("maxNumListOfChildren").toInt();
+  mChildrenOverwriteElementName = element.attribute("childrenOverwriteElementName").toLower() == "true";
+  mElementName = element.attribute("elementName");
+  mListOfName = element.attribute("listOfName");
+  mListOfClassName = element.attribute("listOfClassName");
+
+  mAdditionalDeclarations = element.attribute("additionalDecls");
+  mAdditionalDefinitions = element.attribute("additionalDefs");
+
+  initializeListFrom(mAttributes, element, "attribute");
+  initializeListFrom(mListOfAttributes, element, "listOfAttribute");
+  initializeListFrom(mConcretes, element, "concrete");*/
+}
+
 const QString &
 DeviserClass::getName() const
 {

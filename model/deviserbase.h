@@ -6,6 +6,8 @@
 #include <QDomElement>
 #include <QXmlStreamWriter>
 
+#include "yamlspec.h"
+
 class DeviserPackage;
 class DeviserVersion;
 
@@ -19,6 +21,8 @@ public:
   DeviserBase& operator= (const DeviserBase& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
+  virtual void initializeFrom(YamlSpec spec);
+  virtual void initializeFrom(YamlClass element);
 
   virtual void setParent(DeviserPackage* doc);
   virtual void setParentVersion(DeviserVersion* version);
@@ -94,6 +98,34 @@ template<typename T> void initializeElementFrom(T& element, const QDomElement& d
     element.initializeFrom(child);
     return;
   }
+}
+
+template<typename T> void initializeListFrom(QList<T*>& list, YamlClass element, const std::string& name)
+{
+  list.clear();
+  idTypePairs attributes = element.getAttributes();
+  //const QDomNodeList& nodes = element.elementsByTagName(name);
+  //for (int i = 0; i < nodes.count(); ++i)
+  for (size_t i = 0; i < attributes.size(); ++i)
+  {
+  //  const QDomElement& child = nodes.at(i).toElement();
+    idPair att = attributes.at[i];
+    T* newElement = new T();
+  //  newElement->initializeFrom(child);
+    newElement->initializeFrom(att);
+    list.append(newElement);
+  }
+}
+
+template<typename T> void initializeElementFrom(T& element, YamlClass classElement, const std::string& name)
+{
+  //const QDomNodeList& nodes = domElement.elementsByTagName(name);
+  //for (int i = 0; i < nodes.count(); ++i)
+  //{
+  //  const QDomElement& child = nodes.at(i).toElement();
+  //  element.initializeFrom(child);
+  //  return;
+  //}
 }
 
 

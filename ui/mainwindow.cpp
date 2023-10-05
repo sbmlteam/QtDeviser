@@ -37,6 +37,7 @@
 #include <model/deviserenum.h>
 #include <model/deviserplugin.h>
 #include <model/devisersettings.h>
+#include "model/yamlspec.h"
 
 #include <validation/devisermessage.h>
 
@@ -515,8 +516,9 @@ void MainWindow::importYAML(const QString& fileName)
   mFileName = fileName;
   // need to create a QtDomElement from a yaml file
   const std::string& fn = fileName.toStdString();
-  YAML::Node yaml_text = YAML::LoadFile(fn);
-  mModel = new DeviserPackage(fileName);
+  YamlSpec spec = YamlSpec(fn);
+  spec.parse();
+  mModel = new DeviserPackage(spec);
   connect(mModel, SIGNAL(modifiedChanged()), this, SLOT(documentModified()));
   startTimer(mAutoSaveTime);
 

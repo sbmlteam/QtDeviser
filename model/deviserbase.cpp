@@ -40,6 +40,16 @@ void DeviserBase::initializeFrom(const QDomElement& )
 
 }
 
+void DeviserBase::initializeFrom(YamlSpec)
+{
+
+}
+
+void DeviserBase::initializeFrom(YamlClass)
+{
+
+}
+
 void DeviserBase::setParent(DeviserPackage* doc)
 {
   mPackage = doc;

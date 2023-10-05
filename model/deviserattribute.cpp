@@ -94,6 +94,49 @@ DeviserAttribute::initializeFrom(const QDomElement& element)
 
 }
 
+void
+DeviserAttribute::initializeFrom(YamlClass element)
+{
+  DeviserReferenceAttribute::initializeFrom(element);
+
+  /*mRequired = element.attribute("required").toLower() == "true";
+  mType = element.attribute("type");
+
+  bool found = false;
+  foreach(QString str, mKnownTypes)
+  {
+    if (QString::compare(mType, str, Qt::CaseInsensitive) == 0)
+    {
+      mType = str;
+      found = true;
+      break;
+    }
+  }
+
+  if (!found)
+  {
+    DeviserSettings* instance = DeviserSettings::getInstance();
+    QStringList& userDefinedTypes = instance->getUserDefinedTypes();
+    foreach(QString str, userDefinedTypes)
+    {
+      if (QString::compare(mType, str, Qt::CaseInsensitive) == 0)
+      {
+        mType = str;
+        found = true;
+        break;
+      }
+    }
+
+    if (!found)
+      userDefinedTypes.append(mType);
+  }
+
+  mElement = element.attribute("element");
+  mXMLName = element.attribute("xmlName");
+  mAbstract = element.attribute("abstract").toLower() == "true";
+*/
+}
+
 const QString &
 DeviserAttribute::getXMLName() const
 {
