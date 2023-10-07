@@ -102,7 +102,7 @@ DeviserVersion::initializeFrom(YamlSpec element)
   mPkgVersion = 1; // element.attribute("pkg_version").toInt();
   mIgnorePackageVersion = true; // element.attribute("ignorePackageversion") == "true";
 
-  initializeListFrom(mElements, element, "element");
+  initializeListFrom(mElements, element, "class");
   //initializeListFrom(mPlugins, element, "plugin");
   //initializeListFrom(mEnums, element, "enum");
   //initializeListFrom(mMappings, element, "mapping");

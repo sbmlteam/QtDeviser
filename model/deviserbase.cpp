@@ -50,6 +50,11 @@ void DeviserBase::initializeFrom(YamlClass*)
 
 }
 
+void DeviserBase::initializeFrom(idPair)
+{
+
+}
+
 void DeviserBase::setParent(DeviserPackage* doc)
 {
   mPackage = doc;

@@ -23,6 +23,7 @@ public:
   virtual void initializeFrom(const QDomElement& element);
   virtual void initializeFrom(YamlSpec spec);
   virtual void initializeFrom(YamlClass* element);
+  virtual void initializeFrom(idPair element);
 
   virtual void setParent(DeviserPackage* doc);
   virtual void setParentVersion(DeviserVersion* version);
@@ -103,13 +104,13 @@ template<typename T> void initializeElementFrom(T& element, const QDomElement& d
 template<typename T> void initializeListFrom(QList<T*>& list, YamlClass *element, const std::string& name)
 {
   list.clear();
-  idTypePairs attributes = element.getAttributes();
+  idTypePairs attributes = element->getAttributes();
   //const QDomNodeList& nodes = element.elementsByTagName(name);
   //for (int i = 0; i < nodes.count(); ++i)
   for (size_t i = 0; i < attributes.size(); ++i)
   {
   //  const QDomElement& child = nodes.at(i).toElement();
-    idPair att = attributes.at[i];
+    idPair att = attributes.at(i);
     T* newElement = new T();
   //  newElement->initializeFrom(child);
     newElement->initializeFrom(att);
@@ -126,7 +127,7 @@ template<typename T> void initializeListFrom(QList<T*>& list, YamlSpec element, 
     newElement->initializeFrom(element);
     list.append(newElement);
   }
-  else
+  else if(name == "class")
   {
     std::vector<YamlClass*> classes = element.getChildClasses();
     //const QDomNodeList& nodes = element.elementsByTagName(name);
@@ -140,6 +141,7 @@ template<typename T> void initializeListFrom(QList<T*>& list, YamlSpec element, 
       list.append(newElement);
     }
   }
+
 }
 
 template<typename T> void initializeElementFrom(T& element, YamlClass classElement, const std::string& name)

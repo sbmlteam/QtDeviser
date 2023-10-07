@@ -155,10 +155,10 @@ void DeviserClass::initializeFrom(YamlClass* element)
 
   mAdditionalDeclarations = element.attribute("additionalDecls");
   mAdditionalDefinitions = element.attribute("additionalDefs");
-
+*/
   initializeListFrom(mAttributes, element, "attribute");
-  initializeListFrom(mListOfAttributes, element, "listOfAttribute");
-  initializeListFrom(mConcretes, element, "concrete");*/
+//  initializeListFrom(mListOfAttributes, element, "listOfAttribute");
+//  initializeListFrom(mConcretes, element, "concrete");
 }
 
 const QString &
