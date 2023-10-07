@@ -17,6 +17,7 @@ public:
   DeviserClass& operator= (const DeviserClass& rhs);
 
   virtual void initializeFrom(const QDomElement& element);
+  virtual void initializeFrom(YamlSpec element);
   virtual void initializeFrom(YamlClass* element);
 
   const QString& getName() const;

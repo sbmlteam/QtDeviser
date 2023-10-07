@@ -265,7 +265,7 @@ DeviserPackage::initializeFrom(YamlSpec spec)
 
   //mCustomCopyright = element.attribute("customCopyright");
 
-  initializeListFrom(mVersions, spec, "Sarah");
+  initializeListFrom(mVersions, spec, "version");
  
   //initializeElementFrom(mLanguage, element, "language");
 

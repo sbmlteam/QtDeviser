@@ -120,16 +120,25 @@ template<typename T> void initializeListFrom(QList<T*>& list, YamlClass *element
 template<typename T> void initializeListFrom(QList<T*>& list, YamlSpec element, const std::string& name)
 {
   list.clear();
-  std::vector<YamlClass*> classes = element.getChildClasses();
-  //const QDomNodeList& nodes = element.elementsByTagName(name);
-  //for (int i = 0; i < nodes.count(); ++i)
-  for (size_t i = 0; i < classes.size(); ++i)
+  if (name == "version")
   {
-    //  const QDomElement& child = nodes.at(i).toElement();
-    YamlClass *child = (classes.at(i));
     T* newElement = new T();
-    newElement->initializeFrom(child);
+    newElement->initializeFrom(element);
     list.append(newElement);
+  }
+  else
+  {
+    std::vector<YamlClass*> classes = element.getChildClasses();
+    //const QDomNodeList& nodes = element.elementsByTagName(name);
+    //for (int i = 0; i < nodes.count(); ++i)
+    for (size_t i = 0; i < classes.size(); ++i)
+    {
+      //  const QDomElement& child = nodes.at(i).toElement();
+      YamlClass *child = (classes.at(i));
+      T* newElement = new T();
+      newElement->initializeFrom(child);
+      list.append(newElement);
+    }
   }
 }
 

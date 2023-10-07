@@ -127,6 +127,13 @@ void DeviserClass::initializeFrom(const QDomElement& element)
   initializeListFrom(mConcretes, element, "concrete");
 }
 
+
+void DeviserClass::initializeFrom(YamlSpec element)
+{
+  DeviserBase::initializeFrom(element);
+}
+
+
 void DeviserClass::initializeFrom(YamlClass* element)
 {
   DeviserBase::initializeFrom(element);
