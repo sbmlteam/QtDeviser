@@ -45,7 +45,7 @@ void DeviserBase::initializeFrom(YamlSpec)
 
 }
 
-void DeviserBase::initializeFrom(YamlClass)
+void DeviserBase::initializeFrom(YamlClass*)
 {
 
 }

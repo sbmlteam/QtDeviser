@@ -112,11 +112,11 @@ DeviserLanguage::initializeFrom(const QDomElement& element)
 }
 
 void
-DeviserLanguage::initializeFrom(YamlClass element)
+DeviserLanguage::initializeFrom(YamlClass* element)
 {
   DeviserBase::initializeFrom(element);
 
-  mName = QString::fromUtf8(element.getName().c_str());
+  mName = QString::fromUtf8(element->getName().c_str());
   //mBaseClass = element.attribute("baseClass");
   //mDocumentClass = element.attribute("documentClass");
   //mPrefix = element.attribute("prefix");

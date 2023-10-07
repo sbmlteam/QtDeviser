@@ -127,11 +127,11 @@ void DeviserClass::initializeFrom(const QDomElement& element)
   initializeListFrom(mConcretes, element, "concrete");
 }
 
-void DeviserClass::initializeFrom(YamlClass element)
+void DeviserClass::initializeFrom(YamlClass* element)
 {
   DeviserBase::initializeFrom(element);
 
-  mName = QString::fromUtf8(element.getName().c_str());
+  mName = QString::fromUtf8(element->getName().c_str());
   /*mBaseClass = element.attribute("baseClass");
 
   mTypeCode = element.attribute("typeCode");

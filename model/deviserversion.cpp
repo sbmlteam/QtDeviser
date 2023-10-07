@@ -75,7 +75,7 @@ void DeviserVersion::setParent(DeviserPackage* doc)
   setParentOn(mMappings, doc, this);
 }
 
-void 
+void
 DeviserVersion::initializeFrom(const QDomElement& element)
 {
   DeviserBase::initializeFrom(element);
@@ -91,6 +91,30 @@ DeviserVersion::initializeFrom(const QDomElement& element)
   initializeListFrom(mMappings, element, "mapping");
 
 }
+
+void
+DeviserVersion::initializeFrom(YamlSpec element)
+{
+  DeviserBase::initializeFrom(element);
+
+  mLevel = 1; // element.attribute("level").toInt();
+  mVersion = 1; // element.attribute("version").toInt();
+  mPkgVersion = 1; // element.attribute("pkg_version").toInt();
+  mIgnorePackageVersion = true; // element.attribute("ignorePackageversion") == "true";
+
+  initializeListFrom(mElements, element, "element");
+  //initializeListFrom(mPlugins, element, "plugin");
+  //initializeListFrom(mEnums, element, "enum");
+  //initializeListFrom(mMappings, element, "mapping");
+
+}
+
+void
+DeviserVersion::initializeFrom(YamlClass* element)
+{
+  DeviserBase::initializeFrom(element);
+}
+
 
 void 
 DeviserVersion::writeTo(QXmlStreamWriter& writer) const

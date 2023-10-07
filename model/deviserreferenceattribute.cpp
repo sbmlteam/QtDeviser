@@ -35,10 +35,10 @@ DeviserReferenceAttribute::initializeFrom(const QDomElement& element)
 
 
 void
-DeviserReferenceAttribute::initializeFrom(YamlClass element)
+DeviserReferenceAttribute::initializeFrom(YamlClass* element)
 {
   DeviserBase::initializeFrom(element);
-  mName = QString::fromUtf8(element.getName().c_str());
+  mName = QString::fromUtf8(element->getName().c_str());
 }
 const QString &
 DeviserReferenceAttribute::getName() const

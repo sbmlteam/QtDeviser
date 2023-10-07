@@ -20,6 +20,9 @@ public:
 
 
   virtual void initializeFrom(const QDomElement& element);
+  virtual void initializeFrom(YamlSpec element);
+  virtual void initializeFrom(YamlClass* element);
+
   virtual void setParent(DeviserPackage* doc);
 
   QString toString() const;

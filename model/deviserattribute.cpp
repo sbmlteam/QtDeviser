@@ -95,7 +95,7 @@ DeviserAttribute::initializeFrom(const QDomElement& element)
 }
 
 void
-DeviserAttribute::initializeFrom(YamlClass element)
+DeviserAttribute::initializeFrom(YamlClass* element)
 {
   DeviserReferenceAttribute::initializeFrom(element);
 
